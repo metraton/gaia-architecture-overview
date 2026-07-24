@@ -1,0 +1,14 @@
+# Dependencies — not needed to render; index.html loads pre-built static assets
+node_modules/
+
+# Editor / OS cruft
+.DS_Store
+*.swp
+*~
+
+# Scratch/diagnostic scripts — not part of the deck's build/validate/verify tooling
+tools/_diag_*.mjs
+
+# Logs
+*.log
+npm-debug.log*

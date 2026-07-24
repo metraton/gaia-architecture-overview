@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagram Deck</title>
+<script>
+  (function () {
+    const saved = localStorage.getItem('theme');
+    const dark = saved ? saved === 'dark' : true;
+    document.documentElement.classList.toggle('dark', dark);
+  })();
+</script>
+<style>
+  :root {
+    --bg:#FAF9F5; --surface:#FFFFFF; --surface2:#F0EEE6;
+    --ink:#141413; --body:#3D3D3A; --muted:#87867F;
+    --line:#D1CFC5; --line-soft:#E6E3DA;
+    --clay:#D97757; --clay-soft:rgba(217,119,87,0.10);
+    --olive:#6E8B4E; --olive-soft:rgba(110,139,78,0.12);
+    --crit:#C0472F; --crit-soft:rgba(192,71,47,0.09);
+    --warn:#C08A2E; --warn-soft:rgba(192,138,46,0.10);
+    --gold:#C9A45C; --blue:#5B7E96;
+    --strong:#2F7A3D; --strong-soft:rgba(47,122,61,0.14);
+    --zone:rgba(20,20,19,0.022); --zone-line:#D1CFC5;
+    --serif:Charter,"Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    /* ── 8pt spacing scale (design tokens) ── */
+    --s-1:4px; --s-2:8px; --s-3:16px; --s-4:24px; --s-5:32px; --s-6:48px; --s-7:64px;
+  }
+  html.dark {
+    --bg:#141413; --surface:#1F1F1D; --surface2:#2A2A28;
+    --ink:#FAF9F5; --body:#D1CFC5; --muted:#8C8B83;
+    --line:#3D3D3A; --line-soft:#2A2A28;
+    --clay:#E48A6E; --clay-soft:rgba(228,138,110,0.14);
+    --olive:#9DB07C; --olive-soft:rgba(157,176,124,0.15);
+    --crit:#E8735A; --crit-soft:rgba(232,115,90,0.15);
+    --warn:#E0AE55; --warn-soft:rgba(224,174,85,0.14);
+    --gold:#D4B36F; --blue:#7FA3BC;
+    --strong:#4ECB6B; --strong-soft:rgba(78,203,107,0.18);
+    --zone:rgba(250,249,245,0.028); --zone-line:#3D3D3A;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { height:100%; }
+  body {
+    background:var(--bg); color:var(--body); font-family:var(--sans);
+    -webkit-font-smoothing:antialiased; display:flex; flex-direction:column; overflow:hidden;
+  }
+
+  /* ── minimalist scrollbars ── thin, semi-transparent, edge-hugging, no
+     track chrome; theme-aware via the token colors. Applies to every scroll
+     container (page + the stage/canvas internal scroll), vertical and
+     horizontal. Firefox: scrollbar-width/color; WebKit: ::-webkit-scrollbar*. */
+  * { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+  ::-webkit-scrollbar { width:8px; height:8px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:var(--line); border-radius:8px; border:2px solid transparent; background-clip:padding-box; }
+  ::-webkit-scrollbar-thumb:hover { background:var(--muted); background-clip:padding-box; }
+  ::-webkit-scrollbar-corner { background:transparent; }
+
+  /* ── top bar ── */
+  .bar { display:flex; align-items:center; gap:16px 20px; flex-wrap:wrap;
+    padding:20px 28px 0; flex:none; }
+  /* the header controls (prev · toggle · next · page · theme) travel as ONE
+     block: never allowed to break apart from each other, they wrap as a unit. */
+  .nav-cluster { display:flex; align-items:center; gap:12px; flex-wrap:nowrap;
+    flex:0 0 auto; white-space:nowrap; }
+  .bar h1 { font-family:var(--mono); font-weight:700; font-size:23px; line-height:1.25; color:var(--ink); letter-spacing:-0.01em; }
+  .bar .sub { font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:0.05em; line-height:1.4; margin-top:3px; }
+  /* deck version — set by data/document.yaml `version` (optional) and rendered
+     by engine.js after the subtitle; same mono/muted styling as .sub, one size
+     down and dimmer so it reads as a footnote rather than competing with it.
+     The node stays in the markup empty when `version` is omitted; :empty
+     collapses it to display:none with no JS branching needed on the HTML
+     side — engine.js only ever writes text, never toggles visibility. */
+  .bar .ver { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:0.05em; line-height:1.4; margin-top:2px; opacity:0.65; }
+  .bar .ver:empty { display:none; }
+  .spacer { flex:1; }
+
+  /* page navigator — [ ‹ ] [ TITLE 1 ] [ TITLE 2 ] … [ › ]. Page names are
+     VISIBLE tabs in `order`; the current one is highlighted, the rest dimmed
+     but legible. Click a tab or use the arrows. For 3+ pages a sliding window
+     centered on the selection shows current + neighbours. */
+  .pagenav { display:flex; align-items:center; gap:8px; }
+  .navbtn { display:inline-flex; align-items:center; justify-content:center; font-family:var(--mono);
+    font-size:18px; line-height:1; width:38px; height:38px; padding:0; border:1px solid var(--line);
+    border-radius:8px; background:transparent; color:var(--muted); cursor:pointer;
+    transition:color .15s ease, border-color .15s ease; }
+  /* explicit states, and NO style loss on click: hover and keyboard focus share
+     one rule; :active/:focus never strip the base border/background. */
+  .navbtn:hover:not(:disabled), .navbtn:focus-visible:not(:disabled) { color:var(--ink); border-color:var(--muted); outline:none; }
+  .navbtn:disabled { opacity:0.3; cursor:default; }
+  /* page-name tabs */
+  .pagetabs { display:flex; align-items:center; gap:2px; border:1px solid var(--line); border-radius:9px; overflow:hidden; }
+  .pagetab { font-family:var(--mono); font-size:13px; letter-spacing:0.05em; text-transform:uppercase;
+    padding:10px 18px; background:transparent; color:var(--muted); border:none; cursor:pointer;
+    white-space:nowrap; transition:color .15s ease, background .15s ease; }
+  .pagetab:hover:not(.on) { color:var(--ink); }
+  .pagetab.on { background:var(--ink); color:var(--bg); font-weight:700; }
+
+  .chips { display:flex; gap:8px; flex-wrap:wrap; }
+  .chip { font-family:var(--mono); font-size:12.5px; letter-spacing:0.03em; padding:7px 14px;
+    border:1px solid var(--line); border-radius:999px; background:transparent; color:var(--muted); cursor:pointer; transition:all .15s ease; }
+  .chip:hover { color:var(--ink); border-color:var(--muted); }
+  .chip.on { background:var(--clay-soft); border-color:var(--clay); color:var(--ink); font-weight:600; }
+  html.dark .chip.on { background:rgba(228,138,110,0.22); border-color:var(--clay); color:var(--ink); }
+  #themeToggle { font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.08em;
+    padding:9px 16px; border:1px solid var(--line); border-radius:8px; background:transparent; color:var(--muted); cursor:pointer; }
+  #themeToggle:hover { color:var(--ink); border-color:var(--muted); }
+
+  /* ── deck / acts ── */
+  .deck { flex:1; position:relative; min-height:0; }
+  .act { position:absolute; inset:0; display:none; flex-direction:column; }
+  .act.active { display:flex; }
+
+  /* the filter chips are the lower tier of the SAME unified control bar:
+     matched horizontal padding (28px) makes them contiguous with the header
+     above, the shared border-bottom closes the bar as one component, and the
+     chips group wraps together as a block rather than piece-by-piece. */
+  .actbar { display:flex; align-items:center; gap:12px 14px; flex-wrap:wrap;
+    padding:12px 28px 14px; flex:none; border-bottom:1px solid var(--line-soft); }
+  .actbar .note { font-family:var(--mono); font-size:13.5px; line-height:1.5; color:var(--ink); font-weight:500; }
+
+  /* outer frame: consistent breathing room on all four sides of the stage.
+     --frame-top anchors the stage to the exact rhythm of the header→chips
+     gap above it: bar bottom-padding (20px) + bar border (1px) + actbar
+     top-padding (14px) = 35px. Matched exactly rather than rounded to the
+     8pt grid, so the stage's top inset reads as the same gap by eye. */
+  :root { --frame-v:28px; --frame-h:40px; --frame-top:35px;
+    /* ── FILL / STRETCH LAYOUT MODEL ────────────────────────────────────────
+       Every section is a FILLED RECTANGLE: it stretches to the full width it is
+       allocated, and its leaf cells STRETCH EQUALLY to fill that width — so a
+       row of cells always spans the section edge-to-edge with NO trailing gap
+       on the right. Cells in the same row are always of EQUAL width (equal fr
+       tracks). This is the inversion of the old "fixed 232px cell, section
+       shrink-wraps, block centers" model, which left dead space: right-gaps
+       inside bands, lateral voids at wide screens, and short sections stranded
+       beside tall ones.
+
+       A LEAF grid is a CSS grid of `repeat(N, minmax(0,1fr))` tracks: the N
+       authored columns divide the section width into N EQUAL cells that fill it
+       (minmax(0,…) lets them shrink, so they always fit — no overflow). The
+       column count steps down (…→2→1) at the container-query tiers below purely
+       for READABILITY as width tightens (fr always fits, so the step is about
+       cell legibility, not fitting). --cell-h stays a FIXED row height so every
+       cell is the same height (title + up to 3 clamped description lines);
+       boxes fill their track width AND the fixed row height. A COMPOUND grid
+       (nested sections) is a flex row whose children `flex:1 1 0` GROW EQUALLY
+       to fill the row, so paired sections are equal-width halves; at the
+       stacked tier they go column-direction and `align-items:stretch` to fill
+       the full width. `span` still merges cells (Excel-style); span == columns
+       is a full-width band spanning its own row edge-to-edge. --cell-w is kept
+       only as a documented reference/readability hint — it no longer sizes any
+       track. The whole block fills the canvas (no fit-content centering), so
+       there are no lateral voids even at 2560. */
+    --cell-w:232px; --cell-h:130px;
+    /* MINIMO LEGIBLE — the readable floor for a leaf cell. A cell narrower than
+       this can only show ~1 character per line (a short title stops being
+       readable). It is the FLOOR of the leaf-grid track min below, so a grid
+       never shrinks a cell below it: instead the section's compound parent
+       WRAPS/STACKS (collapses columns) before the cell degrades to illegible
+       text. Kept in sync with MIN_LEGIBLE in tools/validate-layout.cjs (the M
+       invariant asserts it on the real render). ~120px fits a short mono title. */
+    --cell-min-w:120px;
+    /* grab & pan (configurable; read by engine.js): pointer travel, in px,
+       below which a pointerdown→up on the canvas is a CLICK (opens a box's
+       detail panel) rather than a PAN. Raise it on a project with jitter-prone
+       input devices; lower it for a snappier drag threshold. */
+    --pan-drag-threshold:5px; }
+
+  /* Stage is FULL-WIDTH: the canvas spans the screen. The layout is intrinsically
+     responsive (equal-fr leaf grids that step …→2→1 + flex-wrap compound grids),
+     so it collapses to fit the available width rather than scrolling — no
+     horizontal overflow at the stacked tiers. */
+  .stage { flex:1; position:relative; min-height:0; width:100%; margin-inline:auto; }
+  /* the stage is the responsive container: the canvas queries the space it
+     actually has (works under split-screen / narrow panes), not the viewport. */
+  .stage { container-type:inline-size; container-name:stage; }
+
+  /* highlight (chip-driven) — no lines: chips light the relevant boxes/zones */
+  .stage.flowing .zone { opacity:0.34; }
+
+  /* ── unified detail/flow panel (anchored bottom-center, shared by both uses) ── */
+  .panel { position:absolute; left:50%; bottom:24px; transform:translateX(-50%);
+    z-index:60; width:min(920px, 94%); max-width:920px;
+    padding:24px 40px 26px; border-radius:16px; background:var(--surface);
+    border:1px solid var(--line); border-left:4px solid var(--clay);
+    box-shadow:0 18px 52px rgba(0,0,0,0.24); text-align:center; display:none; }
+  .panel.show { display:block; }
+  html.dark .panel { box-shadow:0 18px 52px rgba(0,0,0,0.5); }
+  .p-head { display:flex; align-items:baseline; justify-content:center; gap:12px;
+    flex-wrap:wrap; margin-bottom:12px; padding:0 32px; }
+  .p-head .p-kicker { font-family:var(--mono); font-size:13px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--clay); }
+  .p-head h3 { font-family:var(--mono); font-weight:700; font-size:24px; color:var(--ink); letter-spacing:-0.01em; }
+  .p-summary { font-family:var(--mono); font-size:17px; line-height:1.65; color:var(--body); }
+  .p-summary b { color:var(--ink); font-weight:600; }
+  .p-summary code { font-family:var(--mono); font-size:15px; color:var(--clay); }
+  .p-summary ol { list-style:none; margin:0; padding:0; }
+  .p-summary ol li { margin:8px 0; }
+  .p-summary ol li code { font-family:var(--mono); font-size:14px; color:var(--clay); }
+  .p-facts { display:none; font-family:var(--mono); font-size:13px; letter-spacing:0.02em; color:var(--muted);
+    margin-top:14px; padding-top:14px; border-top:1px solid var(--line-soft); }
+  .p-facts.show { display:block; }
+  .p-note { display:none; font-family:var(--mono); margin-top:14px; font-size:14px; line-height:1.55; color:var(--warn); }
+  .p-note.show { display:block; }
+
+  /* ═══════════════ Recursive-section CSS-Grid layout (the one and only engine) ═══════════════ */
+  /* The canvas is the scroll container. The root section's grid fills the canvas
+     width so the intrinsically-responsive grids react to the real available
+     width and collapse to fit (…→2→1) instead of scrolling — never a JS
+     measurement pass. The block centers itself (symmetric margins). */
+  .canvas { position:absolute; top:var(--frame-top); right:var(--frame-h); bottom:var(--frame-v); left:var(--frame-h);
+    padding:var(--s-3); overflow:auto; scrollbar-gutter:stable; cursor:grab; }
+  /* grab & pan (wiring in engine.js): the canvas shows an open-hand cursor at
+     rest; while actively dragging it flips to the closed-hand and suppresses
+     text selection. `.box` keeps its own `cursor:pointer` (more specific,
+     declared below) so boxes still read as clickable. */
+  .canvas.dragging { cursor:grabbing; }
+  .canvas.dragging, .canvas.dragging * { user-select:none; }
+  /* the plane holds the root .sec-grid. FILL-TO-CAP: it fills the canvas up to a
+     1280px ceiling, then centers (margin-inline:auto) — at <= 1280 it fills
+     edge-to-edge; above 1280 it stops growing and the surplus becomes equal side
+     margins (no sideways sprawl, no horizontal scroll). The responsive cascade
+     still keys off the FULL stage width (the container query owns collapse), so
+     columns and side-by-side behave by real screen size while the content block
+     stays capped and centered. */
+  .sec-plane { width:100%; max-width:1280px; margin-inline:auto; }
+  /* The root grid FILLS the canvas width — no centering, no fit-content block,
+     so there are no lateral voids even at 2560. A generic root without bands is
+     a flex row whose sections grow equally (flex:1 1 0) to fill it edge-to-edge;
+     the root-with-bands case below overrides to a filling CSS grid. */
+  .sec-plane > .sec-grid.sec-compound { align-items:stretch; }
+  /* ── Root compound that holds span BANDS — the spreadsheet model made literal.
+     When the root has at least one span-band child (:has(> .msp), e.g. an inline
+     section pair plus full-width bands), lay the root out as the AUTHORED grid
+     (--cols EQUAL fr columns) that FILLS the canvas width:
+       • an INLINE section (span:1) occupies one column and STRETCHES to fill it
+         (justify-items defaults to stretch), so a pair of inline sections are
+         equal-width halves that together span the row edge-to-edge;
+       • a span BAND (.msp) spans EVERY column (grid-column 1/-1, its own
+         full-width row) and fills the canvas width — its inner leaf cells fill
+         the band, so a band is a filled rectangle edge-to-edge;
+       • align-items:stretch makes the two inline sections of a row EQUAL HEIGHT,
+         so each row is a clean filled rectangle (no short section stranded
+         beside a taller one).
+     A root with no band never matches this rule and keeps the filling flex row
+     above. A browser without :has() degrades to that flex row, where .msp is
+     still flex:0 0 100% (full-width, bands stacked) — a band still lands BELOW,
+     never beside. */
+  .sec-plane > .sec-grid.sec-compound:has(> .msp) {
+    display:grid;
+    grid-template-columns:repeat(var(--cols,2), minmax(0,1fr));
+    align-items:stretch; }
+  .sec-plane > .sec-grid.sec-compound:has(> .msp) > .msp {
+    grid-column:1 / -1; }
+
+  /* ── the ONE recursive primitive: .sec-grid ──
+     Every section (and the page root) renders its children into a .sec-grid.
+     --cols (set inline by the engine) is the authored column count; children
+     auto-flow left→right and wrap DOWN. A child that itself is a section is a
+     nested .zone holding its own .sec-grid (recursion). A child with span>1
+     carries .msp + --span and occupies that many columns.
+
+     TWO grid shapes, tagged by the engine:
+       • a LEAF grid (.sec-grid:not(.sec-compound)) holds only components. Its
+         tracks are EQUAL fr columns that FILL the section width and its rows a
+         FIXED --cell-h (grid-auto-rows); items stretch to fill — so a row of
+         cells spans the section edge-to-edge (no right gap), every cell in the
+         grid is the same width, and every cell is the same height. A leaf that
+         spans M columns fills M tracks + gaps but is still one cell-h row tall.
+       • a COMPOUND grid (.sec-compound) holds only nested sections. Its
+         children GROW EQUALLY (flex:1 1 0) to fill the row as equal-width
+         slices, and align-items:stretch makes them equal height — so the row
+         is a clean filled rectangle. */
+  /* LEAF grid: the authored column count as EQUAL fr tracks that FILL the
+     section width. `repeat(N, minmax(0,1fr))` divides the section into N equal
+     cells edge-to-edge — the cells STRETCH to fill, so the row always spans the
+     full width with no trailing gap on the right, and every cell in the grid is
+     the same width. minmax(0,…) lets the tracks shrink below content so they
+     always fit (no overflow). Column count steps down at the container-query
+     tiers below (…→2→1) for readability as width tightens; the cells re-divide
+     the width at each tier. Rows are a FIXED --cell-h so every cell is the same
+     height; align-items:stretch fills that row height. */
+  .sec-grid:not(.sec-compound) {
+    display:grid;
+    /* MINIMO LEGIBLE: each track is at least --cell-min-w (the readable floor).
+       This is a PLAIN pixel min on purpose — it must survive the grid's
+       INTRINSIC (min-content) sizing so a leaf grid's min-content is a real
+       N×--cell-min-w. That is what makes a compound parent WRAP/STACK its
+       sections (flex-wrap + min-width:min-content below) when it cannot give each
+       child that width, instead of squeezing the cells to ~1 character per line.
+       (A `min(--cell-min-w,100%)` guard was tried, but the 100% collapses to 0
+       during intrinsic sizing, so the parent never "sees" the floor and never
+       wraps — RowSpan 2B/2C stayed at ~75px cells. The plain px avoids that.)
+       The old 48px min let deeply-nested grids collapse to illegible ~40px cells
+       (RowSpan 2A/2B); raising it makes columns COLLAPSE before the cell does. No
+       overflow risk: the narrow-stage container-query tiers below override to
+       minmax(0,1fr) (where sections are already full-width), and at wide stage a
+       grid's own min-content forces its parent to give it >= the floor or wrap. */
+    grid-template-columns:repeat(var(--cols,1), minmax(var(--cell-min-w),1fr));
+    grid-auto-rows:var(--cell-h);
+    gap:var(--s-2); align-items:stretch; }
+  /* a full-width band (span == columns) stays full-width at any collapse level */
+  .sec-grid:not(.sec-compound) > .msp { grid-column:1 / -1; }
+  /* PARTIAL horizontal merge (.mspan): occupy EXACTLY --span of the leaf grid's
+     tracks (Excel-style partial merge) — NOT the whole row (that is .msp above).
+     On collapse the merge keeps its PROPORTION: the 2-track tier drops it to
+     --span2 (round(M/N·2), clamped [1,2], emitted by the engine) and the
+     1-column endpoint makes it a full band (both below). */
+  .sec-grid:not(.sec-compound) > .mspan { grid-column:span var(--span, 1); }
+  /* VERTICAL merge (.mrsp): occupy --rowspan rows (double/triple --cell-h) — the
+     base for a cell-graph where a cell's height encodes magnitude. Only the row
+     extent grows; the column position is unchanged and unaffected by the
+     horizontal cascade. */
+  .sec-grid:not(.sec-compound) > .mrsp { grid-row:span var(--rowspan, 1); }
+
+  /* COMPOUND grid: nested sections in a flex-wrap row. They sit side by side
+     while they fit, then wrap to the next line and collapse their own inner
+     cells as width tightens — stepping down before ever clipping. A band child
+     (span == columns) takes a full row; each child keeps its natural width and
+     shrinks no further than one collapsed column before it wraps, so nothing is
+     ever cut off. */
+  .sec-grid.sec-compound {
+    display:flex; flex-wrap:wrap; gap:var(--s-2);
+    /* FILL: children grow equally (flex:1 1 0 below) to fill the row edge-to-
+       edge, so paired nested sections are equal-width halves with no gap on the
+       right. align-items:stretch makes the paired sections EQUAL HEIGHT, so the
+       row is a clean filled rectangle instead of a short section stranded
+       beside a taller one. */
+    align-items:stretch; align-content:flex-start; }
+  /* flex:1 1 0 — nested sections GROW EQUALLY to fill the row: N sections on a
+     row are N equal-width slices that together span the row edge-to-edge, with
+     no gap on the right. (flex-basis 0 makes the widths equal regardless of each
+     section's content; flex-grow 1 divides the row evenly.) min-width:min-content
+     lets a section shrink/wrap as width tightens (its inner leaf grids collapse
+     …→2→1 on their own). A band child (span == columns) takes a full row (overridden
+     below). Its inner leaf cells still fill the band width. */
+  .sec-grid.sec-compound > * { min-width:min-content; }
+  /* NESTED SECTIONS grow to fill the row, WEIGHTED BY their authored span: a
+     section's flex-grow IS its --span (default 1), so a span:2 section is twice
+     the width of a span:1 sibling — section-level width FOLLOWS CONTENT WEIGHT
+     (the author expresses the weight as a span on the heavier section) instead
+     of every section splitting the row into equal slices regardless of how much
+     content it carries. --span is only emitted when span>1, so an unspanned
+     section falls back to grow:1 (the old equal-share behaviour). This is what
+     lets a content-heavy grid (e.g. a wide 3-col GKE envelope) sit WIDER than a
+     light lone-box section beside it rather than 50/50. */
+  .sec-grid.sec-compound > .zone { flex: var(--span, 1) 1 0; }
+  /* LEAF components are NOT content slices: a `box` (a single card), a
+     `separator` (a divider LINE) or a `rail` (a swimlane LABEL) sitting DIRECTLY
+     in a compound row must size to CONTENT (flex:0 0 auto), NEVER grow to an
+     equal flex share. Without this a plain box sibling of a nested section
+     (isCompound is true because ANY child is a section) would get the grow rule
+     and balloon to an equal slice; a box must stay a card. It keeps the uniform
+     --cell-h height and pins to the row top (align-self:start) so it reads as a
+     card, not a stretched panel. Likewise a width:0 vertical separator or a thin
+     rail must not each balloon into a full slice. (At the stacked tier every
+     child is reset to flex:0 0 auto anyway.) */
+  .sec-grid.sec-compound > .box { flex:0 0 auto; align-self:start; height:var(--cell-h); }
+  .sec-grid.sec-compound > .sep,
+  .sec-grid.sec-compound > .rail { flex:0 0 auto; }
+  /* A root-level span BAND in a COMPOUND grid takes its OWN full-width row. In
+     the default ROW direction (wide tiers) flex-basis:100% forces the band onto
+     a line by itself, so consecutive bands STACK vertically instead of floating
+     side by side — a base band lands on its own row directly BELOW the inline
+     sections, never beside them. The band ZONE fills the row width, and its
+     inner leaf cells FILL that width (fr tracks) — a filled rectangle edge-to-
+     edge. NOTE: this only overrides the COMPOUND case — a span band inside a
+     LEAF grid still merges cells via grid-column:1/-1 above. */
+  .sec-grid.sec-compound > .msp { flex:0 0 100%; }
+  /* In a COLUMN-direction compound (a columns:1 stack — see .sec-c1 below — or
+     any compound below the stack breakpoint) flex-basis maps to the MAIN
+     (vertical) axis, so 100% would size the band's HEIGHT, not its width. Reset
+     those to content-sized: the column already stacks its children top-to-bottom
+     and width is governed by align-items. */
+  .sec-grid.sec-compound.sec-c1 > .msp { flex:0 0 auto; }
+  /* a columns:1 compound is an explicit VERTICAL stack of nested sections.
+     flex-direction:column stacks them; align-items:stretch makes each nested
+     section FILL the full width of the column (a filled rectangle). In a
+     column-direction WRAP flex the single line otherwise shrink-wraps to its
+     content cross-size under the inherited align-content:flex-start (pinning it
+     left with a right-hand gap) — align-content:stretch makes the line fill the
+     container's full cross-size, so align-items:stretch fills the sections to
+     the actual width. */
+  .sec-grid.sec-compound.sec-c1 { flex-direction:column; align-items:stretch; align-content:stretch; }
+  /* A column-direction (sec-c1) compound STACKS its sections top-to-bottom, so
+     its children must keep their CONTENT height (flex:0 0 auto) — NOT the row
+     rule's flex:1 1 0, whose flex-basis:0 sits on the MAIN (VERTICAL) axis here.
+     When such a stack is stretched TALLER than its content by a taller sibling
+     in the same row (the parent's align-items:stretch), flex-grow:1 would divide
+     the parent height between the sections and a section whose content exceeds
+     its share OVERFLOWS onto the next (a sibling-section collision). Content
+     height + the natural top-to-bottom flow prevents the overlap; width is still
+     filled by align-items:stretch above. */
+  .sec-grid.sec-compound.sec-c1 > * { flex:0 0 auto; }
+
+  /* responsive column step-down (container-query on the stage): a multi-column
+     leaf grid collapses …→2→1 as width tightens. The "two-table" 2-column form
+     is the INTERMEDIATE step (medium widths); the ENDPOINT at the narrowest tier
+     is ONE column — every multi-column leaf grid drops to a single cell so the
+     whole diagram becomes one vertical stack (see the ≤640px tier below). A grid
+     authored with a single column (sec-c1) is 1 cell at every tier. The cells
+     always FILL the width (equal fr tracks); only the track count changes, so
+     the section is a filled rectangle at every tier. */
+  /* Compound STACK tier. Below this width a compound grid stops laying its
+     nested sections side by side (a flex ROW) and stacks them vertically (a
+     COLUMN), so a wide side-by-side arrangement folds top-to-bottom instead of
+     running off the right edge. The breakpoint is 1440px so a wide section
+     stacks before it overflows a medium (~1200px) viewport; above 1440px the
+     sections sit side by side. When stacked, every section FILLS the full width
+     (align-items:stretch) — a full-width filled rectangle, no centering. */
+  @container stage (max-width: 1440px) {
+    /* Stacked compound: fold the sections into a column and STRETCH each to the
+       full width, so every stacked section is a full-width filled rectangle.
+       align-content:stretch is REQUIRED alongside align-items:stretch — in a
+       column-direction WRAP flex the single line shrink-wraps to its content
+       cross-size under the inherited align-content:flex-start (pinning it left
+       with a right-hand gap), so align-items alone only stretches WITHIN that
+       shrunk line. align-content:stretch makes the line fill the container's
+       full cross-size (the DEUDAS banks stretched to 781/1044 without it). */
+    .sec-grid.sec-compound { flex-direction:column; align-items:stretch; align-content:stretch; }
+    /* the root stacks the same way and fills the canvas width. */
+    .sec-plane > .sec-grid.sec-compound { align-items:stretch; align-content:stretch; }
+    /* column direction: flex-basis maps to the vertical (MAIN) axis, so both the
+       row grow rule (flex:1 1 0) and the band full-row rule (flex:0 0 100%) must
+       be reset — a non-zero basis would size the child's HEIGHT. Reset every
+       stacked child to content height (flex:0 0 auto); its WIDTH is the CROSS
+       axis, filled by align-items:stretch above. */
+    .sec-grid.sec-compound > * { flex:0 0 auto; }
+    .sec-grid.sec-compound > .msp { flex:0 0 auto; }
+    /* the span-weighted section grow rule (.sec-grid.sec-compound > .zone,
+       specificity 0,3,0) is MORE specific than the `> *` reset (0,2,0), so it
+       would otherwise survive into this stacked tier and keep sections growing —
+       dividing the column height and spilling content. Reset .zone at matching
+       specificity so a stacked section keeps its CONTENT height. */
+    .sec-grid.sec-compound > .zone { flex:0 0 auto; }
+    /* a compound leaf box pins to the row TOP (align-self:start) at the wide
+       row tier so it reads as a card, not a stretched panel. Here in the STACKED
+       (column-direction) tier the cross axis is HORIZONTAL, so start would pin it
+       LEFT at a bare-box inset while its nested-section siblings inset deeper —
+       an asymmetric band (Y). Stretch it to the full width instead (its height
+       stays --cell-h), so the band edges stay symmetric. */
+    .sec-grid.sec-compound > .box { align-self:stretch; }
+    /* below the stack breakpoint the root-with-bands leaves the authored GRID
+       and becomes a vertical flex stack like every other compound, FILLING the
+       canvas width (align-items:stretch) — every section (bands and inline
+       alike) is a full-width filled rectangle. */
+    .sec-plane > .sec-grid.sec-compound:has(> .msp) {
+      display:flex; flex-direction:column; align-items:stretch; align-content:stretch;
+      grid-template-columns:none; }
+    /* a span BAND stays full-width via the same align-items:stretch (redundant
+       but explicit): the band fills the canvas width at medium/min just as at
+       max, and its inner leaf cells fill the band. */
+    .sec-plane > .sec-grid.sec-compound:has(> .msp) > .msp {
+      align-self:stretch; }
+  }
+  /* Leaf →2 collapse tier (the INTERMEDIATE "two-table" step): a 3-, 4- OR
+     5-column leaf grid steps to 2 EQUAL fr columns. Kept at 1000px so leaf grids
+     stay full-wide (all authored columns) through the medium-large range once
+     their section has stacked to full width — a 5-col Camino stays 5 filled
+     cells down to 1000px, only folding to 2 below it. This is NOT the endpoint —
+     the ≤640px tier below drops every leaf grid to 1 column. */
+  @container stage (max-width: 1000px) {
+    /* GENERAL step-down (ANY N): every MULTI-column leaf grid — matched by
+       :not(.sec-c1) instead of the old enumerated sec-c3/c4/c5 — drops to the
+       2-col "two-table" intermediate. The enumerated rules covered only 3/4/5
+       columns, so a leaf grid authored with 6+ columns stayed at its authored
+       width here and could OVERFLOW horizontally between ~640 and 1000px
+       (invariant O), with no intermediate collapse step. One selector now steps
+       c2, c3, … cN alike, so the cascade generalises to any column count. */
+    .sec-grid:not(.sec-compound):not(.sec-c1) { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    /* PARTIAL span keeps its PROPORTION at the 2-track "two-table" tier: --span2 =
+       round(M/N·2) clamped [1,2], so a span:2-of-4 becomes a single cell here
+       instead of staying 2-wide (which, in a 2-track grid, would already be a full
+       band). span2 <= 2 also guarantees no implicit extra track is created. */
+    .sec-grid:not(.sec-compound):not(.sec-c1) > .mspan { grid-column:span var(--span2, 1); }
+  }
+  /* Narrowest tier — the …→2→1 ENDPOINT: every leaf grid collapses to ONE fr
+     track that fills the width, so the whole diagram is a single vertical column
+     (sections stacked top-to-bottom, each a full-width filled rectangle). Rules:
+     the general one takes sec-c2 (and any other multi-col) to 1; the sec-c3/4/5
+     ones OVERRIDE the max-width:1000 rule above (same specificity, later in
+     source order). A columns:1 grid is already 1 track. Also shrink the canvas
+     chrome (outer frame + padding) so a 1-cell section fits a ~600px viewport
+     without horizontal scroll. */
+  @container stage (max-width: 640px) {
+    .canvas { left:8px; right:8px; padding:8px; }
+    .sec-grid:not(.sec-compound) { grid-template-columns:minmax(0,1fr); }
+    /* OVERRIDE the general medium-tier step-down: the 1000px rule
+       `.sec-grid:not(.sec-compound):not(.sec-c1)` (specificity 0,3,0) is more
+       specific than the plain `.sec-grid:not(.sec-compound)` (0,2,0) above, so
+       without an equally-specific rule here every multi-column leaf grid would
+       stay pinned at 2 columns at the narrowest tier instead of reaching the
+       1-track ENDPOINT. This matches the medium-tier selector's specificity and
+       sits later in source, so it wins — for ANY N. */
+    .sec-grid:not(.sec-compound):not(.sec-c1) { grid-template-columns:minmax(0,1fr); }
+    /* 1-column ENDPOINT: a partial span becomes a full band (the one tier it
+       spans the whole row) per the collapse policy. Forcing 1/-1 also stops
+       `span var(--span/--span2)` from opening an implicit second track in the
+       single-track grid (which would break the 1-column endpoint). The
+       :not(.sec-c1) variant matches the medium-tier mspan rule's specificity
+       (0,4,0) so it wins over it here. */
+    .sec-grid:not(.sec-compound) > .mspan { grid-column:1 / -1; }
+    .sec-grid:not(.sec-compound):not(.sec-c1) > .mspan { grid-column:1 / -1; }
+  }
+
+  /* ── zones (a section's frame) ── */
+  .zone { position:relative; min-height:var(--zone-min-h);
+    background:var(--zone); border:1px solid var(--zone-line); border-style:dashed; border-radius:16px;
+    padding:var(--s-3); display:flex; flex-direction:column; gap:var(--s-2); transition:opacity .2s ease; }
+  .zone.danger { background:var(--crit-soft); border-color:var(--crit); }
+  .zone.safe { background:var(--olive-soft); border-color:var(--olive); }
+  .zone.envelope { background:none; border-color:var(--line); border-style:dashed; }
+  /* plain: a bare structural wrapper — no frame, no background, no min-height.
+     Used to stack sub-sections inside one parent column with no extra border. */
+  .zone.plain { background:none; border:none; padding:0; min-height:0; }
+
+  /* width:0 + min-width:100% keeps the header from DICTATING the section width:
+     with width:0 the header contributes nothing to the zone's shrink-to-fit
+     width (so the grid's integer-cell width wins), and min-width:100% then
+     stretches the header back to that width for display — so a long subtitle
+     WRAPS within the section instead of forcing it wider than its cells. */
+  .zone-header { display:flex; flex-direction:column; gap:var(--s-1); width:0; min-width:100%; }
+  .zone-header .ztitle { font-family:var(--mono); font-size:clamp(13px,0.85vw,14.5px); letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--muted); overflow-wrap:anywhere; word-break:break-word;
+    display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; line-clamp:2; overflow:hidden; }
+  .zone-header .zsub { font-family:var(--mono); font-size:12px; color:var(--muted); opacity:0.8;
+    overflow-wrap:anywhere; word-break:break-word;
+    display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; line-clamp:3; overflow:hidden; }
+  .zone.danger .ztitle, .zone.danger .zsub { color:var(--crit); }
+  .zone.safe .ztitle, .zone.safe .zsub { color:var(--olive); }
+  .zone.envelope .ztitle { color:var(--ink); opacity:0.75; }
+
+  /* ── boxes ──
+     A leaf cell is a uniform box: it STRETCHES to fill its equal-fr grid track
+     and its fixed row (--cell-h), so boxes in one grid are equal width and every
+     box is the same height. min-width:0 lets it obey the track width instead of
+     pushing it wider on a long word; overflow-wrap breaks long words so text
+     wraps by word inside the track width; overflow:hidden guards the fixed
+     height (the full text is always available in the click-through detail panel,
+     so a box only ever shows the short summary — --cell-h is sized to fit it). */
+  :root {
+    /* shared vertical floor so a short zone doesn't collapse to a sliver. */
+    --zone-min-h:180px;
+  }
+  .box { cursor:pointer; background:var(--surface); border:1.5px solid var(--line); border-radius:10px;
+    padding:var(--s-2) var(--s-3); display:flex; flex-direction:column; gap:2px;
+    min-width:0; overflow:hidden; overflow-wrap:break-word; word-break:normal;
+    transition:border-color .15s ease, box-shadow .15s ease, opacity .2s ease; }
+  .box:hover { border-color:var(--muted); }
+  .box .k { font-family:var(--mono); font-size:10.5px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted); }
+  /* title clamps to 2 lines so a long title can't push the box past --cell-h */
+  .box .t { font-family:var(--mono); font-size:clamp(15px,1vw,17px); font-weight:700; color:var(--ink);
+    letter-spacing:-0.01em; margin-bottom:1px;
+    display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; line-clamp:2; overflow:hidden; }
+  /* the whole description clamps to 3 visual lines, ellipsised — this is what
+     guarantees a FIXED box height no matter how many description lines the data
+     carries (the full text stays in the click-through detail panel). */
+  .box .desc { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; line-clamp:3;
+    overflow:hidden; min-height:0; }
+  .box .m { font-family:var(--mono); font-size:12px; line-height:1.4; color:var(--muted); }
+  .box.crit { background:var(--crit-soft); border-color:var(--crit); }
+  .box.crit .k { color:var(--crit); }
+  .box.warn { background:var(--warn-soft); border-color:var(--warn); }
+  .box.warn .k { color:var(--warn); }
+  .box.ok { background:var(--olive-soft); border-color:var(--olive); }
+  .box.ok .k { color:var(--olive); }
+  .box.strong { background:var(--strong-soft); border-color:var(--strong); border-width:2px; }
+  .box.strong .k { color:var(--strong); }
+  .box.ext { border-style:dashed; }
+  .box.store { background:var(--surface2); }
+  /* layout-only role (variant_extra: [centered]): center the box's text. */
+  .box.centered { text-align:center; }
+
+  /* ── separator (component type: separator) ──
+     A minimal divider LINE — NOT a box (no border/padding of a box). Lives in a
+     grid cell and honors `span` like any component. Muted, thin. */
+  .sep { min-width:0; }
+  /* horizontal: a thin full-width rule across the cell, centered vertically. */
+  .sep-h { align-self:center; width:100%; height:0;
+    border-top:1px solid var(--line); }
+  .sep-h.sep-dotted { border-top-style:dotted; }
+  /* labeled horizontal: the text sits inline, flanked by rule segments. The
+     element itself drops its own border and draws the two flanking lines with
+     pseudo-elements so the label reads as centered on the line. */
+  .sep-h.sep-labeled { border-top:none; height:auto; display:flex; align-items:center; gap:var(--s-3); }
+  .sep-h.sep-labeled::before, .sep-h.sep-labeled::after { content:""; flex:1 1 auto; border-top:1px solid var(--line); }
+  .sep-h.sep-labeled.sep-dotted::before, .sep-h.sep-labeled.sep-dotted::after { border-top-style:dotted; }
+  .sep-text { flex:0 0 auto; font-family:var(--mono); font-size:11px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+  /* vertical: a thin full-height rule centered in the cell. */
+  .sep-v { justify-self:center; align-self:stretch; width:0; min-height:var(--zone-min-h);
+    border-left:1px solid var(--line); }
+  .sep-v.sep-dotted { border-left-style:dotted; }
+
+  /* ── rail (component type: rail) ──
+     A swimlane-style LABEL: styled like a component/box but title-only. Slim.
+     `rail-v` rotates the title for a vertical swimlane label. Honors `span`. */
+  .rail { background:var(--surface2); border:1px solid var(--line); border-radius:10px;
+    padding:var(--s-2) var(--s-3); display:flex; align-items:center; justify-content:center;
+    min-width:0; }
+  .rail-title { font-family:var(--mono); font-size:13px; font-weight:700; letter-spacing:0.09em;
+    text-transform:uppercase; color:var(--muted); text-align:center; }
+  .rail-v { align-self:stretch; min-height:var(--zone-min-h); }
+  .rail-v .rail-title { writing-mode:vertical-rl; transform:rotate(180deg); }
+
+  /* selection + chip-driven highlight */
+  .box.sel { border-color:var(--clay) !important; box-shadow:0 0 0 2px var(--clay); }
+  /* zones nest their boxes, so we must NOT dim the container via opacity (that
+     would cap lit children). Keep containers opaque; dim headers + boxes. */
+  .stage.flowing .canvas .zone { opacity:1; }
+  .stage.flowing .canvas .zone-header { opacity:0.34; }
+  .stage.flowing .canvas .zone.lit .zone-header { opacity:1; }
+  .stage.flowing .box { opacity:0.18; }
+  .stage.flowing .box.lit { opacity:1; box-shadow:0 0 0 1px currentColor inset; }
+
+  /* ═══════════════ HELP / TUTORIAL HUD (modal) ═══════════════
+     A global, static tutorial. It lives OUTSIDE .deck/.stage/.canvas (direct
+     children of <body>), position:fixed — so it never enters the layout of the
+     diagram. All colors come from the existing design tokens, so light/dark
+     theming is automatic with zero JS. Toggled by the H key or the "?" button
+     in the top bar (wiring in engine.js). */
+  #helpBtn { font-family:var(--mono); font-size:15px; font-weight:700; line-height:1;
+    width:38px; height:38px; padding:0; display:inline-flex; align-items:center; justify-content:center;
+    border:1px solid var(--line); border-radius:8px; background:transparent; color:var(--muted); cursor:pointer;
+    transition:color .15s ease, border-color .15s ease; }
+  #helpBtn:hover, #helpBtn:focus-visible { color:var(--ink); border-color:var(--muted); outline:none; }
+
+  .help-backdrop { position:fixed; inset:0; z-index:200; display:none;
+    background:rgba(20,20,19,0.44); backdrop-filter:blur(2px); }
+  .help-backdrop.show { display:block; }
+  .help-modal { position:fixed; z-index:201; left:50%; top:50%; transform:translate(-50%,-50%);
+    display:none; flex-direction:column; width:min(980px,92vw); max-height:88vh; overflow:auto;
+    background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--clay);
+    border-radius:16px; box-shadow:0 24px 64px rgba(0,0,0,0.34); padding:28px 32px 30px; }
+  .help-modal.show { display:flex; }
+  .help-modal:focus { outline:none; }
+  html.dark .help-modal { box-shadow:0 24px 64px rgba(0,0,0,0.6); }
+
+  .help-head { display:flex; align-items:baseline; gap:6px 12px; flex-wrap:wrap; }
+  .help-head .h-kicker { font-family:var(--mono); font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--clay); }
+  .help-head h2 { font-family:var(--mono); font-weight:700; font-size:22px; color:var(--ink); letter-spacing:-0.01em; }
+  .help-close { margin-left:auto; font-family:var(--mono); font-size:20px; line-height:1; width:34px; height:34px;
+    border:1px solid var(--line); border-radius:8px; background:transparent; color:var(--muted); cursor:pointer;
+    transition:color .15s ease, border-color .15s ease; }
+  .help-close:hover, .help-close:focus-visible { color:var(--ink); border-color:var(--muted); outline:none; }
+  .help-intro { font-family:var(--mono); font-size:14px; line-height:1.6; color:var(--body); margin:12px 0 20px; }
+  .help-intro b { color:var(--ink); font-weight:600; }
+
+  .help-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px; }
+  @media (max-width:720px) { .help-grid { grid-template-columns:minmax(0,1fr); } }
+  .help-card { border:1px solid var(--line-soft); border-radius:12px; background:var(--surface2);
+    padding:16px 18px; display:flex; flex-direction:column; gap:10px; }
+  .help-card .h-illo { width:100%; height:96px; display:block; }
+  .help-card h3 { font-family:var(--mono); font-size:14px; font-weight:700; color:var(--ink); letter-spacing:0.02em; }
+  .help-card p { font-family:var(--mono); font-size:12.5px; line-height:1.55; color:var(--muted); }
+  .help-card p b { color:var(--body); font-weight:600; }
+  .help-card p code { font-family:var(--mono); color:var(--clay); }
+  .help-card .h-try { color:var(--clay); font-weight:600; }
+
+  .help-foot { display:flex; flex-wrap:wrap; gap:10px 18px; margin-top:20px; padding-top:16px;
+    border-top:1px solid var(--line-soft); font-family:var(--mono); font-size:12px; color:var(--muted); align-items:center; }
+  .help-foot kbd { font-family:var(--mono); font-size:11px; color:var(--ink); background:var(--surface);
+    border:1px solid var(--line); border-radius:5px; padding:2px 7px; margin:0 1px; }
+
+  /* SVG mini-illustration primitives — all token-driven so they recolor with
+     the theme. Class names mirror the box/zone variant vocabulary. */
+  .h-illo text { font-family:var(--mono); fill:var(--muted); }
+  .h-illo .il-box    { fill:var(--surface); stroke:var(--muted); stroke-width:1.5; }
+  .h-illo .il-zone   { fill:none; stroke:var(--zone-line); stroke-width:1.5; stroke-dasharray:4 3; }
+  .h-illo .il-crit   { fill:var(--crit-soft); stroke:var(--crit); stroke-width:1.5; }
+  .h-illo .il-warn   { fill:var(--warn-soft); stroke:var(--warn); stroke-width:1.5; }
+  .h-illo .il-ok     { fill:var(--olive-soft); stroke:var(--olive); stroke-width:1.5; }
+  .h-illo .il-strong { fill:var(--strong-soft); stroke:var(--strong); stroke-width:2; }
+  .h-illo .il-ext    { fill:none; stroke:var(--muted); stroke-width:1.5; stroke-dasharray:4 3; }
+  .h-illo .il-store  { fill:var(--surface2); stroke:var(--muted); stroke-width:1.5; }
+  .h-illo .il-clay   { fill:var(--clay-soft); stroke:var(--clay); stroke-width:1.5; }
+  .h-illo .il-accent { fill:none; stroke:var(--clay); stroke-width:1.5; }
+  .h-illo .il-ink    { fill:var(--ink); }
+  .h-illo .il-muted  { fill:var(--muted); }
+  .h-illo .il-guide line { stroke:var(--line); stroke-width:1; stroke-dasharray:2 3; }
+  .h-illo .il-dim { opacity:0.18; }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div>
+    <h1>Diagram Deck</h1>
+    <div class="sub">A portable, data-driven diagram</div>
+    <div class="ver"></div>
+  </div>
+  <div class="spacer"></div>
+  <div class="nav-cluster">
+    <div class="pagenav" id="pagenav">
+      <button class="navbtn" id="prev" title="Previous (←)" aria-label="Previous page">‹</button>
+      <div class="pagetabs" id="pagetabs"></div>
+      <button class="navbtn" id="next" title="Next (→)" aria-label="Next page">›</button>
+    </div>
+    <button id="helpBtn" title="Help (H)" aria-label="Help">?</button>
+    <button id="themeToggle">Theme</button>
+  </div>
+</div>
+
+<!-- The deck is populated entirely by engine/engine.js from window.__DOC__.
+     data/data.generated.js is produced by engine/build-data.mjs from the YAML
+     manifest + page files under data/. To change content, edit the YAML and
+     re-run `npm run build` — never edit generated markup here by hand.
+     The bar title/subtitle above are neutral placeholders; the engine
+     overwrites them at load from document.yaml (title/subtitle). -->
+<div class="deck" id="deck"></div>
+
+<!-- ── Help / tutorial HUD (static, global) ──────────────────────────────────
+     Sibling of .deck (NOT inside .stage/.canvas) so it never enters the diagram
+     layout. Opened by the "?" button or the H key; closed by Esc / × /
+     backdrop / H (wiring lives at the tail of engine/engine.js). Every color is
+     a design token, so the whole panel + its SVG drawings theme automatically. -->
+<div class="help-backdrop" data-help-backdrop></div>
+<div class="help-modal" data-help-modal role="dialog" aria-modal="true" aria-label="How to read this diagram" tabindex="-1">
+  <div class="help-head">
+    <span class="h-kicker">Guide</span>
+    <h2>How to read this diagram</h2>
+    <button class="help-close" data-help-close title="Close (Esc)" aria-label="Close help">×</button>
+  </div>
+  <p class="help-intro">This diagram is meant to <b>explain itself</b>. Here is the whole visual
+    vocabulary — what each shape, color and control means. <b>Try the chips at the top of the page as you read.</b></p>
+
+  <div class="help-grid">
+
+    <!-- 1 · COMPONENT -->
+    <div class="help-card">
+      <svg class="h-illo" viewBox="0 0 260 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <rect class="il-box" x="70" y="12" width="120" height="72" rx="8"/>
+        <rect class="il-clay" x="82" y="24" width="44" height="10" rx="3"/>
+        <rect class="il-ink" x="82" y="42" width="86" height="11" rx="2"/>
+        <rect class="il-muted" x="82" y="60" width="96" height="6" rx="2"/>
+        <rect class="il-muted" x="82" y="70" width="70" height="6" rx="2"/>
+      </svg>
+      <h3>1 · Component</h3>
+      <p>The atom of the diagram: one <b>box</b>. It carries a small status
+        badge, a <b>title</b>, and a short description. <span class="h-try">Click any box</span>
+        to open its full detail in the bottom bar.</p>
+    </div>
+
+    <!-- 2 · STATUS / VARIANT -->
+    <div class="help-card">
+      <svg class="h-illo" viewBox="0 0 260 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <rect class="il-box"    x="8"   y="34" width="42" height="30" rx="6"/>
+        <rect class="il-crit"   x="58"  y="34" width="42" height="30" rx="6"/>
+        <rect class="il-warn"   x="108" y="34" width="42" height="30" rx="6"/>
+        <rect class="il-ok"     x="158" y="34" width="42" height="30" rx="6"/>
+        <rect class="il-ext"    x="208" y="34" width="42" height="30" rx="6"/>
+        <rect class="il-clay"   x="14"  y="40" width="24" height="7" rx="2"/>
+        <text x="8" y="80" font-size="9">neutral · risk · weak · safe · external</text>
+      </svg>
+      <h3>2 · Status &amp; variant</h3>
+      <p>The <b>status</b> is the word on the badge (<code>ENTRY</code>,
+        <code>EXPOSED</code>, <code>WEAK</code>, <code>NEW</code>, <code>HARDENED</code>…).
+        The <b>variant</b> is the color/border that carries the meaning: red = risk,
+        amber = weak, green = safe/new, dashed = external.</p>
+    </div>
+
+    <!-- 3 · SECTION -->
+    <div class="help-card">
+      <svg class="h-illo" viewBox="0 0 260 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <rect class="il-zone" x="30" y="8" width="200" height="80" rx="12"/>
+        <rect class="il-clay" x="42" y="17" width="76" height="9" rx="2"/>
+        <rect class="il-box" x="42" y="38" width="80" height="42" rx="6"/>
+        <rect class="il-box" x="138" y="38" width="80" height="42" rx="6"/>
+      </svg>
+      <h3>3 · Section</h3>
+      <p>A <b>dashed zone</b> that groups related things under a title. Its own
+        color flags the whole group — a red section (danger) or a green section
+        (safe) qualifies everything inside it. A section is a <b>grid</b>: it
+        can hold components directly, or nest <b>other sections</b> inside
+        itself — the same shape, as deep as the idea needs.</p>
+    </div>
+
+    <!-- 4 · NESTING -->
+    <div class="help-card">
+      <svg class="h-illo" viewBox="0 0 260 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <rect class="il-zone" x="8" y="6" width="244" height="84" rx="12"/>
+        <rect class="il-clay" x="18" y="12" width="82" height="8" rx="2"/>
+        <rect class="il-zone" x="18" y="26" width="150" height="56" rx="8"/>
+        <rect class="il-clay" x="26" y="31" width="54" height="7" rx="2"/>
+        <rect class="il-box" x="26" y="44" width="60" height="32" rx="5"/>
+        <rect class="il-box" x="98" y="44" width="60" height="32" rx="5"/>
+        <rect class="il-zone" x="178" y="26" width="66" height="56" rx="8"/>
+        <rect class="il-clay" x="186" y="31" width="40" height="7" rx="2"/>
+        <rect class="il-box" x="186" y="44" width="50" height="32" rx="5"/>
+      </svg>
+      <h3>4 · Nesting</h3>
+      <p>Because a section's children can themselves be sections, a big group
+        (e.g. a whole environment) can wrap smaller groups inside it — a
+        recursive grid of grids, all the way down to the boxes at the leaves.</p>
+    </div>
+
+    <!-- 5 · COMPONENT TYPES -->
+    <div class="help-card">
+      <svg class="h-illo" viewBox="0 0 260 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <!-- box (default leaf): outlined, carries title + description text -->
+        <rect class="il-box" x="10" y="8" width="104" height="34" rx="6"/>
+        <rect class="il-clay" x="20" y="15" width="40" height="8" rx="2"/>
+        <rect class="il-muted" x="20" y="29" width="72" height="6" rx="2"/>
+        <text x="124" y="30" font-size="9">box</text>
+        <!-- separator: a thin divider rule + a small label -->
+        <line class="il-guide" x1="10" y1="54" x2="114" y2="54"/>
+        <text x="124" y="57" font-size="9">separator</text>
+        <!-- rail: a filled swimlane label banner -->
+        <rect class="il-clay" x="10" y="66" width="150" height="22" rx="4"/>
+        <text x="170" y="81" font-size="9">rail</text>
+      </svg>
+      <h3>5 · Component types</h3>
+      <p>A component (leaf) defaults to a <b>box</b>. Two other kinds exist for
+        pure layout: a <b>separator</b> — a thin divider with no content — and a
+        <b>rail</b> — a swimlane-style label banner. Both are structural, not
+        data-carrying.</p>
+    </div>
+
+    <!-- 6 · COLUMNS &amp; MERGE -->
+    <div class="help-card">
+      <svg class="h-illo" viewBox="0 0 260 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <g class="il-guide">
+          <line x1="59"  y1="14" x2="59"  y2="82"/>
+          <line x1="106" y1="14" x2="106" y2="82"/>
+          <line x1="153" y1="14" x2="153" y2="82"/>
+          <line x1="200" y1="14" x2="200" y2="82"/>
+        </g>
+        <rect class="il-clay" x="12" y="16" width="90" height="28" rx="5"/>
+        <rect class="il-box"  x="106" y="16" width="136" height="28" rx="5"/>
+        <rect class="il-box"  x="12" y="50" width="90" height="28" rx="5"/>
+        <text x="18" y="34" font-size="9">span 2</text>
+        <text x="150" y="34" font-size="9">span 3</text>
+        <text x="18" y="68" font-size="9">row 2</text>
+      </svg>
+      <h3>6 · Columns &amp; merge</h3>
+      <p>Every section is a grid of <b>same-size cells</b>. A child can
+        declare <b>span</b> to merge across columns — an Excel-style merge —
+        occupying more than one cell (a box can span N columns; span == the
+        section's own column count makes it a full-width band). As the window
+        gets narrower, columns <b>collapse — fewer, wider cells</b> — until the
+        whole diagram is one stacked column. Cells are equal and fill their row;
+        columns collapse before a cell shrinks, so nothing ever scrolls sideways.</p>
+    </div>
+
+    <!-- 7 · ORDER & BANDS -->
+    <div class="help-card">
+      <svg class="h-illo" viewBox="0 0 260 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <rect class="il-box" x="10" y="8" width="110" height="32" rx="6"/>
+        <rect class="il-box" x="140" y="8" width="110" height="32" rx="6"/>
+        <text x="16" y="28" font-size="9">1</text>
+        <text x="146" y="28" font-size="9">2</text>
+        <rect class="il-zone" x="10" y="52" width="240" height="36" rx="8"/>
+        <rect class="il-clay" x="18" y="60" width="70" height="20" rx="4"/>
+        <text x="98" y="74" font-size="9">3 · band (full width)</text>
+      </svg>
+      <h3>7 · Order &amp; bands</h3>
+      <p>Sections render in their <b>authored order</b>, packing side by side
+        until a row fills up. A section that spans <b>every</b> column becomes
+        a full-width <b>band</b> and always takes its own row — place a band
+        last to pin it as a base layer at the very bottom of the page.</p>
+    </div>
+
+    <!-- 8 · CHIPS / FILTERS -->
+    <div class="help-card">
+      <svg class="h-illo" viewBox="0 0 260 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <rect class="il-box"  x="14" y="8" width="46" height="16" rx="8"/>
+        <rect class="il-clay" x="66" y="8" width="54" height="16" rx="8"/>
+        <rect class="il-box"  x="126" y="8" width="46" height="16" rx="8"/>
+        <path class="il-accent" d="M92 27 L92 41"/>
+        <path class="il-accent" d="M87 36 L92 42 L97 36"/>
+        <rect class="il-clay" x="14" y="52" width="44" height="30" rx="5"/>
+        <rect class="il-clay" x="118" y="52" width="44" height="30" rx="5"/>
+        <g class="il-dim">
+          <rect class="il-box" x="66" y="52" width="44" height="30" rx="5"/>
+          <rect class="il-box" x="170" y="52" width="44" height="30" rx="5"/>
+          <rect class="il-box" x="222" y="52" width="30" height="30" rx="5"/>
+        </g>
+      </svg>
+      <h3>8 · Chips = relations</h3>
+      <p>The chips at the top are <b>relations</b> — they relate components that
+        share a path or a concept. Tap one to <b>spotlight</b> them and dim the
+        rest; the bottom bar then explains the relation step by step. Tap
+        <b>All</b> to reset. <span class="h-try">Try it above.</span></p>
+    </div>
+
+  </div>
+
+  <div class="help-foot">
+    <span><kbd>H</kbd> open / close this guide</span>
+    <span><kbd>←</kbd><kbd>→</kbd> change page</span>
+    <span><kbd>Esc</kbd> close</span>
+    <span>Click a box for its details · click a chip to spotlight a relation</span>
+  </div>
+</div>
+
+<!-- Cache-busting placeholder: index.html + engine/engine.js + data/data.generated.js
+     are a coupled contract that changes together on every meaningful deck
+     change, so a browser must never reuse a stale cached engine/data pair
+     against fresh HTML after a release. This seed ships with NO server, so
+     {{DIAGRAM_DECK_VERSION}} is substituted by nobody by default — a static
+     file server / file:// resolves the path and ignores the query string, so
+     "view immediately, zero tooling" (assets/README.md) keeps working with no
+     visible change when the placeholder is left as-is. Whatever the TARGET
+     repo's deploy layer is (a server templating this HTML, a CI build step, a
+     static-site generator) should substitute this token with the real deck
+     version (data/document.yaml's `version`, or the release tag) before
+     serving, and should also send `Cache-Control: no-cache, must-revalidate`
+     on these three coupled paths as a second layer (ETag revalidation covers
+     the case the placeholder is left unsubstituted). Full guidance + a worked
+     FastAPI example: assets/README.md → "Deploy: cache-busting & no-cache". -->
+<script src="data/data.generated.js?v={{DIAGRAM_DECK_VERSION}}"></script>
+<script src="engine/engine.js?v={{DIAGRAM_DECK_VERSION}}"></script>
+</body>
+</html>

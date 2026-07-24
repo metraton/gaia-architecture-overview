@@ -1,0 +1,40 @@
+# Document manifest — GAIA architecture overview deck.
+# name / order / visible live ONLY here; each page file owns id + content.
+# Form: "presentation" — each of the 6 sections is a page/act in sequence,
+# narrated live. The red thread: each act is a BELIEF that reveals its piece
+# of Gaia; by the end, Gaia is the name of what the audience already understood.
+title: "GAIA"
+subtitle: "Generative AI Architecture"
+version: "0.1.0"
+
+pages:
+  - id: s0-vision
+    name: "0 · The vision"
+    order: 1
+    visible: true
+    file: pages/s0-vision.yaml
+  - id: s1-visibilidad
+    name: "1 · Visibility"
+    order: 2
+    visible: true
+    file: pages/s1-visibilidad.yaml
+  - id: s2-estandares
+    name: "2 · Standards"
+    order: 3
+    visible: true
+    file: pages/s2-estandares.yaml
+  - id: s3-auditable
+    name: "3 · Human in the loop"
+    order: 4
+    visible: true
+    file: pages/s3-auditable.yaml
+  - id: s4-esto-es-gaia
+    name: "4 · This is GAIA"
+    order: 5
+    visible: true
+    file: pages/s4-esto-es-gaia.yaml
+  - id: s5-se-explica
+    name: "5 · It explains itself"
+    order: 6
+    visible: false
+    file: pages/s5-se-explica.yaml

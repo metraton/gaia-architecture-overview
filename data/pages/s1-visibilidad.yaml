@@ -1,0 +1,218 @@
+# S1 — Visibilidad. Reveals: Planning (briefs · ACs · plan/tareas),
+# Project Context, Auditoría, Memoria. Layer-3 build: the lower band was
+# rebuilt again, this time anchored to the real turn flow (dispatch →
+# SubagentStop) instead of a symmetric envelope trio.
+#
+# Form: dashboard. Two stacked bands (each span == root columns 3):
+#   1. «UN HARNESS DA VISIBILIDAD» — a band of 3 boxes side by side (columns:3)
+#      that map the real planning chain to human names: Ideas=briefs,
+#      Criterios=ACs/objetivos, Tareas=el plan. The "= …" mapping rides the
+#      status kicker (visible at a glance); the code anchor lives in `detail`.
+#   2. «LO QUE LO HACE COMPARTIDO» — one envelope wrapper (columns:3) holding
+#      two stacked full-width bands (each span:3, so it takes its own row):
+#        3a. `pc` (variant: envelope, columns:3) — Project Context as a
+#            horizontal TIMELINE of 3 boxes: a per-agent contract
+#            (project_context_contracts) → injected at dispatch
+#            (build_project_context) → updated at close (update_contracts).
+#            One shape (box), one concrete anchor per node.
+#        3b. `comp2` (variant: plain, columns:2) — two inline envelope
+#            sub-sections side by side: Auditoría (3 rastros: aprobaciones,
+#            historial, handoffs) and Memoria (3 horizontes: anchor, thread,
+#            log — a vertical "staircase" of one column each).
+#      The page-level `filters` trace two kinds of relation: three internal
+#      flows (`pc-flow` / `audit-flow` / `mem-flow`, one per sub-concept) plus
+#      one cross-cutting chip, `cierre`, that lights exactly the 3 nodes
+#      written at SubagentStop (`pc-write`, `au-handoff`, `mem-log`) —
+#      showing the 3 concepts share one moment of persistence, the turn's
+#      close.
+#
+# PRECISION (verified against the source tree before authoring):
+#   * The 3 memory nodes map EXACTLY to the memory.class enum
+#     (anchor | thread | log) — NOT to the `type` enum
+#     (project|user|feedback|atom|decision|negative), which is an ORTHOGONAL
+#     content category. Durable=anchor, Corto plazo=thread, Episódica=log.
+#     Source: gaia/store/schema.sql (memory.class) and skills/memory/SKILL.md.
+#   * Project Context is per-agent via contracts — table
+#     project_context_contracts (schema.sql), column `read`; written back via
+#     update_contracts at SubagentStop.
+#   * Auditoría's 3 nodes are hash-chained approval_events (PostToolUse), a
+#     SQL-trigger before/after change history, and the handoff persisted at
+#     SubagentStop — real substrate, kept to broad strokes here (the how
+#     lives on S3 · Auditable).
+#
+# WHY word-fit safe (invariant N, dashboard-scoped): the `pc` band (columns:3)
+# gives ~410px cells and the `comp2` sub-sections (columns:1) give ~394px
+# cells, far above the longest title token ("Corto plazo" the widest title,
+# "Escribe al cerrar" the longest phrase), so no title breaks mid-word.
+id: s1-visibilidad
+layout: grid
+form: dashboard
+columns: 3
+
+filters:
+  - key: pc-flow
+    label: "the cycle"
+    steps:
+      - "project context is a contract per agent: it is injected at dispatch and updated at close"
+  - key: audit-flow
+    label: "the trail"
+    steps:
+      - "three immutable trails: approvals, history, handoffs"
+  - key: mem-flow
+    label: "horizons"
+    steps:
+      - "three classes of memory: anchor, thread, log"
+  - key: cierre
+    label: "turn close"
+    steps:
+      - "at turn close these are written in order: context, audit, and memory"
+  - key: apertura
+    label: "what gets read at open"
+    steps:
+      - "at session open: context is injected at dispatch and durable and short-term memory reappear"
+
+sections:
+  # 2 · UN HARNESS DA VISIBILIDAD — the planning chain in human names.
+  - id: harness
+    title: "A harness gives visibility"
+    subtitle: "of the team · of the sprint · of the goals"
+    variant: safe
+    order: 1
+    span: 3
+    columns: 3
+    children:
+      - id: h-ideas
+        status: = BRIEFS
+        title: "Ideas"
+        description:
+          - "the captured idea —"
+          - "the requirement, turned into a persistent unit"
+        detail: "Ideas are captured as <b>briefs</b>: the requirement stops being a loose chat message and becomes a unit that persists outside the session. Anchor: <code>bin/cli/brief.py</code>."
+        variant: strong
+      - id: h-criterios
+        status: = ACs / GOALS
+        title: "Criteria"
+        description:
+          - "what defines \"done\" —"
+          - "the brief's acceptance criteria"
+        detail: "The criteria are the brief's <b>acceptance criteria</b>: they define what counts as \"done\". Each AC has its own lifecycle (pending → done, with blocked and descoped). Anchor: <code>gaia/state/transitions.py</code> (AC lifecycle)."
+        variant: strong
+      - id: h-tareas
+        status: = THE PLAN
+        title: "Tasks"
+        description:
+          - "the broken-down plan —"
+          - "the idea comes down to verifiable steps"
+        detail: "Tasks are the broken-down <b>plan</b>: the idea comes down to concrete, verifiable steps that persist in the database. Anchors: <code>bin/cli/plan.py</code>, <code>bin/cli/task.py</code>."
+        variant: strong
+
+  # 3 · LO QUE LO HACE COMPARTIDO — one envelope wrapper holding two stacked
+  # full-width bands: `pc` (a horizontal timeline) and `comp2` (two inline
+  # sub-sections, Auditoría · Memoria). Concepts are anchored to the real
+  # turn flow, not a symmetric trio — each band has its own shape (a
+  # timeline row vs a vertical staircase), and `cierre` is the one
+  # cross-cutting chip tying the 3 write-at-close nodes together.
+  - id: compartido
+    title: "What makes it shared"
+    subtitle: "it is not your board: it belongs to everyone"
+    variant: envelope
+    order: 2
+    span: 3
+    columns: 3
+    children:
+      # 3a · Project Context — a horizontal timeline: read at dispatch,
+      # injected into the agent, written back at close (pc-flow chain;
+      # pc-write is the cross-cutting cierre node).
+      - id: pc
+        title: "Project Context"
+        subtitle: "a contract per agent — injected at dispatch, updated at close"
+        variant: envelope
+        span: 3
+        columns: 3
+        children:
+          - id: pc-read
+            order: 1
+            status: "project_context_contracts"
+            title: "Contracts per agent"
+            description: "project context is a contract per agent"
+            variant: strong
+            filters: [pc-flow]
+          - id: pc-inject
+            order: 2
+            status: "build_project_context"
+            title: "Injected at dispatch"
+            description: "at startup, the subagent receives its contract"
+            filters: [pc-flow, apertura]
+          - id: pc-write
+            order: 3
+            status: "update_contracts"
+            title: "Updated at close"
+            description: "the subagent writes its update at close"
+            variant: strong
+            filters: [pc-flow, cierre]
+
+      # 3b · comp2 — two inline sub-sections side by side: Auditoría and
+      # Memoria, each its own envelope frontier.
+      - id: comp2
+        variant: plain
+        span: 3
+        columns: 2
+        children:
+          # Auditoría — three concrete audit surfaces (audit-flow chain;
+          # au-handoff is the cross-cutting cierre node).
+          - id: audit
+            title: "Audit"
+            subtitle: "three trails, all immutable"
+            variant: envelope
+            span: 1
+            columns: 1
+            children:
+              - id: au-aprob
+                order: 1
+                status: "approval_events"
+                title: "Approvals of mutative runs"
+                description: "every approved T3 as an event — single and batch (command_set)"
+                variant: strong
+                filters: [audit-flow]
+              - id: au-hist
+                order: 2
+                status: "*_history"
+                title: "Immutable history"
+                description: "context, memory, and project, append-only: never deleted"
+                filters: [audit-flow]
+              - id: au-handoff
+                order: 3
+                status: "agent_contract_handoff"
+                title: "Handoff log"
+                description: "every handoff persisted at turn close"
+                variant: strong
+                filters: [audit-flow, cierre]
+
+          # Memoria — three horizons, a vertical staircase (mem-flow chain;
+          # mem-log is the cross-cutting cierre node).
+          - id: mem
+            title: "Memory"
+            subtitle: "three horizons — read at open, written at close"
+            variant: envelope
+            span: 1
+            columns: 1
+            children:
+              - id: mem-durable
+                order: 1
+                status: "anchor"
+                title: "Durable"
+                description: "stable knowledge, across sessions and per project"
+                filters: [mem-flow, apertura]
+              - id: mem-corto
+                order: 2
+                status: "thread"
+                title: "Short-term"
+                description: "pending items for later sessions: a saved state"
+                filters: [mem-flow, apertura]
+              - id: mem-log
+                order: 3
+                status: "log"
+                title: "Episodic"
+                description: "the turn's episodes, deterministic: visible in the metrics"
+                variant: strong
+                filters: [mem-flow, cierre]
