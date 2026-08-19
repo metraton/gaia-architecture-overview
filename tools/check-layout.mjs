@@ -369,6 +369,23 @@ const CSS_TEXT_SHAPES = [
     /\.box\.half \.t\s*\{[^}]*?-webkit-line-clamp:\s*1;[^}]*?margin-bottom:\s*0/],
   ['.zone.plain pays no frame and no min-height',
     /\.zone\.plain\s*\{[^}]*?border:\s*none;\s*padding:\s*0;\s*min-height:\s*0/],
+  // THE SPAN->TRACKS MAPPING, in BOTH grid shapes. This whole file is arithmetic
+  // over the authored data: every width it reports assumes a span of M occupies M
+  // tracks. That assumption is not self-evidently true — it is four CSS rules,
+  // and when one of them is ABSENT the model stays internally consistent and
+  // reports a geometry the browser never draws. Measured: the root band grid
+  // (display:grid, where the compound flex weighting is inert) carried a rule for
+  // .msp and NONE for .mspan, so a section declared span 5 of 6 was auto-placed
+  // into ONE track and rendered at 35% of the canvas while every check in this
+  // file passed. A model with no rule under it is not a model.
+  ['leaf grid: a full band spans every track',
+    /\.sec-grid:not\(\.sec-compound\)\s*>\s*\.msp\s*\{[^}]*?grid-column:\s*1\s*\/\s*-1/],
+  ['leaf grid: a partial span occupies --span tracks',
+    /\.sec-grid:not\(\.sec-compound\)\s*>\s*\.mspan\s*\{[^}]*?grid-column:\s*span\s*var\(--span/],
+  ['root band grid: a full band spans every track',
+    /:has\(>\s*\.msp\)\s*>\s*\.msp\s*\{[^}]*?grid-column:\s*1\s*\/\s*-1/],
+  ['root band grid: a partial span occupies --span tracks',
+    /:has\(>\s*\.msp\)\s*>\s*\.mspan\s*\{[^}]*?grid-column:\s*span\s*var\(--span/],
 ];
 
 function cssTextTokens(root) {
@@ -634,6 +651,16 @@ const escapeForBundle = s => JSON.stringify(s).slice(1, -1);
 // it actually gets, and how a box left far shorter than its row leaves an
 // undeclared hole no hole check can see (the cell IS occupied).
 //
+// WHAT INK CANNOT SEE, stated because it was read as more than it is. The slot
+// is DERIVED from the authored spans through this file's width chain, so INK is a
+// claim about the cell the stylesheet OWES the box, never about the cell the
+// browser drew. When the two disagree INK reports the model and stays green:
+// measured, it passed `x-closed` at 47.4px of 63.0px while Chromium clamped that
+// very title, because the real cell was 179.5px wide instead of the modelled
+// 236.6px. The arithmetic was right and the render was wrong. Real clamping is
+// `validate` TXT (scrollHeight vs clientHeight in the browser); the divergence
+// that produced it is now caught by the CSS span->tracks shapes above.
+//
 // FORM-SCOPED BY PAGE, not by form: only INK_PAGES is asserted. The three-line
 // description clamp puts a full box at ~128 of 130px, so the pages authored
 // before this check existed sit within a couple of pixels of the row by design
@@ -844,6 +871,10 @@ function leavesOf(page) {
 // imported for the same reason the placement model is (an ES module is
 // CORS-blocked from a `file://` script). A wrong `false` here is the safe
 // direction: it only ever makes a reported hole smaller.
+// A thin row on the LAST row is emitted as minmax(--sep-row-h, 1fr) so a
+// declared hole absorbs the slack a stretched section leaves, which keeps
+// --sep-row-h a FLOOR there rather than the height — consistent with every
+// height in this chain already being a floor.
 const isThinRowLeaf = c => c && !isSection(c) &&
   (c.type === 'spacer' || (c.type === 'separator' && !treatmentsOf(c).includes('vertical')));
 
@@ -1468,8 +1499,11 @@ function main() {
       '(ADVISORY — conservative arithmetic; `validate` N is the verdict for the title)', textHeadline],
     ['WORDS', 'every authored string is present verbatim in data/data.generated.js ' +
       '(the text-only staleness CENSUS cannot see, because node counts do not move)'],
-    ['INK', 'ink height vs the slot it is given — overflow fails, an undeclared void advises ' +
-      '(PAGE-SCOPED: a page opts in, so the constraint cannot fail a deck authored before it)',
+    ['INK', 'ink height vs the MODELLED slot — overflow fails, an undeclared void advises ' +
+      '(PAGE-SCOPED: a page opts in, so the constraint cannot fail a deck authored before it. ' +
+      'ARITHMETIC, NOT OBSERVED: the slot is the one the model derives from the authored spans, ' +
+      'so a PASS here says the text fits the cell the stylesheet OWES the box — not that the ' +
+      'browser drew that cell. `validate` TXT is the verdict on real clamping)',
       inkHeadline],
     ['CSS', 'the mirrored breakpoints and text metrics match index.html'],
   ];
