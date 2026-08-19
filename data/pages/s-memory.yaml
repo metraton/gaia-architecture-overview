@@ -18,7 +18,11 @@
 #      a click opens the unbounded detail. It is three boxes and not one line,
 #      because three independent channels are three claims.
 #   2. THE SUBSTRATE — 1 + 5. The left rail is ONE column wide ON PURPOSE:
-#      width is reach, and the two automatic floors reach nothing durable. The
+#      width is reach, and the two automatic floors reach nothing durable. Their
+#      kickers state the LIFETIME (`EXPIRES FAST` / `EXPIRES LATER`) rather than
+#      repeating the section's own word: a mark that echoes the heading above it
+#      spends a channel to say nothing twice, and the difference between these
+#      two floors IS how long each is kept. The
 #      declared `spacer` beneath them is the third assertion of that rail —
 #      there is no third automatic floor — and it is what lets the rail close
 #      as a rectangle instead of leaving an undeclared hole. On the right, five
@@ -43,6 +47,16 @@
 # The stage NAME lives in the `kicker` (the slot for a step mark) and the stage
 # CLAIM in the title; the argument behind each stage is in the detail, behind
 # the click, which is the slot with no bound.
+#   THE TWO EXITS BREAK THAT PATTERN, and the ink budget is why. A half gets
+#   (130 - 4) / 2 = 63px, and a kicker + one title line + one description line
+#   needs 66.2px — it OVERFLOWS, measured by the INK invariant. The payoff of
+#   each exit is the whole point of the page and cannot stay behind a click, so
+#   the fixed 15.1px the kicker costs (its own line plus a gap, regardless of
+#   how short the word is) buys the description instead: the state name moves
+#   into the TITLE, which is the loud slot it deserves anyway, and the
+#   description carries what the reader must not miss — closing gives the
+#   attention BACK, graduating leaves knowledge that OUTLIVES the thread.
+#   Shorter text, never smaller type.
 #
 # FILTERS — four relations, each with both ends in DIFFERENT sections, because
 # a chip that lights one box dims the page for nothing:
@@ -126,7 +140,7 @@ sections:
     children:
       - id: a-events
         order: 1
-        kicker: AUTOMATIC
+        kicker: EXPIRES FAST
         title: "Events"
         description:
           - "short-lived"
@@ -135,7 +149,7 @@ sections:
         detail: "An event is written by the machine as the turn runs, and it is short-lived by design. It is evidence — what happened, in what order — and it is never reinjected into a later dispatch. Nothing has to retire it: it expires on its own, which is exactly why it has no lifecycle in the section to the right."
       - id: a-episodes
         order: 2
-        kicker: AUTOMATIC
+        kicker: EXPIRES LATER
         title: "Episodes"
         description:
           - "kept longer, for"
@@ -275,15 +289,17 @@ sections:
             children:
               - id: x-closed
                 order: 1
-                kicker: CLOSED
-                title: "No longer relevant"
+                title: "Closed"
+                description:
+                  - "the attention comes back"
                 treatment: [half]
                 detail: "A thread is CLOSED when it stopped being relevant: the concern dissolved, the question was answered elsewhere, the context moved. Closing costs the attention back and leaves no link behind, because there was nothing durable to leave. It is not a failure state and it is not deletion — the row stays, reclassified."
                 filters: [who-writes]
               - id: x-graduated
                 order: 2
-                kicker: GRADUATED
-                title: "Left knowledge"
+                title: "Graduated"
+                description:
+                  - "the knowledge outlives it"
                 treatment: [half]
                 detail: "A thread GRADUATES when it finished and left knowledge worth holding. It links `graduated_to` the anchor it produced, so the anchor can always be traced back to the work that earned it. Closed and graduated are the two exits of the SAME mechanism — which is why they are two components in one section and not two sections — and neither of them is deletion."
                 filters: [who-writes, lineage]
