@@ -163,7 +163,7 @@ sections:
       # inside one section.
       - id: roles
         title: "THE THREE ROLES"
-        subtitle: "what a curated row is for"
+        subtitle: "what a kept memory is for"
         treatment: [envelope]
         order: 1
         span: 5
@@ -176,7 +176,7 @@ sections:
             description:
               - "stable facts, accepted decisions,"
               - "useful dead ends, preferences"
-              - "reinjected into dispatches"
+              - "read at the start of a session"
             detail: "An anchor holds what stays true after the session that produced it closed: a stable fact, a decision already accepted, a dead end worth not walking again, a stated preference. Anchors are the rows a new dispatch is opened with, which is what makes them expensive to get wrong and cheap to reuse. A useful dead end is an anchor like any other — a negative that stays true is durable knowledge, not a footnote."
             filters: [negatives, carry-forward]
           - id: r-threads
@@ -195,7 +195,7 @@ sections:
             title: "Append-only record"
             description:
               - "written once, for audit"
-              - "never reinjected"
+              - "never read back into work"
             detail: "The historical log is append-only and exists to be audited, not to be read back into work. Nothing in it is reinjected into a dispatch. Keeping it separate from anchors is what stops the anchor set from growing into a diary: a row worth carrying forward is an anchor, and a row worth keeping only as a record belongs here."
 
       # ROW B — the lifecycle, read left to right. Four stages, WEAK separators
@@ -258,8 +258,8 @@ sections:
                 kicker: ACCUMULATE
                 title: "It gathers evidence"
                 description:
-                  - "appends dead ends,"
-                  - "negatives, evidence"
+                  - "a dead end is written down"
+                  - "so nobody pays for it twice"
                 detail: "While a thread is open it only ever grows by APPEND: what was tried, what failed, what was ruled out. A recorded negative is first-class durable value — it is what stops the same investigation from being paid for twice — so it is written down at the moment it is learned, not at the moment it turns out to matter. Nothing here is rewritten in place; a correction is a new append."
                 filters: [negatives]
           - id: sep-acc-exit
@@ -307,7 +307,7 @@ sections:
         children:
           - id: b-graduated-to
             order: 1
-            kicker: GRADUATED_TO
+            kicker: THE LINK LEFT
             title: "The exit leaves a link"
             description:
               - "a graduated thread points at"
@@ -316,12 +316,12 @@ sections:
             filters: [lineage]
           - id: b-supersedes
             order: 2
-            kicker: SUPERSEDES
+            kicker: REPLACED, NOT EDITED
             title: "Wrong is replaced"
             description:
-              - "a correct row supersedes it"
-              - "and it is reclassified,"
-              - "never edited in place"
+              - "a correct one replaces it"
+              - "and the old one is kept"
+              - "as history, not edited"
             detail: "A row that turns out to be wrong is not edited and not removed. A correct row is written and `supersedes` it, and the old one is reclassified. Editing in place would erase the fact that the system once believed something else, which is the one thing an audit needs most. Neither exit of a thread is deletion either: retirement is a change of class, never a removal."
             filters: [lineage]
       - id: sep-base
@@ -331,7 +331,7 @@ sections:
         treatment: [vertical]
       - id: ownership
         title: "OWNERSHIP"
-        subtitle: "who may write a curated row"
+        subtitle: "who may write curated memory"
         treatment: [envelope]
         order: 3
         span: 1

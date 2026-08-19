@@ -596,6 +596,36 @@ function textHeadline() {
     `${TEXT_KIND[kind]} ${m.measured} of ${m.available} (${m.where} @${m.cw}px)`).join('; ');
 }
 
+// ── WORDS — the census's blind spot ────────────────────────────────────────
+// CENSUS compares page ids and NODE COUNTS, so a text-only edit — rewording a
+// description, decoding a piece of jargon, fixing a title — leaves the counts
+// identical and the census green while data.generated.js still holds the OLD
+// words. MEASURED: after nine wording edits the gate printed ALL PASS and the
+// bundle contained "appends dead ends" and not "so nobody pays for it twice".
+// That is the coupled-trio trap in its quietest form: the browser renders the
+// stale text and nothing fails.
+//
+// Every authored string must appear VERBATIM in the bundle, because the bundle
+// is generated FROM these strings — the comparison needs no model of the
+// generator beyond its JSON escaping.
+const TEXT_FIELDS = ['title', 'subtitle', 'kicker', 'detail', 'note', 'text', 'label'];
+
+function authoredStrings(node, out) {
+  if (!node || typeof node !== 'object') return out;
+  if (Array.isArray(node)) { for (const n of node) authoredStrings(n, out); return out; }
+  for (const f of TEXT_FIELDS) if (typeof node[f] === 'string' && node[f].trim()) out.push(node[f]);
+  const lists = [node.description, node.steps];
+  for (const l of lists)
+    for (const line of (Array.isArray(l) ? l : l == null ? [] : [l]))
+      if (typeof line === 'string' && line.trim()) out.push(line);
+  for (const key of ['children', 'sections', 'filters']) authoredStrings(node[key], out);
+  return out;
+}
+
+// A string is looked for in its JSON-escaped form: that is what the generator
+// wrote, so a quote or a backslash in the copy does not read as a drift.
+const escapeForBundle = s => JSON.stringify(s).slice(1, -1);
+
 // ── INK — the height half of the budget ────────────────────────────────────
 // TEXT asks whether a line of characters fits the cell's WIDTH. INK asks the
 // question one axis over: does the STACK of those lines fit the fixed row the
@@ -1385,6 +1415,25 @@ function main() {
   const pages = [];
   for (const { page } of deck.pages) pages.push(checkPage(page));
 
+  const bundleFile = path.join(ROOT, 'data', 'data.generated.js');
+  if (!fs.existsSync(bundleFile)) {
+    info('WORDS', 'data/data.generated.js', 'not asserted — the bundle does not exist yet.');
+  } else {
+    const bundle = fs.readFileSync(bundleFile, 'utf8');
+    for (const { page } of deck.pages) {
+      const missing = [];
+      for (const s of authoredStrings(page, [])) {
+        asserted++;
+        if (!bundle.includes(escapeForBundle(s))) missing.push(s);
+      }
+      if (missing.length)
+        fail('WORDS', `page "${page.id ?? '(no id)'}"`,
+          `${missing.length} authored string(s) are NOT in data/data.generated.js — the browser is ` +
+          `rendering the OLD words while the counts still match, so CENSUS cannot see it. ` +
+          `First: "${missing[0].slice(0, 60)}". Re-run the build.`);
+    }
+  }
+
   // ── report ──
   for (const p of pages) {
     console.log(`\n● page "${p.pageId}" [form:${p.form}] — ${p.grids.length} grid(s), ` +
@@ -1417,6 +1466,8 @@ function main() {
     // holds, so a pass reports a number instead of a bare "holds everywhere".
     ['TEXT', 'character budget: title token, kicker token, title clamp, description clamp ' +
       '(ADVISORY — conservative arithmetic; `validate` N is the verdict for the title)', textHeadline],
+    ['WORDS', 'every authored string is present verbatim in data/data.generated.js ' +
+      '(the text-only staleness CENSUS cannot see, because node counts do not move)'],
     ['INK', 'ink height vs the slot it is given — overflow fails, an undeclared void advises ' +
       '(PAGE-SCOPED: a page opts in, so the constraint cannot fail a deck authored before it)',
       inkHeadline],
