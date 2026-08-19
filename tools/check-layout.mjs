@@ -369,15 +369,24 @@ const CSS_TEXT_SHAPES = [
     /\.box\.half \.t\s*\{[^}]*?-webkit-line-clamp:\s*1;[^}]*?margin-bottom:\s*0/],
   ['.zone.plain pays no frame and no min-height',
     /\.zone\.plain\s*\{[^}]*?border:\s*none;\s*padding:\s*0;\s*min-height:\s*0/],
-  // THE SPAN->TRACKS MAPPING, in BOTH grid shapes. This whole file is arithmetic
-  // over the authored data: every width it reports assumes a span of M occupies M
-  // tracks. That assumption is not self-evidently true — it is four CSS rules,
-  // and when one of them is ABSENT the model stays internally consistent and
-  // reports a geometry the browser never draws. Measured: the root band grid
-  // (display:grid, where the compound flex weighting is inert) carried a rule for
-  // .msp and NONE for .mspan, so a section declared span 5 of 6 was auto-placed
-  // into ONE track and rendered at 35% of the canvas while every check in this
-  // file passed. A model with no rule under it is not a model.
+];
+
+// THE SPAN->TRACKS MAPPING, in BOTH grid shapes, and it is a HARD check of its
+// own rather than another entry in the mirror above. Everything in this file is
+// arithmetic over the authored data, and every width it reports assumes a span of
+// M occupies M tracks. That assumption is not self-evident — it is these four CSS
+// rules — and when one is ABSENT the model stays internally consistent and
+// reports a geometry the browser never draws. Measured: the root band grid
+// (display:grid, where the compound flex weighting is inert) carried a rule for
+// .msp and NONE for .mspan, so a section declared span 5 of 6 was auto-placed
+// into ONE track and rendered at 35% of the canvas while all 6019 assertions
+// here passed.
+//
+// SEPARATE because the mirror DEGRADES TO INFO on an unreadable declaration —
+// correct for a metric it can fall back to a mirrored constant for, and wrong
+// here: there is no fallback for a rule that does not exist, and "not asserted"
+// is exactly the silence that certified the defect. A missing rule FAILS.
+const CSS_SPAN_SHAPES = [
   ['leaf grid: a full band spans every track',
     /\.sec-grid:not\(\.sec-compound\)\s*>\s*\.msp\s*\{[^}]*?grid-column:\s*1\s*\/\s*-1/],
   ['leaf grid: a partial span occupies --span tracks',
@@ -387,6 +396,15 @@ const CSS_TEXT_SHAPES = [
   ['root band grid: a partial span occupies --span tracks',
     /:has\(>\s*\.msp\)\s*>\s*\.mspan\s*\{[^}]*?grid-column:\s*span\s*var\(--span/],
 ];
+
+function cssSpanShapes(root) {
+  const file = path.join(root, 'index.html');
+  if (!fs.existsSync(file)) return { noFile: true, missing: [], present: [] };
+  const src = fs.readFileSync(file, 'utf8');
+  const missing = [], present = [];
+  for (const [name, re] of CSS_SPAN_SHAPES) (re.test(src) ? present : missing).push(name);
+  return { noFile: false, missing, present };
+}
 
 function cssTextTokens(root) {
   const file = path.join(root, 'index.html');
@@ -1435,6 +1453,20 @@ function main() {
       `${CSS_TEXT.descLines}ln, plane ${CSS_TEXT.planeMax}px — the mirror matches the stylesheet`);
   }
 
+  const spanCss = cssSpanShapes(ROOT);
+  if (spanCss.noFile) {
+    info('SPAN', 'index.html', 'not asserted — there is no index.html under the deck root.');
+  } else {
+    asserted += CSS_SPAN_SHAPES.length;
+    if (spanCss.missing.length)
+      fail('SPAN', 'index.html', `the stylesheet implements no [${spanCss.missing.join('; ')}]. ` +
+        `Every width in this report assumes a span of M occupies M tracks; with that rule absent the ` +
+        `section is auto-placed into ONE track and renders at its min-content, so the arithmetic below ` +
+        `describes a geometry the browser does not draw.`);
+  }
+  const spanHeadline = () => spanCss.noFile ? 'no index.html to read'
+    : `all ${spanCss.present.length} rules present (band and partial span, in the leaf grid and the root band grid)`;
+
   const deck = loadAuthoredDeck(ROOT);
   if (!deck.manifest) {
     console.log('\n══════════════════════════════════════════════════════════════');
@@ -1506,6 +1538,9 @@ function main() {
       'browser drew that cell. `validate` TXT is the verdict on real clamping)',
       inkHeadline],
     ['CSS', 'the mirrored breakpoints and text metrics match index.html'],
+    ['SPAN', 'index.html implements the span→tracks rules every width in this report assumes ' +
+      '(a missing rule FAILS: unlike a metric there is no mirrored constant to fall back to)',
+      spanHeadline],
   ];
   console.log('\n  ── CHECKS ─────────────────────────────────────────────────────');
   for (const [id, name, passDetail] of CHECKS) {
