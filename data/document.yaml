@@ -8,33 +8,52 @@ subtitle: "Generative AI Architecture"
 version: "0.1.0"
 
 pages:
+  # order 0 is the deck's first page. Every existing entry shifted one position
+  # back to make room; nothing was removed, hidden or renamed.
+  - id: s-arquitectura
+    name: "The real architecture"
+    order: 0
+    visible: true
+    file: pages/s-arquitectura.yaml
+  - id: s-shared-semantics
+    name: "Shared semantics"
+    order: 1
+    visible: true
+    file: pages/s-shared-semantics.yaml
   - id: s0-vision
     name: "0 · The vision"
-    order: 1
+    order: 2
     visible: true
     file: pages/s0-vision.yaml
   - id: s1-visibilidad
     name: "1 · Visibility"
-    order: 2
+    order: 3
     visible: true
     file: pages/s1-visibilidad.yaml
   - id: s2-estandares
     name: "2 · Standards"
-    order: 3
+    order: 4
     visible: true
     file: pages/s2-estandares.yaml
   - id: s3-auditable
     name: "3 · Human in the loop"
-    order: 4
+    order: 5
     visible: true
     file: pages/s3-auditable.yaml
   - id: s4-esto-es-gaia
     name: "4 · This is GAIA"
-    order: 5
+    order: 6
     visible: true
     file: pages/s4-esto-es-gaia.yaml
   - id: s5-se-explica
     name: "5 · It explains itself"
-    order: 6
+    order: 7
     visible: false
     file: pages/s5-se-explica.yaml
+  # Additive and self-contained: it references no other page, so removing any of
+  # the entries above cannot break it.
+  - id: s-memory
+    name: "Memory"
+    order: 8
+    visible: true
+    file: pages/s-memory.yaml
