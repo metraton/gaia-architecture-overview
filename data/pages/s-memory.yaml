@@ -220,8 +220,7 @@ sections:
                 title: "Does it have a home?"
                 description:
                   - "a brief, a plan, a task,"
-                  - "the code — then it is not"
-                  - "memory"
+                  - "the code — then not memory"
                 detail: "The first question is not «is this true?» but «does this already have a canonical home?» — a brief, a plan, a task, the project context, the code itself. If it does, it is NOT memory, and copying it here would create a second source of truth that goes stale the moment the first one moves. The gate is what keeps the reinjected set small enough to be worth reading."
                 filters: [carry-forward]
           - id: sep-gate-open
@@ -241,8 +240,7 @@ sections:
                 title: "It becomes a thread"
                 description:
                   - "one concern, one status"
-                  - "and from now on it costs"
-                  - "attention every session"
+                  - "it costs attention now"
                 detail: "What passes the gate is opened as a live thread with one concern and one status. Opening is not free: from this point the row is read at the start of every session until it exits, so the cost is paid continuously rather than once. That is why the gate is a refusal by default and not a formality."
           - id: sep-open-acc
             type: separator
@@ -262,7 +260,6 @@ sections:
                 description:
                   - "appends dead ends,"
                   - "negatives, evidence"
-                  - "a negative is value"
                 detail: "While a thread is open it only ever grows by APPEND: what was tried, what failed, what was ruled out. A recorded negative is first-class durable value — it is what stops the same investigation from being paid for twice — so it is written down at the moment it is learned, not at the moment it turns out to matter. Nothing here is rewritten in place; a correction is a new append."
                 filters: [negatives]
           - id: sep-acc-exit
