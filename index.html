@@ -41,6 +41,118 @@
     --strong:#4ECB6B; --strong-soft:rgba(78,203,107,0.18);
     --zone:rgba(250,249,245,0.028); --zone-line:#3D3D3A;
   }
+
+  /* ══════════════ SWAPPABLE PALETTES ══════════════════════════════════════
+     A palette is a SKIN, never a vocabulary. The SEMANTIC ROLES are identical in
+     every palette — `--crit` is always "high risk", `--olive` always
+     "hardened/ok", `--muted` always "secondary text" — so a deck's meaning is
+     palette-independent and switching palettes can never change what the diagram
+     SAYS, only how it looks. That is why the palettes redeclare exactly the same
+     token names and nothing else: no palette adds a token, drops one, or
+     repurposes one.
+
+     Selected by `palette:` in data/document.yaml → `data-palette` on <html>,
+     written by data/data.generated.js BEFORE the deck renders (so there is no
+     flash of the neutral skin). Values: neutral (default, no attribute) ·
+     rose-pine · rose-pine-moon · contrast.
+
+     SPECIFICITY, and why the dark blocks must be spelled `html.dark[...]`:
+     `:root[data-palette="x"]` is (0,2,0) and `html.dark` is (0,1,1), so a LIGHT
+     palette block would otherwise beat the neutral DARK block and strand dark
+     mode on light colours. `html.dark[data-palette="x"]` is (0,2,1) and wins.
+     Each block therefore declares the FULL token set — never a partial overlay
+     — so no token can be silently inherited from the wrong theme.
+
+     CONTRAST IS MACHINE-CHECKED. `npm run contrast` (tools/contrast-audit.cjs)
+     PARSES these blocks and measures every real foreground/background pair
+     (compositing the rgba soft tints over their substrate) against WCAG 2.1. Edit
+     a colour here and the audit re-measures it; the numbers can never drift from
+     the CSS because there is only one copy of them. */
+
+  /* ── Rosé Pine — the upstream palette's own role names, mapped onto the
+     engine's semantic roles. Light theme uses Rosé Pine DAWN, dark uses Rosé
+     Pine MAIN (the two-theme engine has exactly two slots; `rose-pine-moon`
+     below swaps the dark slot to MOON, so all three upstream variants are
+     reachable).
+       base→--bg · surface→--surface · overlay→--surface2 · text→--ink/--body
+       subtle→--muted · highlight-high→--line · highlight-med→--line-soft
+       love→--crit · gold→--warn · pine→--olive · iris→--strong · rose→--clay
+       foam→--blue
+     NOTE on subtle-vs-muted: the engine's `--muted` carries REAL text (box
+     kickers, descriptions, section titles, chips), so it maps to Rosé Pine's
+     `subtle` (secondary text), NOT to its `muted` (comment-dim), which sits far
+     below AA on both bases. Upstream `muted` is used only for decoration. */
+  :root[data-palette="rose-pine"], :root[data-palette="rose-pine-moon"] {
+    --bg:#faf4ed; --surface:#fffaf3; --surface2:#f2e9e1;
+    --ink:#575279; --body:#575279; --muted:#6a6580;
+    --line:#cecacd; --line-soft:#dfdad9;
+    --clay:#8c5b6b; --clay-soft:rgba(140,91,107,0.12);
+    --olive:#286983; --olive-soft:rgba(40,105,131,0.12);
+    --crit:#9c4a5e; --crit-soft:rgba(156,74,94,0.10);
+    --warn:#815c1c; --warn-soft:rgba(129,92,28,0.12);
+    --gold:#815c1c; --blue:#3f7885;
+    --strong:#6d5a86; --strong-soft:rgba(109,90,134,0.14);
+    --zone:rgba(87,82,121,0.030); --zone-line:#cecacd;
+  }
+  html.dark[data-palette="rose-pine"] {
+    --bg:#191724; --surface:#1f1d2e; --surface2:#26233a;
+    --ink:#e0def4; --body:#e0def4; --muted:#908caa;
+    --line:#524f67; --line-soft:#403d52;
+    --clay:#ebbcba; --clay-soft:rgba(235,188,186,0.14);
+    --olive:#9ccfd8; --olive-soft:rgba(156,207,216,0.14);
+    --crit:#eb6f92; --crit-soft:rgba(235,111,146,0.14);
+    --warn:#f6c177; --warn-soft:rgba(246,193,119,0.14);
+    --gold:#f6c177; --blue:#31748f;
+    --strong:#c4a7e7; --strong-soft:rgba(196,167,231,0.16);
+    --zone:rgba(224,222,244,0.030); --zone-line:#524f67;
+  }
+  /* Rosé Pine MOON — the third upstream variant. Same light (DAWN) side, a
+     softer/warmer dark base than MAIN. */
+  html.dark[data-palette="rose-pine-moon"] {
+    --bg:#232136; --surface:#2a273f; --surface2:#393552;
+    /* MOON's bases are lighter than MAIN's, so MAIN's `subtle` (#908caa) and
+       `love` (#eb6f92) drop below AA on them — both are stepped up here. */
+    --ink:#e0def4; --body:#e0def4; --muted:#a5a0c0;
+    --line:#56526e; --line-soft:#44415a;
+    --clay:#ea9a97; --clay-soft:rgba(234,154,151,0.14);
+    --olive:#9ccfd8; --olive-soft:rgba(156,207,216,0.14);
+    --crit:#f2809f; --crit-soft:rgba(242,128,159,0.14);
+    --warn:#f6c177; --warn-soft:rgba(246,193,119,0.14);
+    --gold:#f6c177; --blue:#3e8fb0;
+    --strong:#c4a7e7; --strong-soft:rgba(196,167,231,0.16);
+    --zone:rgba(224,222,244,0.030); --zone-line:#56526e;
+  }
+
+  /* ── contrast — HIGH CONTRAST, for projecting in a room. Every audited pair
+     clears WCAG 2.1 AA (4.5:1 text, 3:1 non-text) with margin, so the deck stays
+     readable through a washed-out projector or on a glare-lit screen. Pure
+     black/white bases, saturated-but-dark accents on light, light accents on
+     dark, and opaque `--line` borders so every cell edge is unambiguous. */
+  :root[data-palette="contrast"] {
+    --bg:#ffffff; --surface:#ffffff; --surface2:#ededed;
+    --ink:#000000; --body:#000000; --muted:#303030;
+    --line:#000000; --line-soft:#595959;
+    --clay:#a03000; --clay-soft:rgba(160,48,0,0.10);
+    --olive:#1a6b1a; --olive-soft:rgba(26,107,26,0.10);
+    --crit:#b00000; --crit-soft:rgba(176,0,0,0.09);
+    --warn:#7a4a00; --warn-soft:rgba(122,74,0,0.10);
+    --gold:#6b4e00; --blue:#00457a;
+    --strong:#006b22; --strong-soft:rgba(0,107,34,0.12);
+    --zone:rgba(0,0,0,0.040); --zone-line:#000000;
+  }
+  html.dark[data-palette="contrast"] {
+    --bg:#000000; --surface:#0a0a0a; --surface2:#202020;
+    --ink:#ffffff; --body:#ffffff; --muted:#d0d0d0;
+    --line:#ffffff; --line-soft:#8a8a8a;
+    --clay:#ffb08a; --clay-soft:rgba(255,176,138,0.16);
+    --olive:#8fe88f; --olive-soft:rgba(143,232,143,0.16);
+    --crit:#ff9b85; --crit-soft:rgba(255,155,133,0.16);
+    --warn:#ffd166; --warn-soft:rgba(255,209,102,0.16);
+    --gold:#ffde7a; --blue:#93d2ff;
+    --strong:#7cf29a; --strong-soft:rgba(124,242,154,0.18);
+    --zone:rgba(255,255,255,0.050); --zone-line:#ffffff;
+  }
+
   * { box-sizing:border-box; margin:0; padding:0; }
   html,body { height:100%; }
   body {
@@ -76,7 +188,10 @@
      side — engine.js only ever writes text, never toggles visibility. */
   .bar .ver { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:0.05em; line-height:1.4; margin-top:2px; opacity:0.65; }
   .bar .ver:empty { display:none; }
-  .spacer { flex:1; }
+  /* the header's flex filler. Named `bar-spacer`, not `spacer`: `.spacer` is the
+     grid leaf `type: spacer` (a declared hole — see its own block below), and one
+     class name cannot mean both a growing filler and a cell occupant. */
+  .bar-spacer { flex:1; }
 
   /* page navigator — [ ‹ ] [ TITLE 1 ] [ TITLE 2 ] … [ › ]. Page names are
      VISIBLE tabs in `order`; the current one is highlighted, the rest dimmed
@@ -155,6 +270,34 @@
        track. The whole block fills the canvas (no fit-content centering), so
        there are no lateral voids even at 2560. */
     --cell-w:232px; --cell-h:130px;
+    /* THE SEPARATOR ROW — the one row height that is NOT --cell-h.
+       A `separator` is a leaf COMPONENT, so it occupies a full cell: a 1px rule
+       was charged the whole --cell-h (130px), and with the grid's own 8px row
+       gaps on either side a divider inserted 146px of air between the boxes
+       above and below it. That reads as a HOLE, not as a division.
+       So a row whose ONLY occupants are horizontal separators gets a REDUCED
+       TRACK HEIGHT. The separator is still a CELL (principle 1 — everything
+       visible is a merged cell — is untouched); what changes is the height of
+       that one row. 40px was chosen, not guessed:
+         • CONTENT: the tallest thing a separator row can ever carry is one line
+           of `.sep-text` (11px mono, ~17px line box, see .sep-h.sep-labeled).
+           40px leaves ~11px of air above and below it, so a LABELED divider
+           still breathes and never clips (invariant C).
+         • DIVISION, not paste: with the grid's --s-2 (8px) row gaps on both
+           sides the total break between the box above and the box below is
+           8+40+8 = 56px — 7x a normal inter-row gap, unmistakably a division —
+           against 146px today, which reads as a missing cell.
+         • SCALE: 40px == 5 x the 8pt step the whole spacing scale uses, so it
+           introduces no off-grid value, and it is <1/3 of --cell-h — nowhere
+           near "charging 130 for one pixel of ink".
+       A VERTICAL separator is deliberately EXCLUDED (see the engine's
+       isThinRowLeaf): a `.sep-v` draws a line whose LENGTH IS the row height,
+       so thinning its row would shorten the ink instead of matching it.
+       Applied per-row by the engine as a `grid-auto-rows` TRACK LIST
+       (--row-tracks / --row-tracks-2 / --row-tracks-1, one per collapse tier);
+       asserted by invariant U's third height family in tools/validate-layout.cjs
+       (keep in sync with SEP_ROW_H there). */
+    --sep-row-h:40px;
     /* MINIMO LEGIBLE — the readable floor for a leaf cell. A cell narrower than
        this can only show ~1 character per line (a short title stops being
        readable). It is the FLOOR of the leaf-grid track min below, so a grid
@@ -255,6 +398,15 @@
     align-items:stretch; }
   .sec-plane > .sec-grid.sec-compound:has(> .msp) > .msp {
     grid-column:1 / -1; }
+  /* A root section with a PARTIAL span (1 < span < cols) must occupy exactly
+     that many tracks. Without this rule the span-weighted width of a compound
+     row (`.sec-grid.sec-compound > .zone { flex: var(--span,1) 1 0 }`) is inert
+     here — this root is display:grid, so flex-grow says nothing — and the
+     section is auto-placed into ONE track, where it merely overflows to its
+     min-content width. A declared span 5 of 6 then rendered at 35% of the
+     canvas, and every inner grid collapsed inside that false width. */
+  .sec-plane > .sec-grid.sec-compound:has(> .msp) > .mspan {
+    grid-column:span var(--span, 1); }
 
   /* ── the ONE recursive primitive: .sec-grid ──
      Every section (and the page root) renders its children into a .sec-grid.
@@ -300,8 +452,24 @@
        minmax(0,1fr) (where sections are already full-width), and at wide stage a
        grid's own min-content forces its parent to give it >= the floor or wrap. */
     grid-template-columns:repeat(var(--cols,1), minmax(var(--cell-min-w),1fr));
-    grid-auto-rows:var(--cell-h);
+    /* Rows are a FIXED --cell-h — EXCEPT where the engine emits an explicit
+       TRACK LIST. `grid-auto-rows` takes a LIST of sizes applied to the implicit
+       rows IN ORDER, which is the only way to give ONE row of an auto-flowed
+       grid a different height; the engine emits `--row-tracks` (one entry per
+       row) exactly when at least one row is separator-only, so the default path
+       stays a single fixed --cell-h for every grid that has no separator row.
+       The list is per-TIER because the collapse changes the placement (a
+       separator alone on row 1 of a 3-track grid is not on row 1 of a 2-track
+       one), and a list shorter than the real row count would CYCLE onto the
+       wrong rows — see the tier overrides at the 1000px/640px breakpoints. */
+    grid-auto-rows:var(--row-tracks, var(--cell-h));
     gap:var(--s-2); align-items:stretch; }
+  /* A leaf grid whose LAST child is a declared hole GROWS to its section's full
+     height, so the trailing spacer row (emitted as minmax(--sep-row-h,1fr) by
+     the engine) takes the slack a stretched section leaves. Without it the grid
+     stays at content height and the leftover pools below it as a hole nobody
+     declared. */
+  .zone > .sec-grid:not(.sec-compound):has(> .spacer:last-child) { flex:1 1 auto; }
   /* a full-width band (span == columns) stays full-width at any collapse level */
   .sec-grid:not(.sec-compound) > .msp { grid-column:1 / -1; }
   /* PARTIAL horizontal merge (.mspan): occupy EXACTLY --span of the leaf grid's
@@ -360,7 +528,8 @@
      child is reset to flex:0 0 auto anyway.) */
   .sec-grid.sec-compound > .box { flex:0 0 auto; align-self:start; height:var(--cell-h); }
   .sec-grid.sec-compound > .sep,
-  .sec-grid.sec-compound > .rail { flex:0 0 auto; }
+  .sec-grid.sec-compound > .rail,
+  .sec-grid.sec-compound > .spacer { flex:0 0 auto; }
   /* A root-level span BAND in a COMPOUND grid takes its OWN full-width row. In
      the default ROW direction (wide tiers) flex-basis:100% forces the band onto
      a line by itself, so consecutive bands STACK vertically instead of floating
@@ -476,6 +645,13 @@
        instead of staying 2-wide (which, in a 2-track grid, would already be a full
        band). span2 <= 2 also guarantees no implicit extra track is created. */
     .sec-grid:not(.sec-compound):not(.sec-c1) > .mspan { grid-column:span var(--span2, 1); }
+    /* SEPARATOR ROWS re-derived for THIS track count. Fewer tracks means a
+       different placement, so which rows are separator-only changes with it —
+       the base --row-tracks list would land its thin entry on the wrong row (or
+       cycle, being shorter than the real row count) and thin a row of boxes.
+       A .sec-c1 grid is 1 track at every tier, so its base list is already
+       correct and it is deliberately not matched here. */
+    .sec-grid:not(.sec-compound):not(.sec-c1) { grid-auto-rows:var(--row-tracks-2, var(--cell-h)); }
   }
   /* Narrowest tier — the …→2→1 ENDPOINT: every leaf grid collapses to ONE fr
      track that fills the width, so the whole diagram is a single vertical column
@@ -504,14 +680,20 @@
        (0,4,0) so it wins over it here. */
     .sec-grid:not(.sec-compound) > .mspan { grid-column:1 / -1; }
     .sec-grid:not(.sec-compound):not(.sec-c1) > .mspan { grid-column:1 / -1; }
+    /* SEPARATOR ROWS at the 1-track ENDPOINT. Every slot is alone in its row
+       here, so EVERY separator row is thin — the rule does not weaken as the
+       deck collapses. The :not(.sec-c1) variant matches the medium tier's
+       specificity (0,3,0) and sits later in source, so it wins over
+       --row-tracks-2; a .sec-c1 grid keeps its base list (already 1 track). */
+    .sec-grid:not(.sec-compound):not(.sec-c1) { grid-auto-rows:var(--row-tracks-1, var(--cell-h)); }
   }
 
   /* ── zones (a section's frame) ── */
   .zone { position:relative; min-height:var(--zone-min-h);
     background:var(--zone); border:1px solid var(--zone-line); border-style:dashed; border-radius:16px;
     padding:var(--s-3); display:flex; flex-direction:column; gap:var(--s-2); transition:opacity .2s ease; }
-  .zone.danger { background:var(--crit-soft); border-color:var(--crit); }
-  .zone.safe { background:var(--olive-soft); border-color:var(--olive); }
+  .zone.bad { background:var(--crit-soft); border-color:var(--crit); }
+  .zone.good { background:var(--olive-soft); border-color:var(--olive); }
   .zone.envelope { background:none; border-color:var(--line); border-style:dashed; }
   /* plain: a bare structural wrapper — no frame, no background, no min-height.
      Used to stack sub-sections inside one parent column with no extra border. */
@@ -529,8 +711,8 @@
   .zone-header .zsub { font-family:var(--mono); font-size:12px; color:var(--muted); opacity:0.8;
     overflow-wrap:anywhere; word-break:break-word;
     display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; line-clamp:3; overflow:hidden; }
-  .zone.danger .ztitle, .zone.danger .zsub { color:var(--crit); }
-  .zone.safe .ztitle, .zone.safe .zsub { color:var(--olive); }
+  .zone.bad .ztitle, .zone.bad .zsub { color:var(--crit); }
+  .zone.good .ztitle, .zone.good .zsub { color:var(--olive); }
   .zone.envelope .ztitle { color:var(--ink); opacity:0.75; }
 
   /* ── boxes ──
@@ -561,18 +743,71 @@
   .box .desc { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; line-clamp:3;
     overflow:hidden; min-height:0; }
   .box .m { font-family:var(--mono); font-size:12px; line-height:1.4; color:var(--muted); }
-  .box.crit { background:var(--crit-soft); border-color:var(--crit); }
-  .box.crit .k { color:var(--crit); }
+  .box.bad { background:var(--crit-soft); border-color:var(--crit); }
+  .box.bad .k { color:var(--crit); }
   .box.warn { background:var(--warn-soft); border-color:var(--warn); }
   .box.warn .k { color:var(--warn); }
-  .box.ok { background:var(--olive-soft); border-color:var(--olive); }
-  .box.ok .k { color:var(--olive); }
-  .box.strong { background:var(--strong-soft); border-color:var(--strong); border-width:2px; }
-  .box.strong .k { color:var(--strong); }
-  .box.ext { border-style:dashed; }
-  .box.store { background:var(--surface2); }
-  /* layout-only role (variant_extra: [centered]): center the box's text. */
-  .box.centered { text-align:center; }
+  .box.good { background:var(--olive-soft); border-color:var(--olive); }
+  .box.good .k { color:var(--olive); }
+  .box.accent { background:var(--strong-soft); border-color:var(--strong); border-width:2px; }
+  .box.accent .k { color:var(--strong); }
+  .box.muted { background:var(--surface2); }
+
+  /* ── STRUCTURAL TREATMENTS (the second axis) ──────────────────────────────
+     A `treatment` changes HOW a component is drawn, never WHAT it means. That is
+     why not one rule below touches a colour token: a treatment composes with any
+     `variant` instead of competing with one. (The enums live in
+     engine/build-data.mjs; the guardrail consequence of each is tabled in the
+     skill's reference.md.) */
+
+  /* centered — centre the text block on BOTH axes. No colour.
+     `.box` is a top-aligned flex column, so a box whose ink is shorter than the
+     fixed --cell-h used to leave the remainder of the cell empty below it and
+     `centered` corrected only the horizontal axis. Centring the main axis too is
+     what lets a short, deliberately spare box (a title with one line under it)
+     sit balanced in its cell instead of being padded out with filler ink. It
+     cannot overflow: the title and description clamps guarantee the content
+     already fits --cell-h. */
+  .box.centered { text-align:center; justify-content:center; }
+
+  /* outside — the dashed frame that reads "outside the perimeter". Border STYLE only,
+     no colour whatsoever, which is precisely why it belongs on this axis: it used
+     to sit in the colour enum and had to be smuggled through `variant_extra`
+     whenever a box needed to be both external AND coloured. */
+  .box.outside { border-style:dashed; }
+
+  /* half + .half-slot — SLOT DIVISION, not cell shrinking.
+     The `.half-slot` IS the grid cell: it stretches to the full --cell-h like any
+     other cell, and its two children split that height (flex:1 1 0 each). So the
+     grid's rows, tracks and fill are completely unchanged — from the outside a
+     half pair reads as ONE full cell. That is what keeps the rectangle full (no
+     half-empty cell, no hole) and lets every row/column invariant (E, L, P, M)
+     keep measuring the same geometry as before; only U had to move, from
+     asserting the COMPONENT's height to asserting the SLOT's.
+     --cell-h is untouched at 130px: two halves get (130 - 4)/2 = 63px each.
+     A half box is TITLE-ONLY (build-data.mjs rejects a description on one), so its
+     title clamps to a single line and its padding tightens — at 63px there is room
+     for a kicker plus one title line with nothing clipping (invariant C). */
+  .half-slot { display:flex; flex-direction:column; gap:var(--s-1); min-width:0; min-height:0; }
+  .half-slot > .box { flex:1 1 0; min-height:0; }
+  .box.half { padding:var(--s-1) var(--s-3); justify-content:center; }
+  .box.half .t { -webkit-line-clamp:1; line-clamp:1; margin-bottom:0; }
+  /* In a COMPOUND row a .half-slot must behave exactly like the lone .box it
+     stands in for — content-sized, pinned to the row top, one cell tall — and
+     never grow into an equal flex share. Mirrors the `.sec-grid.sec-compound >
+     .box` rule above; invariant G fails if either ever balloons. */
+  .sec-grid.sec-compound > .half-slot { flex:0 0 auto; align-self:start; height:var(--cell-h); }
+
+  /* vertical — run the text down the block axis: a rotated lane label, the same
+     reading direction as `.rail-v`. Title-only for the same reason as `half`.
+     The clamp is released (a clamp counts LINES along the inline axis, which is
+     now vertical) and replaced by max-height + overflow so a long token clips
+     inside the title instead of growing the box past --cell-h (invariant C). */
+  .box.vertical { flex-direction:row; align-items:stretch; justify-content:center; gap:var(--s-2); }
+  .box.vertical .k, .box.vertical .t {
+    writing-mode:vertical-rl; transform:rotate(180deg);
+    display:block; -webkit-line-clamp:unset; line-clamp:unset;
+    margin-bottom:0; min-height:0; max-height:100%; overflow:hidden; text-align:center; }
 
   /* ── separator (component type: separator) ──
      A minimal divider LINE — NOT a box (no border/padding of a box). Lives in a
@@ -590,8 +825,13 @@
   .sep-h.sep-labeled.sep-dotted::before, .sep-h.sep-labeled.sep-dotted::after { border-top-style:dotted; }
   .sep-text { flex:0 0 auto; font-family:var(--mono); font-size:11px; letter-spacing:0.08em;
     text-transform:uppercase; color:var(--muted); white-space:nowrap; }
-  /* vertical: a thin full-height rule centered in the cell. */
-  .sep-v { justify-self:center; align-self:stretch; width:0; min-height:var(--zone-min-h);
+  /* vertical: a thin full-height rule centered in the cell.
+     min-height is 0 HERE and restored only for a COMPOUND row (below). The
+     shared --zone-min-h floor (180px) is a SECTION floor, and it contradicted
+     --cell-h (130px): a `.sep-v` sitting in a LEAF grid cell overflowed its own
+     row by 50px downward, over whatever the next row holds. In a leaf grid the
+     row IS the height contract, and align-self:stretch already fills it. */
+  .sep-v { justify-self:center; align-self:stretch; width:0; min-height:0;
     border-left:1px solid var(--line); }
   .sep-v.sep-dotted { border-left-style:dotted; }
 
@@ -603,8 +843,36 @@
     min-width:0; }
   .rail-title { font-family:var(--mono); font-size:13px; font-weight:700; letter-spacing:0.09em;
     text-transform:uppercase; color:var(--muted); text-align:center; }
-  .rail-v { align-self:stretch; min-height:var(--zone-min-h); }
+  /* min-height 0 for the same reason as .sep-v: in a leaf grid the row height is
+     the contract, and a --zone-min-h floor overflowed it by 50px. */
+  .rail-v { align-self:stretch; min-height:0; }
   .rail-v .rail-title { writing-mode:vertical-rl; transform:rotate(180deg); }
+  /* COMPOUND rows are where the stretch floor actually earns its keep: a lane
+     divider or a lane label sitting DIRECTLY beside nested sections has no row
+     track to fill (a compound grid is a flex row, not a track grid), so without
+     a floor a 0-width `.sep-v` / a slim `.rail-v` would collapse to nothing when
+     it is the tallest thing on the row. Restoring --zone-min-h ONLY here keeps
+     the BranchKinect-style phase timeline — five sections split by four vertical
+     separators — drawing full-height lines, while a leaf-grid cell obeys its row.
+     Scoped to the direct child so it never reaches into a nested leaf grid. */
+  /* The floor is --cell-h, not --zone-min-h: a floor ABOVE the row's own content
+     height stops being a floor and becomes the row height, stretching every
+     section beside it and opening a strip of dead space under their cards. One
+     cell is the smallest height at which a lane divider still reads as a
+     divider, and align-self:stretch already carries it past that whenever a
+     real sibling is taller. */
+  .sec-grid.sec-compound > .sep-v,
+  .sec-grid.sec-compound > .rail-v { min-height:var(--cell-h); }
+
+  /* ── spacer (component type: spacer) ──
+     The DECLARED HOLE: a cell occupant that draws nothing. It needs no paint at
+     all — a grid item stretches to its area by default, which is exactly the
+     behaviour wanted — so the rule only releases the intrinsic minimums, the same
+     two `.sep` and `.rail` release, so a spacer can never impose a floor on the
+     track it merely holds open. Its ONE visual claim is that it makes none: a
+     spacer is indistinguishable from an empty cell BY DESIGN, and what tells the
+     reader it was meant is the surrounding content, never a style here. */
+  .spacer { min-width:0; min-height:0; }
 
   /* selection + chip-driven highlight */
   .box.sel { border-color:var(--clay) !important; box-shadow:0 0 0 2px var(--clay); }
@@ -692,7 +960,7 @@
     <div class="sub">A portable, data-driven diagram</div>
     <div class="ver"></div>
   </div>
-  <div class="spacer"></div>
+  <div class="bar-spacer"></div>
   <div class="nav-cluster">
     <div class="pagenav" id="pagenav">
       <button class="navbtn" id="prev" title="Previous (←)" aria-label="Previous page">‹</button>
@@ -739,12 +1007,12 @@
         <rect class="il-muted" x="82" y="70" width="70" height="6" rx="2"/>
       </svg>
       <h3>1 · Component</h3>
-      <p>The atom of the diagram: one <b>box</b>. It carries a small status
-        badge, a <b>title</b>, and a short description. <span class="h-try">Click any box</span>
+      <p>The atom of the diagram: one <b>box</b>. It carries a small
+        <b>kicker</b>, a <b>title</b>, and a short description. <span class="h-try">Click any box</span>
         to open its full detail in the bottom bar.</p>
     </div>
 
-    <!-- 2 · STATUS / VARIANT -->
+    <!-- 2 · KICKER / VARIANT -->
     <div class="help-card">
       <svg class="h-illo" viewBox="0 0 260 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
         <rect class="il-box"    x="8"   y="34" width="42" height="30" rx="6"/>
@@ -755,8 +1023,8 @@
         <rect class="il-clay"   x="14"  y="40" width="24" height="7" rx="2"/>
         <text x="8" y="80" font-size="9">neutral · risk · weak · safe · external</text>
       </svg>
-      <h3>2 · Status &amp; variant</h3>
-      <p>The <b>status</b> is the word on the badge (<code>ENTRY</code>,
+      <h3>2 · Kicker &amp; variant</h3>
+      <p>The <b>kicker</b> is the small mark above the title (<code>ENTRY</code>,
         <code>EXPOSED</code>, <code>WEAK</code>, <code>NEW</code>, <code>HARDENED</code>…).
         The <b>variant</b> is the color/border that carries the meaning: red = risk,
         amber = weak, green = safe/new, dashed = external.</p>

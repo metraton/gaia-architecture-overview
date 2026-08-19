@@ -35,7 +35,11 @@
 // stacked tiers. The engine tags each grid `sec-c{N}` (authored
 // column count) and `sec-compound` (holds nested sections) so the CSS can step
 // each grid by its real width need; it emits `--cols` + `--span` and never a
-// literal grid-column (the container queries own the collapse).
+// literal grid-column (the container queries own the collapse). The ONE row
+// height that is not --cell-h is the SEPARATOR ROW: a row whose only occupants
+// are horizontal separators and declared holes is reduced to --sep-row-h,
+// emitted as a per-tier `grid-auto-rows` track list (see applyRowTracks) — the
+// separator stays a cell, only its row shrinks.
 //
 // Stable ids + order are preserved end-to-end so a future edit mode can
 // overlay a localStorage {id: order} map without touching this engine or
@@ -50,20 +54,42 @@
     return;
   }
 
-  // ── variant → CSS class maps (mirror the classes already in index.html) ──
+  // ── the TWO AXES → CSS class maps (mirror the classes in index.html) ──
+  // variant = the semantic COLOUR role (one value). treatment = STRUCTURAL
+  // modifiers (a list, composable). They are separate maps because they answer
+  // separate questions — see the axis note in engine/build-data.mjs, which is
+  // where both enums are validated. The engine only translates; it never decides
+  // what is legal.
   const COMPONENT_VARIANT = {
-    normal: '', crit: 'crit', warn: 'warn', ok: 'ok',
-    strong: 'strong', ext: 'ext', store: 'store',
-    // layout-only role (via variant_extra): center the box's text; no colour.
-    centered: 'centered'
+    neutral: '', good: 'good', warn: 'warn', bad: 'bad', accent: 'accent', muted: 'muted'
   };
-  // Section variants: normal (dashed zone), danger/safe (colored zone),
-  // envelope (borderless dashed container that groups nested sections), plain
-  // (a bare, border-free structural wrapper — used to stack sub-sections in one
-  // parent column with no extra frame).
-  const ZONE_VARIANT = {
-    normal: '', danger: 'danger', safe: 'safe', envelope: 'envelope', plain: 'plain'
+  const SECTION_VARIANT = {
+    neutral: '', good: 'good', bad: 'bad'
   };
+  // Component treatments:
+  //   centered — centre the text block
+  //   half     — occupy HALF a slot; two halves stack inside one full-height cell
+  //   vertical — run the text down the block axis (a rotated lane label). For a
+  //              `separator`/`rail` this is what the old `orientation: vertical`
+  //              spelled; folding it into `treatment` removes the parallel field.
+  //   outside  — dashed frame ("outside the perimeter"). Its CSS is
+  //              `border-style:dashed` and NOTHING else — no colour at all — so it
+  //              is a frame treatment, not a colour role, and it composes with any
+  //              variant instead of competing with one.
+  const COMPONENT_TREATMENT = {
+    centered: 'centered', half: 'half', vertical: 'vertical', outside: 'outside'
+  };
+  // Section treatments: envelope (borderless dashed container that groups nested
+  // sections), plain (a bare, border-free structural wrapper — used to stack
+  // sub-sections in one parent column with no extra frame).
+  const SECTION_TREATMENT = {
+    envelope: 'envelope', plain: 'plain'
+  };
+
+  const treatmentsOf = node => (Array.isArray(node && node.treatment) ? node.treatment : []);
+  const hasTreatment = (node, v) => treatmentsOf(node).includes(v);
+  // A half LEAF: only a component can occupy (and therefore divide) a slot.
+  const isHalfLeaf = c => c && !Array.isArray(c.children) && hasTreatment(c, 'half');
 
   // Default column count for a section's grid when it omits `columns`.
   const DEFAULT_SECTION_COLUMNS = 2;
@@ -75,6 +101,9 @@
     return n;
   };
 
+  // Compose a leaf's classes from BOTH axes: one colour role (+ an optional second
+  // via variant_extra) and any number of structural treatments. The two never
+  // collide because their value sets are disjoint and enforced at build time.
   function componentClasses(comp) {
     const parts = ['box'];
     const v = COMPONENT_VARIANT[comp.variant] ?? '';
@@ -82,6 +111,10 @@
     for (const extra of comp.variant_extra || []) {
       const ev = COMPONENT_VARIANT[extra] ?? '';
       if (ev && !parts.includes(ev)) parts.push(ev);
+    }
+    for (const t of treatmentsOf(comp)) {
+      const tv = COMPONENT_TREATMENT[t] ?? '';
+      if (tv && !parts.includes(tv)) parts.push(tv);
     }
     return parts.join(' ');
   }
@@ -102,13 +135,13 @@
 
   // Build one .box for a component (a leaf — no `children`). Also fills the
   // detail registry so the panel can look it up on click by data-k. (`kicker`
-  // is the presentation eyebrow line that renders the component's `status`.)
+  // is the small mark above the title — it names no state, it is just the mark.)
   function buildBox(comp, detailRegistry) {
     const box = el('div', componentClasses(comp), { 'data-k': comp.id });
-    if (comp.status) { const k = el('div', 'k'); k.textContent = comp.status; box.appendChild(k); }
+    if (comp.kicker) { const k = el('div', 'k'); k.textContent = comp.kicker; box.appendChild(k); }
     const t = el('div', 't'); t.textContent = comp.title || ''; box.appendChild(t);
     const rawDesc = comp.description;
-    const lines = Array.isArray(rawDesc) ? rawDesc : (rawDesc != null ? [rawDesc] : []);
+    const lines = Array.isArray(rawDesc) ? rawDesc : (rawDesc !== null && rawDesc !== undefined ? [rawDesc] : []);
     // Description lines live in ONE `.desc` container so CSS can clamp the whole
     // description to a fixed number of visual lines (see .box .desc line-clamp),
     // keeping every box at the same fixed --cell-h regardless of line count. The
@@ -119,13 +152,14 @@
       box.appendChild(descBox);
     }
 
-    // filter membership → data attribute for the inverted index
+    // The attribute IS the only record of membership: setFlow re-reads it off
+    // the DOM on every chip click, so no filter→nodes map is built anywhere.
     if (Array.isArray(comp.filters) && comp.filters.length) {
       box.setAttribute('data-filters', comp.filters.join(' '));
     }
 
     detailRegistry[comp.id] = {
-      kicker: comp.status || '',
+      kicker: comp.kicker || '',
       title: comp.title || '',
       facts: lines.join(' · '),
       // detail falls back to joined description when absent
@@ -144,7 +178,9 @@
   // is honored by the caller (buildGrid) exactly like any component. Not
   // clickable — no detail registry entry.
   function buildSeparator(sep) {
-    const orient = sep.orientation === 'vertical' ? 'v' : 'h';
+    // Orientation comes from the `vertical` TREATMENT (the old `orientation:`
+    // field was the same switch under a second name — one axis, one spelling).
+    const orient = hasTreatment(sep, 'vertical') ? 'v' : 'h';
     const style = sep.style === 'dotted' ? 'dotted' : 'solid';
     const node = el('div', `sep sep-${orient} sep-${style}`);
     if (orient === 'h' && sep.text) {
@@ -156,14 +192,172 @@
 
   // Build a `rail` component (a leaf, `type: rail`): a swimlane-style LABEL,
   // styled like a component/box but carrying ONLY a `title` (no
-  // status/description/detail). `orientation: vertical` renders the title
+  // kicker/description/detail). `orientation: vertical` renders the title
   // rotated (vertical text) for swimlane labeling; default horizontal is a slim
   // title-only box. Span is honored by the caller. Not clickable.
   function buildRail(rail) {
-    const orient = rail.orientation === 'vertical' ? 'v' : 'h';
+    // Orientation comes from the `vertical` TREATMENT — see buildSeparator.
+    const orient = hasTreatment(rail, 'vertical') ? 'v' : 'h';
     const node = el('div', `rail rail-${orient}`);
     const t = el('div', 'rail-title'); t.textContent = rail.title || ''; node.appendChild(t);
     return node;
+  }
+
+  // Build a `spacer` component (a leaf, `type: spacer`): the DECLARED HOLE. It
+  // occupies its grid cell exactly like any other leaf — `span` and `rowspan` are
+  // honored by the caller — and draws nothing at all: no frame, no ink, no text,
+  // no click. That is what lets a rectangle close without inventing content for
+  // the cell (principle 9: an unmeant hole is closed, a meant one is declared).
+  // It carries no payload BY SCHEMA (SPACER_FIELDS in build-data.mjs), so there is
+  // nothing here to read off the node.
+  function buildSpacer() { return el('div', 'spacer'); }
+
+  // ── THE SEPARATOR ROW (the third row-height family) ─────────────────────
+  // A `separator` is a leaf COMPONENT, so it occupies a whole cell: it drew one
+  // pixel of ink and was charged the full --cell-h. The fix is NOT to stop it
+  // being a cell (principle 1 — everything visible is a merged cell — stands):
+  // a row whose ONLY occupants are horizontal separators gets a REDUCED TRACK
+  // HEIGHT (--sep-row-h), emitted below as a `grid-auto-rows` track list.
+  //
+  // A VERTICAL separator is EXCLUDED on purpose. Its ink IS the row height (a
+  // `.sep-v` is a line as tall as its row), so thinning its row would shorten
+  // the drawing rather than fit the drawing — the opposite of the intent. Only
+  // a horizontal separator draws across the row and needs none of its height.
+  //
+  // A `spacer` IS thin, and for the row's own reason rather than the spacer's:
+  // a row composed only of RULES and DECLARED HOLES carries no cell-height
+  // content — it is a ONE-LINE row — and a declared hole inside it is the
+  // absence of a RULE, not the absence of a BOX. Charging that hole a full
+  // --cell-h would let the cell a rule chose NOT to reach set the height of the
+  // row the rule lives in. A spacer beside ORDINARY cells is untouched: `every`
+  // still fails on those cells, so that row keeps --cell-h.
+  const isLeafOfType = (c, t) => c && !Array.isArray(c.children) && c.type === t;
+  const isThinRowLeaf = c => isLeafOfType(c, 'spacer')
+    || (isLeafOfType(c, 'separator') && !hasTreatment(c, 'vertical'));
+
+  // ── THE PLACEMENT MODEL ─────────────────────────────────────────────────
+  // Three pieces — widthAtTier, isBandAtTier, rowOccupants — and they are the
+  // ONE thing this engine shares with tools/check-layout.mjs (`place`), which
+  // mirrors them because a Node gate cannot import a browser script: an ES
+  // module is CORS-blocked from `file://` (origin 'null'), and the deck's
+  // contract is that it opens with a double click. The mirror is not trusted, it
+  // is TESTED — tools/test-guards.mjs extracts these functions from this file's
+  // real source and asserts they agree with the gate's copy over a corpus of
+  // grid shapes. Change the model here and that test tells you the gate drifted.
+
+  // How many TRACKS a slot occupies at a given tier, mirroring the CSS in
+  // index.html: `.msp` (span == cols) is grid-column:1/-1 at every tier, while
+  // `.mspan` keeps its PROPORTION — span var(--span) at the authored tier,
+  // var(--span2) = round(span/cols·2) at the 2-track tier, and 1/-1 at the
+  // 1-track endpoint.
+  function widthAtTier(span, cols, tracks) {
+    if (tracks === cols) return span;
+    if (span >= cols) return tracks;
+    return Math.max(1, Math.min(tracks, Math.round(span / cols * tracks)));
+  }
+
+  // Whether a slot OWNS ITS ROW at this tier. The test is the width it resolves
+  // to, never the authored span, because band-ness is TIER-RELATIVE in the CSS:
+  // at the 640px endpoint `.sec-grid:not(.sec-compound) > .mspan` becomes
+  // grid-column:1/-1, so a partial merge IS a band there; and a span that fills
+  // both tracks of the 2-track tier already spans the whole row (the reason the
+  // engine emits --span2 at all). `span >= cols` describes the .msp CLASS, which
+  // is the authored tier's answer to a tier-relative question.
+  function isBandAtTier(w, tracks) { return w >= tracks; }
+
+  // CSS GRID SPARSE AUTO-PLACEMENT, SIMULATED — which row a slot lands on is a
+  // pure function of the flow, so it can be derived instead of measured. Returns,
+  // per row, the slot NODES that occupy it (a rowspan slot occupies every row it
+  // covers, so a row a taller cell passes through is never seen as empty).
+  // `grid-auto-flow` is row/SPARSE: the cursor never moves backwards, and a band
+  // carries a definite full-width column position so it cannot share a row.
+  function rowOccupants(items, tracks) {
+    const occ = new Set();
+    const rows = [];
+    const key = (r, c) => r + ',' + c;
+    const free = (r, c, w, h) => {
+      if (c + w > tracks) return false;
+      for (let i = 0; i < h; i++) for (let j = 0; j < w; j++) if (occ.has(key(r + i, c + j))) return false;
+      return true;
+    };
+    const fill = (r, c, w, h, node) => {
+      for (let i = 0; i < h; i++) {
+        if (!rows[r + i]) rows[r + i] = [];
+        rows[r + i].push(node);
+        for (let j = 0; j < w; j++) occ.add(key(r + i, c + j));
+      }
+    };
+    let cr = 0, cc = 0, guard;
+    for (const it of items) {
+      const w = Math.max(1, Math.min(it.w, tracks)), h = Math.max(1, it.h);
+      if (isBandAtTier(w, tracks)) {
+        let r = cc > 0 ? cr + 1 : cr; guard = 0;
+        while (!free(r, 0, tracks, h) && guard++ < 10000) r++;
+        fill(r, 0, tracks, h, it.node);
+        cr = r; cc = tracks;                   // the row is full: the next wraps
+        continue;
+      }
+      if (cc + w > tracks) { cr++; cc = 0; }
+      guard = 0;
+      while (!free(cr, cc, w, h) && guard++ < 10000) {
+        cc++;
+        if (cc + w > tracks) { cr++; cc = 0; }
+      }
+      fill(cr, cc, w, h, it.node);
+      cc += w;
+    }
+    return rows;
+  }
+
+  // The `grid-auto-rows` TRACK LIST for one track count: one entry per row,
+  // --sep-row-h where the row's only occupants are thin leaves (a horizontal
+  // separator or a declared hole) and --cell-h everywhere else. Returns null
+  // when NO row is thin, so a grid without one is left on the plain fixed-row
+  // default (no inline style). A row with NO occupant at all (an UNdeclared
+  // interior hole — RECT/HOLE in `npm run check` owns that defect) keeps
+  // --cell-h: an empty track is not a thin row, and only a hole someone
+  // DECLARED with a spacer earns the reduced height.
+  function rowTrackList(items, tracks) {
+    const rows = rowOccupants(items, tracks);
+    let thin = false;
+    const out = [];
+    for (let r = 0; r < rows.length; r++) {
+      const occupants = rows[r] || [];
+      const isThin = occupants.length > 0 && occupants.every(isThinRowLeaf);
+      if (isThin) thin = true;
+      out.push(isThin ? 'var(--sep-row-h)' : 'var(--cell-h)');
+    }
+    // A declared hole on the LAST row ABSORBS the section's slack. A section is
+    // stretched to the height of the tallest one beside it, and its fixed rows
+    // do not grow — so without this the leftover collects BELOW the grid as an
+    // undeclared hole the author never wrote, defeating the one thing a trailing
+    // spacer is for. `minmax` keeps --sep-row-h as the floor when there is no
+    // slack to absorb.
+    const last = rows[rows.length - 1] || [];
+    if (thin && last.length > 0 && last.every(isThinRowLeaf))
+      out[out.length - 1] = 'minmax(var(--sep-row-h), 1fr)';
+    return thin ? out.join(' ') : null;
+  }
+
+  // Emit one track list PER COLLAPSE TIER. The placement is a function of the
+  // track count (widthAtTier above), so the separator-only rows move as the grid
+  // cascades …→2→1. Each tier is computed independently — a separator that SHARES
+  // its row with boxes at the authored width but ends up alone at 2 tracks is
+  // correctly thin only in that tier's list. Nothing is emitted for a tier with
+  // no separator row, so the CSS var() falls back to --cell-h.
+  function applyRowTracks(grid, slots, cols) {
+    const at = (tracks) => slots.map(slot => {
+      const node = slot.pair ? slot.pair[0] : slot.child;
+      const span = Math.max(1, Math.min(node.span || 1, cols));
+      return { node, w: widthAtTier(span, cols, tracks),
+        h: Math.max(1, Math.floor(Number(node.rowspan) || 1)) };
+    });
+    const tiers = [['--row-tracks', cols], ['--row-tracks-2', 2], ['--row-tracks-1', 1]];
+    for (const [prop, tracks] of tiers) {
+      if (tracks > cols) continue;                 // no tier widens a grid
+      const list = rowTrackList(at(tracks), tracks);
+      if (list) grid.style.setProperty(prop, list);
+    }
   }
 
   function sectionHeader(sec) {
@@ -197,6 +391,36 @@
     // not hardcoded to any id, so it stays true if the content changes.
     const kids = children || [];
     const isCompound = kids.some(c => Array.isArray(c.children));
+
+    // ── HALF-SLOT PAIRING (the `half` treatment) ────────────────────────────
+    // `half` does NOT shrink a cell — it DIVIDES a slot. Two consecutive half
+    // leaves are wrapped in ONE `.half-slot`, which is what actually occupies the
+    // grid cell: the slot keeps the full --cell-h and the two components split it
+    // vertically. That is the whole point of the design: the rectangle stays FULL
+    // (no half-empty cell, no hole), the grid's row geometry is untouched, and
+    // every row/column invariant (E, L, P, M) keeps measuring one slot per cell
+    // exactly as before. The only invariant that has to move is U, which now
+    // asserts the height of the SLOT rather than of the component (a half
+    // component is legitimately ~half of --cell-h).
+    //
+    // Pairing is by ADJACENCY in render order, so the author chooses the partner
+    // by placement. An odd run and a span disagreement are both rejected at build
+    // time (checkHalfPairing in build-data.mjs), so by the time we get here a run
+    // of halves is always even and internally consistent.
+    //
+    // COMPUTED BEFORE the column clamp below ON PURPOSE: a pair is ONE slot, so
+    // counting the two halves as two fillable cells would let an over-authored
+    // `columns` reserve a dead track (invariant E). The clamp counts SLOTS.
+    const ordered = orderedChildren(children);
+    const slots = [];
+    for (let i = 0; i < ordered.length; i++) {
+      if (isHalfLeaf(ordered[i]) && isHalfLeaf(ordered[i + 1])) {
+        slots.push({ pair: [ordered[i], ordered[i + 1]] });
+        i++;
+      } else {
+        slots.push({ child: ordered[i] });
+      }
+    }
     // GROW-WITH-CONTENT / NO RESERVED EMPTY COLUMN. A LEAF grid renders EQUAL
     // `fr` tracks, so an authored column count LARGER than the content needs
     // would reserve empty tracks on the right (a "column vacia"). Clamp a leaf
@@ -210,9 +434,10 @@
     // reserves an empty track and is left at its authored count. Bands and the
     // sec-c{N} collapse class both derive from this clamped count, so the whole
     // grid stays self-consistent as it cascades …→2→1.
-    if (!isCompound && kids.length) {
+    if (!isCompound && slots.length) {
       let singleCells = 0, maxSpan = 1;
-      for (const c of kids) {
+      for (const slot of slots) {
+        const c = slot.pair ? slot.pair[0] : slot.child;   // a pair is ONE slot
         const s = Math.max(1, Math.min(c.span || 1, cols));
         if (s === 1) singleCells++; else if (s > maxSpan) maxSpan = s;
       }
@@ -223,14 +448,29 @@
     if (isCompound) classes.push('sec-compound');
     const grid = el('div', classes.join(' '));
     grid.style.setProperty('--cols', String(cols));
-    for (const child of orderedChildren(children)) {
-      // A child WITH `children` is a section (recurse). A leaf dispatches on its
-      // `type`: separator | rail | box (default when `type` is absent/"box", so
-      // existing components render unchanged).
-      const node = Array.isArray(child.children) ? buildSection(child, reg)
-        : child.type === 'separator' ? buildSeparator(child)
-        : child.type === 'rail' ? buildRail(child)
-        : buildBox(child, reg);
+    // THE SEPARATOR ROW. Only a LEAF grid has row tracks to size (a compound
+    // grid is a flex-wrap row of sections), and the clamped `cols` above is the
+    // real track count, so this runs here — after the clamp, before the children.
+    if (!isCompound) applyRowTracks(grid, slots, cols);
+
+    for (const slot of slots) {
+      // A PAIR renders as a .half-slot wrapper holding the two half boxes; the
+      // wrapper is the grid cell, so `span`/`rowspan` below apply to IT, and both
+      // halves were validated to declare the same span.
+      // A single child renders as before: a nested section, or a leaf dispatched
+      // on its `type` (separator | rail | spacer | box, default box).
+      const child = slot.pair ? slot.pair[0] : slot.child;
+      let node;
+      if (slot.pair) {
+        node = el('div', 'half-slot');
+        for (const halfChild of slot.pair) node.appendChild(buildBox(halfChild, reg));
+      } else {
+        node = Array.isArray(child.children) ? buildSection(child, reg)
+          : child.type === 'separator' ? buildSeparator(child)
+          : child.type === 'rail' ? buildRail(child)
+          : child.type === 'spacer' ? buildSpacer()
+          : buildBox(child, reg);
+      }
       // HORIZONTAL MERGE. `span == cols` is a full-width BAND (.msp,
       // grid-column:1/-1 — unchanged: takes its own row edge-to-edge). A PARTIAL
       // span (1 < span < cols) is .mspan and occupies EXACTLY that many tracks via
@@ -277,8 +517,11 @@
   // grid. This ONE function replaces every former per-shape builder — there is
   // no special-casing by shape anymore.
   function buildSection(sec, reg) {
-    const vclass = ZONE_VARIANT[sec.variant] ?? '';
-    const zone = el('section', ['zone', vclass].filter(Boolean).join(' '), { 'data-zone': sec.id });
+    // Both axes again: the colour role tints the zone, the treatments decide
+    // whether (and how) its frame is drawn at all.
+    const classes = ['zone', SECTION_VARIANT[sec.variant] ?? ''];
+    for (const t of treatmentsOf(sec)) classes.push(SECTION_TREATMENT[t] ?? '');
+    const zone = el('section', classes.filter(Boolean).join(' '), { 'data-zone': sec.id });
     // Titleless container: draw no header when the section declares no
     // title/subtitle — so a pure structural wrapper (e.g. a `plain`
     // stack) shows only its children's frames, with no empty header line.
@@ -292,7 +535,16 @@
     const detailRegistry = {};
     const filters = page.filters || [];
 
-    const act = el('section', pageIndex === 0 ? 'act active' : 'act', { 'data-act': String(pageIndex) });
+    // `data-page-id` is the page's STABLE IDENTITY on the render. `data-act` is a
+    // POSITION, and position is not identity: any tool that joined a rendered
+    // `.act` to its manifest entry by INDEX silently mismatched the moment the
+    // rendered set differed from the authored set (a dropped page shifts every
+    // later act, so a page gets reported under its neighbour's name AND its
+    // neighbour's `form` — which then scopes the wrong invariants and reads the
+    // wrong authored spans). Stamping the id lets a consumer join by identity.
+    // See the id-keyed lookups in tools/validate-layout.cjs (discovery, measure).
+    const act = el('section', pageIndex === 0 ? 'act active' : 'act',
+      { 'data-act': String(pageIndex), 'data-page-id': String(page.id) });
 
     // filter chips bar. Default (no selection) MUST show everything, undimmed
     // — so the reset chip ('all') is always present and always the one
@@ -306,7 +558,7 @@
     // existed as a key — clicking any OTHER chip then had no way back to a
     // fully unfiltered view.
     const actbar = el('div', 'actbar');
-    actbar.appendChild(el('span', 'spacer'));
+    actbar.appendChild(el('span', 'bar-spacer'));
     const chips = el('div', 'chips');
     if (!filters.some(f => f.key === 'all')) {
       const allChip = el('button', 'chip on');
@@ -420,7 +672,12 @@
       clearLit();
       if (key === 'all') { stage.classList.remove('flowing'); closePanel(); return; }
       stage.classList.add('flowing');
-      // inverted index: a component/zone lights up because IT declares the filter
+      // A LINEAR SCAN, on purpose: every box in the act re-reads and splits its
+      // own data-filters on each click. Measured on a 1968-box deck that scan is
+      // 0.6ms of an ~80ms click — the remaining ~76ms is the browser restyling
+      // opacity across the deck — so a prebuilt filter→nodes index would buy
+      // nothing. A box lights up because IT declares the filter; a zone lights
+      // up derivatively, because one of its boxes did.
       const litZones = new Set();
       nodes.forEach(n => {
         const fs = (n.getAttribute('data-filters') || '').split(/\s+/).filter(Boolean);
@@ -502,7 +759,7 @@
         if (moved) suppressClick = true; // this was a pan, not a click on a box
         canvas.classList.remove('dragging');
         moved = false;
-        if (captured && e && e.pointerId != null) { try { canvas.releasePointerCapture(e.pointerId); } catch (_) { /* ignore */ } }
+        if (captured && e && e.pointerId !== null && e.pointerId !== undefined) { try { canvas.releasePointerCapture(e.pointerId); } catch (_) { /* ignore */ } }
         captured = false;
       };
       canvas.addEventListener('pointerup', endDrag);
