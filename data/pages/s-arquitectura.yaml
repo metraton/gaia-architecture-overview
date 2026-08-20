@@ -13,39 +13,36 @@
 #      compartida sino tres pesos distintos y dos alturas libres.
 #      LA COLUMNA IZQUIERDA ES LA CAPA DE GAIA, no "el momento antes de la
 #      persona": arriba lo que Gaia EMPUJA sola al abrir (SessionStart), abajo
-#      lo que RESPONDE cuando se le pide. Sus filas son LÍNEAS FINAS
-#      (`type: separator` con `text`), no celdas: una fila cuyos únicos
-#      ocupantes son separators horizontales cae a --sep-row-h (40px), y cada
-#      sección es `columns:1` — un solo track. Eso es lo que hace caber la capa
+#      lo que RESPONDE cuando se le pide. Sus filas son RIELES-BANDA
+#      (`type: rail` a span == columns — el mismo componente que hdr-gaia,
+#      `.rail.rail-h.msp`, pedido por el usuario señalando ese banner): un
+#      rail horizontal sin rowspan es un thin leaf y su fila se emite `auto`
+#      — 33px con título de una línea, 48px con dos (regla del motor,
+#      espejada en check-layout y asserted por AGREE/thin; el techo de dos
+#      líneas por título lo asserta RAILT). Eso es lo que hace caber la capa
 #      donde antes había un hueco: el blanco bajo SessionStart era la
 #      afirmación de la versión anterior y esta página lo GASTA a propósito.
 #      ARITMÉTICA DE LA COLUMNA (medida en el render, no estimada): cabecera de
-#      sección = 16 (título) + 4 + 14 por línea de subtítulo; una sección
-#      envelope de n líneas finas con subtítulo de UNA línea mide 68 + 48n.
-#      El modelo de la pila 4 + 3 es 260 + 8 + 212 = 480px contra los 482px de
-#      `human-side`; una QUINTA línea (+48px) NO cabe, y un subtítulo de dos
-#      líneas (+14px por sección) tampoco. Por eso los subtítulos son de una
-#      línea y la narrativa larga vive en los `steps` del chip `sesion-abre`.
-#      EL RENDER MIDE 16px MÁS QUE EL MODELO, y es un costo aceptado: un
-#      título de sección de ~30 caracteres infla la flex-basis de su zona en
-#      una línea de título (+16px, medido en Chromium: con ese título a ≤23
-#      caracteres la zona vuelve a su modelo de 212; "SessionStart", 12, no
-#      infla). CON el título viejo de 30 caracteres ("gaia · what I answer on
-#      demand") ss-pull dibujaba 228, la banda quedaba en 496 y el lado
-#      derecho absorbía 14px bajo human-loop — bordes inferiores desalineados
-#      14px. Esta reescritura retitula ss-pull a "what I answer on demand"
-#      (23 caracteres, exactamente en el piso ≤23 del costo aceptado): la
-#      zona vuelve a su modelo de 212px y el desfase MEDIDO (getBoundingClientRect
-#      de .zone[data-zone=ss-pull] vs .zone[data-zone=human-loop] a 2560px) baja
-#      de 14px a 2px — el mismo margen de 480-vs-482 que ya era el modelo
-#      ACEPTADO antes de que el título de 30 caracteres lo rompiera, no un
-#      defecto residual nuevo.
+#      sección = 16 (título) + 4 + 14 por línea de subtítulo; envelope 34,
+#      gap bajo cabecera 8, gap entre filas 8. ss-push (subtítulo de una
+#      línea, rieles 33+33+33+48) = 76 + 147 + 24 = 247; ss-pull (subtítulo
+#      de DOS líneas, rieles 33+48+33) = 34 + 48 + 8 + 114 + 16 = 220.
+#      La pila 4 + 3 es 247 + 8 + 220 = 475px contra los 482px de
+#      `human-side` (residual 7px bajo la pila); una QUINTA banda (+41px) NO
+#      cabe. La narrativa larga vive en los `steps` del chip `sesion-abre`.
+#      COSTO DE TÍTULO >23 CARACTERES, medido y aceptado: un título de
+#      sección de ~30 caracteres infla la flex-basis de su zona en una línea
+#      de título (+16px, medido en Chromium: a ≤23 caracteres la zona vuelve
+#      a su modelo; "SessionStart", 12, no infla; el episodio completo — el
+#      título de 30 que desalineó los bordes inferiores 14px — está en el
+#      historial de este archivo). Por eso "Orchestration tooling" tiene 21.
 #      PESOS (por qué 3/7 de 10, números del render): a peso 3 la columna mide
-#      371.4px — 337.4 interiores, ~305px útiles para un `sep-text` (nowrap,
-#      7.5px/carácter medido) — y deja a lifetime 738.6px contra su piso
-#      word-fit de 711.2px y a s-prompt 120.0px, EXACTAMENTE en su piso de
-#      120px. Subir la columna a ~390px (labels más largos) deja ambos pisos a
-#      <12px con ruido flex medido de ±5px: descartado.
+#      371.4px — 337.4 interiores, 303.4px útiles para un `.rail-title`
+#      (mono 13px + 0.09em ≈ 9.0px/carácter → 33 caracteres por línea) — y
+#      deja a lifetime 738.6px contra su piso word-fit de 711.2px y a
+#      s-prompt 120.0px, EXACTAMENTE en su piso de 120px. Subir la columna a
+#      ~390px (labels más largos) deja ambos pisos a <12px con ruido flex
+#      medido de ±5px: descartado.
 #      POR QUÉ s-prompt SIGUE SIENDO UNA CAJA ALTA EN SU ENVOLTORIO `plain`:
 #      en un nivel compuesto una celda suelta es `flex:0 0 auto;
 #      height:--cell-h` y `rowspan` no existe (`.mrsp` sólo aplica en grilla
@@ -56,7 +53,7 @@
 #      tres: la aritmética lo impide (ver ARITMÉTICA abajo). El eje horizontal
 #      hace eco del eje temporal de la banda 1 y lo DECLARA en su subtítulo.
 #   3. LA CLI DEL ORQUESTADOR — sus seis pilares, columns:3 (dos filas de
-#      tres), CAJAS no líneas finas. Ni un módulo de hook ni el piso de
+#      tres), CAJAS no rieles-banda. Ni un módulo de hook ni el piso de
 #      auditoría: su propio instrumento, por eso entra DESPUÉS de los módulos
 #      y ANTES del piso. Rationale y aritmética de grid-shape en el comentario
 #      de la sección misma.
@@ -175,21 +172,28 @@ sections:
 
       # ── LA CAPA PROPIA DE GAIA · push arriba, pull abajo. Un envoltorio
       # `plain` de una columna: sus dos hijas son bands (span == columns == 1)
-      # y se apilan. Cada sección es una lista de LÍNEAS FINAS — `separator`
-      # con `text`, un solo track, filas de 40px — no una grilla de celdas; la
-      # aritmética de la pila y de los pesos vive en la cabecera del archivo.
-      # Un separator no es clickeable y no lleva `detail` NI `filters` (el
-      # motor sólo emite data-filters en buildBox — el check LIT lo asserta),
-      # así que la narrativa de estos bloques vive en el subtítulo de cada
-      # sección y en los `steps` del chip `sesion-abre` — y la banda 1 PIERDE
-      # su miembro de ese chip: quedan pc-render y pc-memory (ARITY ≥ 2).
-      # Las cuatro líneas cubren las OCHO llamadas de build_session_context
+      # y se apilan. Cada sección es una pila de RIELES-BANDA — `type: rail`
+      # a span == columns, la MISMA forma autorada que hdr-gaia y por eso el
+      # mismo componente renderizado (`.rail.rail-h.msp`): el usuario señaló
+      # ese banner y pidió que cada ítem de esta columna fuera ESO. El ancho
+      # completo es la afirmación (pertenencia a la capa), y la fila de cada
+      # riel es FINA por la regla del motor: un rail horizontal sin rowspan es
+      # un thin leaf y su fila se emite `auto` (33px una línea, 48px dos) —
+      # la aritmética de la pila y de los pesos vive en la cabecera del
+      # archivo, y el techo de DOS líneas por título lo asserta RAILT.
+      # Un rail es title-only: no es clickeable y no lleva `detail` NI
+      # `filters` (el motor sólo emite data-filters en buildBox — el check
+      # LIT lo asserta), así que la narrativa de estos bloques vive en el
+      # subtítulo de cada sección y en los `steps` del chip `sesion-abre` —
+      # y la banda 1 PIERDE su miembro de ese chip: quedan pc-render y
+      # pc-memory (ARITY ≥ 2).
+      # Las cuatro bandas cubren las OCHO llamadas de build_session_context
       # (hooks/modules/session/session_manifest.py, en su orden): environment
-      # + projects index (línea 1), contracts index (línea 2), los tres
-      # bloques zero-noise — notifications, drift, suspensions — (línea 3) y
-      # el worklist (línea 4). La octava — los anchors, «lo que sé de vos» —
-      # NO está dibujada: es la quinta línea que los 482px no admiten
-      # (480 + 48 > 482).
+      # + projects index (banda 1), contracts index (banda 2), los tres
+      # bloques zero-noise — notifications, drift, suspensions — (banda 3) y
+      # el worklist (banda 4). La octava — los anchors, «lo que sé de vos» —
+      # NO está dibujada: es la quinta banda que los 482px no admiten
+      # (475 + 41 > 482).
       - id: s-open
         treatment: [plain]
         order: 2
@@ -202,51 +206,61 @@ sections:
             treatment: [envelope]
             order: 1
             span: 1
-            columns: 1
+            columns: 2
             children:
               - id: sp-env
-                type: separator
+                type: rail
                 order: 1
-                span: 1
-                text: "System context aware"
+                span: 2
+                title: "System context aware"
               - id: sp-contracts
-                type: separator
+                type: rail
                 order: 2
-                span: 1
-                text: "Workspace and projects map"
+                span: 2
+                title: "Workspace and projects map"
               - id: sp-anchors
-                type: separator
+                type: rail
                 order: 3
-                span: 1
-                text: "Memory about you"
+                span: 2
+                title: "Memory about you"
               - id: sp-worklist
-                type: separator
+                type: rail
                 order: 4
-                span: 1
-                text: "Memory · open threads / pending tasks"
+                span: 2
+                title: "Memory · open threads / pending tasks"
+          # El título quedó en 21 caracteres A PROPÓSITO: el costo medido de un
+          # título de sección >23 caracteres es +16px de flex-basis (una línea
+          # de título), documentado en la cabecera del archivo.
+          # El subtítulo carga las TRES cosas que los tres rieles solos no
+          # pueden decir: que este instrumento es la CLI de gaia, el reclamo
+          # del help (un verbo ausente de sus lanes está negado igual que uno
+          # que no existe — la negación no es una feature faltante, es trabajo
+          # con dueño con nombre), y el puntero hacia abajo: el inventario de
+          # seis pilares vive en su propia banda (root order 3), con click,
+          # detail y chips que un rail no puede cargar.
           - id: ss-pull
-            title: "what I answer on demand"
-            subtitle: "absent here = denied, not missing ↓"
+            title: "Orchestration tooling"
+            subtitle: "the gaia CLI · absent from its lanes = denied, not missing — a named owner has it · six pillars below ↓"
             treatment: [envelope]
             order: 2
             span: 1
-            columns: 1
+            columns: 2
             children:
               - id: pl-ficha
-                type: separator
+                type: rail
                 order: 1
-                span: 1
-                text: "Read lane · changes nothing"
+                span: 2
+                title: "Read lane · changes nothing"
               - id: pl-memory
-                type: separator
+                type: rail
                 order: 2
-                span: 1
-                text: "Coordination writes · bounded shapes"
+                span: 2
+                title: "Coordination writes · bounded shapes"
               - id: pl-approvals
-                type: separator
+                type: rail
                 order: 3
-                span: 1
-                text: "Delegated · a named owner has it"
+                span: 2
+                title: "Delegated · a named owner has it"
 
       # ── TODO LO QUE CUELGA DEL PROMPT. Otro nivel compuesto: la barra del
       # humano (peso 1), la vida del trabajo (peso 6) y, en su propia fila,
@@ -684,7 +698,7 @@ sections:
   #     luego las notas al pie. Por eso accounting pasa a order:4 y footnotes
   #     a order:5.
   #
-  #     Estas son CAJAS, no líneas finas: llevan kicker/title/description/
+  #     Estas son CAJAS, no rieles-banda: llevan kicker/title/description/
   #     detail/filters, la gramática de los módulos de arriba, no la de
   #     ss-push/ss-pull — LIT no las alcanza.
   #
