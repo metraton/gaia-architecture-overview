@@ -35,11 +35,13 @@
 // stacked tiers. The engine tags each grid `sec-c{N}` (authored
 // column count) and `sec-compound` (holds nested sections) so the CSS can step
 // each grid by its real width need; it emits `--cols` + `--span` and never a
-// literal grid-column (the container queries own the collapse). The ONE row
-// height that is not --cell-h is the SEPARATOR ROW: a row whose only occupants
-// are horizontal separators and declared holes is reduced to --sep-row-h,
-// emitted as a per-tier `grid-auto-rows` track list (see applyRowTracks) — the
-// separator stays a cell, only its row shrinks.
+// literal grid-column (the container queries own the collapse). The row heights
+// that are not --cell-h are the THIN ROWS: a row whose only occupants are thin
+// leaves (a horizontal separator, a horizontal no-rowspan rail, a declared
+// hole) is reduced — to --sep-row-h for separators and holes, to its own
+// content height for a row that holds a rail — emitted as a per-tier
+// `grid-auto-rows` track list (see applyRowTracks). The leaf stays a cell,
+// only its row shrinks.
 //
 // Stable ids + order are preserved end-to-end so a future edit mode can
 // overlay a localStorage {id: order} map without touching this engine or
@@ -212,17 +214,20 @@
   // nothing here to read off the node.
   function buildSpacer() { return el('div', 'spacer'); }
 
-  // ── THE SEPARATOR ROW (the third row-height family) ─────────────────────
+  // ── THE THIN ROW (the third row-height family) ──────────────────────────
   // A `separator` is a leaf COMPONENT, so it occupies a whole cell: it drew one
   // pixel of ink and was charged the full --cell-h. The fix is NOT to stop it
   // being a cell (principle 1 — everything visible is a merged cell — stands):
-  // a row whose ONLY occupants are horizontal separators gets a REDUCED TRACK
-  // HEIGHT (--sep-row-h), emitted below as a `grid-auto-rows` track list.
+  // a row whose ONLY occupants are thin leaves gets a REDUCED TRACK HEIGHT,
+  // emitted below as a `grid-auto-rows` track list.
   //
-  // A VERTICAL separator is EXCLUDED on purpose. Its ink IS the row height (a
-  // `.sep-v` is a line as tall as its row), so thinning its row would shorten
-  // the drawing rather than fit the drawing — the opposite of the intent. Only
-  // a horizontal separator draws across the row and needs none of its height.
+  // A HORIZONTAL rail with no `rowspan` is thin for the separator's own reason:
+  // it carries exactly one banner line of text, the same ink as a separator,
+  // and charging it a full --cell-h turns a label into a tower. Its two
+  // EXCLUSIONS are principled, not defensive: a VERTICAL rail (like a vertical
+  // separator) is never thin because its ink IS the row height — thinning the
+  // row would shorten the drawing rather than fit it — and a rail WITH
+  // `rowspan` labels a lane down several rows, so its height is its meaning.
   //
   // A `spacer` IS thin, and for the row's own reason rather than the spacer's:
   // a row composed only of RULES and DECLARED HOLES carries no cell-height
@@ -231,9 +236,21 @@
   // --cell-h would let the cell a rule chose NOT to reach set the height of the
   // row the rule lives in. A spacer beside ORDINARY cells is untouched: `every`
   // still fails on those cells, so that row keeps --cell-h.
+  //
+  // A FUNCTION DECLARATION, self-contained on purpose: tools/test-guards.mjs
+  // lifts it out of this file by brace-matching and asserts it agrees with the
+  // gate's copy in tools/check-layout.mjs, so it must not close over helpers.
   const isLeafOfType = (c, t) => c && !Array.isArray(c.children) && c.type === t;
-  const isThinRowLeaf = c => isLeafOfType(c, 'spacer')
-    || (isLeafOfType(c, 'separator') && !hasTreatment(c, 'vertical'));
+  function isThinRowLeaf(c) {
+    if (!c || Array.isArray(c.children)) return false;
+    if (c.type === 'spacer') return true;
+    if (c.type !== 'separator' && c.type !== 'rail') return false;
+    const treatments = Array.isArray(c.treatment) ? c.treatment : [];
+    if (treatments.includes('vertical')) return false;
+    if (c.type === 'rail' && Math.floor(Number(c.rowspan) || 1) > 1) return false;
+    return true;
+  }
+  const isRailLeaf = c => isLeafOfType(c, 'rail');
 
   // ── THE PLACEMENT MODEL ─────────────────────────────────────────────────
   // Three pieces — widthAtTier, isBandAtTier, rowOccupants — and they are the
@@ -309,13 +326,19 @@
     return rows;
   }
 
-  // The `grid-auto-rows` TRACK LIST for one track count: one entry per row,
-  // --sep-row-h where the row's only occupants are thin leaves (a horizontal
-  // separator or a declared hole) and --cell-h everywhere else. Returns null
-  // when NO row is thin, so a grid without one is left on the plain fixed-row
-  // default (no inline style). A row with NO occupant at all (an UNdeclared
-  // interior hole — RECT/HOLE in `npm run check` owns that defect) keeps
-  // --cell-h: an empty track is not a thin row, and only a hole someone
+  // The `grid-auto-rows` TRACK LIST for one track count: one entry per row —
+  // --cell-h by default, and where the row's only occupants are thin leaves,
+  // --sep-row-h for a row of separators / declared holes or `auto` for a row
+  // that holds a rail. `auto` and not `minmax(--sep-row-h, auto)` because a
+  // rail is a BORDERED BOX whose content is the row: a one-line rail is 33px,
+  // and flooring seven of them at 40px costs 7px each — measured, that floor
+  // alone overflows the one stack this exists for (496px against a 482px
+  // ceiling, while content height closes at 461). A two-line rail (48px) is
+  // what `auto` exists to hold: a fixed --sep-row-h track clips it. Returns
+  // null when NO row is thin, so a grid without one is left on the plain
+  // fixed-row default (no inline style). A row with NO occupant at all (an
+  // UNdeclared interior hole — RECT/HOLE in `npm run check` owns that defect)
+  // keeps --cell-h: an empty track is not a thin row, and only a hole someone
   // DECLARED with a spacer earns the reduced height.
   function rowTrackList(items, tracks) {
     const rows = rowOccupants(items, tracks);
@@ -325,16 +348,18 @@
       const occupants = rows[r] || [];
       const isThin = occupants.length > 0 && occupants.every(isThinRowLeaf);
       if (isThin) thin = true;
-      out.push(isThin ? 'var(--sep-row-h)' : 'var(--cell-h)');
+      out.push(!isThin ? 'var(--cell-h)'
+        : occupants.some(isRailLeaf) ? 'auto' : 'var(--sep-row-h)');
     }
     // A declared hole on the LAST row ABSORBS the section's slack. A section is
     // stretched to the height of the tallest one beside it, and its fixed rows
     // do not grow — so without this the leftover collects BELOW the grid as an
     // undeclared hole the author never wrote, defeating the one thing a trailing
     // spacer is for. `minmax` keeps --sep-row-h as the floor when there is no
-    // slack to absorb.
+    // slack to absorb. A last row holding a RAIL is left at `auto` on purpose:
+    // absorbing slack would inflate a bordered banner, not spend a hole.
     const last = rows[rows.length - 1] || [];
-    if (thin && last.length > 0 && last.every(isThinRowLeaf))
+    if (thin && last.length > 0 && last.every(isThinRowLeaf) && !last.some(isRailLeaf))
       out[out.length - 1] = 'minmax(var(--sep-row-h), 1fr)';
     return thin ? out.join(' ') : null;
   }

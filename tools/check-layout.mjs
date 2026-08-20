@@ -297,6 +297,17 @@ const CSS_TEXT = {
   cellH: 130,            // --cell-h, the fixed row track
   sepRowH: 40,           // --sep-row-h, the thin (separator/spacer) row track
   zoneMinH: 180,         // --zone-min-h, a framed zone's vertical floor
+  // THE RAIL CHAIN, mirrored from index.html's `.rail` / `.rail-title` block.
+  // railRowH is the FLOOR of a rail's `auto` row — one 15px title line plus
+  // 2×8px padding plus 2×1px border — used by the height chain; a wrapped
+  // title grows the row (RAILT below caps that growth at railTitleLines).
+  railRowH: 33,          // one-line .rail content height (15 + 2×8 + 2×1)
+  railTitlePx: 13,       // .rail-title font-size (mono)
+  railTrackEm: 0.09,     // .rail-title letter-spacing, in em
+  railBorder: 1,         // .rail border-width
+  railTitleLines: 2,     // RAILT's ceiling: .rail-title has NO clamp, so a
+                         //   third line silently grows the auto row and the
+                         //   stack it lives in — the gate owns that limit
   // THE INK CHAIN. The width chain above answers "how many characters fit on a
   // line"; these answer "how tall is the stack of those lines", which is the
   // only way a box's demand can be compared against the fixed row it is given.
@@ -884,17 +895,25 @@ function leavesOf(page) {
 // at LEAST this tall, never at most — and that direction is the whole
 // calibration of FROZEN.
 
-// Mirrors engine.js `isThinRowLeaf`: a row whose occupants are ALL horizontal
-// separators or DECLARED HOLES renders at --sep-row-h. Mirrored rather than
-// imported for the same reason the placement model is (an ES module is
-// CORS-blocked from a `file://` script). A wrong `false` here is the safe
-// direction: it only ever makes a reported hole smaller.
-// A thin row on the LAST row is emitted as minmax(--sep-row-h, 1fr) so a
-// declared hole absorbs the slack a stretched section leaves, which keeps
+// Mirrors engine.js `isThinRowLeaf`: a row whose occupants are ALL thin leaves
+// — horizontal separators, DECLARED HOLES, or horizontal no-rowspan RAILS —
+// renders reduced: --sep-row-h for separators and holes, content height
+// (`auto`) for a row that holds a rail. Mirrored rather than imported for the
+// same reason the placement model is (an ES module is CORS-blocked from a
+// `file://` script), and ASSERTED against the engine's copy by the AGREE/thin
+// case in tools/test-guards.mjs. A wrong `false` here is the safe direction:
+// it only ever makes a reported hole smaller.
+// A thin separator row on the LAST row is emitted as minmax(--sep-row-h, 1fr)
+// so a declared hole absorbs the slack a stretched section leaves, which keeps
 // --sep-row-h a FLOOR there rather than the height — consistent with every
-// height in this chain already being a floor.
+// height in this chain already being a floor. A rail's exclusions mirror the
+// engine's: a VERTICAL rail's ink IS the row height, and a rail with `rowspan`
+// labels a lane down several rows.
 const isThinRowLeaf = c => c && !isSection(c) &&
-  (c.type === 'spacer' || (c.type === 'separator' && !treatmentsOf(c).includes('vertical')));
+  (c.type === 'spacer'
+    || ((c.type === 'separator' || c.type === 'rail') && !treatmentsOf(c).includes('vertical')
+        && (c.type === 'separator' || Math.floor(Number(c.rowspan) || 1) <= 1)));
+const isRailLeaf = c => c && !isSection(c) && c.type === 'rail';
 
 // The height of one LEAF grid at a container width: each row at its own track
 // height, plus the row gaps. A COMPOUND grid is a flex row of sections with no
@@ -912,7 +931,11 @@ function gridHeightPx(g, cw) {
   for (let r = 0; r < rowCount; r++) {
     const occupants = placed.filter(p => r >= p.r && r < p.r + p.h);
     const thin = occupants.length > 0 && occupants.every(p => isThinRowLeaf(p.node));
-    h += thin ? CSS_TEXT.sepRowH : CSS_TEXT.cellH;
+    // A rail row's track is `auto` (content height), so its FLOOR is the
+    // one-line rail: title line + 2×pad + 2×border (railRowH). Never sepRowH
+    // here — 40 would OVERSTATE a 33px row and break the floor direction.
+    h += !thin ? CSS_TEXT.cellH
+      : occupants.some(p => isRailLeaf(p.node)) ? CSS_TEXT.railRowH : CSS_TEXT.sepRowH;
   }
   return h + Math.max(0, rowCount - 1) * CSS_TEXT.gap;
 }
@@ -947,6 +970,10 @@ function checkPage(page) {
   const trackTable = [];
   // The TEXT budget's worst finding per (box, kind) across the tier sweep.
   const textWorst = new Map();
+  // RAILT's worst finding per rail across the tier sweep — deduped like TEXT,
+  // but emitted as a HARD fail: a rail row is `auto`, so an over-wrapped title
+  // does not clip, it silently GROWS the row and the stack it lives in.
+  const railWorst = new Map();
 
   // ── data-level checks (tier-independent) ────────────────────────────────
 
@@ -1223,6 +1250,36 @@ function checkPage(page) {
         }
       }
 
+      // RAILT — the rail-title ceiling. A horizontal no-rowspan rail sits in an
+      // `auto` row (the thin-row rule in engine.js rowTrackList), and
+      // `.rail-title` declares NO line clamp — so where a box's third title line
+      // is CLIPPED (invariant C's territory), a rail's third line silently GROWS
+      // its row and every stack built on the thin-row arithmetic. Run at every
+      // tier like TEXT (the narrowest tier holds the fewest characters), deduped
+      // to the worst tier per rail, and emitted as a HARD fail: the two-line
+      // ceiling is the authored geometry of every thin-rail stack.
+      for (const p of placed) {
+        const slot = g.slots.find(s => (s.node.id ?? '(no id)') === p.id);
+        if (!slot || slot.pair) continue;
+        const leaf = slot.node;
+        if (!isRailLeaf(leaf) || !isThinRowLeaf(leaf)) continue;
+        const track = (gridW - (tracks - 1) * CSS_TEXT.gap) / tracks;
+        const availPx = track * p.w + (p.w - 1) * CSS_TEXT.gap
+          - 2 * (CSS_TEXT.railBorder + CSS_TEXT.boxPad);
+        const cap = capacityFor(availPx, CSS_TEXT.railTitlePx, CSS_TEXT.railTrackEm);
+        const lines = wrapLines(String(leaf.title ?? '').trim(), cap);
+        asserted++;
+        if (lines <= CSS_TEXT.railTitleLines) continue;
+        const where = `${g.label} > ${leaf.id ?? '(no id)'}`;
+        const prev = railWorst.get(where);
+        if (prev && prev.lines >= lines) continue;
+        railWorst.set(where, { lines, where: `${where} @${tier.w}px`, detail:
+          `rail title wraps to ${lines} line(s) of ${cap} char(s) at ` +
+          `${CSS_TEXT.railTitlePx}px mono + ${CSS_TEXT.railTrackEm}em tracking, and the rail ` +
+          `ceiling is ${CSS_TEXT.railTitleLines} — .rail-title has no clamp, so the extra line ` +
+          `GROWS the auto row and the stack it lives in. Shorten the title or widen the cell.` });
+      }
+
       if (!authoredTier) continue;   // the checks below are authored-tier truths
 
       // TRACK — a dead track: a column no slot ever occupies. The engine's clamp
@@ -1412,6 +1469,7 @@ function checkPage(page) {
   }
 
   for (const f of textWorst.values()) info('TEXT', f.where, f.detail);
+  for (const f of railWorst.values()) fail('RAILT', f.where, f.detail);
 
   return { pageId, form, grids, trackTable, leaves: leavesOf(page).length };
 }
@@ -1545,6 +1603,8 @@ function main() {
     ['CHIP', 'filter referential integrity (both directions) + chip arity'],
     ['LIT', 'no filter on a leaf type the engine cannot light (separator/rail/spacer ' +
       'carry no data-filters, so their chip membership passes the join and never renders)'],
+    ['RAILT', 'rail titles within the two-line ceiling (a thin rail row is `auto` and ' +
+      '.rail-title has no clamp, so a third line grows the row instead of clipping)'],
     ['ORDER', 'no duplicate effective `order` among siblings'],
     // A third entry is an optional PASS DETAIL: what the check MEASURED when it
     // holds, so a pass reports a number instead of a bare "holds everywhere".
@@ -1605,4 +1665,4 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
 export { widthAtTier, isBandAtTier, isBandClass, place, tracksFor,
   orderedChildren, slotsOf, effectiveCols, DEFAULT_SECTION_COLUMNS,
   planeWidth, cellTextWidth, titlePx, capacityFor, wrapLines, longestToken,
-  textBudget, cssTextTokens, CSS_TEXT, MONO_ADVANCE_EM };
+  textBudget, cssTextTokens, CSS_TEXT, MONO_ADVANCE_EM, isThinRowLeaf };

@@ -16,7 +16,7 @@ import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import yaml from 'js-yaml';
 import { widthAtTier, isBandAtTier, isBandClass, place,
-  textBudget, capacityFor, MONO_ADVANCE_EM } from './check-layout.mjs';
+  textBudget, capacityFor, MONO_ADVANCE_EM, isThinRowLeaf } from './check-layout.mjs';
 
 const require = createRequire(import.meta.url);
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -199,6 +199,27 @@ function rmDeck(dir) {
   rmDeck(dir);
 }
 
+// ── 3c. RAILT — a rail title past the two-line ceiling must FAIL the gate ───
+// A horizontal no-rowspan rail sits in an `auto` row and `.rail-title` has no
+// clamp, so an over-wrapped title does not clip — it grows the row and every
+// stack built on the thin-row arithmetic. The negative: a rail whose title
+// needs three lines in its 1-of-4 track must be a HARD RAILT fail. Rebuilt
+// after the mutation because this is the real flow (edit → build → check).
+{
+  const dir = mkDeck();
+  const { p, doc } = loadOverview(dir);
+  const it = findNode(doc, 'item-2');
+  it.type = 'rail';
+  it.title = 'Coordination handshake verification ledger reconciliation';
+  saveOverview(p, doc);
+  execFileSync('node', [path.join(dir, 'engine', 'build-data.mjs')], { cwd: dir, stdio: 'ignore' });
+  const { code, out } = runNode([CHECK, dir]);
+  const ok = code !== 0 && out.includes('RAILT') && out.includes('item-2')
+    && out.includes('ceiling is 2');
+  report('RAILT: a three-line rail title fails the static gate', ok, `exit=${code}\n${out}`);
+  rmDeck(dir);
+}
+
 // ── 4. control positive — the intact owned fixture must pass ───────────────
 {
   const dir = mkDeck();
@@ -335,6 +356,57 @@ function shapeCorpus() {
     if (widthAtTier(span, cols, tracks) !== divergentWidth(span, cols, tracks)) { caught = true; break; }
   report('AGREE/teeth: the comparator reports a seeded divergence', caught,
     'a deliberately wrong width function was accepted as equal');
+}
+
+// ── 5b. AGREE/thin — the THIN-ROW predicate, engine vs gate ────────────────
+// isThinRowLeaf decides which rows escape --cell-h, and it exists twice for the
+// same CORS reason as the placement model. The corpus walks every leaf kind the
+// schema can author — separator / rail / spacer / box, each horizontal and
+// vertical, with and without rowspan — plus the non-leaves (a section, null):
+// the rail admission has three edges (vertical excluded, rowspan excluded,
+// horizontal-no-rowspan admitted) and each edge is a case here.
+function thinCorpus() {
+  const out = [null, undefined, { id: 'sec', children: [] },
+    { id: 'sec-rail', type: 'rail', children: [] }];
+  for (const type of [undefined, 'box', 'separator', 'rail', 'spacer'])
+    for (const treatment of [undefined, [], ['vertical'], ['centered']])
+      for (const rowspan of [undefined, 1, 2, '2']) {
+        const leaf = { id: 'x' };
+        if (type !== undefined) leaf.type = type;
+        if (treatment !== undefined) leaf.treatment = treatment;
+        if (rowspan !== undefined) leaf.rowspan = rowspan;
+        out.push(leaf);
+      }
+  return out;
+}
+
+{
+  let mismatch = null;
+  try {
+    const { isThinRowLeaf: engineThin } = liftFromEngine('isThinRowLeaf');
+    for (const leaf of thinCorpus()) {
+      const mine = !!isThinRowLeaf(leaf), theirs = !!engineThin(leaf);
+      if (mine !== theirs) {
+        mismatch = `${JSON.stringify(leaf)}: gate ${mine} vs engine ${theirs}`;
+        break;
+      }
+    }
+  } catch (e) { mismatch = e.message; }
+  report('AGREE/thin: gate isThinRowLeaf == engine isThinRowLeaf', mismatch === null, mismatch);
+}
+
+// The thin comparator is only worth its line if it would SPEAK UP. Feed it the
+// PRE-RAIL rule (separator/spacer only — the exact predicate this change
+// replaced) and it must report a mismatch on the horizontal no-rowspan rail.
+{
+  const divergentThin = c => c && !Array.isArray(c.children) &&
+    (c.type === 'spacer' ||
+      (c.type === 'separator' && !(Array.isArray(c.treatment) ? c.treatment : []).includes('vertical')));
+  let caught = false;
+  for (const leaf of thinCorpus())
+    if (!!isThinRowLeaf(leaf) !== !!divergentThin(leaf)) { caught = true; break; }
+  report('AGREE/thin-teeth: the thin comparator reports a seeded divergence', caught,
+    'the pre-rail thin predicate was accepted as equal');
 }
 
 // ── 6/7. TEXT — the character budget AGREES IN DIRECTION with the render's N ─
