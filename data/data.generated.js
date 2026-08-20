@@ -103,69 +103,69 @@ window.__DOC__ = {
                   ],
                   "order": 1,
                   "span": 1,
-                  "columns": 1,
+                  "columns": 2,
                   "children": [
                     {
                       "id": "sp-env",
-                      "type": "separator",
+                      "type": "rail",
                       "order": 1,
-                      "span": 1,
-                      "text": "System context aware"
+                      "span": 2,
+                      "title": "System context aware"
                     },
                     {
                       "id": "sp-contracts",
-                      "type": "separator",
+                      "type": "rail",
                       "order": 2,
-                      "span": 1,
-                      "text": "Workspace and projects map"
+                      "span": 2,
+                      "title": "Workspace and projects map"
                     },
                     {
                       "id": "sp-anchors",
-                      "type": "separator",
+                      "type": "rail",
                       "order": 3,
-                      "span": 1,
-                      "text": "Memory about you"
+                      "span": 2,
+                      "title": "Memory about you"
                     },
                     {
                       "id": "sp-worklist",
-                      "type": "separator",
+                      "type": "rail",
                       "order": 4,
-                      "span": 1,
-                      "text": "Memory · open threads / pending tasks"
+                      "span": 2,
+                      "title": "Memory · open threads / pending tasks"
                     }
                   ]
                 },
                 {
                   "id": "ss-pull",
-                  "title": "what I answer on demand",
-                  "subtitle": "absent here = denied, not missing ↓",
+                  "title": "Orchestration tooling",
+                  "subtitle": "the gaia CLI · absent from its lanes = denied, not missing — a named owner has it · six pillars below ↓",
                   "treatment": [
                     "envelope"
                   ],
                   "order": 2,
                   "span": 1,
-                  "columns": 1,
+                  "columns": 2,
                   "children": [
                     {
                       "id": "pl-ficha",
-                      "type": "separator",
+                      "type": "rail",
                       "order": 1,
-                      "span": 1,
-                      "text": "Read lane · changes nothing"
+                      "span": 2,
+                      "title": "Read lane · changes nothing"
                     },
                     {
                       "id": "pl-memory",
-                      "type": "separator",
+                      "type": "rail",
                       "order": 2,
-                      "span": 1,
-                      "text": "Coordination writes · bounded shapes"
+                      "span": 2,
+                      "title": "Coordination writes · bounded shapes"
                     },
                     {
                       "id": "pl-approvals",
-                      "type": "separator",
+                      "type": "rail",
                       "order": 3,
-                      "span": 1,
-                      "text": "Delegated · a named owner has it"
+                      "span": 2,
+                      "title": "Delegated · a named owner has it"
                     }
                   ]
                 }
