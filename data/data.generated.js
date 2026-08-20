@@ -17,10 +17,10 @@ window.__DOC__ = {
           "label": "the session opens",
           "steps": [
             "SessionStart is the only hook that runs before anyone asks for anything: eight builder calls in fixed order (<code>build_session_context</code>) assemble everything the session starts knowing — the four thin lines on the left column.",
-            "First the static setup: where Gaia is installed — workspace, machine, version, cwd — and the index of your projects, names only, because the index announces existence and <code>gaia context project</code> fetches the ficha. The pointer's width is reserved before any trim, so a truncated index can never lie about how many projects exist.",
-            "Then the contracts index: which project-context sections each specialist surface will be handed at dispatch — surface to section names, straight from <code>surface_routing</code>.",
-            "Then three zero-noise blocks that say nothing unless something ran without you: unread headless reports with a resumable <code>session_id</code>, detect-only schedule drift pointing at the T3 <code>gaia schedule sync</code>, and scheduler suspensions — the lapsed ones first and louder, because they do not clear themselves.",
-            "Last, deliberately, the memory: the live worklist — open and carried-forward threads grouped by initiative, recency first, independent of where you stand — injected after the operational state, so the orchestrator reads what is live before the knowledge it anchors against."
+            "First, environment alone: where Gaia is installed — workspace, machine, its version annotated with the machine's local dev-build count (a <code>gaia dev</code> build ships the same semver as the release it was packed from), cwd, the plugin root.",
+            "Then the projects index and the contracts index together — the assembler's own comment groups them as static project-context setup read before routing/dispatch decisions: the project index (names only, because the index announces existence and <code>gaia context project</code> fetches the ficha — the pointer's width is reserved before any trim, so a truncated index can never lie about how many projects exist), then which project-context sections each specialist surface will be handed at dispatch, straight from <code>surface_routing</code>.",
+            "Third, deliberately out of call order: the durable anchors — <em>About you / What I know</em> (<code>class='anchor'</code>). These rows do not inform the orchestrator, they INSTRUCT it — standing orders about how to work with this user. They are the true LAST of the eight calls, after the operational state below; drawn third so the plain label stands on its own, the subtitle carries the timing.",
+            "Last on the canvas, calls four through seven: the live worklist (open and carried-forward threads, recency first, independent of where you stand) plus three zero-noise blocks that say nothing unless something ran without you — unread headless reports with a resumable <code>session_id</code>, detect-only schedule drift pointing at the T3 <code>gaia schedule sync</code>, and scheduler suspensions, the lapsed ones first and louder because they do not clear themselves."
           ]
         },
         {
@@ -97,7 +97,7 @@ window.__DOC__ = {
                 {
                   "id": "ss-push",
                   "title": "SessionStart",
-                  "subtitle": "what I push at open, before anyone asks",
+                  "subtitle": "instructs, not informs — after live state",
                   "treatment": [
                     "envelope"
                   ],
@@ -110,35 +110,35 @@ window.__DOC__ = {
                       "type": "separator",
                       "order": 1,
                       "span": 1,
-                      "text": "I know my machine, your projects by name"
+                      "text": "System context aware"
                     },
                     {
                       "id": "sp-contracts",
                       "type": "separator",
                       "order": 2,
                       "span": 1,
-                      "text": "I know what each surface will be handed"
+                      "text": "Workspace and projects map"
                     },
                     {
-                      "id": "sp-notifs",
+                      "id": "sp-anchors",
                       "type": "separator",
                       "order": 3,
                       "span": 1,
-                      "text": "I speak only when things ran without you"
+                      "text": "Memory about you"
                     },
                     {
                       "id": "sp-worklist",
                       "type": "separator",
                       "order": 4,
                       "span": 1,
-                      "text": "I carry your live worklist"
+                      "text": "Memory · open threads / pending tasks"
                     }
                   ]
                 },
                 {
                   "id": "ss-pull",
-                  "title": "gaia · what I answer on demand",
-                  "subtitle": "context project · memory show · approvals",
+                  "title": "what I answer on demand",
+                  "subtitle": "absent here = denied, not missing ↓",
                   "treatment": [
                     "envelope"
                   ],
@@ -151,21 +151,21 @@ window.__DOC__ = {
                       "type": "separator",
                       "order": 1,
                       "span": 1,
-                      "text": "ask me for a project's ficha"
+                      "text": "Read lane · changes nothing"
                     },
                     {
                       "id": "pl-memory",
                       "type": "separator",
                       "order": 2,
                       "span": 1,
-                      "text": "ask me what I remember"
+                      "text": "Coordination writes · bounded shapes"
                     },
                     {
                       "id": "pl-approvals",
                       "type": "separator",
                       "order": 3,
                       "span": 1,
-                      "text": "ask me what waits for your signature"
+                      "text": "Delegated · a named owner has it"
                     }
                   ]
                 }
@@ -794,13 +794,98 @@ window.__DOC__ = {
           ]
         },
         {
+          "id": "cli",
+          "title": "The orchestrator's CLI",
+          "subtitle": "What it holds directly between the modules that implement a turn and the floor that audits every one — neither a hook module nor an audit floor.",
+          "treatment": [
+            "envelope"
+          ],
+          "order": 3,
+          "span": 6,
+          "columns": 3,
+          "children": [
+            {
+              "id": "cli-memory",
+              "order": 1,
+              "kicker": "search·show·list·stats·get-relevant·conflicts·story·episode-show · add·append·reclassify·link·checkpoint",
+              "title": "Memory curation",
+              "description": [
+                "delegated outright — it writes without asking"
+              ],
+              "detail": "<b>Memory curation</b> is the one pillar the orchestrator holds OUTRIGHT: every read verb (<code>search</code>, <code>show</code>, <code>list</code>, <code>stats</code>, <code>get-relevant</code>, <code>conflicts</code>, <code>episode-show</code>, <code>story</code>) and every write verb (<code>add</code>, <code>append</code>, <code>reclassify</code>, <code>link</code>, <code>checkpoint</code>) sit in the orchestrator's own lanes per <code>gaia --help</code> — no consent flow, no named owner elsewhere. It curates memory the way it curates nothing else in this band.",
+              "variant": "muted"
+            },
+            {
+              "id": "cli-contract",
+              "order": 2,
+              "kicker": "view·list·validate",
+              "title": "Subagent contract inspection",
+              "description": [
+                "the row outranks the message"
+              ],
+              "detail": "<b>Subagent contract inspection</b> — read-only (<code>contract view | list | validate</code>). The row in <code>agent_contract_handoffs</code> is the truth SubagentStop already parsed; the orchestrator inspects that row, never a subagent's prose account of itself. <code>contract list --state DISPATCHED</code> names the turns that were dispatched and never came back with a contract — the way to see a cut subagent instead of blind-resuming it. Every verb that MUTATES a contract (<code>set|add|fill|finalize</code>) belongs to the agent whose turn it is, never to the orchestrator.",
+              "variant": "muted",
+              "filters": [
+                "el-juez"
+              ]
+            },
+            {
+              "id": "cli-plan",
+              "order": 3,
+              "kicker": "brief new·edit·set-status · brief ac add·edit·remove · plan set-status · task set-status",
+              "title": "Plan execution",
+              "description": [
+                "drives it by status; does not decompose it and cannot promote a task"
+              ],
+              "detail": "<b>Plan execution</b> — the orchestrator authors and edits the brief (<code>brief new|edit</code>, its nested <code>ac add|edit|remove</code>) and transitions status on brief, plan and task (<code>set-status</code> on each). What it does NOT hold: <code>plan save|delete</code>, <code>task add|remove|reorder</code>, <code>task gate add|remove|set-status</code>, <code>milestone</code>, <code>evidence add</code> — all belong to the owning agent. Decomposing a plan into tasks is <code>gaia-planner</code>'s job; promoting a task after verification is <code>gaia-verifier</code>'s. A SEPARATE, standalone top-level <code>gaia ac</code> command (<code>set-status|add|remove|edit</code>) also exists and is NOT the orchestrator's — same owning-agent lane as <code>plan save|delete</code>. The verb drawn here is <code>brief</code>'s own nested <code>ac</code>, a different namespace.",
+              "variant": "muted"
+            },
+            {
+              "id": "cli-approvals",
+              "order": 4,
+              "kicker": "list·pending·show·history·stats",
+              "title": "Approval ledger",
+              "description": [
+                "sees it, never resolves it"
+              ],
+              "detail": "<b>Approval ledger</b> — read-only (<code>approvals list | pending | show | history | stats</code>). <code>approvals approve|revoke|reject|reject-all|clean|replay|request-set</code> are DENIED to the orchestrator, categorically — the help's own words: consent is granted by the user, not by a CLI call. The orchestrator can watch the queue; it can never clear it.",
+              "variant": "muted",
+              "filters": [
+                "porton"
+              ]
+            },
+            {
+              "id": "cli-schedule",
+              "order": 5,
+              "kicker": "schedule list·show·status · notifications ack",
+              "title": "Scheduled tasks and reports",
+              "description": [
+                "sees the drift, cannot fix it"
+              ],
+              "detail": "<b>Scheduled tasks and reports</b> — reads the desired-state registry (<code>schedule list|show|status</code>) and acknowledges a headless report (<code>notifications ack</code>). <code>schedule register|remove|sync</code> belongs to <code>gaia-operator</code>, and <code>sync</code> is itself T3 — so the orchestrator can detect that this machine drifted from desired state, and cannot reconcile it; it hands that off.",
+              "variant": "muted"
+            },
+            {
+              "id": "cli-context",
+              "order": 6,
+              "kicker": "context show·get·get-contract·project · context scan · scan",
+              "title": "Project context values",
+              "description": [
+                "reads it, and re-scans the substrate"
+              ],
+              "detail": "<b>Project context values</b> — reads the workspace shape (<code>context show|get|project</code>) and, distinctly, a project-context CONTRACT row by name (<code>context get-contract --section &lt;s&gt;</code> — a different namespace from <code>show</code>/<code>get</code>'s own <code>--section</code>). It also re-indexes: <code>scan</code> and <code>context scan</code> are how the coordinator keeps its own context current, per the help's own words.",
+              "variant": "muted"
+            }
+          ]
+        },
+        {
           "id": "accounting",
           "title": "Audit and metrics",
           "subtitle": "Neither belongs to a single moment of the line above — they run at all of them, which is why they are the floor and not another column. Metrics is numbered: that IS its order. Audit is the exception, and the rule on its second row says where the strict order begins.",
           "treatment": [
             "envelope"
           ],
-          "order": 3,
+          "order": 4,
           "span": 6,
           "columns": 2,
           "children": [
@@ -955,7 +1040,7 @@ window.__DOC__ = {
           "treatment": [
             "plain"
           ],
-          "order": 4,
+          "order": 5,
           "span": 6,
           "columns": 1,
           "children": [

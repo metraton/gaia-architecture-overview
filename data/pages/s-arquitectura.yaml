@@ -3,7 +3,7 @@
 # Form: dashboard (NO timeline). Timeline eximiría M, N y ROW justo en la
 # página más densa del deck; dashboard los mantiene activos.
 #
-# Cuatro bandas al root (columns:6, cada banda span:6):
+# Cinco bandas al root (columns:6, cada banda span:6):
 #   1. LA VIDA DE UN REQUEST — cabecera, la capa propia de Gaia y la fila del
 #      prompt. NIVEL COMPUESTO A PROPÓSITO (principio 2). La banda mezcla un
 #      `rail` (celda) con secciones, así que `columns:10` deja de crear tracks
@@ -30,11 +30,16 @@
 #      título de sección de ~30 caracteres infla la flex-basis de su zona en
 #      una línea de título (+16px, medido en Chromium: con ese título a ≤23
 #      caracteres la zona vuelve a su modelo de 212; "SessionStart", 12, no
-#      infla). ss-pull dibuja 228, la banda queda en 496 y el lado derecho
-#      absorbe 14px bajo human-loop, así que los bordes inferiores de ss-pull
-#      y human-loop quedan desalineados 14px. Se conserva el título dibujado
-#      ("gaia · what I answer on demand"); acortarlo a ≤23 caracteres
-#      ("what I answer on demand") elimina el desfase.
+#      infla). CON el título viejo de 30 caracteres ("gaia · what I answer on
+#      demand") ss-pull dibujaba 228, la banda quedaba en 496 y el lado
+#      derecho absorbía 14px bajo human-loop — bordes inferiores desalineados
+#      14px. Esta reescritura retitula ss-pull a "what I answer on demand"
+#      (23 caracteres, exactamente en el piso ≤23 del costo aceptado): la
+#      zona vuelve a su modelo de 212px y el desfase MEDIDO (getBoundingClientRect
+#      de .zone[data-zone=ss-pull] vs .zone[data-zone=human-loop] a 2560px) baja
+#      de 14px a 2px — el mismo margen de 480-vs-482 que ya era el modelo
+#      ACEPTADO antes de que el título de 30 caracteres lo rompiera, no un
+#      defecto residual nuevo.
 #      PESOS (por qué 3/7 de 10, números del render): a peso 3 la columna mide
 #      371.4px — 337.4 interiores, ~305px útiles para un `sep-text` (nowrap,
 #      7.5px/carácter medido) — y deja a lifetime 738.6px contra su piso
@@ -50,10 +55,15 @@
 #   2. LOS MÓDULOS — banda columns:1 que APILA TRES FILAS. No son dos filas de
 #      tres: la aritmética lo impide (ver ARITMÉTICA abajo). El eje horizontal
 #      hace eco del eje temporal de la banda 1 y lo DECLARA en su subtítulo.
-#   3. EL PISO — AUDIT y METRICS a todo el ancho, debajo de los módulos. No son
+#   3. LA CLI DEL ORQUESTADOR — sus seis pilares, columns:3 (dos filas de
+#      tres), CAJAS no líneas finas. Ni un módulo de hook ni el piso de
+#      auditoría: su propio instrumento, por eso entra DESPUÉS de los módulos
+#      y ANTES del piso. Rationale y aritmética de grid-shape en el comentario
+#      de la sección misma.
+#   4. EL PISO — AUDIT y METRICS a todo el ancho, debajo de los módulos. No son
 #      una columna más porque no ocurren en UN momento del eje de arriba:
 #      ocurren en TODOS. Como piso, la posición afirma algo verdadero.
-#   4. NOTAS AL PIE — dos separators dotted: la leyenda de color y el descargo
+#   5. NOTAS AL PIE — dos separators dotted: la leyenda de color y el descargo
 #      de alcance. El descargo BAJÓ desde arriba: es una nota al pie, no un
 #      titular. NOTA DE SCHEMA: PAGE_FIELDS no admite `subtitle`
 #      (id/layout/columns/filters/sections/form/name/order/visible), así que un
@@ -114,10 +124,10 @@ filters:
     label: "the session opens"
     steps:
       - "SessionStart is the only hook that runs before anyone asks for anything: eight builder calls in fixed order (<code>build_session_context</code>) assemble everything the session starts knowing — the four thin lines on the left column."
-      - "First the static setup: where Gaia is installed — workspace, machine, version, cwd — and the index of your projects, names only, because the index announces existence and <code>gaia context project</code> fetches the ficha. The pointer's width is reserved before any trim, so a truncated index can never lie about how many projects exist."
-      - "Then the contracts index: which project-context sections each specialist surface will be handed at dispatch — surface to section names, straight from <code>surface_routing</code>."
-      - "Then three zero-noise blocks that say nothing unless something ran without you: unread headless reports with a resumable <code>session_id</code>, detect-only schedule drift pointing at the T3 <code>gaia schedule sync</code>, and scheduler suspensions — the lapsed ones first and louder, because they do not clear themselves."
-      - "Last, deliberately, the memory: the live worklist — open and carried-forward threads grouped by initiative, recency first, independent of where you stand — injected after the operational state, so the orchestrator reads what is live before the knowledge it anchors against."
+      - "First, environment alone: where Gaia is installed — workspace, machine, its version annotated with the machine's local dev-build count (a <code>gaia dev</code> build ships the same semver as the release it was packed from), cwd, the plugin root."
+      - "Then the projects index and the contracts index together — the assembler's own comment groups them as static project-context setup read before routing/dispatch decisions: the project index (names only, because the index announces existence and <code>gaia context project</code> fetches the ficha — the pointer's width is reserved before any trim, so a truncated index can never lie about how many projects exist), then which project-context sections each specialist surface will be handed at dispatch, straight from <code>surface_routing</code>."
+      - "Third, deliberately out of call order: the durable anchors — <em>About you / What I know</em> (<code>class='anchor'</code>). These rows do not inform the orchestrator, they INSTRUCT it — standing orders about how to work with this user. They are the true LAST of the eight calls, after the operational state below; drawn third so the plain label stands on its own, the subtitle carries the timing."
+      - "Last on the canvas, calls four through seven: the live worklist (open and carried-forward threads, recency first, independent of where you stand) plus three zero-noise blocks that say nothing unless something ran without you — unread headless reports with a resumable <code>session_id</code>, detect-only schedule drift pointing at the T3 <code>gaia schedule sync</code>, and scheduler suspensions, the lapsed ones first and louder because they do not clear themselves."
   - key: ruteo
     label: "where does this belong?"
     steps:
@@ -188,7 +198,7 @@ sections:
         children:
           - id: ss-push
             title: "SessionStart"
-            subtitle: "what I push at open, before anyone asks"
+            subtitle: "instructs, not informs — after live state"
             treatment: [envelope]
             order: 1
             span: 1
@@ -198,25 +208,25 @@ sections:
                 type: separator
                 order: 1
                 span: 1
-                text: "I know my machine, your projects by name"
+                text: "System context aware"
               - id: sp-contracts
                 type: separator
                 order: 2
                 span: 1
-                text: "I know what each surface will be handed"
-              - id: sp-notifs
+                text: "Workspace and projects map"
+              - id: sp-anchors
                 type: separator
                 order: 3
                 span: 1
-                text: "I speak only when things ran without you"
+                text: "Memory about you"
               - id: sp-worklist
                 type: separator
                 order: 4
                 span: 1
-                text: "I carry your live worklist"
+                text: "Memory · open threads / pending tasks"
           - id: ss-pull
-            title: "gaia · what I answer on demand"
-            subtitle: "context project · memory show · approvals"
+            title: "what I answer on demand"
+            subtitle: "absent here = denied, not missing ↓"
             treatment: [envelope]
             order: 2
             span: 1
@@ -226,17 +236,17 @@ sections:
                 type: separator
                 order: 1
                 span: 1
-                text: "ask me for a project's ficha"
+                text: "Read lane · changes nothing"
               - id: pl-memory
                 type: separator
                 order: 2
                 span: 1
-                text: "ask me what I remember"
+                text: "Coordination writes · bounded shapes"
               - id: pl-approvals
                 type: separator
                 order: 3
                 span: 1
-                text: "ask me what waits for your signature"
+                text: "Delegated · a named owner has it"
 
       # ── TODO LO QUE CUELGA DEL PROMPT. Otro nivel compuesto: la barra del
       # humano (peso 1), la vida del trabajo (peso 6) y, en su propia fila,
@@ -666,13 +676,108 @@ sections:
                 variant: muted
                 filters: [el-juez]
 
-  # 3 · EL PISO — auditoría y métricas a todo el ancho. No es una columna más
+  # 3 · LA CLI DEL ORQUESTADOR — sus seis pilares, una fila. Ni un módulo de
+  #     hook ni el piso de auditoría: es el INSTRUMENTO PROPIO del
+  #     orquestador, así que entra DESPUÉS de los módulos que implementan la
+  #     vida del request y ANTES del piso que corre en todo momento — la vida
+  #     del request, luego los módulos, luego este instrumento, luego el piso,
+  #     luego las notas al pie. Por eso accounting pasa a order:4 y footnotes
+  #     a order:5.
+  #
+  #     Estas son CAJAS, no líneas finas: llevan kicker/title/description/
+  #     detail/filters, la gramática de los módulos de arriba, no la de
+  #     ss-push/ss-pull — LIT no las alcanza.
+  #
+  #     GRID SHAPE — se probó columns:6 (una fila) primero, POR SER LA
+  #     PREFERENCIA DECLARADA (el inventario se lee de un vistazo), y se
+  #     descartó por medición, no por gusto: a columns:6, banda envelope de
+  #     1246px de track area (ver aritmética de la banda 1), 6 tracks, en el
+  #     ANCHO REAL que `npm run validate` renderiza (2560px, único tier con
+  #     píxeles) el track mide 201px y el interior de caja 166px; a
+  #     --box-title-px 17px (clamp(15,cw/100,17) con cw=2560) el título cabe
+  #     16 caracteres por línea. "Subagent contract inspection" — Subagent(8)
+  #     contract(8) inspection(10), NINGÚN par adyacente cabe junto en 16 —
+  #     fuerza 3 líneas contra el clamp de 2 de `.box .t`: CLIP real (C),
+  #     falla dura nueva. columns:3 (dos filas de tres) lo resuelve: mismo
+  #     track area, 3 tracks, track 410px, interior 375px, título cabe 36
+  #     caracteres — "Subagent contract inspection" entra en una sola línea
+  #     con margen. Las seis descripciones (asserts) también se verificaron
+  #     contra el mismo piso: la más larga, pilar 3 (70 caracteres), envuelve
+  #     a 5 líneas a columns:6 (cap 18 en el tier 'large' 1200px, el más
+  #     angosto de los tres tiers de 6 tracks) contra el clamp de 3 de
+  #     `.box .desc` — otro CLIP — y a 2 líneas a columns:3. Elegido: columns:3.
+  #
+  #     CHIPS — dos relaciones reales, sin costo porque son cajas: el pilar 2
+  #     (contract) se une a `el-juez` — es el mismo contrato que el juez lee
+  #     al cierre; el pilar 4 (approvals) se une a `porton` — es el mismo
+  #     consentimiento que el portón exige. Ambos chips ya tenían ≥2 miembros
+  #     antes de esta caja; ARITY se reverifica, no se funda en ella.
+  #
+  #     LA FAMILIA QUE FALTA — query · defects · history · metrics · status ·
+  #     doctor (la lectura transversal sobre memoria curada, episodios y
+  #     harness_events, más la triage y el dashboard) es un lane real del
+  #     help y no está dibujado aquí: NO fue autorado sin pedido. Reportado
+  #     aparte, con el costo de geometría de cada ubicación posible.
+  - id: cli
+    title: "The orchestrator's CLI"
+    subtitle: "What it holds directly between the modules that implement a turn and the floor that audits every one — neither a hook module nor an audit floor."
+    treatment: [envelope]
+    order: 3
+    span: 6
+    columns: 3
+    children:
+      - id: cli-memory
+        order: 1
+        kicker: "search·show·list·stats·get-relevant·conflicts·story·episode-show · add·append·reclassify·link·checkpoint"
+        title: "Memory curation"
+        description: ["delegated outright — it writes without asking"]
+        detail: "<b>Memory curation</b> is the one pillar the orchestrator holds OUTRIGHT: every read verb (<code>search</code>, <code>show</code>, <code>list</code>, <code>stats</code>, <code>get-relevant</code>, <code>conflicts</code>, <code>episode-show</code>, <code>story</code>) and every write verb (<code>add</code>, <code>append</code>, <code>reclassify</code>, <code>link</code>, <code>checkpoint</code>) sit in the orchestrator's own lanes per <code>gaia --help</code> — no consent flow, no named owner elsewhere. It curates memory the way it curates nothing else in this band."
+        variant: muted
+      - id: cli-contract
+        order: 2
+        kicker: "view·list·validate"
+        title: "Subagent contract inspection"
+        description: ["the row outranks the message"]
+        detail: "<b>Subagent contract inspection</b> — read-only (<code>contract view | list | validate</code>). The row in <code>agent_contract_handoffs</code> is the truth SubagentStop already parsed; the orchestrator inspects that row, never a subagent's prose account of itself. <code>contract list --state DISPATCHED</code> names the turns that were dispatched and never came back with a contract — the way to see a cut subagent instead of blind-resuming it. Every verb that MUTATES a contract (<code>set|add|fill|finalize</code>) belongs to the agent whose turn it is, never to the orchestrator."
+        variant: muted
+        filters: [el-juez]
+      - id: cli-plan
+        order: 3
+        kicker: "brief new·edit·set-status · brief ac add·edit·remove · plan set-status · task set-status"
+        title: "Plan execution"
+        description: ["drives it by status; does not decompose it and cannot promote a task"]
+        detail: "<b>Plan execution</b> — the orchestrator authors and edits the brief (<code>brief new|edit</code>, its nested <code>ac add|edit|remove</code>) and transitions status on brief, plan and task (<code>set-status</code> on each). What it does NOT hold: <code>plan save|delete</code>, <code>task add|remove|reorder</code>, <code>task gate add|remove|set-status</code>, <code>milestone</code>, <code>evidence add</code> — all belong to the owning agent. Decomposing a plan into tasks is <code>gaia-planner</code>'s job; promoting a task after verification is <code>gaia-verifier</code>'s. A SEPARATE, standalone top-level <code>gaia ac</code> command (<code>set-status|add|remove|edit</code>) also exists and is NOT the orchestrator's — same owning-agent lane as <code>plan save|delete</code>. The verb drawn here is <code>brief</code>'s own nested <code>ac</code>, a different namespace."
+        variant: muted
+      - id: cli-approvals
+        order: 4
+        kicker: "list·pending·show·history·stats"
+        title: "Approval ledger"
+        description: ["sees it, never resolves it"]
+        detail: "<b>Approval ledger</b> — read-only (<code>approvals list | pending | show | history | stats</code>). <code>approvals approve|revoke|reject|reject-all|clean|replay|request-set</code> are DENIED to the orchestrator, categorically — the help's own words: consent is granted by the user, not by a CLI call. The orchestrator can watch the queue; it can never clear it."
+        variant: muted
+        filters: [porton]
+      - id: cli-schedule
+        order: 5
+        kicker: "schedule list·show·status · notifications ack"
+        title: "Scheduled tasks and reports"
+        description: ["sees the drift, cannot fix it"]
+        detail: "<b>Scheduled tasks and reports</b> — reads the desired-state registry (<code>schedule list|show|status</code>) and acknowledges a headless report (<code>notifications ack</code>). <code>schedule register|remove|sync</code> belongs to <code>gaia-operator</code>, and <code>sync</code> is itself T3 — so the orchestrator can detect that this machine drifted from desired state, and cannot reconcile it; it hands that off."
+        variant: muted
+      - id: cli-context
+        order: 6
+        kicker: "context show·get·get-contract·project · context scan · scan"
+        title: "Project context values"
+        description: ["reads it, and re-scans the substrate"]
+        detail: "<b>Project context values</b> — reads the workspace shape (<code>context show|get|project</code>) and, distinctly, a project-context CONTRACT row by name (<code>context get-contract --section &lt;s&gt;</code> — a different namespace from <code>show</code>/<code>get</code>'s own <code>--section</code>). It also re-indexes: <code>scan</code> and <code>context scan</code> are how the coordinator keeps its own context current, per the help's own words."
+        variant: muted
+
+  # 4 · EL PISO — auditoría y métricas a todo el ancho. No es una columna más
   #     porque no ocurren en UN momento del eje de arriba: ocurren en TODOS.
   - id: accounting
     title: "Audit and metrics"
     subtitle: "Neither belongs to a single moment of the line above — they run at all of them, which is why they are the floor and not another column. Metrics is numbered: that IS its order. Audit is the exception, and the rule on its second row says where the strict order begins."
     treatment: [envelope]
-    order: 3
+    order: 4
     span: 6
     columns: 2
     children:
@@ -769,11 +874,11 @@ sections:
             variant: muted
             filters: [el-juez]
 
-  # 4 · NOTAS AL PIE — la leyenda de color y el descargo de alcance. El
+  # 5 · NOTAS AL PIE — la leyenda de color y el descargo de alcance. El
   #     descargo bajó desde arriba: es una nota al pie, no un titular.
   - id: footnotes
     treatment: [plain]
-    order: 4
+    order: 5
     span: 6
     columns: 1
     children:
