@@ -1011,6 +1011,25 @@ function checkPage(page) {
         `it can never light.`);
   }
 
+  // LIT — a filter declared on a leaf TYPE the engine cannot light. buildBox is
+  // the only builder that stamps `data-filters` (and `data-k`) on its node;
+  // buildSeparator, buildRail and buildSpacer emit bare structural nodes. So a
+  // `filters:` on one of those types passes the strict schema (COMPONENT_FIELDS
+  // allows it on separator/rail), counts as a CHIP member above — the join
+  // CLOSES — and the render can never spotlight that end: the relation is
+  // declared in the data and silently absent on screen.
+  for (const leaf of leaves) {
+    asserted++;
+    const t = leaf.type;
+    if ((t === 'separator' || t === 'rail' || t === 'spacer') &&
+        Array.isArray(leaf.filters) && leaf.filters.length) {
+      fail('LIT', `page "${pageId}" ${t} "${leaf.id ?? '(no id)'}"`,
+        `declares filters [${leaf.filters.join(', ')}] on a \`${t}\`, a leaf type the engine ` +
+        `never lights: only buildBox emits \`data-filters\`, so this membership passes the CHIP ` +
+        `join and never renders. Move the filter to a box, or drop it.`);
+    }
+  }
+
   // BAND — a declared span that EXCEEDS the columns it is placed in. The engine
   // clamps it (`min(child.span, cols)`) so it renders as a band and nothing looks
   // wrong, but the declaration is unsatisfiable as written and the author's real
@@ -1524,6 +1543,8 @@ function main() {
     ['BAND', 'band placement and declared span within the grid'],
     ['TIER', 'collapse cascade is monotone across the container tiers'],
     ['CHIP', 'filter referential integrity (both directions) + chip arity'],
+    ['LIT', 'no filter on a leaf type the engine cannot light (separator/rail/spacer ' +
+      'carry no data-filters, so their chip membership passes the join and never renders)'],
     ['ORDER', 'no duplicate effective `order` among siblings'],
     // A third entry is an optional PASS DETAIL: what the check MEASURED when it
     // holds, so a pass reports a number instead of a bare "holds everywhere".

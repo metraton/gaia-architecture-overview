@@ -178,6 +178,27 @@ function rmDeck(dir) {
   rmDeck(dir);
 }
 
+// ── 3b. LIT — a filter on a separator passes CHIP and can never light ───────
+// The engine stamps `data-filters` only in buildBox; a separator/rail/spacer
+// node carries none, so its chip membership closes the CHIP join while the
+// render never spotlights that end. The fixture is rebuilt after the mutation
+// because this is the real flow (edit → build → check) and the strict schema
+// legitimately accepts `filters` on a separator — the defect is check-layout's
+// to catch.
+{
+  const dir = mkDeck();
+  const { p, doc } = loadOverview(dir);
+  const it = findNode(doc, 'item-2');
+  it.type = 'separator';
+  it.filters = ['flow'];
+  saveOverview(p, doc);
+  execFileSync('node', [path.join(dir, 'engine', 'build-data.mjs')], { cwd: dir, stdio: 'ignore' });
+  const { code, out } = runNode([CHECK, dir]);
+  const ok = code !== 0 && out.includes('separator "item-2"') && out.includes('never lights');
+  report('LIT: filters on a separator cannot light', ok, `exit=${code}\n${out}`);
+  rmDeck(dir);
+}
+
 // ── 4. control positive — the intact owned fixture must pass ───────────────
 {
   const dir = mkDeck();
