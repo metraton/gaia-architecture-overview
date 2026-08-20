@@ -384,11 +384,15 @@ const INVARIANTS = [
   //      one pixel of ink and used to be charged a full CELL_H; a row whose ONLY
   //      occupants are horizontal separators is now SEP_ROW_H. The separator is still
   //      a cell (principle 1 is untouched), so this family is asserted on the TRACK:
-  //      for every leaf grid, every resolved row track must equal SEP_ROW_H when that
-  //      row's only occupants are horizontal separators and CELL_H otherwise. Both
-  //      directions matter — a separator SHARING its row with boxes must NOT thin it
-  //      (or the boxes clip), and an empty row (a hole, owned by RECT/HOLE in `npm
-  //      run check`) must not be mistaken for a separator row.
+  //      for every leaf grid, every resolved row track must equal SEP_ROW_H when
+  //      every occupant of that row is a THIN LEAF — a horizontal separator or a
+  //      declared hole (spacer), mirroring the engine's isThinRowLeaf — and CELL_H
+  //      otherwise; a TRAILING thin row is a FLOOR (>= SEP_ROW_H), because the
+  //      engine emits it as minmax(--sep-row-h, 1fr) to absorb the slack a
+  //      stretched section leaves. Both directions matter — a separator SHARING
+  //      its row with boxes must NOT thin it (or the boxes clip), and an empty row
+  //      (a hole, owned by RECT/HOLE in `npm run check`) must not be mistaken for
+  //      a separator row.
   //      A VERTICAL separator is not in this family: its ink IS the row height, so its
   //      row stays CELL_H — measure() counts only `.sep:not(.sep-v)` as thin ink.
   //      The same track measurement finally covers the height of the two leaf types
@@ -402,26 +406,33 @@ const INVARIANTS = [
       const slots = m.halfSlots || [];
       const badSlots = slots.filter(s => Math.abs(s.h - CELL_H) !== 0 || s.n !== 2);
       const cellsOk = eq(m.heights, [CELL_H]);
-      // family 3 — the row TRACKS of every leaf grid.
+      // family 3 — the row TRACKS of every leaf grid. The classifier MIRRORS the
+      // engine's rowTrackList (isThinRowLeaf in engine.js): a row is THIN when
+      // every occupant is a thin LEAF — a horizontal separator OR a declared
+      // hole (spacer) — so a MIXED sep+spacer row (a rule that spans 3 of 4
+      // tracks with its fourth track declared) is one thin row, not a defective
+      // cell row. Reading "thin" as separators-only was a real mis-scope: it
+      // demanded CELL_H of exactly the row the engine deliberately thins.
       const badTracks = [], thinRows = [], spills = [];
       for (const g of m.rowTracks || []) {
         g.tracks.forEach((h, i) => {
           const row = g.rows[i];
-          const thin = row.n > 0 && row.n === row.sepH;
-          // A DECLARED-HOLE row is the one family whose track is a FLOOR rather
-          // than a fixed height: a trailing spacer exists to absorb the slack a
-          // stretched section leaves, so it is legitimately TALLER than
-          // SEP_ROW_H and asserting equality would forbid the very thing it is
-          // for. Shorter than the floor is still a defect.
-          const hole = row.n > 0 && row.n === row.hole;
-          const expect = thin || hole ? SEP_ROW_H : CELL_H;
-          const held = hole ? h >= expect : h === expect;
+          const thin = row.n > 0 && row.sepH + row.hole === row.n;
+          // A TRAILING thin row is the one family whose track is a FLOOR rather
+          // than a fixed height: the engine emits it as
+          // minmax(--sep-row-h, 1fr) so it ABSORBS the slack a stretched
+          // section leaves (rowTrackList's last-row rule), so it is
+          // legitimately TALLER than SEP_ROW_H and asserting equality would
+          // forbid the very thing it is for. Shorter than the floor is still a
+          // defect, and a NON-trailing thin row keeps the exact SEP_ROW_H.
+          const trailing = i === g.tracks.length - 1;
+          const expect = thin ? SEP_ROW_H : CELL_H;
+          const held = thin && trailing ? h >= expect : h === expect;
           if (!held) {
-            badTracks.push(`${g.zone}:row${i} track=${h}px expect ${hole ? '>= ' : ''}${expect}px (` +
-              (thin ? 'separator-only row — the thin track was not applied'
-                : hole ? 'declared-hole row — the track fell below the thin floor'
-                : `${row.n} occupant(s), ${row.sepH} separator(s) — a row that carries a box must stay ${CELL_H}px`) + ')');
-          } else if (thin || hole) thinRows.push(`${g.zone}:row${i}${hole ? `(hole@${h}px)` : ''}`);
+            badTracks.push(`${g.zone}:row${i} track=${h}px expect ${thin && trailing ? '>= ' : ''}${expect}px (` +
+              (thin ? 'thin row (separators/declared holes only) — the thin track was not applied'
+                : `${row.n} occupant(s), ${row.sepH} separator(s), ${row.hole} hole(s) — a row that carries a box must stay ${CELL_H}px`) + ')');
+          } else if (thin) thinRows.push(`${g.zone}:row${i}${h !== SEP_ROW_H ? `(absorbed@${h}px)` : ''}`);
         });
         for (const o of g.overflow) spills.push(`${g.zone}:${o.cls} overflows its row by ${o.over}px`);
       }
@@ -430,7 +441,7 @@ const INVARIANTS = [
       if (slots.length) parts.push(`${slots.length} half-slot(s) @ ${[...new Set(slots.map(s => s.h))].join('/')}px expect ${CELL_H}`);
       const nTracks = (m.rowTracks || []).reduce((n, g) => n + g.tracks.length, 0);
       parts.push(`${nTracks} row track(s) across ${(m.rowTracks || []).length} leaf grid(s): ` +
-        `${thinRows.length} thin (separator-only @ ${SEP_ROW_H}px, declared hole >= ${SEP_ROW_H}px)` +
+        `${thinRows.length} thin (separators/declared holes @ ${SEP_ROW_H}px, trailing thin row >= ${SEP_ROW_H}px)` +
         `${thinRows.length ? ` (${thinRows.join(', ')})` : ''}, ` +
         `${nTracks - thinRows.length} @ ${CELL_H}px; no .sep/.rail overflows its row`);
       if (badSlots.length) parts.push(`BAD: ${badSlots.map(s => `${s.zone}:h=${s.h}(expect ${CELL_H}),occupants=${s.n}(expect 2)`).join(', ')}`);
@@ -1116,6 +1127,12 @@ function measure() {
   //       regression of the sep/rail/box exemption (fix-1 / bug #2). A separator
   //       is additionally checked to stay thin in absolute width — a divider line
   //       is never legitimately wide — as the observable EFFECT of the balloon.
+  //       EXEMPT from that width clause: a `.msp` BAND sep/rail (span == columns),
+  //       whose full-row width is authored (`.sec-grid.sec-compound > .msp` is
+  //       flex:0 0 100% by design — the width is the assertion of ownership, the
+  //       grid's substitute for an arrow). Its flex-grow is still asserted 0, and
+  //       it must FILL its row instead — a band leaf shrunk below its row is the
+  //       counterpart defect.
   //   (2) STACK OVERFLOW — a nested section (.zone) stacked in a columns:1
   //       (column-direction) compound must keep its CONTENT height (flex-grow 0).
   //       If it grows, a stretched parent divides its height between the stacked
@@ -1126,6 +1143,7 @@ function measure() {
   //       reset (fix-2). Measured per element, so it goes red BEFORE the spill is
   //       large enough to make two boxes overlap (which is all X can see).
   const SEP_MAX_W = 96;   // px — a divider line / thin rail is never this wide as a flex item
+  const BAND_LEAF_TOL = 2; // px — a `.msp` band leaf must reach its row's full width
   const balloons = [];
   const stackOverflow = [];
   act.querySelectorAll('.sec-grid.sec-compound').forEach(g => {
@@ -1148,9 +1166,21 @@ function measure() {
       const isZone = kid.classList.contains('zone');
       if (!column && isLeaf) {
         if (grow > 0) balloons.push(`${gid}>${label}:flex-grow=${grow} (leaf grew to an equal slice)`);
-        if ((kid.classList.contains('sep') || kid.classList.contains('rail'))
-            && Math.round(kid.getBoundingClientRect().width) > SEP_MAX_W)
-          balloons.push(`${gid}>${label}:width=${Math.round(kid.getBoundingClientRect().width)}px > ${SEP_MAX_W}px (divider/rail ballooned)`);
+        // The absolute-width clause is the observable EFFECT of a balloon, so it
+        // exempts the one leaf whose full-row width is AUTHORED: a `.msp` band
+        // (span == columns) sep/rail is `flex:0 0 100%` by the compound band
+        // rule in index.html — the width IS its assertion (a header rail owns
+        // its row), its flex-grow is still 0, and the grow clause above keeps
+        // catching a real balloon. In exchange the band must actually FILL its
+        // row: a shrunk band leaf is the defect S/Y only see for zones.
+        if (kid.classList.contains('sep') || kid.classList.contains('rail')) {
+          const w = Math.round(kid.getBoundingClientRect().width);
+          const isBand = kid.classList.contains('msp');
+          if (!isBand && w > SEP_MAX_W)
+            balloons.push(`${gid}>${label}:width=${w}px > ${SEP_MAX_W}px (divider/rail ballooned)`);
+          if (isBand && w < g.clientWidth - BAND_LEAF_TOL)
+            balloons.push(`${gid}>${label}:width=${w}px < row ${g.clientWidth}px (band sep/rail shrunk below its row)`);
+        }
       }
       if (column && isZone) {
         if (grow > 0) stackOverflow.push(`${gid}>${label}:flex-grow=${grow} (stacked section given a divided share)`);
