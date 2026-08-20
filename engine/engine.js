@@ -201,6 +201,9 @@
     // Orientation comes from the `vertical` TREATMENT — see buildSeparator.
     const orient = hasTreatment(rail, 'vertical') ? 'v' : 'h';
     const node = el('div', `rail rail-${orient}`);
+    // `centered` is the one other treatment a rail draws; its absence means
+    // start-aligned, exactly as on a box (index.html `.rail.centered`).
+    if (hasTreatment(rail, 'centered')) node.classList.add('centered');
     const t = el('div', 'rail-title'); t.textContent = rail.title || ''; node.appendChild(t);
     return node;
   }

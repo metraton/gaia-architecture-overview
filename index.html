@@ -839,14 +839,23 @@
      A swimlane-style LABEL: styled like a component/box but title-only. Slim.
      `rail-v` rotates the title for a vertical swimlane label. Honors `span`. */
   .rail { background:var(--surface2); border:1px solid var(--line); border-radius:10px;
-    padding:var(--s-2) var(--s-3); display:flex; align-items:center; justify-content:center;
+    padding:var(--s-2) var(--s-3); display:flex; align-items:center;
     min-width:0; }
   .rail-title { font-family:var(--mono); font-size:13px; font-weight:700; letter-spacing:0.09em;
-    text-transform:uppercase; color:var(--muted); text-align:center; }
+    text-transform:uppercase; color:var(--muted); }
+  /* `centered` mirrors `.box.centered`: the treatment centres, its ABSENCE means
+     start-aligned. Before these two rules .rail-title carried its own
+     text-align:center, so `centered` — a documented component treatment — was
+     silently a no-op on a rail. Text alignment only; no invariant reads it. */
+  .rail.centered { justify-content:center; }
+  .rail.centered .rail-title { text-align:center; }
   /* min-height 0 for the same reason as .sep-v: in a leaf grid the row height is
      the contract, and a --zone-min-h floor overflowed it by 50px. */
-  .rail-v { align-self:stretch; min-height:0; }
-  .rail-v .rail-title { writing-mode:vertical-rl; transform:rotate(180deg); }
+  /* A vertical rail keeps both centrings unconditionally: a rotated lane label
+     has no start/centre text-axis to align, so the default flip above must not
+     move it. */
+  .rail-v { align-self:stretch; min-height:0; justify-content:center; }
+  .rail-v .rail-title { writing-mode:vertical-rl; transform:rotate(180deg); text-align:center; }
   /* COMPOUND rows are where the stretch floor actually earns its keep: a lane
      divider or a lane label sitting DIRECTLY beside nested sections has no row
      track to fill (a compound grid is a flex row, not a track grid), so without
