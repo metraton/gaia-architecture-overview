@@ -138,7 +138,7 @@ window.__DOC__ = {
                 {
                   "id": "ss-pull",
                   "title": "Orchestration tooling",
-                  "subtitle": "the gaia CLI · absent from its lanes = denied, not missing — a named owner has it · six pillars below ↓",
+                  "subtitle": "gaia CLI · absent = denied, not missing — a named owner has it · pillars below ↓",
                   "treatment": [
                     "envelope"
                   ],
