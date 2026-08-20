@@ -19,7 +19,7 @@ window.__DOC__ = {
             "SessionStart is the only hook that runs before anyone asks for anything: eight builder calls in fixed order (<code>build_session_context</code>) assemble everything the session starts knowing — the four thin lines on the left column.",
             "First, environment alone: where Gaia is installed — workspace, machine, its version annotated with the machine's local dev-build count (a <code>gaia dev</code> build ships the same semver as the release it was packed from), cwd, the plugin root.",
             "Then the projects index and the contracts index together — the assembler's own comment groups them as static project-context setup read before routing/dispatch decisions: the project index (names only, because the index announces existence and <code>gaia context project</code> fetches the ficha — the pointer's width is reserved before any trim, so a truncated index can never lie about how many projects exist), then which project-context sections each specialist surface will be handed at dispatch, straight from <code>surface_routing</code>.",
-            "Third, deliberately out of call order: the durable anchors — <em>About you / What I know</em> (<code>class='anchor'</code>). These rows do not inform the orchestrator, they INSTRUCT it — standing orders about how to work with this user. They are the true LAST of the eight calls, after the operational state below; drawn third so the plain label stands on its own, the subtitle carries the timing.",
+            "Third, deliberately out of call order: the durable anchors — <em>About you / What I know</em> (<code>class='anchor'</code>). These rows do not inform the orchestrator, they INSTRUCT it — standing orders about how to work with this user, which is also why the memory blocks are injected LAST, after the operational state they should anchor against. They are the true LAST of the eight calls, after the operational state below; drawn third so the plain label stands on its own.",
             "Last on the canvas, calls four through seven: the live worklist (open and carried-forward threads, recency first, independent of where you stand) plus three zero-noise blocks that say nothing unless something ran without you — unread headless reports with a resumable <code>session_id</code>, detect-only schedule drift pointing at the T3 <code>gaia schedule sync</code>, and scheduler suspensions, the lapsed ones first and louder because they do not clear themselves."
           ]
         },
@@ -101,7 +101,7 @@ window.__DOC__ = {
                 {
                   "id": "ss-push",
                   "title": "SessionStart",
-                  "subtitle": "instructs, not informs — after live state",
+                  "subtitle": "Deterministic context injection",
                   "treatment": [
                     "envelope"
                   ],
@@ -142,7 +142,7 @@ window.__DOC__ = {
                 {
                   "id": "ss-pull",
                   "title": "Orchestration tooling",
-                  "subtitle": "gaia CLI · absent = denied, not missing — a named owner has it · pillars below ↓",
+                  "subtitle": "gaia CLI · only bash tooling to orchestrate workflows",
                   "treatment": [
                     "envelope"
                   ],
@@ -817,7 +817,7 @@ window.__DOC__ = {
         {
           "id": "cli",
           "title": "The orchestrator's CLI",
-          "subtitle": "What it holds directly between the modules that implement a turn and the floor that audits every one — neither a hook module nor an audit floor.",
+          "subtitle": "What it holds directly between the modules that implement a turn and the floor that audits every one — neither a hook module nor an audit floor. In gaia --help's own terms: a verb absent from the read and orchestrator-write lanes is denied to the orchestrator exactly like one that does not exist — denial is not a missing feature, it is work with a named owner.",
           "treatment": [
             "envelope"
           ],
