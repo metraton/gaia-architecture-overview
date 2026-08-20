@@ -1,0 +1,791 @@
+# S-arquitectura — la arquitectura real: la RUTA PORTANTE de un turno.
+#
+# Form: dashboard (NO timeline). Timeline eximiría M, N y ROW justo en la
+# página más densa del deck; dashboard los mantiene activos.
+#
+# Cuatro bandas al root (columns:6, cada banda span:6):
+#   1. LA VIDA DE UN REQUEST — cabecera, la capa propia de Gaia y la fila del
+#      prompt. NIVEL COMPUESTO A PROPÓSITO (principio 2). La banda mezcla un
+#      `rail` (celda) con secciones, así que `columns:10` deja de crear tracks
+#      y `span` pasa a ser PESO RELATIVO: 10 (rail = band, fila propia) ·
+#      3 (la capa de Gaia) · 7 (todo lo que cuelga del prompt). Se acepta el
+#      cambio de dial porque lo que esta banda necesita NO es una retícula
+#      compartida sino tres pesos distintos y dos alturas libres.
+#      LA COLUMNA IZQUIERDA ES LA CAPA DE GAIA, no "el momento antes de la
+#      persona": arriba lo que Gaia EMPUJA sola al abrir (SessionStart), abajo
+#      lo que RESPONDE cuando se le pide. Sus filas son LÍNEAS FINAS
+#      (`type: separator` con `text`), no celdas: una fila cuyos únicos
+#      ocupantes son separators horizontales cae a --sep-row-h (40px), y cada
+#      sección es `columns:1` — un solo track. Eso es lo que hace caber la capa
+#      donde antes había un hueco: el blanco bajo SessionStart era la
+#      afirmación de la versión anterior y esta página lo GASTA a propósito.
+#      ARITMÉTICA DE LA COLUMNA (medida en el render, no estimada): cabecera de
+#      sección = 16 (título) + 4 + 14 por línea de subtítulo; una sección
+#      envelope de n líneas finas con subtítulo de UNA línea mide 68 + 48n.
+#      El modelo de la pila 4 + 3 es 260 + 8 + 212 = 480px contra los 482px de
+#      `human-side`; una QUINTA línea (+48px) NO cabe, y un subtítulo de dos
+#      líneas (+14px por sección) tampoco. Por eso los subtítulos son de una
+#      línea y la narrativa larga vive en los `steps` del chip `sesion-abre`.
+#      EL RENDER MIDE 16px MÁS QUE EL MODELO, y es un costo aceptado: un
+#      título de sección de ~30 caracteres infla la flex-basis de su zona en
+#      una línea de título (+16px, medido en Chromium: con ese título a ≤23
+#      caracteres la zona vuelve a su modelo de 212; "SessionStart", 12, no
+#      infla). ss-pull dibuja 228, la banda queda en 496 y el lado derecho
+#      absorbe 14px bajo human-loop, así que los bordes inferiores de ss-pull
+#      y human-loop quedan desalineados 14px. Se conserva el título dibujado
+#      ("gaia · what I answer on demand"); acortarlo a ≤23 caracteres
+#      ("what I answer on demand") elimina el desfase.
+#      PESOS (por qué 3/7 de 10, números del render): a peso 3 la columna mide
+#      371.4px — 337.4 interiores, ~305px útiles para un `sep-text` (nowrap,
+#      7.5px/carácter medido) — y deja a lifetime 738.6px contra su piso
+#      word-fit de 711.2px y a s-prompt 120.0px, EXACTAMENTE en su piso de
+#      120px. Subir la columna a ~390px (labels más largos) deja ambos pisos a
+#      <12px con ruido flex medido de ±5px: descartado.
+#      POR QUÉ s-prompt SIGUE SIENDO UNA CAJA ALTA EN SU ENVOLTORIO `plain`:
+#      en un nivel compuesto una celda suelta es `flex:0 0 auto;
+#      height:--cell-h` y `rowspan` no existe (`.mrsp` sólo aplica en grilla
+#      leaf); la grilla leaf de una columna le devuelve el eje vertical. Y no
+#      puede ser un `rail`: un rail no lleva `filters` (el check LIT lo
+#      asserta) y el chip `ruteo` necesita esta caja.
+#   2. LOS MÓDULOS — banda columns:1 que APILA TRES FILAS. No son dos filas de
+#      tres: la aritmética lo impide (ver ARITMÉTICA abajo). El eje horizontal
+#      hace eco del eje temporal de la banda 1 y lo DECLARA en su subtítulo.
+#   3. EL PISO — AUDIT y METRICS a todo el ancho, debajo de los módulos. No son
+#      una columna más porque no ocurren en UN momento del eje de arriba:
+#      ocurren en TODOS. Como piso, la posición afirma algo verdadero.
+#   4. NOTAS AL PIE — dos separators dotted: la leyenda de color y el descargo
+#      de alcance. El descargo BAJÓ desde arriba: es una nota al pie, no un
+#      titular. NOTA DE SCHEMA: PAGE_FIELDS no admite `subtitle`
+#      (id/layout/columns/filters/sections/form/name/order/visible), así que un
+#      "subtítulo de página" no tiene slot; esta banda es su lugar.
+#
+# ARITMÉTICA (por qué tres filas y no dos de tres):
+#   El plano cierra en 1280px; la banda envelope deja 1246px de track area.
+#   · SEIS zonas en una fila → (1246 − 5·8)/6 = 201px por zona → 167px
+#     interiores → dos columnas darían (167−8)/2 = 79.5px, MUY por debajo del
+#     piso MIN_LEGIBLE de 120px (invariante M) y además la fila COMPUESTA haría
+#     wrap por min-content. Descartado.
+#   · TRES zonas en una fila → (1246 − 2·8)/3 = 410px por zona → 376px
+#     interiores → dos columnas de (376−8)/2 = 184px. Muy por encima del piso, y
+#     MÁS ANCHAS que los 167px de la columna única de hoy. Ese es el cambio.
+#   · CONTEXT SUBSTRATE no cabe en una fila de tres: lleva DIEZ componentes en
+#     dos sub-secciones. A 410px serían 5 filas internas (650px) contra las 2-3
+#     de sus vecinas — el hueco de 300px+ al pie de las columnas vecinas es
+#     exactamente el defecto que esta reescritura viene a cerrar. Por eso ocupa
+#     su propia fila a todo el ancho, donde sus dos mitades caben a 3 columnas
+#     de 184px y CIERRAN A LA MISMA ALTURA (2 filas cada una).
+#   Resultado: filas de 3 · 1 · 2 módulos, y las tres filas cierran su
+#   rectángulo sin huecos internos. El orden temporal se conserva intacto.
+#
+# ALTURA IGUAL POR FILA (la regla que mata los huecos al pie):
+#   Dentro de cada fila los módulos tienen EL MISMO número de filas internas.
+#   Fila 1: routing 3 · delegate 3 · approvals 3.  Fila 2: las dos mitades del
+#   sustrato, 2 y 2.  Fila 3: lifecycle 2 · skills 2.  Piso: audit 2 · metrics 2.
+#
+# CASCADA (por qué NINGUNA grilla leaf usa span == columns con un número impar
+# de celdas simples delante): a 2 tracks un band exige la fila entera, así que
+# tres celdas simples antes de un band dejan UN hueco INTERIOR en la fila previa
+# — y HOLE se asserta en TODOS los tiers, no sólo en el autorado. Por eso el
+# separador interno de AUDIT es una celda span:1 al inicio de su fila ordenada y
+# no una banda span:3: así la grilla es de seis celdas simples y tesela limpio a
+# 3, a 2 y a 1 track. Es una restricción de la cascada, no una preferencia.
+#
+# EJE DE ORDEN DENTRO DE UN MÓDULO: con dos y tres columnas el eje vertical ya
+# no puede afirmar el orden de ejecución. Lo afirma EL NÚMERO DEL KICKER. Un
+# kicker sin número no es un paso: es una tabla, o un grupo que corre en
+# paralelo. Declarado en el subtítulo de cada banda.
+#
+# KICKERS: cada uno es un símbolo verificado en el árbol fuente de Gaia
+# (hooks/, tools/, gaia/store/schema.sql), en su FORMA CORTA para que ningún
+# token se parta a mitad de palabra en su celda. El nombre completo vive en el
+# detail. El presupuesto de kicker del guardrail mide exactamente esto.
+#
+# CHIPS (7) — cada uno cruza las bandas: la celda del momento en la banda 1 y
+# los componentes del módulo que lo implementa. La celda de la banda 1 es
+# miembro OBLIGATORIO: sin ella `entrega` quedaría con un solo miembro
+# (pc-anchors) y CHIP/ARITY lo rechazaría.
+id: s-arquitectura
+layout: grid
+form: dashboard
+columns: 6
+
+filters:
+  - key: sesion-abre
+    label: "the session opens"
+    steps:
+      - "SessionStart is the only hook that runs before anyone asks for anything: eight builder calls in fixed order (<code>build_session_context</code>) assemble everything the session starts knowing — the four thin lines on the left column."
+      - "First the static setup: where Gaia is installed — workspace, machine, version, cwd — and the index of your projects, names only, because the index announces existence and <code>gaia context project</code> fetches the ficha. The pointer's width is reserved before any trim, so a truncated index can never lie about how many projects exist."
+      - "Then the contracts index: which project-context sections each specialist surface will be handed at dispatch — surface to section names, straight from <code>surface_routing</code>."
+      - "Then three zero-noise blocks that say nothing unless something ran without you: unread headless reports with a resumable <code>session_id</code>, detect-only schedule drift pointing at the T3 <code>gaia schedule sync</code>, and scheduler suspensions — the lapsed ones first and louder, because they do not clear themselves."
+      - "Last, deliberately, the memory: the live worklist — open and carried-forward threads grouped by initiative, recency first, independent of where you stand — injected after the operational state, so the orchestrator reads what is live before the knowledge it anchors against."
+  - key: ruteo
+    label: "where does this belong?"
+    steps:
+      - "UserPromptSubmit reads the prompt and scores every surface to name the one that owns it — a recommendation, never a block."
+  - key: porton
+    label: "the gate"
+    steps:
+      - "Before any tool runs, PreToolUse asks two questions in order: may the orchestrator hold this tool at all, and does this command need your consent?"
+  - key: despacho
+    label: "the dispatch"
+    steps:
+      - "When the tool is a dispatch, PreToolUse builds the subagent's context, caches it, and opens the contract row that will later force a blind verification."
+  - key: entrega
+    label: "the handover"
+    steps:
+      - "SubagentStart is the first instant the agent exists: it receives the context PreToolUse cached for it, and its anchors are written down so the close can measure what it actually used."
+  - key: contabilidad
+    label: "the bookkeeping"
+    steps:
+      - "PostToolUse writes down what ran — three independent writers plus the seal on the approval chain — and Stop sweeps up the failed T3 commands PostToolUse never saw."
+  - key: el-juez
+    label: "the judge"
+    steps:
+      - "SubagentStop is the only other place the turn can stop: it parses the contract out of the text, judges it, measures the turn, and writes the episode."
+
+sections:
+  # 1 · LA VIDA DE UN REQUEST — nivel compuesto: rail de cabecera (band),
+  #     la capa propia de Gaia (peso 3) y todo lo que cuelga del prompt (peso 7).
+  - id: turn
+    title: "The life of a request"
+    subtitle: "Everything here hangs from Gaia. The left column is Gaia's own layer — what it pushes at open and what it answers on demand; from the user prompt on, someone is in the loop."
+    treatment: [envelope]
+    order: 1
+    span: 6
+    columns: 10
+    children:
+      # ── CABECERA · de quién cuelgan estos momentos. span == columns, así que
+      # es un band y se lleva su propia fila entera: el ANCHO es la afirmación
+      # de pertenencia. En este dialecto no hay flechas — el ancho es el enlace.
+      - id: hdr-gaia
+        type: rail
+        order: 1
+        span: 10
+        title: "GAIA · the orchestration layer"
+
+      # ── LA CAPA PROPIA DE GAIA · push arriba, pull abajo. Un envoltorio
+      # `plain` de una columna: sus dos hijas son bands (span == columns == 1)
+      # y se apilan. Cada sección es una lista de LÍNEAS FINAS — `separator`
+      # con `text`, un solo track, filas de 40px — no una grilla de celdas; la
+      # aritmética de la pila y de los pesos vive en la cabecera del archivo.
+      # Un separator no es clickeable y no lleva `detail` NI `filters` (el
+      # motor sólo emite data-filters en buildBox — el check LIT lo asserta),
+      # así que la narrativa de estos bloques vive en el subtítulo de cada
+      # sección y en los `steps` del chip `sesion-abre` — y la banda 1 PIERDE
+      # su miembro de ese chip: quedan pc-render y pc-memory (ARITY ≥ 2).
+      # Las cuatro líneas cubren las OCHO llamadas de build_session_context
+      # (hooks/modules/session/session_manifest.py, en su orden): environment
+      # + projects index (línea 1), contracts index (línea 2), los tres
+      # bloques zero-noise — notifications, drift, suspensions — (línea 3) y
+      # el worklist (línea 4). La octava — los anchors, «lo que sé de vos» —
+      # NO está dibujada: es la quinta línea que los 482px no admiten
+      # (480 + 48 > 482).
+      - id: s-open
+        treatment: [plain]
+        order: 2
+        span: 3
+        columns: 1
+        children:
+          - id: ss-push
+            title: "SessionStart"
+            subtitle: "what I push at open, before anyone asks"
+            treatment: [envelope]
+            order: 1
+            span: 1
+            columns: 1
+            children:
+              - id: sp-env
+                type: separator
+                order: 1
+                span: 1
+                text: "I know my machine, your projects by name"
+              - id: sp-contracts
+                type: separator
+                order: 2
+                span: 1
+                text: "I know what each surface will be handed"
+              - id: sp-notifs
+                type: separator
+                order: 3
+                span: 1
+                text: "I speak only when things ran without you"
+              - id: sp-worklist
+                type: separator
+                order: 4
+                span: 1
+                text: "I carry your live worklist"
+          - id: ss-pull
+            title: "gaia · what I answer on demand"
+            subtitle: "context project · memory show · approvals"
+            treatment: [envelope]
+            order: 2
+            span: 1
+            columns: 1
+            children:
+              - id: pl-ficha
+                type: separator
+                order: 1
+                span: 1
+                text: "ask me for a project's ficha"
+              - id: pl-memory
+                type: separator
+                order: 2
+                span: 1
+                text: "ask me what I remember"
+              - id: pl-approvals
+                type: separator
+                order: 3
+                span: 1
+                text: "ask me what waits for your signature"
+
+      # ── TODO LO QUE CUELGA DEL PROMPT. Otro nivel compuesto: la barra del
+      # humano (peso 1), la vida del trabajo (peso 6) y, en su propia fila,
+      # la base de consentimiento (span == columns == band).
+      - id: human-side
+        treatment: [plain]
+        order: 3
+        span: 7
+        columns: 7
+        children:
+          # La entrada del humano. NO es una caja normal: `treatment: [vertical]`
+          # gira el texto con writing-mode:vertical-rl + rotate(180deg), o sea
+          # de abajo hacia arriba, que es como el usuario la imaginó. El motor
+          # SÍ lo soporta y prohíbe `description` en una celda vertical (el
+          # texto rotado no tiene ancho donde envolver), así que la explicación
+          # entera vive en el detail.
+          - id: s-prompt
+            treatment: [plain]
+            order: 1
+            span: 1
+            columns: 1
+            children:
+              - id: op-prompt
+                order: 1
+                rowspan: 2
+                treatment: [vertical]
+                kicker: UserPromptSubmit
+                title: "USER PROMPT"
+                detail: "The person types, and the turn begins. UserPromptSubmit reads the prompt and decides which surface owns it: the routing table is seeded into <code>surface_routing</code> from each agent's own <code>routing:</code> frontmatter, and the match is scored per surface. The result is a RECOMMENDATION injected as context — this hook never blocks a turn. This is where a person enters, and everything to the right of this bar happens because someone asked."
+                filters: [ruteo]
+
+          # La vida del trabajo: UNA fila de cuatro cajas (kicker = el verbo que
+          # le pasa al trabajo, título = el evento) y debajo UN RIEL FINO.
+          # Es un `separator` con texto, no una caja: una fila cuyos únicos
+          # ocupantes son separators horizontales (o spacers) cae a --sep-row-h
+          # (40px), que es lo que lo hace fino.
+          - id: lifetime
+            title: "The goal's lifetime"
+            subtitle: "from dispatch to close"
+            treatment: [envelope]
+            order: 2
+            span: 6
+            columns: 4
+            children:
+              - id: lf-born
+                order: 1
+                kicker: BORN
+                title: "PreToolUse"
+                description: ["checked, given a context, recorded"]
+                detail: "<b>PreToolUse</b> — the gate, and one of the two places a turn can stop. In order: it decides whether the orchestrator may use the tool at all or must delegate; it classifies the command T0–T3, refuses the irreversible outright and demands your consent for T3; and, when the tool is a dispatch, it builds the subagent's context, caches it, and opens the contract row carrying the <code>plan_task_id</code> that will later forbid the agent from declaring itself done. A block here is <code>exit 2</code> — the command never runs. Nothing of the agent existed before this cell."
+                variant: bad
+                filters: [porton, despacho]
+              - id: lf-receives
+                order: 2
+                kicker: RECEIVES
+                title: "SubagentStart"
+                description: ["context, routing, contract, memory"]
+                detail: "<b>SubagentStart</b> — the first instant the agent exists. It receives the context PreToolUse already built and cached: project context, surface routing, its handoff contract, its contract permissions, the memory index and the recent session events. Its ANCHORS — the identifiers it was handed — are written down here, so the close can measure which fraction of that context it actually touched. What it does NOT receive from Gaia is its skills: the harness injects those from the agent's own frontmatter."
+                filters: [entrega]
+              - id: lf-works
+                order: 3
+                kicker: WORKS
+                title: "PostToolUse"
+                description: ["it calls tools and produces its work"]
+                detail: "<b>PostToolUse</b> — the agent works, and every tool IT invokes re-enters the same gate. The gates are not spent on the dispatch: that is why this stretch runs again for every single call. PostToolUse logs the execution, seals EXECUTED or FAILED onto the hashed approval chain, and — on an <code>AskUserQuestion</code> answer — activates the grant the user just conceded, so the retry of the identical command finds a live permission. It does NOT fire for a non-zero Bash exit in the current host, which is why Stop exists as a sweeper."
+                filters: [contabilidad]
+              - id: lf-contract
+                order: 4
+                kicker: CONTRACT
+                title: "SubagentStop"
+                description: ["read and judged"]
+                detail: "<b>SubagentStop</b> — the judge, and the other place a turn can stop. The agent emits its <code>agent_contract_handoff</code> as a fenced block in its response TEXT; Gaia parses it out of that text (not out of the database), validates its shape, forces a blind verification when the turn is bound to a plan task, measures the turn from the transcript, detects anomalies, computes the compliance score, writes the episode and persists the handoff. A rejection is <code>exit 2</code>: the turn is handed back and the agent repairs it. The repair IS this handoff, read again."
+                variant: bad
+                filters: [el-juez]
+              # UN SOLO RIEL, no dos. Los dos anteriores describían EL MISMO
+              # TRAMO y darles spans distintos afirmaba que eran dos cosas: la
+              # mutación no se frena en PostToolUse ni en SubagentStop, se frena
+              # en PreToolUse. PreToolUse ocurre DOS veces —una como el nacimiento
+              # del goal y otra en cada herramienta que el agente llama mientras
+              # trabaja— y el riel "once per call" ES esa segunda aparición.
+              # El span es 3, no 4: lo que se repite son BORN · RECEIVES · WORKS.
+              - id: lf-loop
+                order: 5
+                type: separator
+                span: 3
+                text: "↻ once per call — and if it mutates, it stops"
+              # EL HUECO ES LA AFIRMACIÓN: el cierre ocurre UNA SOLA VEZ, no se
+              # repite, así que la cuarta pista no lleva riel. Se declara con un
+              # spacer en vez de dejarse vacía — un hueco que se quiso decir.
+              - id: lf-gap
+                order: 6
+                type: spacer
+                span: 1
+
+          # ── LA BASE. Arranca en la columna del USER PROMPT y llega hasta la
+          # derecha: deja libre la columna izquierda, y eso es semántico.
+          # La línea del consentimiento empieza donde entra la persona; la
+          # columna izquierda es la capa propia de Gaia y queda FUERA de esa
+          # línea — empuja e informa, no muta.
+          # (Por eso vive DENTRO de `human-side` y no al nivel de la banda:
+          # ahí su borde izquierdo es el borde izquierdo del prompt.)
+          # La leyenda de color NO se repite acá: la página ya la declara en su
+          # nota al pie final, y cada cosa se dice una sola vez.
+          - id: human-loop
+            title: "Human in the loop"
+            subtitle: "a name behind every change"
+            treatment: [envelope]
+            order: 3
+            span: 7
+            columns: 1
+            children:
+              - id: hl-bash
+                order: 1
+                kicker: REVIEW
+                title: "BashValidator"
+                description: ["a mutating action becomes a detailed, auditable protocol before it runs: the exact command, its scope, its risk and how to undo it — approved once, for that command only"]
+                detail: "The detour has four beats. <b>1 · Held at the gate.</b> The command is classified and, if it mutates live state, it is blocked with an <code>approval_id</code> — <code>exit 2</code>, it never runs. <b>2 · The turn goes up.</b> A subagent has NO channel to the person: this is the fact nobody guesses, and it is why consent is not resolved where the block happens. The subagent returns <code>APPROVAL_REQUEST</code> carrying the id, and the orchestrator is the one that can speak to you. <b>3 · You see the values and consent.</b> The exact command verbatim, what it touches, what it risks, how to undo it. <b>4 · Retried byte for byte.</b> The grant matches on the whole command string, so a reworded retry never matches; the permission is single-use and is consumed on the match. The ladder: <b>T0</b> read-only, free. <b>T1</b> local validation, free. <b>T2</b> simulation — plan, diff, dry-run — free. <b>T3</b> it mutates live state, and only a person can let it through. Above the ladder sit the commands that are never approvable at all."
+                filters: [porton]
+
+  # 2 · LOS MÓDULOS — tres filas apiladas (3 · 1 · 2). El orden horizontal
+  #     hace eco del eje temporal de arriba y el subtítulo lo declara.
+  - id: modules
+    title: "The modules"
+    subtitle: "Left to right and row by row, the modules follow the same clock as the band above — the prompt, then the gate, then the dispatch, then the close. Inside a module the NUMBER on the kicker is the execution step; a kicker with no number is not a step, but a lookup table or a group that runs in parallel."
+    treatment: [envelope]
+    order: 2
+    span: 6
+    columns: 1
+    children:
+      # ── FILA 1 · antes del despacho: el ruteo y las dos preguntas del portón.
+      - id: mod-early
+        treatment: [plain]
+        order: 1
+        span: 1
+        columns: 3
+        children:
+          - id: routing
+            title: "Routing"
+            subtitle: "UserPromptSubmit's only decision"
+            treatment: [envelope]
+            order: 1
+            span: 1
+            columns: 2
+            children:
+              - id: rt-load
+                order: 1
+                span: 2
+                kicker: 1 load_surface_routing_config
+                title: "Read the surfaces"
+                detail: "<code>load_surface_routing_config</code> loads the surface table from <code>gaia.db</code>. The source of truth is each agent's own <code>routing:</code> frontmatter block, seeded into the <code>surface_routing</code> table at install time — there is no standalone routing config file. Lives in <code>tools/context/surface_router.py</code>."
+                variant: muted
+                filters: [ruteo]
+              - id: rt-score
+                order: 2
+                kicker: 2 _score_surface
+                title: "Score each one"
+                detail: "Scores the prompt against one surface's declared signals — <code>commands</code> and <code>artifacts</code>. Keywords were retired as a signal source: a legacy <code>keywords</code> key in a signals block is ignored by scoring."
+                variant: muted
+                filters: [ruteo]
+              - id: rt-classify
+                order: 3
+                kicker: 3 classify_surfaces
+                title: "Pick the owner"
+                detail: "Turns the per-surface scores into the ranked answer: which surface owns this intent, and which surfaces sit adjacent to it."
+                variant: muted
+                filters: [ruteo]
+              - id: rt-brief
+                order: 4
+                span: 2
+                kicker: 4 build_investigation_brief
+                title: "Advise, never block"
+                detail: "Renders the routing recommendation as context injected into the turn. UserPromptSubmit is advisory end to end — it never returns a block, so a wrong route costs a dispatch, never the turn."
+                variant: muted
+                filters: [ruteo]
+          - id: delegate
+            title: "Delegate mode"
+            subtitle: "PreToolUse's first gate — a chain with no branches, so every step owns its own row"
+            treatment: [envelope]
+            order: 2
+            span: 1
+            columns: 1
+            children:
+              - id: dm-role
+                order: 1
+                kicker: 1 classify_session_role
+                title: "Which role?"
+                detail: "Classifies the caller into one of three session roles. The gate only applies to the orchestrator; a specialist already dispatched is not asked to delegate again. Lives in <code>hooks/modules/orchestrator/delegate_mode.py</code>."
+                variant: muted
+                filters: [porton]
+              - id: dm-check
+                order: 2
+                kicker: 2 check_delegate_mode
+                title: "Use it or delegate"
+                detail: "The first thing <code>adapt_pre_tool_use</code> runs, before any tier classification: may the orchestrator hold this tool itself, or must it hand the work to a specialist? This is what keeps the orchestrator a router rather than a worker."
+                variant: muted
+                filters: [porton]
+              - id: dm-allowed
+                order: 3
+                kicker: ORCHESTRATOR_ALLOWED_TOOLS
+                title: "The allowed set"
+                detail: "The frozen set of tools the orchestrator may hold on its own. NOT a step — that is why its kicker carries no number. It is the table the check consults; anything outside it is a delegation."
+                variant: muted
+                filters: [porton]
+          - id: approvals
+            title: "Approvals"
+            subtitle: "PreToolUse · five phases"
+            treatment: [envelope]
+            order: 3
+            span: 1
+            columns: 2
+            children:
+              - id: ap-guards
+                order: 1
+                kicker: 1 db·memory·path
+                title: "Three flat denials"
+                detail: "Three categorical guards: the gaia.db write guard, the subagent memory-write guard, and the protected-path guard for anything under <code>.claude/</code>. They are categorical denials — <code>exit 2</code>, never approvable. DESIGN FACT WORTH KEEPING: all three run BEFORE the unwrap, deliberately, so they inspect heredocs and wrappers intact rather than a payload the unwrapper has already taken apart."
+                variant: muted
+                filters: [porton]
+              - id: ap-unwrap
+                order: 2
+                kicker: 2 ShellUnwrapper
+                title: "Peel and decompose"
+                detail: "Peels the wrappers and decomposes the command into stages, so a composed command is judged stage by stage rather than as one opaque string. Nesting past the obfuscation depth limit is itself a block."
+                variant: muted
+                filters: [porton]
+              - id: ap-blocked
+                order: 3
+                kicker: 3 is_blocked_cmd
+                title: "Never approvable"
+                detail: "<code>is_blocked_command</code> pattern-matches the irreversible and denies it permanently — this tier cannot be approved at all. Runs on the command as written AND on the peeled form, so an <code>env FOO=bar</code> prefix cannot walk a blocked command past the floor."
+                variant: muted
+                filters: [porton]
+              - id: ap-composition
+                order: 4
+                kicker: 4 check_composition
+                title: "Dangerous pipelines"
+                detail: "Classifies the pipeline itself: file-read into an exec sink, network into exec, decode into exec. This is where exfiltration and remote-code-execution shapes are caught — each stage is benign, the composition is not."
+                variant: muted
+                filters: [porton]
+              - id: ap-verbs
+                order: 5
+                span: 2
+                kicker: 5 detect_mutative_command
+                title: "Grant, or ask"
+                detail: "The mutative-verb classifier. If a matching grant already exists it is consumed; if not, the command is T3 and an <code>approval_id</code> is minted for the user to approve, seeing the command verbatim. A grant is single-use per subagent, or multi-use per verb family for a batch."
+                variant: muted
+                filters: [porton]
+
+      # ── FILA 2 · el despacho: el sustrato de contexto. Ocupa su propia fila
+      # a todo el ancho porque lleva diez componentes; a un tercio del ancho
+      # dejaría 300px de hueco al pie de sus vecinas.
+      - id: context
+        title: "Context substrate"
+        subtitle: "injected at dispatch, updated at close — its two halves are the same substrate seen at two moments"
+        treatment: [envelope]
+        order: 2
+        span: 1
+        columns: 2
+        children:
+          - id: project-context
+            title: "Project context"
+            subtitle: "at dispatch"
+            treatment: [envelope]
+            order: 1
+            span: 1
+            columns: 3
+            children:
+              - id: pc-payload
+                order: 1
+                kicker: 1 context_payload
+                title: "Assemble the payload"
+                detail: "<code>build_context_payload</code> assembles the whole context payload for one agent: project identity, stack, routing, permissions, metadata. Lives in <code>tools/context/context_provider.py</code>."
+                variant: muted
+                filters: [despacho]
+              - id: pc-render
+                order: 2
+                kicker: 2 project_context
+                title: "Render and extract"
+                detail: "<code>build_project_context</code> renders the project-context sections the agent is allowed to read, and extracts the ANCHORS out of that render — the identifiers the agent was handed. Lives in <code>hooks/modules/context/context_injector.py</code>."
+                variant: muted
+                filters: [despacho, sesion-abre]
+              - id: pc-events
+                order: 3
+                kicker: 3 session_events
+                title: "Recent events"
+                detail: "<code>build_session_events</code> adds the recent session events, so a dispatched agent knows what already happened in this session instead of starting blind."
+                variant: muted
+                filters: [despacho]
+              - id: pc-memory
+                order: 4
+                kicker: 4 workspace memory
+                title: "Curated memory"
+                detail: "The curated memory block: atoms, decisions and negative space that survived the session that produced them. It is also what SessionStart injects at the very top of a session."
+                variant: muted
+                filters: [despacho, sesion-abre]
+              - id: pc-anchors
+                order: 5
+                span: 2
+                kicker: 5 save_anchors
+                title: "Cache, then anchor"
+                detail: "The payload is cached for the subagent at dispatch; <code>save_anchors</code> then writes the anchors down — already inside SubagentStart. At the close, <code>compute_anchor_hits</code> measures which fraction of them the agent actually touched. Lives in <code>hooks/modules/context/anchor_tracker.py</code>."
+                variant: muted
+                filters: [despacho, entrega]
+          - id: project-contracts
+            title: "Project contracts"
+            subtitle: "at close"
+            treatment: [envelope]
+            order: 2
+            span: 1
+            columns: 3
+            children:
+              - id: ct-perms
+                order: 1
+                kicker: 1 contract_perms
+                title: "Who may read what"
+                detail: "<code>agent_contract_permissions</code> is the per-agent, per-contract authorization table in <code>gaia/store/schema.sql</code>: <code>can_read</code> and <code>can_write</code> per section. It is what decides which slice of project context an agent is handed at dispatch, and which sections it may write back at close."
+                variant: muted
+                filters: [despacho]
+              - id: ct-process
+                order: 2
+                kicker: 2 update_contracts
+                title: "Read the deltas"
+                detail: "<code>process_update_contracts</code> reads the <code>update_contracts</code> array out of the agent's contract — the discoveries it wants written into shared project context. Lives in <code>hooks/modules/context/context_writer.py</code>."
+                variant: muted
+                filters: [el-juez]
+              - id: ct-validate
+                order: 3
+                kicker: 3 validate_perm
+                title: "May it write here?"
+                detail: "<code>validate_permission</code> checks the writing agent against the section it is trying to write. A rejection is not silent: it feeds the <code>scope_escalation</code> anomaly, so writing outside your scope is a finding, not a no-op."
+                variant: muted
+                filters: [el-juez]
+              - id: ct-merge
+                order: 4
+                kicker: 4 _merge_section
+                title: "Merge, never replace"
+                detail: "<code>_merge_section_payload</code>: a payload is a DELTA, not a snapshot — it is deep-merged into what is stored, so a partial write cannot wipe the keys it did not mention."
+                variant: muted
+                filters: [el-juez]
+              - id: ct-apply
+                order: 5
+                span: 2
+                kicker: 5 apply_update
+                title: "Write it down"
+                detail: "The write itself, against <code>project_context_contracts</code> in <code>gaia.db</code>. This is the «updated at close» half of the substrate."
+                variant: muted
+                filters: [el-juez]
+
+      # ── FILA 3 · el contrato y las skills: nacen en el despacho y se juzgan
+      # en el cierre, así que entran después del sustrato.
+      - id: mod-late
+        treatment: [plain]
+        order: 3
+        span: 1
+        columns: 2
+        children:
+          - id: lifecycle
+            title: "Contract lifecycle"
+            subtitle: "born at dispatch, judged at close"
+            treatment: [envelope]
+            order: 1
+            span: 1
+            columns: 2
+            children:
+              - id: cl-birth
+                order: 1
+                kicker: 1 birth_dispatched
+                title: "Born with a task id"
+                detail: "<code>birth_dispatched_row</code>: the contract's row is born at the dispatch, inside PreToolUse, carrying the <code>plan_task_id</code> of the task this turn executes. That single field is what later forbids the agent from closing its own work. Lives in <code>hooks/modules/agents/dispatch_binding.py</code>."
+                variant: muted
+                filters: [despacho]
+              - id: cl-parse
+                order: 2
+                kicker: 2 parse_contract
+                title: "Parse and resolve"
+                detail: "At the close, the contract is parsed out of the agent's response TEXT and its declared state is resolved. A finalized database row is not what is read here — a turn that built a perfect draft and emitted no fence is rejected."
+                variant: muted
+                filters: [el-juez]
+              - id: cl-gate
+                order: 3
+                kicker: 3 contract_gate
+                title: "The gate"
+                detail: "<code>evaluate_contract_gate</code> is the verdict. It validates the envelope's shape and forces <code>NEEDS_VERIFICATION</code> whenever the dispatch binding carries a <code>plan_task_id</code> — a plan-task-bound producer may not declare itself COMPLETE, so an independent verifier has to confirm the increment. Keyed on the binding, not on the agent's role."
+                variant: muted
+                filters: [el-juez]
+              - id: cl-transition
+                order: 4
+                kicker: 4 _LEGAL_TRANSITIONS
+                title: "Legal move, then saved"
+                detail: "The state machine allows only the legal transitions and caps consecutive retries at two, so an agent cannot park in IN_PROGRESS to avoid a decision. Once the move is legal the handoff is persisted. Lives in <code>hooks/modules/agents/state_tracker.py</code>."
+                variant: muted
+                filters: [el-juez]
+          - id: skills
+            title: "Skills"
+            subtitle: "Gaia does not inject skills. The harness does, from frontmatter. Gaia reminds and verifies."
+            treatment: [envelope]
+            order: 2
+            span: 1
+            columns: 2
+            children:
+              - id: sk-map
+                order: 1
+                kicker: 1 expected_skill
+                title: "Artifact to skill"
+                detail: "<code>expected_skill_for_path</code> maps an artifact to the skill that governs it — a Terraform file to the IaC skill, an agent definition to <code>agent-creation</code>. Lives in <code>hooks/modules/agents/artifact_skill_map.py</code>."
+                variant: muted
+                filters: [porton]
+              - id: sk-remind
+                order: 2
+                kicker: 2 Write/Edit
+                title: "One reminder only"
+                detail: "PREVENTION, at PreToolUse. On a Write or an Edit, the agent is reminded ONCE that a skill governs this artifact. One reminder, not a block: Write and Edit are deliberately not T3, because authoring a file is not a change to live state."
+                variant: muted
+                filters: [porton]
+              - id: sk-verify
+                order: 3
+                kicker: 3 verify_injection
+                title: "Hunt the footprint"
+                detail: "<code>verify_skill_injection</code>: DETECTION, post hoc, at SubagentStop. It looks for the skill's footprint in the transcript to see whether the skill was actually loaded. It cannot prevent anything — by the time it runs, the work is done. The two halves of this module never talk to each other, and that is the design."
+                variant: muted
+                filters: [el-juez]
+              - id: sk-order
+                order: 4
+                kicker: 4 _check_skill_order
+                title: "Flag it as anomaly"
+                detail: "One of the workflow auditor's checks: a skill loaded out of order, or after the work it was supposed to govern, is recorded as an anomaly on the turn. Lives in <code>hooks/modules/audit/workflow_auditor.py</code>."
+                variant: muted
+                filters: [el-juez]
+
+  # 3 · EL PISO — auditoría y métricas a todo el ancho. No es una columna más
+  #     porque no ocurren en UN momento del eje de arriba: ocurren en TODOS.
+  - id: accounting
+    title: "Audit and metrics"
+    subtitle: "Neither belongs to a single moment of the line above — they run at all of them, which is why they are the floor and not another column. Metrics is numbered: that IS its order. Audit is the exception, and the rule on its second row says where the strict order begins."
+    treatment: [envelope]
+    order: 3
+    span: 6
+    columns: 2
+    children:
+      - id: audit
+        title: "Audit"
+        subtitle: "the three writers on the first row are independent of one another; from the rule onward it is strict order"
+        treatment: [envelope]
+        order: 1
+        span: 1
+        columns: 3
+        children:
+          - id: au-log
+            order: 1
+            kicker: log_execution
+            title: "One line per run"
+            detail: "Appends one JSONL line per execution. Independent of the other two writers — nothing coordinates them, which is why none of the three carries a step number. Lives in <code>hooks/modules/audit/logger.py</code>."
+            variant: muted
+            filters: [contabilidad]
+          - id: au-chain
+            order: 2
+            kicker: record_event
+            title: "The hashed chain"
+            detail: "Appends to the approval chain: SHOWN, EXECUTED, FAILED. Each moment is hashed onto the one before it, so the record breaks if a single step is altered. Lives in <code>gaia/approvals/store.py</code>."
+            variant: muted
+            filters: [contabilidad]
+          - id: au-events
+            order: 3
+            kicker: write_event
+            title: "The event stream"
+            detail: "Writes into <code>harness_events</code>. The third independent writer: it shares no ordering with the JSONL log or the approval chain. Lives in <code>hooks/modules/events/event_writer.py</code>."
+            variant: muted
+            filters: [contabilidad]
+          - id: au-sep
+            order: 4
+            type: separator
+            span: 1
+            text: "in order →"
+          - id: au-audit
+            order: 5
+            kicker: workflow_auditor
+            title: "18 checks, in order"
+            detail: "<code>workflow_auditor.audit</code>: roughly eighteen checks over the turn, run in strict order, producing the anomaly list — skipped investigation, missing or empty evidence, skill loaded out of order, work written outside the agent's scope. Unlike the three writers on the row above, this interior IS ordered."
+            variant: muted
+            filters: [el-juez]
+          - id: au-stop
+            order: 6
+            kicker: Stop
+            title: "The closing sweeper"
+            detail: "PostToolUse does not fire for a non-zero Bash exit in the current host, so an approved T3 command that FAILED never gets its terminal event. Stop is where the turn is fully done, so any keyed state still dangling belongs to a command that never completed — it is reconciled there. The sweeper for what PostToolUse could not see."
+            variant: muted
+            filters: [contabilidad]
+      - id: metrics
+        title: "Metrics"
+        subtitle: "SubagentStop · strict order, and the numbers say so"
+        treatment: [envelope]
+        order: 2
+        span: 1
+        columns: 3
+        children:
+          - id: mt-analyze
+            order: 1
+            kicker: 1 analyze
+            title: "Read the transcript"
+            detail: "Reads the real transcript: actual tokens, tool calls, model, duration. Measured, not self-reported. Lives in <code>hooks/modules/agents/transcript_analyzer.py</code>."
+            variant: muted
+            filters: [el-juez]
+          - id: mt-anchors
+            order: 2
+            kicker: 2 anchor_hits
+            title: "How much was used"
+            detail: "<code>compute_anchor_hits</code> compares the tool calls against the anchors saved at SubagentStart: what fraction of the context it was handed did the agent actually touch?"
+            variant: muted
+            filters: [el-juez]
+          - id: mt-record
+            order: 3
+            kicker: 3 record_workflow
+            title: "Record the turn"
+            detail: "Records the workflow metrics for the turn — the row every later grade is computed from."
+            variant: muted
+            filters: [el-juez]
+          - id: mt-score
+            order: 4
+            kicker: 4 compliance_score
+            title: "Six factors, a grade"
+            detail: "<code>compute_compliance_score</code>: six mechanical factors over the turn's own record, producing a score and a letter. It runs AFTER <code>workflow_auditor.audit</code> — the step drawn in the module beside this one — because it needs that anomaly list as input. Nobody grades their own turn."
+            variant: muted
+            filters: [el-juez]
+          - id: mt-episode
+            order: 5
+            span: 2
+            kicker: 5 episode_writer
+            title: "Write the episode"
+            detail: "<code>episode_writer.write</code> writes the episode of the turn into <code>gaia.db</code>: what was asked, what came out, what it cost, what looked odd. Written by the machine at the close, not narrated by the agent. Lives in <code>hooks/modules/memory/episode_writer.py</code>."
+            variant: muted
+            filters: [el-juez]
+
+  # 4 · NOTAS AL PIE — la leyenda de color y el descargo de alcance. El
+  #     descargo bajó desde arriba: es una nota al pie, no un titular.
+  - id: footnotes
+    treatment: [plain]
+    order: 4
+    span: 6
+    columns: 1
+    children:
+      - id: ch-legend
+        type: separator
+        style: dotted
+        order: 1
+        span: 1
+        text: "colour marks the only two moments the turn can stop — PreToolUse and SubagentStop"
+      - id: sc-note
+        type: separator
+        style: dotted
+        order: 2
+        span: 1
+        text: "the load-bearing path of a turn — not the whole inventory: cut detection, session hygiene and notifications are real and not drawn"

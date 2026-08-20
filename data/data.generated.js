@@ -16,7 +16,11 @@ window.__DOC__ = {
           "key": "sesion-abre",
           "label": "the session opens",
           "steps": [
-            "SessionStart is the only hook that runs before anyone asks for anything: it renders the project context and the curated memory that every later turn reads from."
+            "SessionStart is the only hook that runs before anyone asks for anything: eight builder calls in fixed order (<code>build_session_context</code>) assemble everything the session starts knowing — the four thin lines on the left column.",
+            "First the static setup: where Gaia is installed — workspace, machine, version, cwd — and the index of your projects, names only, because the index announces existence and <code>gaia context project</code> fetches the ficha. The pointer's width is reserved before any trim, so a truncated index can never lie about how many projects exist.",
+            "Then the contracts index: which project-context sections each specialist surface will be handed at dispatch — surface to section names, straight from <code>surface_routing</code>.",
+            "Then three zero-noise blocks that say nothing unless something ran without you: unread headless reports with a resumable <code>session_id</code>, detect-only schedule drift pointing at the T3 <code>gaia schedule sync</code>, and scheduler suspensions — the lapsed ones first and louder, because they do not clear themselves.",
+            "Last, deliberately, the memory: the live worklist — open and carried-forward threads grouped by initiative, recency first, independent of where you stand — injected after the operational state, so the orchestrator reads what is live before the knowledge it anchors against."
           ]
         },
         {
@@ -66,70 +70,103 @@ window.__DOC__ = {
         {
           "id": "turn",
           "title": "The life of a request",
-          "subtitle": "Everything here hangs from Gaia. SessionStart is the only thing that happens before a person is there; from the user prompt on, someone is in the loop.",
+          "subtitle": "Everything here hangs from Gaia. The left column is Gaia's own layer — what it pushes at open and what it answers on demand; from the user prompt on, someone is in the loop.",
           "treatment": [
             "envelope"
           ],
           "order": 1,
           "span": 6,
-          "columns": 8,
+          "columns": 10,
           "children": [
             {
               "id": "hdr-gaia",
               "type": "rail",
               "order": 1,
-              "span": 8,
+              "span": 10,
               "title": "GAIA · the orchestration layer"
             },
             {
               "id": "s-open",
-              "title": "SessionStart",
-              "subtitle": "what the turn knows before it starts",
               "treatment": [
-                "envelope"
+                "plain"
               ],
               "order": 2,
-              "span": 2,
-              "columns": 2,
+              "span": 3,
+              "columns": 1,
               "children": [
                 {
-                  "id": "so-memory",
+                  "id": "ss-push",
+                  "title": "SessionStart",
+                  "subtitle": "what I push at open, before anyone asks",
+                  "treatment": [
+                    "envelope"
+                  ],
                   "order": 1,
-                  "kicker": "workspace memory",
-                  "title": "Curated memory",
-                  "detail": "<code>build_workspace_memory_block</code> — the curated memory that survived the sessions that produced it: the transversal digest and the live worklist, plus a second, DISJOINT call for the durable anchors (<code>class='anchor'</code>). It is injected LAST of the startup blocks, deliberately: the orchestrator reads the operational state before the knowledge it should anchor against. Lives in <code>hooks/modules/session/session_manifest.py</code>.",
-                  "filters": [
-                    "sesion-abre"
+                  "span": 1,
+                  "columns": 1,
+                  "children": [
+                    {
+                      "id": "sp-env",
+                      "type": "separator",
+                      "order": 1,
+                      "span": 1,
+                      "text": "I know my machine, your projects by name"
+                    },
+                    {
+                      "id": "sp-contracts",
+                      "type": "separator",
+                      "order": 2,
+                      "span": 1,
+                      "text": "I know what each surface will be handed"
+                    },
+                    {
+                      "id": "sp-notifs",
+                      "type": "separator",
+                      "order": 3,
+                      "span": 1,
+                      "text": "I speak only when things ran without you"
+                    },
+                    {
+                      "id": "sp-worklist",
+                      "type": "separator",
+                      "order": 4,
+                      "span": 1,
+                      "text": "I carry your live worklist"
+                    }
                   ]
                 },
                 {
-                  "id": "so-projects",
+                  "id": "ss-pull",
+                  "title": "gaia · what I answer on demand",
+                  "subtitle": "context project · memory show · approvals",
+                  "treatment": [
+                    "envelope"
+                  ],
                   "order": 2,
-                  "kicker": "projects index",
-                  "title": "Every project",
-                  "detail": "<code>build_projects_context_block</code> — the index of every project that has an active project context, each as name plus on-disk path. It is what lets a bare mention in memory resolve to a path the orchestrator already holds, without spending a subagent to find it.",
-                  "filters": [
-                    "sesion-abre"
-                  ]
-                },
-                {
-                  "id": "so-contracts",
-                  "order": 3,
-                  "kicker": "contracts index",
-                  "title": "Who reads what",
-                  "detail": "<code>build_contracts_index_block</code> — which project-context sections each specialist surface receives when it is dispatched (surface → contract_sections, DB-backed via <code>surface_routing</code>). Read before any routing or dispatch decision, which is why it is loaded here and not at the dispatch.",
-                  "filters": [
-                    "sesion-abre"
-                  ]
-                },
-                {
-                  "id": "so-notifs",
-                  "order": 4,
-                  "kicker": "task notifications",
-                  "title": "Task reports",
-                  "detail": "<code>build_task_notifications_block</code> — the unread reports left by scheduled headless tasks: task name, headline, time, and the resumable <code>session_id</code>. So the first thing a session shows is what ran unattended while nobody was watching, and which of those turns is still waiting on a T3 you never saw. Zero-noise: it emits nothing when there is nothing unread.",
-                  "filters": [
-                    "sesion-abre"
+                  "span": 1,
+                  "columns": 1,
+                  "children": [
+                    {
+                      "id": "pl-ficha",
+                      "type": "separator",
+                      "order": 1,
+                      "span": 1,
+                      "text": "ask me for a project's ficha"
+                    },
+                    {
+                      "id": "pl-memory",
+                      "type": "separator",
+                      "order": 2,
+                      "span": 1,
+                      "text": "ask me what I remember"
+                    },
+                    {
+                      "id": "pl-approvals",
+                      "type": "separator",
+                      "order": 3,
+                      "span": 1,
+                      "text": "ask me what waits for your signature"
+                    }
                   ]
                 }
               ]
@@ -140,7 +177,7 @@ window.__DOC__ = {
                 "plain"
               ],
               "order": 3,
-              "span": 6,
+              "span": 7,
               "columns": 7,
               "children": [
                 {
