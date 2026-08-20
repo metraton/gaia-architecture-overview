@@ -220,6 +220,30 @@ function rmDeck(dir) {
   rmDeck(dir);
 }
 
+// ── 3d. U/rail — the render gate's rail-row band must SPEAK UP both ways ────
+// The render gate's U models the same thin-row rule the engine and the static
+// gate carry (the third copy — measured: teaching only two of the three turned
+// every rail row into a false 'must stay 130px' dura failure). A rail thin row
+// is `auto`, asserted as the band 33..48: a 130px track means the auto row was
+// never applied, a 52px track means a third title line slipped past RAILT's
+// static estimate. Both directions are exercised, plus the in-band positive.
+{
+  const { INVARIANTS } = require(path.join(ROOT, 'tools', 'validate-layout.cjs'));
+  const U = INVARIANTS.find(inv => inv.id === 'U' && inv.name === 'uniform slot height');
+  const mFor = tracks => ({
+    heights: [130], halfSlots: [],
+    rowTracks: [{ zone: 'fixture', tracks,
+      rows: tracks.map(() => ({ n: 1, sepH: 0, hole: 0, railH: 1 })), overflow: [] }],
+  });
+  const notApplied = U.check(mFor([130]));
+  const threeLines = U.check(mFor([52]));
+  const inBand = U.check(mFor([33, 48]));
+  const ok = U && notApplied.ok === false && notApplied.detail.includes('rail row is auto')
+    && threeLines.ok === false && inBand.ok === true;
+  report('U/rail: a rail row outside 33..48px fails the render gate, in-band passes', ok,
+    `130px -> ${notApplied && notApplied.ok} | 52px -> ${threeLines && threeLines.ok} | 33/48px -> ${inBand && inBand.ok}`);
+}
+
 // ── 4. control positive — the intact owned fixture must pass ───────────────
 {
   const dir = mkDeck();

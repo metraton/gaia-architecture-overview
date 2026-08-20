@@ -203,11 +203,20 @@ const OUT = process.env.DIAGRAM_SHOTS_DIR || path.join(os.tmpdir(), 'diagram-dec
 // --cell-w is no longer a track width in the fill model (cells stretch to equal
 // fr widths) — kept only as a documented reference for the readability step-down.
 const CELL_W = 232, CELL_H = 130;
-// --sep-row-h — the ONE row height that is not CELL_H (must match the design
-// token in index.html). A row whose only occupants are HORIZONTAL separators is
-// reduced to it: a 1px rule no longer costs a 130px cell. This is the third
-// height family invariant U recognises (see the U/height row below).
+// --sep-row-h — the row height for a thin row of separators / declared holes
+// (must match the design token in index.html). A row whose only occupants are
+// HORIZONTAL separators is reduced to it: a 1px rule no longer costs a 130px
+// cell. This is the third height family invariant U recognises (see the
+// U/height row below).
 const SEP_ROW_H = 40;
+// A thin row that holds a HORIZONTAL no-rowspan RAIL is `auto` (content
+// height), not SEP_ROW_H — the engine's rowTrackList emits it that way because
+// a rail is a bordered banner whose content IS the row. Its band: one title
+// line (15px + 2×8px pad + 2×1px border = 33) up to the two-line ceiling the
+// static gate's RAILT enforces (30px title block = 48). A track outside the
+// band is a defect in either direction: 130 means the auto track was never
+// applied, above 48 means a third title line the static estimate missed.
+const RAIL_ROW_MIN = 33, RAIL_ROW_MAX = 48;
 // ── ONE WIDTH, THE WIDEST. ────────────────────────────────────────────────
 // This was a FIVE-width sweep (600/900/1200/1920/2560) whose job was to prove the
 // …→2→1 collapse cascade while that cascade was being BUILT. It is stable now, and
@@ -385,16 +394,20 @@ const INVARIANTS = [
   //      occupants are horizontal separators is now SEP_ROW_H. The separator is still
   //      a cell (principle 1 is untouched), so this family is asserted on the TRACK:
   //      for every leaf grid, every resolved row track must equal SEP_ROW_H when
-  //      every occupant of that row is a THIN LEAF — a horizontal separator or a
-  //      declared hole (spacer), mirroring the engine's isThinRowLeaf — and CELL_H
-  //      otherwise; a TRAILING thin row is a FLOOR (>= SEP_ROW_H), because the
-  //      engine emits it as minmax(--sep-row-h, 1fr) to absorb the slack a
-  //      stretched section leaves. Both directions matter — a separator SHARING
-  //      its row with boxes must NOT thin it (or the boxes clip), and an empty row
-  //      (a hole, owned by RECT/HOLE in `npm run check`) must not be mistaken for
-  //      a separator row.
+  //      every occupant of that row is a THIN LEAF — a horizontal separator, a
+  //      declared hole (spacer), or a horizontal no-rowspan RAIL, mirroring the
+  //      engine's isThinRowLeaf — and CELL_H otherwise; a TRAILING sep/hole thin
+  //      row is a FLOOR (>= SEP_ROW_H), because the engine emits it as
+  //      minmax(--sep-row-h, 1fr) to absorb the slack a stretched section
+  //      leaves. A thin row that holds a RAIL is `auto` instead (a banner's
+  //      content IS its row), asserted as the band RAIL_ROW_MIN..RAIL_ROW_MAX:
+  //      one title line up to the two-line ceiling the static RAILT enforces.
+  //      Both directions matter — a separator SHARING its row with boxes must
+  //      NOT thin it (or the boxes clip), and an empty row (a hole, owned by
+  //      RECT/HOLE in `npm run check`) must not be mistaken for a separator row.
   //      A VERTICAL separator is not in this family: its ink IS the row height, so its
-  //      row stays CELL_H — measure() counts only `.sep:not(.sep-v)` as thin ink.
+  //      row stays CELL_H — measure() counts only `.sep:not(.sep-v)` as thin ink;
+  //      a vertical or rowspan rail is excluded the same way.
   //      The same track measurement finally covers the height of the two leaf types
   //      the `.box`-only height set never saw: a `.sep`/`.rail` that overflows the
   //      row(s) it is entitled to is reported here (the --zone-min-h-vs---cell-h
@@ -417,22 +430,30 @@ const INVARIANTS = [
       for (const g of m.rowTracks || []) {
         g.tracks.forEach((h, i) => {
           const row = g.rows[i];
-          const thin = row.n > 0 && row.sepH + row.hole === row.n;
-          // A TRAILING thin row is the one family whose track is a FLOOR rather
-          // than a fixed height: the engine emits it as
+          const thin = row.n > 0 && row.sepH + row.hole + (row.railH || 0) === row.n;
+          const railRow = thin && (row.railH || 0) > 0;
+          // A TRAILING separator/hole thin row is the one family whose track is
+          // a FLOOR rather than a fixed height: the engine emits it as
           // minmax(--sep-row-h, 1fr) so it ABSORBS the slack a stretched
           // section leaves (rowTrackList's last-row rule), so it is
           // legitimately TALLER than SEP_ROW_H and asserting equality would
           // forbid the very thing it is for. Shorter than the floor is still a
           // defect, and a NON-trailing thin row keeps the exact SEP_ROW_H.
+          // A RAIL thin row is `auto` at every position (the engine never lets
+          // a banner absorb slack), so its track is asserted as the BAND
+          // [RAIL_ROW_MIN, RAIL_ROW_MAX]: one title line up to the two-line
+          // ceiling RAILT enforces statically — the render-side twin of RAILT.
           const trailing = i === g.tracks.length - 1;
-          const expect = thin ? SEP_ROW_H : CELL_H;
-          const held = thin && trailing ? h >= expect : h === expect;
+          const held = railRow ? h >= RAIL_ROW_MIN && h <= RAIL_ROW_MAX
+            : thin && trailing ? h >= SEP_ROW_H
+            : h === (thin ? SEP_ROW_H : CELL_H);
           if (!held) {
-            badTracks.push(`${g.zone}:row${i} track=${h}px expect ${thin && trailing ? '>= ' : ''}${expect}px (` +
-              (thin ? 'thin row (separators/declared holes only) — the thin track was not applied'
-                : `${row.n} occupant(s), ${row.sepH} separator(s), ${row.hole} hole(s) — a row that carries a box must stay ${CELL_H}px`) + ')');
-          } else if (thin) thinRows.push(`${g.zone}:row${i}${h !== SEP_ROW_H ? `(absorbed@${h}px)` : ''}`);
+            badTracks.push(`${g.zone}:row${i} track=${h}px expect ${railRow
+              ? `${RAIL_ROW_MIN}..${RAIL_ROW_MAX}px (rail row is auto: one title line up to the two-line ceiling)`
+              : `${thin && trailing ? '>= ' : ''}${thin ? SEP_ROW_H : CELL_H}px (` +
+                (thin ? 'thin row (separators/declared holes only) — the thin track was not applied'
+                  : `${row.n} occupant(s), ${row.sepH} separator(s), ${row.hole} hole(s) — a row that carries a box must stay ${CELL_H}px`) + ')'}`);
+          } else if (thin) thinRows.push(`${g.zone}:row${i}${railRow ? `(rail@${h}px)` : h !== SEP_ROW_H ? `(absorbed@${h}px)` : ''}`);
         });
         for (const o of g.overflow) spills.push(`${g.zone}:${o.cls} overflows its row by ${o.over}px`);
       }
@@ -441,7 +462,8 @@ const INVARIANTS = [
       if (slots.length) parts.push(`${slots.length} half-slot(s) @ ${[...new Set(slots.map(s => s.h))].join('/')}px expect ${CELL_H}`);
       const nTracks = (m.rowTracks || []).reduce((n, g) => n + g.tracks.length, 0);
       parts.push(`${nTracks} row track(s) across ${(m.rowTracks || []).length} leaf grid(s): ` +
-        `${thinRows.length} thin (separators/declared holes @ ${SEP_ROW_H}px, trailing thin row >= ${SEP_ROW_H}px)` +
+        `${thinRows.length} thin (separators/declared holes @ ${SEP_ROW_H}px, trailing thin row >= ${SEP_ROW_H}px, ` +
+        `rail rows ${RAIL_ROW_MIN}..${RAIL_ROW_MAX}px)` +
         `${thinRows.length ? ` (${thinRows.join(', ')})` : ''}, ` +
         `${nTracks - thinRows.length} @ ${CELL_H}px; no .sep/.rail overflows its row`);
       if (badSlots.length) parts.push(`BAD: ${badSlots.map(s => `${s.zone}:h=${s.h}(expect ${CELL_H}),occupants=${s.n}(expect 2)`).join(', ')}`);
@@ -796,7 +818,7 @@ function measure() {
     const gTop = grid.getBoundingClientRect().top;
     const bands = []; let y = 0;
     for (const t of tracks) { bands.push([y, y + t]); y += t + gap; }
-    const rows = bands.map(() => ({ n: 0, sepH: 0, hole: 0 }));
+    const rows = bands.map(() => ({ n: 0, sepH: 0, hole: 0, railH: 0 }));
     const overflow = [];
     for (const child of grid.children) {
       const r = child.getBoundingClientRect();
@@ -814,7 +836,17 @@ function measure() {
       const end = Math.min(bands.length - 1, start + rowspan - 1);
       const isSepH = child.classList.contains('sep') && !child.classList.contains('sep-v');
       const isHole = child.classList.contains('spacer');
-      for (let i = start; i <= end; i++) { rows[i].n++; if (isSepH) rows[i].sepH++; if (isHole) rows[i].hole++; }
+      // a HORIZONTAL rail without rowspan is the engine's third thin leaf; a
+      // vertical rail's ink IS the row height and a rowspan rail labels a lane,
+      // so neither counts (mirrors isThinRowLeaf in engine.js).
+      const isRailH = child.classList.contains('rail') && !child.classList.contains('rail-v')
+        && rowspan <= 1;
+      for (let i = start; i <= end; i++) {
+        rows[i].n++;
+        if (isSepH) rows[i].sepH++;
+        if (isHole) rows[i].hole++;
+        if (isRailH) rows[i].railH++;
+      }
       if (child.classList.contains('sep') || child.classList.contains('rail')) {
         const over = Math.round(Math.max(0, bot - bands[end][1]) + Math.max(0, bands[start][0] - top));
         if (over > 1) overflow.push({ cls: child.className, over });
