@@ -15,7 +15,9 @@
 #      persona": arriba lo que Gaia EMPUJA sola al abrir (SessionStart), abajo
 #      lo que RESPONDE cuando se le pide. Sus filas son RIELES-BANDA
 #      (`type: rail` a span == columns — el mismo componente que hdr-gaia,
-#      `.rail.rail-h.msp`, pedido por el usuario señalando ese banner): un
+#      pedido por el usuario señalando ese banner; a span == columns == 1 el
+#      motor no emite clase de merge — `.msp` sólo existe para span > 1 — y
+#      la celda única llena su track igual, al mismo ancho 337.4px): un
 #      rail horizontal sin rowspan es un thin leaf y su fila se emite `auto`
 #      — 33px con título de una línea, 48px con dos (regla del motor,
 #      espejada en check-layout y asserted por AGREE/thin; el techo de dos
@@ -26,10 +28,17 @@
 #      sección = 16 (título) + 4 + 14 por línea de subtítulo; envelope 34,
 #      gap bajo cabecera 8, gap entre filas 8. ss-push (subtítulo de una
 #      línea, rieles 33+33+33+48) = 76 + 147 + 24 = 247; ss-pull (subtítulo
-#      de DOS líneas, rieles 33+48+33) = 34 + 48 + 8 + 114 + 16 = 220.
-#      La pila 4 + 3 es 247 + 8 + 220 = 475px contra los 482px de
-#      `human-side` (residual 7px bajo la pila); una QUINTA banda (+41px) NO
-#      cabe. La narrativa larga vive en los `steps` del chip `sesion-abre`.
+#      de DOS líneas, SEIS rieles de una línea a ≤33 caracteres) =
+#      34 + 48 + 8 + 198 + 40 = 328 (medido en el render @2560: 328.0).
+#      La pila 4 + 6 es 247 + 8 + 328 = 583px (medida: s-open 583.0), y
+#      desde los seis pilares la IZQUIERDA manda la altura de la banda:
+#      `turn` pasó de 613 a 714px (+101), los 482px de `human-side`
+#      dejaron de ser el presupuesto, y el sobrante es vacío de marco a la
+#      derecha — COSTO ACEPTADO, registrado en el comentario de ss-pull.
+#      (Bajo el presupuesto viejo la QUINTA banda de ss-push (+41px) no
+#      cabía: 475 + 41 > 482; ese vínculo ya no rige, y la banda de anchors
+#      sigue sin dibujarse porque nadie la pidió, no por geometría.)
+#      La narrativa larga vive en los `steps` del chip `sesion-abre`.
 #      COSTO DE TÍTULO >23 CARACTERES, medido y aceptado: un título de
 #      sección de ~30 caracteres infla la flex-basis de su zona en una línea
 #      de título (+16px, medido en Chromium: a ≤23 caracteres la zona vuelve
@@ -43,12 +52,15 @@
 #      s-prompt 120.0px, EXACTAMENTE en su piso de 120px. Subir la columna a
 #      ~390px (labels más largos) deja ambos pisos a <12px con ruido flex
 #      medido de ±5px: descartado.
-#      POR QUÉ s-prompt SIGUE SIENDO UNA CAJA ALTA EN SU ENVOLTORIO `plain`:
-#      en un nivel compuesto una celda suelta es `flex:0 0 auto;
-#      height:--cell-h` y `rowspan` no existe (`.mrsp` sólo aplica en grilla
-#      leaf); la grilla leaf de una columna le devuelve el eje vertical. Y no
-#      puede ser un `rail`: un rail no lleva `filters` (el check LIT lo
-#      asserta) y el chip `ruteo` necesita esta caja.
+#      POR QUÉ op-prompt VIVE EN SU ENVOLTORIO `plain` (s-prompt): en un
+#      nivel compuesto una celda suelta es `flex:0 0 auto; height:--cell-h`
+#      y `rowspan` no existe (`.mrsp` sólo aplica en grilla leaf); la grilla
+#      leaf de una columna le devuelve el eje vertical. Desde esta edición
+#      ES un `rail` vertical con rowspan:2 — excluido de la regla thin-leaf
+#      (isThinRowLeaf exime `vertical` y rowspan>1), así que conserva la
+#      altura. Un rail no lleva `filters` (el check LIT lo asserta), así que
+#      el chip `ruteo` perdió esta celda; los costos y el canal que
+#      sobrevive están en el comentario de s-prompt.
 #   2. LOS MÓDULOS — banda columns:1 que APILA TRES FILAS. No son dos filas de
 #      tres: la aritmética lo impide (ver ARITMÉTICA abajo). El eje horizontal
 #      hace eco del eje temporal de la banda 1 y lo DECLARA en su subtítulo.
@@ -129,6 +141,7 @@ filters:
     label: "where does this belong?"
     steps:
       - "UserPromptSubmit reads the prompt and scores every surface to name the one that owns it — a recommendation, never a block."
+      - "The person types, and the turn begins. UserPromptSubmit reads the prompt and decides which surface owns it: the routing table is seeded into <code>surface_routing</code> from each agent's own <code>routing:</code> frontmatter, and the match is scored per surface. The result is a RECOMMENDATION injected as context — this hook never blocks a turn. This is where a person enters, and everything to the right of this bar happens because someone asked."
   - key: porton
     label: "the gate"
     steps:
@@ -164,18 +177,26 @@ sections:
       # ── CABECERA · de quién cuelgan estos momentos. span == columns, así que
       # es un band y se lleva su propia fila entera: el ANCHO es la afirmación
       # de pertenencia. En este dialecto no hay flechas — el ancho es el enlace.
+      # `treatment: [centered]` es EXPLÍCITO desde el fix del default: antes
+      # .rail-title centraba por CSS propio y `centered` era un no-op sobre un
+      # rail; ahora la ausencia significa alineado al inicio, como en una caja,
+      # y esta cabecera conserva su centrado declarándolo.
       - id: hdr-gaia
         type: rail
         order: 1
         span: 10
+        treatment: [centered]
         title: "GAIA · the orchestration layer"
 
       # ── LA CAPA PROPIA DE GAIA · push arriba, pull abajo. Un envoltorio
       # `plain` de una columna: sus dos hijas son bands (span == columns == 1)
       # y se apilan. Cada sección es una pila de RIELES-BANDA — `type: rail`
-      # a span == columns, la MISMA forma autorada que hdr-gaia y por eso el
-      # mismo componente renderizado (`.rail.rail-h.msp`): el usuario señaló
-      # ese banner y pidió que cada ítem de esta columna fuera ESO. El ancho
+      # a span == columns, la MISMA forma autorada que hdr-gaia: el usuario
+      # señaló ese banner y pidió que cada ítem de esta columna fuera ESO.
+      # (El componente renderizado difiere sólo en la clase de merge:
+      # `.rail.rail-h.msp` en ss-push a span == columns == 2, `.rail.rail-h`
+      # a secas en ss-pull a columns == 1 — el motor emite `.msp` sólo para
+      # span > 1, y la celda única llena su track al mismo ancho.) El ancho
       # completo es la afirmación (pertenencia a la capa), y la fila de cada
       # riel es FINA por la regla del motor: un rail horizontal sin rowspan es
       # un thin leaf y su fila se emite `auto` (33px una línea, 48px dos) —
@@ -231,36 +252,77 @@ sections:
           # El título quedó en 21 caracteres A PROPÓSITO: el costo medido de un
           # título de sección >23 caracteres es +16px de flex-basis (una línea
           # de título), documentado en la cabecera del archivo.
-          # El subtítulo carga las TRES cosas que los tres rieles solos no
+          # El subtítulo carga las TRES cosas que los seis rieles solos no
           # pueden decir: que este instrumento es la CLI de gaia, el reclamo
           # del help (un verbo ausente de sus lanes está negado igual que uno
           # que no existe — la negación no es una feature faltante, es trabajo
-          # con dueño con nombre), y el puntero hacia abajo: el inventario de
-          # seis pilares vive en su propia banda (root order 3), con click,
-          # detail y chips que un rail no puede cargar.
+          # con dueño con nombre), y el puntero hacia abajo: los verbos, las
+          # listas "NOT the orchestrator's", el click, el detail y los chips
+          # de cada pilar viven en la banda `cli` (root order 3), que un rail
+          # no puede cargar.
+          # ORDEN DE LOS SEIS RIELES (aprobado por el usuario, nombres y orden
+          # literales): la página ya declara este eje dos veces — la banda 1
+          # ES la vida de un request, y el subtítulo de "The modules" dice que
+          # los módulos siguen ese mismo reloj — así que esta banda no
+          # introduce ningún principio organizador nuevo: es el momento en que
+          # el orquestador toma cada herramienta en un turno real. Memoria
+          # antes que nada (lo que ya sabe, y su único carril de escritura) ·
+          # contexto de proyecto (la intención se vuelve un lugar) · estado
+          # del plan (el objeto de trabajo, antes del despacho) · el contrato
+          # (el turno vuelve y se lee la ROW, no el mensaje) · approvals (una
+          # RAMA del contrato que vuelve, por eso va después y no antes) ·
+          # schedule al final, FUERA del reloj, porque ocurre entre turnos
+          # cuando no hay nadie — la misma razón por la que "Audit and
+          # metrics" es el piso de la página.
+          # COSTO ACEPTADO (el usuario lo eligió avisado dos veces, y firmó
+          # la build viendo el modelo +108): seis filas 1x1 en vez de tres
+          # crecen esta columna de 220 a 328px (+108, medido @2560) y la
+          # izquierda pasa a mandar la altura de la banda: `turn` 613→714px
+          # (+101). El sobrante es VACÍO de marco dentro de human-side bajo
+          # human-loop, y la alineación de bordes inferiores que era 0.0px
+          # quedó rota: human-loop.bottom 790.9 contra human-side.bottom
+          # 891.9 — 101.0px. Ese hueco NO codifica ninguna intención: se
+          # buscó una afirmación honesta para él y no la hay — por la
+          # doctrina es un defecto, y queda registrado como costo aceptado
+          # en vez de vestirlo de afirmación del layout.
           - id: ss-pull
             title: "Orchestration tooling"
             subtitle: "gaia CLI · absent = denied, not missing — a named owner has it · pillars below ↓"
             treatment: [envelope]
             order: 2
             span: 1
-            columns: 2
+            columns: 1
             children:
-              - id: pl-ficha
-                type: rail
-                order: 1
-                span: 2
-                title: "Read lane · changes nothing"
               - id: pl-memory
                 type: rail
+                order: 1
+                span: 1
+                title: "Memory management"
+              - id: pl-context
+                type: rail
                 order: 2
-                span: 2
-                title: "Coordination writes · bounded shapes"
-              - id: pl-approvals
+                span: 1
+                title: "Project context values"
+              - id: pl-plan
                 type: rail
                 order: 3
-                span: 2
-                title: "Delegated · a named owner has it"
+                span: 1
+                title: "Plan execution"
+              - id: pl-contract
+                type: rail
+                order: 4
+                span: 1
+                title: "Subagent contracts inspection"
+              - id: pl-approvals
+                type: rail
+                order: 5
+                span: 1
+                title: "Approval inspection"
+              - id: pl-schedule
+                type: rail
+                order: 6
+                span: 1
+                title: "Schedule task inspection"
 
       # ── TODO LO QUE CUELGA DEL PROMPT. Otro nivel compuesto: la barra del
       # humano (peso 1), la vida del trabajo (peso 6) y, en su propia fila,
@@ -271,12 +333,18 @@ sections:
         span: 7
         columns: 7
         children:
-          # La entrada del humano. NO es una caja normal: `treatment: [vertical]`
-          # gira el texto con writing-mode:vertical-rl + rotate(180deg), o sea
-          # de abajo hacia arriba, que es como el usuario la imaginó. El motor
-          # SÍ lo soporta y prohíbe `description` en una celda vertical (el
-          # texto rotado no tiene ancho donde envolver), así que la explicación
-          # entera vive en el detail.
+          # La entrada del humano, ahora un RAIL vertical: `treatment:
+          # [vertical]` gira el título con writing-mode:vertical-rl +
+          # rotate(180deg) — de abajo hacia arriba, como el usuario la imaginó
+          # — y `rowspan: 2` más `vertical` lo eximen de la regla thin-leaf
+          # del motor, así que conserva su altura completa. COSTOS ACEPTADOS
+          # (el usuario los aceptó dos veces): un rail es title-only, el
+          # kicker `UserPromptSubmit` y el `detail` desaparecen, y
+          # `filters: [ruteo]` se elimina porque LIT falla duro sobre un rail
+          # (sólo buildBox emite data-filters). El contenido del detail vive
+          # ahora en los `steps` del chip `ruteo` — el único canal que
+          # sobrevive — y `ruteo` queda con 4 miembros (rt-load · rt-score ·
+          # rt-classify · rt-brief), ARITY ≥ 2.
           - id: s-prompt
             treatment: [plain]
             order: 1
@@ -284,13 +352,11 @@ sections:
             columns: 1
             children:
               - id: op-prompt
+                type: rail
                 order: 1
                 rowspan: 2
                 treatment: [vertical]
-                kicker: UserPromptSubmit
                 title: "USER PROMPT"
-                detail: "The person types, and the turn begins. UserPromptSubmit reads the prompt and decides which surface owns it: the routing table is seeded into <code>surface_routing</code> from each agent's own <code>routing:</code> frontmatter, and the match is scored per surface. The result is a RECOMMENDATION injected as context — this hook never blocks a turn. This is where a person enters, and everything to the right of this bar happens because someone asked."
-                filters: [ruteo]
 
           # La vida del trabajo: UNA fila de cuatro cajas (kicker = el verbo que
           # le pasa al trabajo, título = el evento) y debajo UN RIEL FINO.

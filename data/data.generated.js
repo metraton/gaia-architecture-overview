@@ -27,7 +27,8 @@ window.__DOC__ = {
           "key": "ruteo",
           "label": "where does this belong?",
           "steps": [
-            "UserPromptSubmit reads the prompt and scores every surface to name the one that owns it — a recommendation, never a block."
+            "UserPromptSubmit reads the prompt and scores every surface to name the one that owns it — a recommendation, never a block.",
+            "The person types, and the turn begins. UserPromptSubmit reads the prompt and decides which surface owns it: the routing table is seeded into <code>surface_routing</code> from each agent's own <code>routing:</code> frontmatter, and the match is scored per surface. The result is a RECOMMENDATION injected as context — this hook never blocks a turn. This is where a person enters, and everything to the right of this bar happens because someone asked."
           ]
         },
         {
@@ -83,6 +84,9 @@ window.__DOC__ = {
               "type": "rail",
               "order": 1,
               "span": 10,
+              "treatment": [
+                "centered"
+              ],
               "title": "GAIA · the orchestration layer"
             },
             {
@@ -144,28 +148,49 @@ window.__DOC__ = {
                   ],
                   "order": 2,
                   "span": 1,
-                  "columns": 2,
+                  "columns": 1,
                   "children": [
-                    {
-                      "id": "pl-ficha",
-                      "type": "rail",
-                      "order": 1,
-                      "span": 2,
-                      "title": "Read lane · changes nothing"
-                    },
                     {
                       "id": "pl-memory",
                       "type": "rail",
+                      "order": 1,
+                      "span": 1,
+                      "title": "Memory management"
+                    },
+                    {
+                      "id": "pl-context",
+                      "type": "rail",
                       "order": 2,
-                      "span": 2,
-                      "title": "Coordination writes · bounded shapes"
+                      "span": 1,
+                      "title": "Project context values"
+                    },
+                    {
+                      "id": "pl-plan",
+                      "type": "rail",
+                      "order": 3,
+                      "span": 1,
+                      "title": "Plan execution"
+                    },
+                    {
+                      "id": "pl-contract",
+                      "type": "rail",
+                      "order": 4,
+                      "span": 1,
+                      "title": "Subagent contracts inspection"
                     },
                     {
                       "id": "pl-approvals",
                       "type": "rail",
-                      "order": 3,
-                      "span": 2,
-                      "title": "Delegated · a named owner has it"
+                      "order": 5,
+                      "span": 1,
+                      "title": "Approval inspection"
+                    },
+                    {
+                      "id": "pl-schedule",
+                      "type": "rail",
+                      "order": 6,
+                      "span": 1,
+                      "title": "Schedule task inspection"
                     }
                   ]
                 }
@@ -191,17 +216,13 @@ window.__DOC__ = {
                   "children": [
                     {
                       "id": "op-prompt",
+                      "type": "rail",
                       "order": 1,
                       "rowspan": 2,
                       "treatment": [
                         "vertical"
                       ],
-                      "kicker": "UserPromptSubmit",
-                      "title": "USER PROMPT",
-                      "detail": "The person types, and the turn begins. UserPromptSubmit reads the prompt and decides which surface owns it: the routing table is seeded into <code>surface_routing</code> from each agent's own <code>routing:</code> frontmatter, and the match is scored per surface. The result is a RECOMMENDATION injected as context — this hook never blocks a turn. This is where a person enters, and everything to the right of this bar happens because someone asked.",
-                      "filters": [
-                        "ruteo"
-                      ]
+                      "title": "USER PROMPT"
                     }
                   ]
                 },
