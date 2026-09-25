@@ -46,7 +46,7 @@ sections:
         order: 1
         span: 10
         treatment: [centered]
-        title: "POINT 1 · HOLDS THE CONVERSATION · GAIA, the orchestration layer"
+        title: "THE ORCHESTRATOR · HOLDS THE CONVERSATION · GAIA, the orchestration layer"
 
       - id: s-open
         treatment: [plain]

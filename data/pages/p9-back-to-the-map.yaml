@@ -1,5 +1,5 @@
-# Page 9 folds page 2's map into one row: the map boxes keep page 2's actor
-# names as titles, so the deck ends on the same five words it opened with.
+# Page 9 folds page 2's map into one row: YOU, GAIA, WHAT GAIA MANAGES and THE
+# SPECIALISTS keep page 2's names as titles, so the deck ends on the map it opened with.
 id: p9-back-to-the-map
 layout: grid
 form: comparison
@@ -51,7 +51,7 @@ sections:
     treatment: [plain]
     order: 2
     span: 1
-    columns: 5
+    columns: 4
     children:
       - id: p9-you
         order: 1
@@ -65,33 +65,26 @@ sections:
         order: 2
         kicker: "→ PAGE 4"
         title: "GAIA"
-        description: ["holds the conversation, never edits"]
-        detail: "Page 4 · The life of a request. Gaia is the one agent you talk to: it holds the conversation, hands the work to a specialist, and reads memory to remember what came before."
+        description: ["the orchestrator decides the what"]
+        detail: "Page 4 · The life of a request. The orchestrator is the one agent you talk to: it holds the conversation, decides the route, hands the work to a specialist, and reads memory to remember what came before. It never edits."
         treatment: [centered]
         filters: [memory, semantic]
-      - id: p9-specialist
+      - id: p9-manages
         order: 3
-        kicker: "→ PAGES 6, 7"
-        title: "SPECIALIST"
-        description: ["answers with a contract, then gets checked"]
-        detail: "Page 6 · Contracts: every specialist answers with its own contract. Page 7 · It checks: Gaia checks what the contract claims before telling you."
-        treatment: [centered]
-        filters: [nothing-self-declared, semantic]
-      - id: p9-memory
-        order: 4
-        kicker: "→ PAGE 8"
-        title: "MEMORY"
-        description: ["two kinds, outlives the session"]
-        detail: "Page 8 · Memory: episodes, the automatic trace of each turn, and curated memory, what Gaia writes on purpose and reads back later."
+        kicker: "→ PAGES 5–8"
+        title: "WHAT GAIA MANAGES"
+        description: ["memory, plans, contracts, approvals"]
+        detail: "Through its own command line, Gaia keeps memory (page 8), plans and tasks (page 7), contracts (page 6) and approvals (page 5), so what it learns and what it was asked outlives the session."
         treatment: [centered]
         filters: [memory]
-      - id: p9-systems
-        order: 5
-        kicker: "→ PAGE 5"
-        title: "YOUR SYSTEMS"
-        description: ["changed only after your yes"]
-        detail: "The specialist acts on your systems, and anything that changes them waits for your approval first (page 5)."
+      - id: p9-specialist
+        order: 4
+        kicker: "→ PAGES 3, 6"
+        title: "THE SPECIALISTS"
+        description: ["do the how, answer with a contract"]
+        detail: "Page 3 · Who's who: 8 specialists, one per field. Page 6 · Contracts: every specialist answers with its own contract, and the orchestrator checks what it claims before telling you."
         treatment: [centered]
+        filters: [nothing-self-declared, semantic]
 
   - id: p9-numbers
     title: "On my machine"

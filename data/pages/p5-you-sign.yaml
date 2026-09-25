@@ -41,7 +41,7 @@ sections:
         type: rail
         order: 1
         span: 4
-        title: "POINT 4 · YOU SIGN · A HOOK DECIDES, BY RULE, BEFORE ANYTHING RUNS"
+        title: "APPROVALS · YOU SIGN · A HOOK DECIDES, BY RULE, BEFORE ANYTHING RUNS"
 
       - id: p5-you
         order: 2
@@ -107,5 +107,5 @@ sections:
         kicker: "KEEPS"
         title: "The approval chain"
         description: ["every decision is kept"]
-        detail: "Every step of an approval is appended to a hash chain that nobody rewrites: asked (<code>REQUESTED</code>), shown (<code>SHOWN</code>), your answer (<code>APPROVED</code> or rejected), and what really happened (<code>EXECUTED</code> or <code>FAILED</code>).<br><br>Source: <code>schema.sql:1578-1600</code>. What else each turn leaves is its contract: page 6, POINT 2."
+        detail: "Every step of an approval is appended to a hash chain that nobody rewrites: asked (<code>REQUESTED</code>), shown (<code>SHOWN</code>), your answer (<code>APPROVED</code> or rejected), and what really happened (<code>EXECUTED</code> or <code>FAILED</code>).<br><br>Source: <code>schema.sql:1578-1600</code>. What else each turn leaves is its contract: page 6."
         filters: [memory, nothing-self-declared]

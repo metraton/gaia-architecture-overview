@@ -53,7 +53,7 @@ sections:
     children:
       - id: p6-point
         order: 1
-        kicker: "POINT 2 · CONTRACTS"
+        kicker: "ON THE MAP · CONTRACTS"
         title: "One contract per agent"
         description: ["a form that lets the orchestrator evaluate the response"]
         detail: "Every agent answers with a contract of its own, on the same form. Gaia reads the form by rule, never the reply."
@@ -200,7 +200,7 @@ sections:
         kicker: NEEDS_VERIFICATION
         title: "Send a verifier"
         description: ["the producer cannot seal its own work"]
-        detail: "A plan-task-bound turn cannot close itself <code>COMPLETE</code>. The orchestrator dispatches an independent verifier, bound through <code>parent_handoff_id</code>. Who confirms? That is POINT 3."
+        detail: "A plan-task-bound turn cannot close itself <code>COMPLETE</code>. The orchestrator dispatches an independent verifier, bound through <code>parent_handoff_id</code>. Who confirms? That is page 7."
         filters: [next-move, nothing-self-declared]
       - id: p6-approval-request
         order: 3

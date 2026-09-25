@@ -633,7 +633,7 @@
   }
 
   // ── wiring (detail on box click, flow highlight on chip click) ──
-  function wireAct(act, detailRegistry, filters) {
+  function wireAct(act, detailRegistry, filters, widestRootColumns) {
     const stage = act.querySelector('[data-stage]');
     const nodes = act.querySelectorAll('[data-k]');
     const chips = act.querySelectorAll('.chip');
@@ -670,10 +670,57 @@
       panel.facts.classList.toggle('show', !!d.facts);
       if (d.note) { panel.note.innerHTML = d.note; panel.note.classList.add('show'); }
       else { panel.note.innerHTML = ''; panel.note.classList.remove('show'); }
+      placeDetailCard();
       openPanel();
     }
 
+    // The card is twice as wide as the narrowest root section the deck can draw
+    // (this page's plane split by the widest page's root columns), floored at two
+    // readable cells, so it reads comfortably yet never spans more than two such sections.
+    let draggedTo = null;
+    function placeDetailCard() {
+      const plane = act.querySelector('.sec-plane');
+      const cellFloor = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cell-min-w')) || 0;
+      const width = Math.min(stage.clientWidth - 48,
+        Math.max(2 * cellFloor, 2 * plane.clientWidth / widestRootColumns));
+      panelEl.classList.add('is-detail');
+      panelEl.style.width = width + 'px';
+      panelEl.style.minHeight = Math.min(1.25 * width, stage.clientHeight - 48) + 'px';
+      if (draggedTo) moveCardTo(draggedTo.left, draggedTo.top);
+    }
+    function moveCardTo(left, top) {
+      const maxLeft = Math.max(0, stage.clientWidth - panelEl.offsetWidth);
+      const maxTop = Math.max(0, stage.clientHeight - panelEl.offsetHeight);
+      draggedTo = { left: Math.min(Math.max(0, left), maxLeft), top: Math.min(Math.max(0, top), maxTop) };
+      panelEl.style.left = draggedTo.left + 'px';
+      panelEl.style.top = draggedTo.top + 'px';
+      panelEl.style.bottom = 'auto';
+    }
+    function releaseDetailCard() {
+      panelEl.classList.remove('is-detail');
+      for (const prop of ['width', 'minHeight', 'left', 'top', 'bottom']) panelEl.style[prop] = '';
+    }
+    const cardHandle = panelEl.querySelector('.p-head');
+    cardHandle.addEventListener('pointerdown', e => {
+      if (e.button !== 0 || !panelEl.classList.contains('is-detail')) return;
+      const grabX = e.clientX - panelEl.offsetLeft, grabY = e.clientY - panelEl.offsetTop;
+      cardHandle.setPointerCapture(e.pointerId);
+      cardHandle.classList.add('dragging');
+      const follow = ev => moveCardTo(ev.clientX - grabX, ev.clientY - grabY);
+      const drop = () => {
+        cardHandle.classList.remove('dragging');
+        cardHandle.removeEventListener('pointermove', follow);
+        cardHandle.removeEventListener('pointerup', drop);
+        cardHandle.removeEventListener('pointercancel', drop);
+      };
+      cardHandle.addEventListener('pointermove', follow);
+      cardHandle.addEventListener('pointerup', drop);
+      cardHandle.addEventListener('pointercancel', drop);
+      e.preventDefault();
+    });
+
     function showFlow(f) {
+      releaseDetailCard();
       panel.kicker.textContent = 'RELATION';
       panel.title.textContent = f.label;
       const steps = f.steps || [];
@@ -824,7 +871,8 @@
     built.push({ act, detailRegistry, filters, page });
   });
 
-  built.forEach(b => wireAct(b.act, b.detailRegistry, b.filters));
+  const widestRootColumns = Math.max(1, ...renderable.map(p => p.columns || 1));
+  built.forEach(b => wireAct(b.act, b.detailRegistry, b.filters, widestRootColumns));
 
   // ── page navigator ──
   // Page names render as VISIBLE tabs in `order`; the current one is

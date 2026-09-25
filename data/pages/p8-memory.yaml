@@ -51,7 +51,7 @@ sections:
     children:
       - id: p8-rail
         type: rail
-        title: "POINT 5 · MEMORY OUTLIVES THE SESSION · two kinds"
+        title: "MEMORY · IT OUTLIVES THE SESSION · two kinds"
 
   - id: p8-context
     treatment: [plain]

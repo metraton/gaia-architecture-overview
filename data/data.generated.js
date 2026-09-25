@@ -428,35 +428,35 @@ window.__DOC__ = {
           "key": "the-human",
           "label": "who decides?",
           "steps": [
-            "You do. You talk to Gaia, and anything that changes something real waits for your signature."
+            "You do. You talk to the orchestrator, and anything that changes something real waits for your approval."
           ]
         },
         {
           "key": "nothing-self-declared",
           "label": "is it really done?",
           "steps": [
-            "Not because the specialist says so: Gaia checks what it delivers before telling you."
+            "Not because the specialist says so: its contract is read, and planned tasks are checked, before you are told."
           ]
         },
         {
           "key": "memory",
           "label": "what do we remember?",
           "steps": [
-            "Your rules, your preferences and what is pending per project: Gaia reads it and writes it, and it outlives the session."
+            "Your rules, your preferences and what is pending per project: the orchestrator reads it and writes it, and it outlives the session."
           ]
         },
         {
           "key": "deterministic",
           "label": "a rule decides",
           "steps": [
-            "The hooks decide by a rule in code, the same answer every time, with no model involved: whether a command waits for your signature, and whether a specialist's work is checked."
+            "The hooks decide by a rule in code, the same answer every time, with no model involved: whether a command waits for your approval, and whether a specialist's contract is accepted."
           ]
         },
         {
           "key": "semantic",
           "label": "a model follows instructions",
           "steps": [
-            "The skills and the agents are written instructions a model follows: holding the conversation, and doing the work."
+            "The skills and the agents are written instructions a model follows: the orchestrator decides the what, the specialists do the how."
           ]
         },
         {
@@ -470,13 +470,13 @@ window.__DOC__ = {
           "key": "one-turn",
           "label": "one turn",
           "steps": [
-            "Gaia hands one piece of work to one specialist, and the specialist comes back with it: one turn."
+            "The orchestrator hands one piece of work to one specialist, and the specialist comes back with it: one turn."
           ]
         }
       ],
       "sections": [
         {
-          "id": "thesis",
+          "id": "you",
           "treatment": [
             "plain"
           ],
@@ -485,60 +485,152 @@ window.__DOC__ = {
           "columns": 1,
           "children": [
             {
-              "id": "th-map",
+              "id": "mp-you",
               "order": 1,
-              "kicker": "IN ITS OWN WORDS",
-              "title": "Gaia converses and coordinates",
+              "kicker": "→ PAGE 5",
+              "title": "You",
               "description": [
-                "but never makes the changes itself"
+                "ask in your own words, approve what changes"
               ],
-              "detail": "The orchestrator's own answer to «what are you and what do you do?»: <em>Gaia converses with you and coordinates the work, but never makes the changes itself. It hands them to specialists, checks what they deliver, and tells you the result. Anything that changes something real needs your signature.</em>",
-              "variant": "accent",
+              "detail": "You talk only to the orchestrator, in your own words. Anything that changes something real — a push, an apply, a delete — waits until you approve it, after you have seen exactly what will happen.",
               "treatment": [
                 "centered"
+              ],
+              "filters": [
+                "the-human"
               ]
+            },
+            {
+              "id": "mp-you-rel",
+              "type": "separator",
+              "order": 2,
+              "text": "▼ converse · ▲ sign what changes something"
             }
           ]
         },
         {
-          "id": "picture",
+          "id": "gaia",
+          "title": "GAIA",
+          "subtitle": "the orchestration layer · it converses with you and coordinates the work, but never makes the changes itself",
           "treatment": [
-            "plain"
+            "envelope"
           ],
           "order": 2,
           "span": 1,
-          "columns": 3,
+          "columns": 1,
           "children": [
             {
-              "id": "mp-you-col",
+              "id": "gaia-top",
               "treatment": [
                 "plain"
               ],
               "order": 1,
               "span": 1,
-              "columns": 1,
+              "columns": 3,
               "children": [
                 {
-                  "id": "mp-you",
-                  "order": 1,
-                  "rowspan": 2,
-                  "kicker": "ASKS · SIGNS",
-                  "title": "You",
-                  "description": [
-                    "converse in your own words"
-                  ],
-                  "detail": "You talk only to Gaia, in your own words. Anything that changes something real — a push, an apply, a delete — waits until you approve it, after you have seen exactly what will happen.",
+                  "id": "gaia-orch",
+                  "title": "The orchestrator",
+                  "subtitle": "one per session, you talk only to it",
                   "treatment": [
-                    "centered"
+                    "envelope"
                   ],
-                  "filters": [
-                    "the-human"
+                  "order": 1,
+                  "span": 1,
+                  "columns": 1,
+                  "children": [
+                    {
+                      "id": "mp-orchestrator",
+                      "order": 1,
+                      "kicker": "→ PAGE 4",
+                      "title": "Decides the WHAT",
+                      "description": [
+                        "holds the conversation, never edits"
+                      ],
+                      "detail": "The orchestrator is the one agent you talk to. It understands what you want, decides the route, shows it to you before starting, and keeps the thread end to end. It reads memory to remember what came before. It does not edit files, by design: it hands the work to a specialist.",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "filters": [
+                        "one-turn",
+                        "semantic",
+                        "memory"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "gaia-manages",
+                  "title": "What Gaia manages",
+                  "subtitle": "through its own CLI",
+                  "treatment": [
+                    "envelope"
+                  ],
+                  "order": 2,
+                  "span": 2,
+                  "columns": 4,
+                  "children": [
+                    {
+                      "id": "mg-memory",
+                      "order": 1,
+                      "kicker": "→ PAGE 8",
+                      "title": "Memory",
+                      "description": [
+                        "rules, preferences, pending"
+                      ],
+                      "detail": "Memory outlives the session: your rules, your preferences, and what is pending per project. The orchestrator reads it at the start and writes to it on purpose, through Gaia's own command line.",
+                      "filters": [
+                        "memory"
+                      ]
+                    },
+                    {
+                      "id": "mg-plans",
+                      "order": 2,
+                      "kicker": "→ PAGE 7",
+                      "title": "Plans & tasks",
+                      "description": [
+                        "a brief becomes checked tasks"
+                      ],
+                      "detail": "A brief becomes a plan of tasks, and each task's work is checked by someone who did not do it. Gaia keeps them and moves them from one status to the next through its own command line.",
+                      "filters": [
+                        "nothing-self-declared"
+                      ]
+                    },
+                    {
+                      "id": "mg-contracts",
+                      "order": 3,
+                      "kicker": "→ PAGE 6",
+                      "title": "Contracts",
+                      "description": [
+                        "every specialist returns one"
+                      ],
+                      "detail": "A contract says what was asked, what was found, what changed, and with what evidence. Gaia stores it, and a hook judges it by rule before the turn may close. The orchestrator reads it through Gaia's own command line.",
+                      "filters": [
+                        "the-contract",
+                        "nothing-self-declared",
+                        "deterministic"
+                      ]
+                    },
+                    {
+                      "id": "mg-approvals",
+                      "order": 4,
+                      "kicker": "→ PAGE 5",
+                      "title": "Approvals",
+                      "description": [
+                        "your yes to one exact command"
+                      ],
+                      "detail": "A hook decides by rule which commands change something real, and holds each one until you approve it. Gaia keeps every approval, and the orchestrator can see the ones waiting for you through its own command line; it can never approve one itself.",
+                      "filters": [
+                        "the-human",
+                        "deterministic"
+                      ]
+                    }
                   ]
                 }
               ]
             },
             {
-              "id": "mp-gaia-col",
+              "id": "gaia-rel",
               "treatment": [
                 "plain"
               ],
@@ -547,165 +639,43 @@ window.__DOC__ = {
               "columns": 1,
               "children": [
                 {
-                  "id": "mp-gaia",
+                  "id": "mp-gaia-rel",
+                  "type": "separator",
                   "order": 1,
-                  "kicker": "► converse · ◄ sign what changes something",
-                  "title": "Gaia",
-                  "description": [
-                    "holds the conversation, never edits"
-                  ],
-                  "detail": "Gaia understands what you want, decides the route, shows it to you before starting, and is the only one that keeps the thread end to end. It does not edit files, by design: it hands the work to a specialist.",
-                  "treatment": [
-                    "centered"
-                  ],
-                  "filters": [
-                    "one-turn"
-                  ]
-                },
-                {
-                  "id": "mp-memory",
-                  "order": 2,
-                  "kicker": "MEMORY",
-                  "title": "Rules, preferences, pending",
-                  "description": [
-                    "Gaia reads and writes it"
-                  ],
-                  "detail": "Memory outlives the session: your rules, your preferences, and what is pending per project. Gaia reads it at the start and writes to it on purpose.",
-                  "filters": [
-                    "memory"
-                  ]
+                  "text": "▼ delegates · ▲ returns a contract"
                 }
               ]
             },
             {
-              "id": "mp-specialist-col",
+              "id": "gaia-specialists",
+              "title": "The specialists",
+              "subtitle": "8 of them, one per field",
               "treatment": [
-                "plain"
+                "envelope"
               ],
               "order": 3,
               "span": 1,
               "columns": 1,
               "children": [
                 {
-                  "id": "mp-specialist",
+                  "id": "mp-specialists",
                   "order": 1,
-                  "kicker": "► delegates · ◄ returns a verifiable report",
-                  "title": "The specialists",
+                  "kicker": "→ PAGE 3",
+                  "title": "Do the HOW",
                   "description": [
-                    "8 of them, one per field"
+                    "each born clean for one piece of work, ends with a contract"
                   ],
-                  "detail": "Specialists do the work, each in its field. Each one is born clean for one piece of work, owns that one task, and ends with a contract: a record of what was done and with what evidence.",
+                  "detail": "Specialists do the work, each in its field: application code, infrastructure, the cluster, live systems, Gaia itself. Each one is born clean for one piece of work, owns that one task, and ends with a contract: what was done, and with what evidence.",
                   "treatment": [
                     "centered"
                   ],
                   "filters": [
                     "one-turn",
+                    "semantic",
                     "the-contract",
                     "nothing-self-declared"
                   ]
-                },
-                {
-                  "id": "mp-systems",
-                  "order": 2,
-                  "kicker": "YOUR SYSTEMS",
-                  "title": "Code, cloud, clusters",
-                  "description": [
-                    "the specialist acts on them"
-                  ],
-                  "detail": "Your repositories, your cloud and your clusters. Only a specialist acts on them, and anything that changes them waits for your signature."
                 }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "points",
-          "treatment": [
-            "plain"
-          ],
-          "order": 3,
-          "span": 1,
-          "columns": 5,
-          "children": [
-            {
-              "id": "pt-rail",
-              "type": "rail",
-              "order": 1,
-              "span": 5,
-              "title": "HOW IT WORKS · five points, each one a later page"
-            },
-            {
-              "id": "pt-1",
-              "order": 2,
-              "kicker": "POINT 1",
-              "title": "Holds the conversation",
-              "description": [
-                "→ page 4"
-              ],
-              "detail": "<b>It holds the conversation.</b> It understands what you want, decides the route, shows it to you before starting, and is the only one that keeps the thread end to end. It does not edit files, by design.",
-              "variant": "muted",
-              "filters": [
-                "one-turn",
-                "semantic"
-              ]
-            },
-            {
-              "id": "pt-2",
-              "order": 3,
-              "kicker": "POINT 2",
-              "title": "Specialists do the work",
-              "description": [
-                "→ page 6"
-              ],
-              "detail": "<b>Specialists do the work</b>, each in its field. Each dispatch is born clean, owns one task, and ends with a contract: a record of what was done and with what evidence.",
-              "variant": "muted",
-              "filters": [
-                "the-contract",
-                "semantic"
-              ]
-            },
-            {
-              "id": "pt-3",
-              "order": 4,
-              "kicker": "POINT 3",
-              "title": "Checks before telling you",
-              "description": [
-                "→ page 7"
-              ],
-              "detail": "<b>It checks before telling you.</b> It reports from that record and from what it opens itself, not from what the specialist says it did. It separates what it saw, assumed and judged.",
-              "variant": "muted",
-              "filters": [
-                "nothing-self-declared",
-                "deterministic"
-              ]
-            },
-            {
-              "id": "pt-4",
-              "order": 5,
-              "kicker": "POINT 4",
-              "title": "You sign what changes",
-              "description": [
-                "→ page 5"
-              ],
-              "detail": "<b>You sign what changes something.</b> A push, an apply or a delete waits until you approve it, after you have seen exactly what will happen.",
-              "variant": "muted",
-              "filters": [
-                "the-human",
-                "deterministic"
-              ]
-            },
-            {
-              "id": "pt-5",
-              "order": 6,
-              "kicker": "POINT 5",
-              "title": "Memory outlives the session",
-              "description": [
-                "→ page 8"
-              ],
-              "detail": "<b>Memory outlives the session:</b> your rules, your preferences, and what is pending per project.",
-              "variant": "muted",
-              "filters": [
-                "memory"
               ]
             }
           ]
@@ -715,63 +685,15 @@ window.__DOC__ = {
           "treatment": [
             "plain"
           ],
-          "order": 4,
-          "span": 1,
-          "columns": 3,
-          "children": [
-            {
-              "id": "hv-hooks",
-              "order": 1,
-              "kicker": "HOOKS",
-              "title": "A rule decides",
-              "description": [
-                "sign, judge, record"
-              ],
-              "detail": "Hooks are code the host runs at fixed moments. They are <b>deterministic</b>: decided by a rule in code, the same answer every time, no model involved. They make you sign what changes something, judge what a specialist hands back, and record what ran.",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "hv-cli",
-              "order": 2,
-              "kicker": "THE CLI",
-              "title": "The bridge",
-              "description": [
-                "memory, contracts, plans, approvals"
-              ],
-              "detail": "Gaia's own command line joins the two halves. It is how Gaia reads and writes memory, reads contracts, drives plans, and sees the approvals waiting for you."
-            },
-            {
-              "id": "hv-semantic",
-              "order": 3,
-              "kicker": "SKILLS AND AGENTS",
-              "title": "A model follows",
-              "description": [
-                "identities, skills, protocols"
-              ],
-              "detail": "Skills are written instructions an agent loads; agents are the orchestrator and the specialists. They are <b>semantic</b>: done by a model following instructions.",
-              "filters": [
-                "semantic"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "why",
-          "treatment": [
-            "plain"
-          ],
-          "order": 5,
+          "order": 3,
           "span": 1,
           "columns": 1,
           "children": [
             {
-              "id": "why-line",
+              "id": "halves-line",
               "type": "separator",
               "order": 1,
-              "span": 1,
-              "text": "so every result has evidence and an owner, and nothing changes your systems without your permission"
+              "text": "hooks decide by rule · skills and agents follow · the CLI joins"
             }
           ]
         }
@@ -1283,7 +1205,7 @@ window.__DOC__ = {
               "treatment": [
                 "centered"
               ],
-              "title": "POINT 1 · HOLDS THE CONVERSATION · GAIA, the orchestration layer"
+              "title": "THE ORCHESTRATOR · HOLDS THE CONVERSATION · GAIA, the orchestration layer"
             },
             {
               "id": "s-open",
@@ -1639,7 +1561,7 @@ window.__DOC__ = {
               "type": "rail",
               "order": 1,
               "span": 4,
-              "title": "POINT 4 · YOU SIGN · A HOOK DECIDES, BY RULE, BEFORE ANYTHING RUNS"
+              "title": "APPROVALS · YOU SIGN · A HOOK DECIDES, BY RULE, BEFORE ANYTHING RUNS"
             },
             {
               "id": "p5-you",
@@ -1755,7 +1677,7 @@ window.__DOC__ = {
               "description": [
                 "every decision is kept"
               ],
-              "detail": "Every step of an approval is appended to a hash chain that nobody rewrites: asked (<code>REQUESTED</code>), shown (<code>SHOWN</code>), your answer (<code>APPROVED</code> or rejected), and what really happened (<code>EXECUTED</code> or <code>FAILED</code>).<br><br>Source: <code>schema.sql:1578-1600</code>. What else each turn leaves is its contract: page 6, POINT 2.",
+              "detail": "Every step of an approval is appended to a hash chain that nobody rewrites: asked (<code>REQUESTED</code>), shown (<code>SHOWN</code>), your answer (<code>APPROVED</code> or rejected), and what really happened (<code>EXECUTED</code> or <code>FAILED</code>).<br><br>Source: <code>schema.sql:1578-1600</code>. What else each turn leaves is its contract: page 6.",
               "filters": [
                 "memory",
                 "nothing-self-declared"
@@ -1836,7 +1758,7 @@ window.__DOC__ = {
             {
               "id": "p6-point",
               "order": 1,
-              "kicker": "POINT 2 · CONTRACTS",
+              "kicker": "ON THE MAP · CONTRACTS",
               "title": "One contract per agent",
               "description": [
                 "a form that lets the orchestrator evaluate the response"
@@ -2097,7 +2019,7 @@ window.__DOC__ = {
               "description": [
                 "the producer cannot seal its own work"
               ],
-              "detail": "A plan-task-bound turn cannot close itself <code>COMPLETE</code>. The orchestrator dispatches an independent verifier, bound through <code>parent_handoff_id</code>. Who confirms? That is POINT 3.",
+              "detail": "A plan-task-bound turn cannot close itself <code>COMPLETE</code>. The orchestrator dispatches an independent verifier, bound through <code>parent_handoff_id</code>. Who confirms? That is page 7.",
               "filters": [
                 "next-move",
                 "nothing-self-declared"
@@ -2264,7 +2186,7 @@ window.__DOC__ = {
             {
               "id": "p7-rail-point",
               "type": "rail",
-              "title": "POINT 3 · IT CHECKS BEFORE TELLING YOU"
+              "title": "PLANS & TASKS · IT CHECKS BEFORE TELLING YOU"
             }
           ]
         },
@@ -2554,7 +2476,7 @@ window.__DOC__ = {
               "description": [
                 "contract → task → gate → evidence"
               ],
-              "detail": "What one step produces is stored and read by the next: the contract names its task, the task its gate, the gate the evidence behind its result. It is kept in Gaia's database (<code>schema.sql:442-700</code>), so it survives the session. What is kept is POINT 5, memory.",
+              "detail": "What one step produces is stored and read by the next: the contract names its task, the task its gate, the gate the evidence behind its result. It is kept in Gaia's database (<code>schema.sql:442-700</code>), so it survives the session. What is kept is memory, page 8.",
               "filters": [
                 "the-contract",
                 "deterministic",
@@ -2646,7 +2568,7 @@ window.__DOC__ = {
             {
               "id": "p8-rail",
               "type": "rail",
-              "title": "POINT 5 · MEMORY OUTLIVES THE SESSION · two kinds"
+              "title": "MEMORY · IT OUTLIVES THE SESSION · two kinds"
             }
           ]
         },
@@ -2862,7 +2784,7 @@ window.__DOC__ = {
           ],
           "order": 2,
           "span": 1,
-          "columns": 5,
+          "columns": 4,
           "children": [
             {
               "id": "p9-you",
@@ -2887,9 +2809,9 @@ window.__DOC__ = {
               "kicker": "→ PAGE 4",
               "title": "GAIA",
               "description": [
-                "holds the conversation, never edits"
+                "the orchestrator decides the what"
               ],
-              "detail": "Page 4 · The life of a request. Gaia is the one agent you talk to: it holds the conversation, hands the work to a specialist, and reads memory to remember what came before.",
+              "detail": "Page 4 · The life of a request. The orchestrator is the one agent you talk to: it holds the conversation, decides the route, hands the work to a specialist, and reads memory to remember what came before. It never edits.",
               "treatment": [
                 "centered"
               ],
@@ -2899,31 +2821,14 @@ window.__DOC__ = {
               ]
             },
             {
-              "id": "p9-specialist",
+              "id": "p9-manages",
               "order": 3,
-              "kicker": "→ PAGES 6, 7",
-              "title": "SPECIALIST",
+              "kicker": "→ PAGES 5–8",
+              "title": "WHAT GAIA MANAGES",
               "description": [
-                "answers with a contract, then gets checked"
+                "memory, plans, contracts, approvals"
               ],
-              "detail": "Page 6 · Contracts: every specialist answers with its own contract. Page 7 · It checks: Gaia checks what the contract claims before telling you.",
-              "treatment": [
-                "centered"
-              ],
-              "filters": [
-                "nothing-self-declared",
-                "semantic"
-              ]
-            },
-            {
-              "id": "p9-memory",
-              "order": 4,
-              "kicker": "→ PAGE 8",
-              "title": "MEMORY",
-              "description": [
-                "two kinds, outlives the session"
-              ],
-              "detail": "Page 8 · Memory: episodes, the automatic trace of each turn, and curated memory, what Gaia writes on purpose and reads back later.",
+              "detail": "Through its own command line, Gaia keeps memory (page 8), plans and tasks (page 7), contracts (page 6) and approvals (page 5), so what it learns and what it was asked outlives the session.",
               "treatment": [
                 "centered"
               ],
@@ -2932,16 +2837,20 @@ window.__DOC__ = {
               ]
             },
             {
-              "id": "p9-systems",
-              "order": 5,
-              "kicker": "→ PAGE 5",
-              "title": "YOUR SYSTEMS",
+              "id": "p9-specialist",
+              "order": 4,
+              "kicker": "→ PAGES 3, 6",
+              "title": "THE SPECIALISTS",
               "description": [
-                "changed only after your yes"
+                "do the how, answer with a contract"
               ],
-              "detail": "The specialist acts on your systems, and anything that changes them waits for your approval first (page 5).",
+              "detail": "Page 3 · Who's who: 8 specialists, one per field. Page 6 · Contracts: every specialist answers with its own contract, and the orchestrator checks what it claims before telling you.",
               "treatment": [
                 "centered"
+              ],
+              "filters": [
+                "nothing-self-declared",
+                "semantic"
               ]
             }
           ]
