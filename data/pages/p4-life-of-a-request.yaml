@@ -1,10 +1,14 @@
-# P4 — POINT 1 · The life of a request. The top band of s-arquitectura, moved
-# to its own page; its component ids are reused so the backup page and this one
-# name the same moments the same way.
+# Page 4 — POINT 1 · The life of a request, and its approvals (STORYBOARD.md
+# rev 5). The four boxes are the EVENTS of one turn, named as what happens; the
+# hook that fires at each one rides the kicker.
 #
-# The repeat separator spans WORKS only: the gate is re-entered on every tool
-# call the specialist makes, while being born, receiving context and handing
-# back the contract each happen once per turn.
+# APPROVALS is the band under the events, titled as what the first event
+# decides: its first kicker names "before any tool", and the `one-command` chip
+# joins that event to the four approval boxes.
+#
+# The repeat separator spans "Each tool call" only: the gate is re-entered on
+# every tool call the specialist makes, while the dispatch, the handover of its
+# context and the close each happen once per turn.
 id: p4-life-of-a-request
 layout: grid
 form: dashboard
@@ -14,28 +18,32 @@ filters:
   - key: deterministic
     label: "a rule decides"
     steps:
-      - "Every moment of the turn is a hook: code the host runs at a fixed moment, deciding by a rule, with no model involved."
+      - "Every event of the turn is a hook: code the host runs at a fixed moment, deciding by a rule, with no model involved. So is the rule that sorts every command."
   - key: one-turn
     label: "one turn"
     steps:
-      - "One specialist's life, from dispatch to close: born, given its context, working, and handing back its contract."
+      - "One specialist's life, from dispatch to close: four events, the same every time."
+  - key: one-command
+    label: "one command"
+    steps:
+      - "Before any tool, one command meets one rule, and one of three things happens: it runs, it waits for your yes, or it never runs."
   - key: the-human
     label: "who decides?"
     steps:
-      - "PreToolUse holds any command that changes something, and the person sees the exact command before saying yes."
+      - "A command that changes something waits before any tool runs, and you see the exact command before you say yes."
   - key: nothing-self-declared
     label: "is it really done?"
     steps:
-      - "The turn can stop at two moments: before a command runs, and when the contract comes back and is judged."
+      - "The turn can stop at two events: before any tool, and at the close, when the contract comes back and is judged."
   - key: memory
     label: "what do we remember?"
     steps:
-      - "The specialist receives memory when it is born, and the close writes the episode of its turn."
+      - "The specialist is handed memory with its context, the close writes the episode of its turn, and your yes or no is kept in the approval chain."
 
 sections:
   - id: turn
     title: "The life of a request"
-    subtitle: "Everything here hangs from Gaia. The left column is Gaia's own layer — what it pushes at open and what it answers on demand; from the user prompt on, someone is in the loop."
+    subtitle: "One turn has four events, the same every time. The left column is Gaia's own layer — what it pushes at open and what it answers on demand; from the user prompt on, someone is in the loop."
     treatment: [envelope]
     order: 1
     span: 1
@@ -141,8 +149,8 @@ sections:
                 title: "USER PROMPT"
 
           - id: lifetime
-            title: "The turn's lifetime"
-            subtitle: "from dispatch to close"
+            title: "The events of one turn"
+            subtitle: "from dispatch to close · at each one the host runs a hook"
             treatment: [envelope]
             order: 2
             span: 6
@@ -150,32 +158,32 @@ sections:
             children:
               - id: lf-born
                 order: 1
-                kicker: BORN
-                title: "PreToolUse"
-                description: ["checked, given a context, recorded"]
-                detail: "<b>PreToolUse</b> — the gate, and one of the two places a turn can stop. In order: it decides whether the orchestrator may use the tool at all or must delegate; it sorts the command by tier, T0 to T3, refuses the never list outright and holds a T3 command for your approval; and, when the tool is a dispatch, it builds the specialist's context, caches it, and opens the turn's contract carrying the <code>plan_task_id</code> that will later forbid the specialist from declaring its own work done. A block here is <code>exit 2</code> — the command never runs. Nothing of the specialist existed before this cell."
+                kicker: "1 · PreToolUse"
+                title: "Before any tool"
+                description: ["checked, sorted, can stop here"]
+                detail: "<b>PreToolUse</b> — the hook the host runs before every tool call, and one of the two places a turn can stop. At the dispatch it decides whether the orchestrator may use the tool at all or must delegate, builds the specialist's context, caches it, and opens the turn's contract carrying the <code>plan_task_id</code> that will later forbid the specialist from declaring its own work done. On every command it applies the approvals rule below. A block here is <code>exit 2</code> — the command never runs. Nothing of the specialist existed before this event."
                 variant: bad
-                filters: [deterministic, one-turn, the-human, nothing-self-declared]
+                filters: [deterministic, one-turn, one-command, the-human, nothing-self-declared]
               - id: lf-receives
                 order: 2
-                kicker: RECEIVES
-                title: "SubagentStart"
-                description: ["context, routing, contract, memory"]
-                detail: "<b>SubagentStart</b> — the first instant the specialist exists. It receives the context PreToolUse already built and cached: project context, surface routing, its contract form, its contract permissions, the memory index and the recent session events. Its ANCHORS — the identifiers it was handed — are written down here, so the close can measure which fraction of that context it actually touched. What it does NOT receive from Gaia is its skills: the host injects those from the agent's own definition."
+                kicker: "2 · SubagentStart"
+                title: "Handed its context"
+                description: ["its contract, context and memory"]
+                detail: "<b>SubagentStart</b> — the first instant the specialist exists. It receives what PreToolUse already built and cached: its contract, opened for it, naming the project context it may read and write; its surface and role; the memory index and the recent session events. Its ANCHORS — the identifiers it was handed — are written down here, so the close can measure which fraction of that context it actually touched. What it does NOT receive from Gaia is its skills: the host injects those from the agent's own definition."
                 filters: [deterministic, one-turn, memory]
               - id: lf-works
                 order: 3
-                kicker: WORKS
-                title: "PostToolUse"
-                description: ["calls tools and produces its work"]
-                detail: "<b>PostToolUse</b> — the specialist works, and every tool it calls passes the same gate again: PreToolUse checks the call before it runs, PostToolUse records it after. That is why this is the only moment that repeats, once per tool call. PostToolUse logs the execution, seals EXECUTED or FAILED onto the hashed approval chain and, when you answer an approval question, activates that approval so the byte-identical retry finds it. A failed Bash call comes back through <b>PostToolUseFailure</b> instead."
+                kicker: "3 · PostToolUse"
+                title: "Each tool call"
+                description: ["checked before, recorded after"]
+                detail: "<b>PostToolUse</b> — the specialist works, and every tool it calls passes the same gate again: PreToolUse checks the call before it runs, PostToolUse records it after. That is why this is the only event that repeats, once per tool call. PostToolUse logs the execution, seals EXECUTED or FAILED onto the hashed approval chain and, when you answer an approval question, activates that approval so the byte-identical retry finds it. A failed Bash call comes back through <b>PostToolUseFailure</b> instead."
                 filters: [deterministic, one-turn]
               - id: lf-contract
                 order: 4
-                kicker: CONTRACT
-                title: "SubagentStop"
-                description: ["reads the contract, never the reply text"]
-                detail: "<b>SubagentStop</b> — the judge, and the other place a turn can stop. It reads the turn's stored contract, the one the specialist filled during its turn, and never the reply text. A missing or unfinalized contract sends the turn back (<code>exit 2</code>) and the specialist repairs it. A turn ends in one of six states, and only COMPLETE is final; a turn bound to a plan task cannot declare itself COMPLETE, so a separate verifier has to confirm it. The close also measures the turn from the transcript, computes the compliance score and writes the episode."
+                kicker: "4 · SubagentStop"
+                title: "At the close"
+                description: ["the contract is judged, never the reply"]
+                detail: "<b>SubagentStop</b> — the judge, and the other place a turn can stop. It reads the turn's stored contract, the one the specialist filled during its turn, and never the reply text. A missing or unfinalized contract sends the turn back (<code>exit 2</code>) and the specialist repairs it. A turn ends in one of six states, and only COMPLETE is final; a turn bound to a plan task cannot declare itself COMPLETE, so a separate verifier has to confirm it. The close also measures the turn from the transcript, computes the compliance score and writes the episode.<br><br>Source: <code>hooks/adapters/claude_code.py:905-907</code>; <code>validator.py:908</code>."
                 variant: bad
                 filters: [deterministic, one-turn, nothing-self-declared, memory]
               - id: lf-once-start
@@ -194,21 +202,42 @@ sections:
                 span: 1
                 text: "once only"
 
-          - id: human-loop
-            title: "Human in the loop"
-            subtitle: "a name behind every change"
+          - id: approvals
+            title: "Approvals · inside “before any tool”"
+            subtitle: "what the first event decides, for every command"
             treatment: [envelope]
             order: 3
             span: 7
-            columns: 1
+            columns: 4
             children:
-              - id: hl-bash
+              - id: ap-sorts
                 order: 1
-                kicker: REVIEW
-                title: "BashValidator"
-                description: ["the exact command, scope, risk"]
-                detail: "The detour has four beats. <b>1 · Held at the gate.</b> The command is sorted and, if it changes live state, it is blocked with an <code>approval_id</code> — <code>exit 2</code>, it never runs. <b>2 · The turn goes up.</b> A specialist has NO channel to the person: this is the fact nobody guesses, and it is why the approval is not resolved where the block happens. The specialist returns <code>APPROVAL_REQUEST</code> carrying the id, and the orchestrator is the one that can speak to you. <b>3 · You see the values and say yes.</b> The exact command verbatim, what it touches, what it risks, how to undo it. <b>4 · Retried byte for byte.</b> The approval matches the whole command string, so a reworded retry never matches; it is single-use and lasts 30 minutes. The ladder: <b>T0</b> read-only, <b>T1</b> local validation, <b>T2</b> dry run — all free. <b>T3</b> changes live state, and only a person can let it through. Above the ladder sits the never list: commands that cannot be approved at all."
-                filters: [deterministic, one-turn, the-human]
+                kicker: "BEFORE ANY TOOL · A RULE"
+                title: "Sorts every command"
+                description: ["in code, no model involved"]
+                detail: "Before any tool runs, a fixed classifier gives every command a tier: <b>T0</b> read, <b>T1</b> validate, <b>T2</b> dry run, <b>T3</b> change. It matches patterns and verbs in code; no model is consulted, so the same command gets the same answer every time. Before that, a separate fixed pattern check holds the never list.<br><br>Sources: <code>hooks/modules/security/tiers.py:29-35</code> (<code>SecurityTier</code>), <code>:78</code> (<code>_classify_command_tier_cached</code>); <code>hooks/modules/security/blocked_commands.py:678</code> (<code>is_blocked_command</code>)."
+                filters: [deterministic, one-command]
+              - id: ap-runs
+                order: 2
+                kicker: "READ-ONLY"
+                title: "Runs"
+                description: ["nobody is asked"]
+                detail: "Tiers <b>T0</b> read, <b>T1</b> validate and <b>T2</b> dry run change nothing, so the command runs and nobody is asked.<br><br>Source: <code>hooks/modules/security/tiers.py:29-35</code> (<code>SecurityTier</code>)."
+                filters: [deterministic, one-command]
+              - id: ap-waits
+                order: 3
+                kicker: "CHANGES SOMETHING"
+                title: "Waits for your yes"
+                description: ["one standard approval message"]
+                detail: "A <b>T3</b> command, one that changes something, is held with an <code>approval_id</code>. A specialist has no channel to you, so its turn goes up as <code>APPROVAL_REQUEST</code> and the orchestrator brings you the approval message, the same shape every time: what is about to run, its exact bytes, its scope, its risk and how to undo it. You approve, and the specialist retries the command byte for byte; you reject, and nothing happens.<br><br>An approval is single-use, must match the approved command byte for byte, and lasts 30 minutes. Every step is kept in the approval chain.<br><br>Sources: <code>approval_grants.py:193</code>, <code>:523</code>; <code>writer.py:86</code>; <code>schema.sql:1578-1600</code>."
+                filters: [one-command, the-human, memory]
+              - id: ap-never
+                order: 4
+                kicker: "NEVER"
+                title: "Never runs"
+                description: ["irreversible, nothing to approve"]
+                detail: "Irreversible commands are on the never list, a separate fixed pattern check. Its refusal has nothing to approve: no approval message, and no approval can let the command through.<br><br>Source: <code>hooks/modules/security/blocked_commands.py:678</code> (<code>is_blocked_command</code>)."
+                filters: [deterministic, one-command]
 
   - id: footnotes
     treatment: [plain]
@@ -221,7 +250,7 @@ sections:
         style: dotted
         order: 1
         span: 1
-        text: "red marks the only two moments the turn can stop — PreToolUse and SubagentStop"
+        text: "red marks the only two events the turn can stop — before any tool and at the close"
       - id: hk-count
         type: separator
         style: dotted

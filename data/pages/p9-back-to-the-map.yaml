@@ -1,4 +1,4 @@
-# Page 9 folds page 2's map into one row: YOU, GAIA, WHAT GAIA MANAGES and THE
+# Page 8 folds page 2's map into one row: YOU, GAIA, WHAT GAIA MANAGES and THE
 # SPECIALISTS keep page 2's names as titles, so the deck ends on the map it opened with.
 id: p9-back-to-the-map
 layout: grid
@@ -55,10 +55,10 @@ sections:
     children:
       - id: p9-you
         order: 1
-        kicker: "→ PAGE 5"
+        kicker: "→ PAGE 4"
         title: "YOU"
         description: ["you sign what changes something"]
-        detail: "Page 5 · You sign. Anything that changes something real needs your approval, your yes to one exact command, and a hook checks it by rule before anything runs."
+        detail: "Page 4 · The life of a request, its approvals. Anything that changes something real needs your approval, your yes to one exact command, and a rule sorts every command before any tool runs."
         treatment: [centered]
         filters: [the-human, deterministic]
       - id: p9-gaia
@@ -71,18 +71,18 @@ sections:
         filters: [memory, semantic]
       - id: p9-manages
         order: 3
-        kicker: "→ PAGES 5–8"
+        kicker: "→ PAGES 4–7"
         title: "WHAT GAIA MANAGES"
         description: ["memory, plans, contracts, approvals"]
-        detail: "Through its own command line, Gaia keeps memory (page 8), plans and tasks (page 7), contracts (page 6) and approvals (page 5), so what it learns and what it was asked outlives the session."
+        detail: "Through its own command line, Gaia keeps memory (page 7), plans and tasks (page 6), contracts (page 5) and approvals (page 4), so what it learns and what it was asked outlives the session."
         treatment: [centered]
         filters: [memory]
       - id: p9-specialist
         order: 4
-        kicker: "→ PAGES 3, 6"
+        kicker: "→ PAGES 3, 5"
         title: "THE SPECIALISTS"
         description: ["do the how, answer with a contract"]
-        detail: "Page 3 · What an agent is: every specialist has the same parts, and there are 8 today, one per field. Page 6 · Contracts: every specialist answers with its own contract, and the orchestrator checks what it claims before telling you."
+        detail: "Page 3 · What an agent is: every specialist has the same parts, and there are 8 today, one per field. Page 5 · Contracts: every specialist answers with its own contract, and the orchestrator checks what it claims before telling you."
         treatment: [centered]
         filters: [nothing-self-declared, semantic]
 

@@ -1,28 +1,32 @@
 # GAIA deck — storyboard for the talk to Gerry
 
-Status: **revision 4, on the page structure Jorge approved.** No page YAML
-changes until this storyboard is approved. `PRESENTATION.md` is rewritten
-against it.
+Status: **revision 5, on the page structure Jorge approved.** `PRESENTATION.md`
+is rewritten against it.
 
 History in one line each:
 - Revision 2 applied a code-checked review (contract
   `a041a86a42d7aa708.a51d61b0bc5b`).
 - Revision 3 made the language rules explicit and audited every page.
-- Revision 4 builds the nine-page structure Jorge approved. It opens on the
+- Revision 4 built the nine-page structure Jorge approved. It opens on the
   orchestrator's own answer as a level-1 map (page 2), zooms into the cast
-  (page 3), and then goes one point of the map deeper per page (pages 4–8).
-  It closes by returning to the map (page 9).
+  (page 3), and then goes one point of the map deeper per page. It closes by
+  returning to the map.
   - The blocks are simpler and more varied: centered boxes, stacks, nested
     sections and rails.
   - Gaia's two halves are named once, on the map: **deterministic** hooks and
     **semantic** skills and agents, joined by **the CLI**.
+- Revision 5 goes from nine pages to eight. "You sign" is merged into page 4,
+  which now names the four events of one turn and carries APPROVALS under
+  "Before any tool". Contracts (now page 5) is redrawn as one flow across
+  three actors, then the two kinds of contract, the **agent contract** and the
+  **project contract**, as staircases of rails.
 
 ## Level-1 source text: the orchestrator's own answer
 
 The session began with Jorge asking the orchestrator "what are you and what
 do you do?". Its answer, translated to English, is the deck's level-1 source.
-Page 2 carries its first sentence as the GAIA subtitle, and pages 4–8 each go
-one level deeper into one of its five points, which on the map are the
+Page 2 carries its first sentence as the GAIA subtitle, and pages 4–7 each go
+one level deeper into its five points, which on the map are the
 orchestrator and the four things Gaia manages.
 
 > In short: Gaia converses with you and coordinates the work, but never makes
@@ -49,20 +53,21 @@ orchestrator and the four things Gaia manages.
 | Point | The orchestrator's words | The page that goes deeper |
 |---|---|---|
 | 1 | **It holds the conversation.** It understands what you want, decides the route, shows it to you before starting, and is the only one that keeps the thread end to end. It does not edit files, by design. | page 4 · The life of a request |
-| 2 | **Specialists do the work**, each in its field. Each dispatch is born clean, owns one task, and ends with a contract: a record of what was done and with what evidence. | page 6 · Contracts |
-| 3 | **It checks before telling you.** It reports from that record and from what it opens itself, not from what the specialist says it did. It separates what it saw, assumed and judged. | page 7 · It checks |
-| 4 | **You sign what changes something.** A push, an apply or a delete waits until you approve it, after you have seen exactly what will happen. | page 5 · You sign |
-| 5 | **Memory outlives the session:** your rules, your preferences, and what is pending per project. | page 8 · Memory |
+| 2 | **Specialists do the work**, each in its field. Each dispatch is born clean, owns one task, and ends with a contract: a record of what was done and with what evidence. | page 5 · Contracts |
+| 3 | **It checks before telling you.** It reports from that record and from what it opens itself, not from what the specialist says it did. It separates what it saw, assumed and judged. | page 6 · It checks |
+| 4 | **You sign what changes something.** A push, an apply or a delete waits until you approve it, after you have seen exactly what will happen. | page 4 · its APPROVALS band |
+| 5 | **Memory outlives the session:** your rules, your preferences, and what is pending per project. | page 7 · Memory |
 
 Why it is built this way: so that every result has evidence and an owner, and
 nothing that changes your systems happens without your permission.
 
-The deeper pages run in the order of one turn's life (points 1, 4, 2, 3, 5).
-Each opens with a rail or kicker that names its box on the map (THE
-ORCHESTRATOR, APPROVALS, CONTRACTS, PLANS & TASKS, MEMORY), so the reader can
-always answer "which part of the first picture am I inside?". The map no
-longer draws the five points as a row: each point's page is the box's pointer.
-Page 3 is a zoom into two of the map's boxes, and its rail says "ZOOM".
+The deeper pages run in the order of one turn's life (points 1 and 4 together,
+then 2, 3, 5). Each opens with a rail or kicker that names its box on the map
+(THE ORCHESTRATOR with its APPROVALS, CONTRACTS, PLANS & TASKS, MEMORY), so the
+reader can always answer "which part of the first picture am I inside?". The
+map no longer draws the five points as a row: each point's page is the box's
+pointer. Page 3 is a zoom into two of the map's boxes, and its rail says
+"ZOOM".
 
 ## Language and labels: the rules every page follows
 
@@ -72,34 +77,35 @@ doctrine and glossary (slots, rails, separators, chips, the hole that speaks).
 
 | Rule | What it means on this deck |
 |---|---|
-| **Register per altitude** | Level-1 pages (1, 2, 9) use common nouns and the plain register; page 3 (level 2) names roles and agents. Real identifiers (hook names, state names, CLI commands, field names) start at level 3. Function names appear only in a box's detail or on the backup code page. |
-| **One term per concept** | **contract**: the form a specialist fills and Gaia stores. Never "handoff", "record", "row", "envelope" or "report" in front of the audience. **approval**: your yes to one exact command; never "grant" or "consent token". "Sign" is allowed only as the plain verb for giving an approval, as the orchestrator's answer says it (pages 2, 5, 9). **turn**: one specialist's life, from dispatch to close. **request**: what you ask, one prompt. **specialist**: one of the 8 agents that do the work; never "subagent" (except Claude Code's feature name and the hook names). **agent**: the orchestrator or a specialist. **orchestrator**: the one agent you talk to; on the level-1 map it is a box inside GAIA, which names the whole orchestration layer. **gate**: a task's pass/fail check in a plan, and only that. **episode**: the automatic trace of one turn. **curated memory**: what the orchestrator writes on purpose and Gaia reads back. **project context**: what Gaia knows about your workspace, from `gaia scan`, handed to each specialist at dispatch; never called "memory". **hook**: code the host runs at a fixed moment. **skill**: written instructions an agent loads. **deterministic**: decided by a rule in code, the same answer every time, no model involved. **semantic**: done by a model following instructions. |
-| **Kicker** | A verb or a step marker ("HOLDS", "1 · YOU"), or a short component name ("PreToolUse"). Never the thing itself; that is the title's job. |
+| **Register per altitude** | Level-1 pages (1, 2, 8) use common nouns and the plain register; page 3 (level 2) names roles and agents. Real identifiers (hook names, state names, CLI commands, field names) start at level 3. Function names appear only in a box's detail or on the backup code page. |
+| **One term per concept** | **agent contract**: the form an agent is born with, fills during its turn and answers in; Gaia stores it and judges it by rule. On every page but 5 a bare **contract** means the agent contract. **project contract**: what Gaia knows about one project, in named sections (`project_identity`, `stack`, `application_services`, …); each agent may read some (`can_read`) and write others (`can_write`). It replaces the earlier name "context permissions". Page 5 names both kinds explicitly. Never "handoff", "record", "row", "envelope" or "report" in front of the audience. **approval**: your yes to one exact command; never "grant" or "consent token". "Sign" is allowed only as the plain verb for giving an approval, as the orchestrator's answer says it (pages 2, 4, 8). **turn**: one specialist's life, from dispatch to close. **event**: one of the four fixed moments of a turn (before any tool, handed its context, each tool call, at the close); the hook that fires at it is its technical name. **request**: what you ask, one prompt. **specialist**: one of the 8 agents that do the work; never "subagent" (except Claude Code's feature name and the hook names). **agent**: the orchestrator or a specialist. **orchestrator**: the one agent you talk to; on the level-1 map it is a box inside GAIA, which names the whole orchestration layer. **gate**: a task's pass/fail check in a plan, and only that. **episode**: the automatic trace of one turn. **curated memory**: what the orchestrator writes on purpose and Gaia reads back. **project context**: the plain name, on level-1 and level-2 pages, for what the project contract holds; never called "memory". **hook**: code the host runs at a fixed moment. **skill**: written instructions an agent loads. **deterministic**: decided by a rule in code, the same answer every time, no model involved. **semantic**: done by a model following instructions. |
+| **Kicker** | A verb or a step marker ("HOLDS", "1 · SENDS"), or a short component name ("1 · PreToolUse"). Never the thing itself; that is the title's job. |
 | **Title** | The thing, in 2–4 words. |
 | **Description** | One line, few words: what it does or why it matters. |
 | **Detail** | The mechanics, identifiers, function names and evidence, shown on click. |
-| **Rail** | A title-only band that names a layer, a map position ("APPROVALS · YOU SIGN") or a group. Carries no chip and no detail. A vertical rail labels a stack beside it. |
+| **Rail** | A title-only band that names a layer, a map position ("POINT 2 · CONTRACTS") or a group, or one key of a staircase. Carries no chip and no detail. A vertical rail labels a stack beside it. |
 | **Separator** | A relation or a rule, stated in the line's text. On the map it stands for a labelled arrow. |
-| **Centered box** | The `centered` treatment, for what a page turns around (the map's actors, page 5's hook, page 8's MEMORY), or for a row of equal small headers. |
+| **Centered box** | The `centered` treatment, for what a page turns around (the map's actors, page 7's MEMORY), or for a row of equal small headers. |
 | **Chip vs order vs width vs empty cell** | A **chip** lights a relation that crosses sections, and needs at least 2 members on the page. **Order** carries a sequence inside one section. **Width** carries "belongs to", reach or importance. An **empty cell** states an absence, and it must caption itself: a separator with text, never a bare `spacer`. |
 | **Chip labels** | Phrased as the question or relation they answer, the same wording on every page where the key repeats. |
-| **One mode per section** | Concept, procedure, reference or decision, never blended. Every section is concept except page 9's numbers (reference) and install (procedure). |
+| **One mode per section** | Concept, procedure, reference or decision, never blended. Every section is concept except page 8's numbers (reference) and install (procedure). |
 
 Chip keys and labels, fixed for the whole deck:
 
 | Key | Label | Pages |
 |---|---|---|
-| `the-human` | who decides? | 1–9 |
-| `nothing-self-declared` | is it really done? | 1–9 |
-| `memory` | what do we remember? | 1–9 |
-| `deterministic` | a rule decides | 2–9 |
-| `semantic` | a model follows instructions | 2, 3, 6, 7, 9 |
-| `the-contract` | one contract, out and back | 2, 3, 6, 7 |
+| `the-human` | who decides? | 1–8 |
+| `nothing-self-declared` | is it really done? | 1–8 |
+| `memory` | what do we remember? | 1–4, 6–8 (absent on 5: one honest member) |
+| `deterministic` | a rule decides | 2–8 |
+| `semantic` | a model follows instructions | 2, 3, 5, 6, 8 |
+| `the-contract` | one contract, out and back | 2, 3, 5, 6 |
 | `one-turn` | one turn | 2, 3, 4 |
-| `one-command` | one command | 5 |
-| `next-move` | what happens next? | 6 |
-| `one-task` | one task | 7 |
-| `the-judge` (was `el-juez`) | the judge | 6, backup |
+| `one-command` | one command | 4 |
+| `project-contract` | what may it read and write? | 5 |
+| `next-move` | what happens next? | 5 |
+| `one-task` | one task | 6 |
+| `the-judge` (was `el-juez`) | the judge | backup |
 | `ruteo`, `porton`, `despacho`, `entrega`, `contabilidad`, `sesion-abre` | unchanged from today's deck | backup |
 
 ## The story in one breath
@@ -110,32 +116,34 @@ coordinates the work, but never makes the changes itself. It is hooks that
 decide by rule and skills and agents that a model follows, joined by its CLI
 (page 2). Zooming into the map shows the cast: one orchestrator, 8
 specialists (page 3). Then one point of the map per page:
-- it holds the conversation, through one turn's fixed life (page 4);
-- you sign what changes something, and a hook decides by rule before anything
-  runs (page 5);
-- every specialist answers with its own contract (page 6);
+- it holds the conversation, through the four events of one turn, and before
+  any tool a rule sorts every command: it runs, it waits for your yes, or it
+  never runs (page 4);
+- every agent answers with a contract, and its agent contract names what of
+  the project contract it may read and write (page 5);
 - it checks before telling you: planning, cross-checks, and what travels
-  between steps (page 7);
-- memory outlives the session, in two kinds (page 8).
+  between steps (page 6);
+- memory outlives the session, in two kinds (page 7).
 
 The talk closes back on the map, with two real numbers, the install and the
-first prompt (page 9).
+first prompt (page 8).
 
 Each page is where the next one is stored: page N always has one box that
 page N+1 opens up. That box is named in each page below as **"Hands off to"**.
 
-The deck as one strip, nine pages plus the backup, each with its altitude:
+The deck as one strip, eight pages plus the backup, each with its altitude:
 
 ```
-┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐
-│p1    │►│p2    │►│p3    │►│p4    │►│p5    │►│p6    │►│p7    │►│p8    │►│p9    │
-│Why   │ │Map   │ │Who   │ │Life  │ │Sign  │ │Record│ │Checks│ │Memory│ │Start │
-│lvl 1 │ │lvl 1 │ │lvl 2 │ │lvl 3 │ │lvl 4 │ │lvl 4 │ │lvl 4 │ │lvl 4 │ │lvl 1 │
-└──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘
-                                                  backup, after p9:
-                                                  ┌──────────────┐
-                                                  │Code · level 5│
-                                                  └──────────────┘
+┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐
+│p1    │►│p2    │►│p3    │►│p4    │►│p5    │►│p6    │►│p7    │►│p8    │
+│Why   │ │Map   │ │Who   │ │Life +│ │Con-  │ │Checks│ │Memory│ │Start │
+│      │ │      │ │      │ │sign  │ │tracts│ │      │ │      │ │      │
+│lvl 1 │ │lvl 1 │ │lvl 2 │ │lvl 3 │ │lvl 4 │ │lvl 4 │ │lvl 4 │ │lvl 1 │
+└──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘
+                                         backup, after p8:
+                                         ┌──────────────┐
+                                         │Code · level 5│
+                                         └──────────────┘
 ```
 
 In the sketches, a line with `── … ──` is a separator with its text, "(red)"
@@ -146,47 +154,46 @@ box, and a narrow column of stacked words beside a stack is a vertical rail.
 
 | Level | What the reader sees | Pages |
 |---|---|---|
-| 1 · the idea | why a team needs this; what Gaia is; how to start | 1, 2, 9 |
+| 1 · the idea | why a team needs this; what Gaia is; how to start | 1, 2, 8 |
 | 2 · the picture | who does what; roles and agents, no file names | 3 |
-| 3 · the real components | hooks, agents, CLI groups, by their real names | 4 |
-| 4 · the mechanisms | how one point of the map works from start to end | 5, 6, 7, 8 |
+| 3 · the real components | the events of a turn and their hooks, CLI groups, the approvals rule, by their real names | 4 |
+| 4 · the mechanisms | how one point of the map works from start to end | 5, 6, 7 |
 | 5 · the code | modules and functions | backup |
 
 ## Timing
 
 **The talk, about 15 minutes.** Pages 2 and 3 get about a minute each; the
-depth time goes to pages 4–8.
+depth time goes to pages 4–7. The two minutes page "You sign" had now belong to
+page 4, which carries its story.
 
 | # | Page | Marker | Level | Form | Minutes |
 |---|---|---|---|---|---|
 | 1 | Why a team needs this | — | 1 | dashboard | 1.5 |
 | 2 | What Gaia is | the map | 1 | mindmap, vertical | 1 |
 | 3 | What an agent is | ZOOM · WHAT AN AGENT IS | 2 | comparison, matrix | 1 |
-| 4 | The life of a request | THE ORCHESTRATOR · HOLDS THE CONVERSATION | 3 | dashboard (kept) | 2.5 |
-| 5 | You sign | APPROVALS · YOU SIGN | 4 | flow, left to right | 2 |
-| 6 | Contracts | CONTRACTS · ONE CONTRACT PER AGENT | 4 | dashboard, top-down | 2 |
-| 7 | It checks | PLANS & TASKS · IT CHECKS BEFORE TELLING YOU | 4 | flow, phases as sections | 2 |
-| 8 | Memory | MEMORY · IT OUTLIVES THE SESSION | 4 | mindmap (star) | 1.5 |
-| 9 | Install it, ask it | BACK TO THE MAP | 1 | comparison | 1.5 |
+| 4 | The life of a request | THE ORCHESTRATOR · HOLDS THE CONVERSATION, with APPROVALS | 3 | dashboard | 4.5 |
+| 5 | Contracts | POINT 2 · CONTRACTS · EVERY AGENT ANSWERS WITH A CONTRACT | 4 | dashboard, flow then structure | 2 |
+| 6 | It checks | PLANS & TASKS · IT CHECKS BEFORE TELLING YOU | 4 | flow, phases as sections | 2 |
+| 7 | Memory | MEMORY · IT OUTLIVES THE SESSION | 4 | mindmap (star) | 1.5 |
+| 8 | Install it, ask it | BACK TO THE MAP | 1 | comparison | 1.5 |
 | backup | Down to the code | — | 5 | dashboard | 0 (questions only) |
 | | | | | | **15** |
 
 **The video, at most 4:30.** This is the base architecture video; videos and
 articles on each part come later. The map on page 2 anchors it: it opens the
-video right after page 1, and page 9 returns to it.
+video right after page 1, and page 8 returns to it.
 
 | # | Page | Seconds |
 |---|---|---|
 | 1 | Why | 20 |
 | 2 | The map (the anchor) | 40 |
 | 3 | What an agent is | 20 |
-| 4 | The life of a request | 40 |
-| 5 | You sign | 25 |
-| 6 | Contracts | 30 |
-| 7 | It checks | 30 |
-| 8 | Memory | 20 |
-| 9 | Back to the map | 35 |
-| | **Total** | **260 s (4:20)** |
+| 4 | The life of a request, and its approvals | 60 |
+| 5 | Contracts | 30 |
+| 6 | It checks | 30 |
+| 7 | Memory | 20 |
+| 8 | Back to the map | 35 |
+| | **Total** | **255 s (4:15)** |
 
 The backup page is not in the video.
 
@@ -213,8 +220,12 @@ The backup page is not in the video.
 | **Dropped from the carried set:** its own copy of the repo. It is not injected at birth; a specialist creates it on demand when it writes (`gaia worktree create`). | agent-protocol skill, principle 12 |
 | **Page 3 · the orchestrator never holds an editing tool.** | `agents/gaia-orchestrator.md:6` (`disallowedTools: [Glob, Grep, Edit, Write, NotebookEdit, …]`); `hooks/modules/orchestrator/delegate_mode.py:81` (`ORCHESTRATOR_ALLOWED_TOOLS`), `:367` (`check_delegate_mode`) |
 | Planning objects and the approval hash chain. | `schema.sql:442-700`, `:1578-1600` |
-| Contract kinds (not on a slide): `verifier`, `task_execution`, `investigation`, `memory`. | `hooks/modules/agents/dispatch_binding.py:96`, `:105-106`, `:509-543` |
-| **Numbers for page 9:** approvals 583 approved, 52 rejected, 218 expired; commands 423 of 450 read-only (T0), 94.0%. | contract `a237b55dcc2f80ef4.3bea760ea6ba` (`gaia approvals stats`, `gaia metrics`) |
+| Contract kinds (not on a slide): `verifier`, `task_execution`, `investigation`, `memory`. A kind is a label; it does not change the form. | `hooks/modules/agents/dispatch_binding.py:96`, `:105-106`, `:509-543` |
+| **Page 5 · "adapted to its specialty", in the code's terms:** the agent contract is adapted per agent in its data, not its form: its surface, its role (`primary` or `verifier`), and `can_read` / `can_write` from its own permission rows. The form it answers in is the same for every agent. | `tools/context/context_provider.py:191` (`build_kernel_sections`), `:244-249`; `hooks/modules/context/kernel_builder.py:193` (`build_dispatch_kernel`), `:214-215`, `:243-244` |
+| **Page 5 · the project contract:** named sections per project, stored as `project_context_contracts`; each agent declares the sections it reads and writes in its own definition. | `project_context_contracts` (`contracts_loader.py`); `agents/developer.md:9-11` and the other agents' `project_context_contracts` frontmatter |
+| **Page 5 · relation 1:** the agent contract names the sections; it does not carry their contents. The agent reads a section on demand, and no check against `can_read` was found on that read. | `bin/cli/context.py:366` (`_cmd_get_contract`) |
+| **Page 5 · relations 2 and 3:** the agent contract can carry `update_contracts`; at the close each entry is checked against the agent's write permission before it is saved, and a rejected one is named. | `hooks/subagent_stop.py:176`; `hooks/modules/context/context_writer.py:376` (`process_update_contracts`), `:436`, `:127` (`validate_permission`) |
+| **Numbers for page 8:** approvals 583 approved, 52 rejected, 218 expired; commands 423 of 450 read-only (T0), 94.0%. | contract `a237b55dcc2f80ef4.3bea760ea6ba` (`gaia approvals stats`, `gaia metrics`) |
 | rc.3 is released. Main's README says the plugin install alone is enough for Claude Code, with no npm step. | Gaia commit `aa6a3f6` (per the coordinator) |
 
 ---
@@ -270,21 +281,21 @@ Evidence, Compliance. `double-reader` and `security` are unchanged.
 ```
 ┌───────────────────────────────────────────────────────────────────────┐
 │                                  YOU                                  │
-│                    ask in your own words · → p5                       │
+│                    ask in your own words · → p4                       │
 ├───────────────────────────────────────────────────────────────────────┤
 │             ── ▼ converse · ▲ sign what changes something ──          │
 ├┄ GAIA · the orchestration layer · it converses with you and ┄┄┄┄┄┄┄┄┄┄┤
 ┆   coordinates the work, but never makes the changes itself            ┆
 ┆ ┌┄ THE ORCHESTRATOR ┄┄┄┄┄┄┐ ┌┄ WHAT GAIA MANAGES · its own CLI ┄┄┄┄┄┄┐ ┆
 ┆ ┆ one per session         ┆ ┆ Memory  │ Plans &  │ Contracts│Approv-┆ ┆
-┆ ┆   Decides the WHAT      ┆ ┆  → p8   │ tasks →p7│   → p6   │als →p5┆ ┆
+┆ ┆   Decides the WHAT      ┆ ┆  → p7   │ tasks →p6│   → p5   │als →p4┆ ┆
 ┆ ┆   never edits · → p4    ┆ ┆         │          │          │       ┆ ┆
 ┆ └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘ └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘ ┆
 ┆             ── ▼ delegates · ▲ returns a contract ──                  ┆
 ┆ ┌┄ THE SPECIALIST ┄┄┄┄┄┄┄┄┐ ┌┄ WHAT A SPECIALIST CARRIES ┄┄┄┄┄┄┄┄┄┄┄┄┐ ┆
 ┆ ┆ one per piece of work,  ┆ ┆ Iden- │Skills │Project│Memory │ Its   ┆ ┆
 ┆ ┆ 8 today                 ┆ ┆ tity  │ → p3  │context│about  │con-   ┆ ┆
-┆ ┆   Does the HOW · → p3   ┆ ┆ → p3  │       │ → p4  │you →p8│tract→6┆ ┆
+┆ ┆   Does the HOW · → p3   ┆ ┆ → p3  │       │ → p5  │you →p7│tract→5┆ ┆
 ┆ └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘ └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘ ┆
 └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘
    ── hooks decide by rule · skills and agents follow · the CLI joins ──
@@ -341,7 +352,8 @@ Identity, Skills.
   with what Gaia manages above the separator, the specialist with what it
   carries below it. Same box style, same kicker-as-page treatment, so the
   eye reads the two rows as one comparison. Navigation lives in the boxes
-  (→ p3 … p8), not in a separate row. At 1920×1080 the whole page fits the
+  (→ p3 … p7), not in a separate row. Project context points to page 5,
+  where the project contract is drawn. At 1920×1080 the whole page fits the
   first screen; below 1440px the engine stacks each actor above its set.
 - **Language notes:** the GAIA subtitle keeps the orchestrator's own words.
   "sign" is its verb; later pages say "approval" for the noun. The
@@ -418,191 +430,152 @@ members were the per-agent boxes, now gone).
 - **Hands off to page 4:** the orchestrator's row. Its life is page 4, THE
   ORCHESTRATOR · HOLDS THE CONVERSATION.
 
-## Page 4 · THE ORCHESTRATOR · The life of a request (Jorge's favourite)
+## Page 4 · THE ORCHESTRATOR · The life of a request, and its approvals (Jorge's favourite)
 
 - **Altitude:** 3 · the real components.
-- **Leave with:** "One turn has a fixed life of four moments. Only the work
-  repeats, once per tool call. It can stop at two moments, and a person is in
-  the loop from the prompt on."
+- **Leave with:** "One turn has four events, the same every time: before any
+  tool, handed its context, each tool call, at the close. Only the tool calls
+  repeat. The turn can stop at two of them. Before any tool, a rule sorts
+  every command, with no model involved: it runs, it waits for your yes, or it
+  never runs."
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                THE ORCHESTRATOR · HOLDS THE CONVERSATION                │
 ├─────────────────────┬──────┬──────────┬──────────┬───────────┬──────────┤
-│ SESSIONSTART        │      │ BORN     │ RECEIVES │ WORKS     │ CONTRACT │
-│ System context      │ USER │PreToolUse│SubagtStrt│PostToolUse│SubagtStop│
-│ Projects map        │PROMPT│ (red)    │          │           │ (red)    │
-│ Memory about you    │      │ checked  │ context, │ calls     │ reads the│
-│ Open threads        │      │ recorded │ memory   │ tools     │ contract │
+│ SESSIONSTART        │      │1·PreTool │2·Subagent│3·PostTool │4·Subagent│
+│ System context      │ USER │ Before   │ Handed   │ Each tool │ At the   │
+│ Projects map        │PROMPT│ any tool │ its      │ call      │ close    │
+│ Memory about you    │      │ (red)    │ context  │           │ (red)    │
+│ Open threads        │      │          │          │           │          │
 ├─────────────────────┤      ├──────────┴──────────┼───────────┼──────────┤
 │ ORCHESTRATION TOOLS │      │ ── once only ──     │ ↻ each    │ ── once  │
 │ Memory management   │      │                     │ tool call │ only ──  │
-│ Project context     │      ├─────────────────────┴───────────┴──────────┤
-│ Briefs and plans    │      │ HUMAN IN THE LOOP · BashValidator          │
-│ Contracts           │      │ the exact command, scope, risk             │
-│ Approvals           │      │                                            │
-│ Schedules           │      │                                            │
-├─────────────────────┴──────┴────────────────────────────────────────────┤
+│ Project context     ├──────┴─────────────────────┴───────────┴──────────┤
+│ Briefs and plans    │ APPROVALS · inside "before any tool"              │
+│ Contracts           ├────────────┬────────────┬────────────┬────────────┤
+│ Approvals           │ A RULE     │ READ-ONLY  │ CHANGES    │ NEVER      │
+│ Schedules           │ Sorts every│ Runs       │ Waits for  │ Never runs │
+│                     │ command    │            │ your yes   │            │
+├─────────────────────┴────────────┴────────────┴────────────┴────────────┤
+│ ── red marks the only two events the turn can stop ──                   │
 │ ── footnote: 12 hook events in total; this page draws 5 ──              │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
-Chips lit: `deterministic` → BORN, RECEIVES, WORKS, CONTRACT, HUMAN IN THE
-LOOP (every box on the row is a hook). `one-turn` → the same five.
-`the-human` → BORN, HUMAN IN THE LOOP. `nothing-self-declared` → BORN,
-CONTRACT. `memory` → RECEIVES, CONTRACT.
+Chips lit: `deterministic` → the four events, Sorts every command, Runs,
+Never runs. `one-turn` → the four events. `one-command` → Before any tool and
+the four approval boxes. `the-human` → Before any tool, Waits for your yes.
+`nothing-self-declared` → Before any tool, At the close. `memory` → Handed
+its context, At the close, Waits for your yes (the approval chain).
 
-- **Motion beat (40 s):** the orchestrator's rail appears, full width. The rails
-  drop in, then the tall USER PROMPT rail. `one-turn` lights BORN → RECEIVES
-  → WORKS → CONTRACT. "↻ each tool call" draws under WORKS, with "once only"
-  on either side. HUMAN IN THE LOOP appears last. Then `deterministic` lights
-  the whole row: every moment of the turn is a hook. The red BORN box is the
-  transition to page 5.
+- **Motion beat (60 s):** the orchestrator's rail appears, full width. The
+  rails drop in, then the tall USER PROMPT rail. `one-turn` lights the four
+  events in order, and the voice names them as the events of one turn. "↻ each
+  tool call" draws under "Each tool call", with "once only" on either side.
+  `deterministic` lights the row: every event is a hook. Then APPROVALS draws
+  under the events; `one-command` lights "Before any tool" and "Sorts every
+  command" together, and the three outcomes appear left to right in rising
+  risk. `the-human` lights "Waits for your yes": one standard approval message,
+  every time. The red "At the close" box is the transition to page 5.
 - **Form, sections, layout move:** the top band of `s-arquitectura`, kept
-  whole, with the review's corrections:
-  - the repeat separator sits under WORKS only;
-  - "once only" separators on either side of it;
-  - CONTRACT reads the contract, never the reply text;
-  - failed Bash calls return through PostToolUseFailure;
-  - the 12-events footnote.
-
-  Its top rail now starts with "THE ORCHESTRATOR · HOLDS THE CONVERSATION".
+  whole where Jorge likes it: the left column of Gaia's own layer, the tall
+  USER PROMPT rail, the red marking of the two stop events, and the "once only
+  · ↻ each tool call · once only" row. The changes of revision 5:
+  - the four boxes are titled as events ("Before any tool", "Handed its
+    context", "Each tool call", "At the close"); the hook names ride the
+    kickers ("1 · PreToolUse" … "4 · SubagentStop") and the details;
+  - the Human-in-the-loop / BashValidator band became APPROVALS, titled as
+    what "before any tool" decides, with four boxes: the rule, and its three
+    outcomes. It carries page "You sign"'s story; the tiers, the never list,
+    the single-use 30-minute window and the approval chain are in the boxes'
+    details with the facts-table sources;
+  - the approval message is named ("one standard approval message") and not
+    detailed on the face.
 - **Language notes:** the title keeps "request", because the page starts at
-  your prompt. Hook names are the level-3 identifiers this page introduces.
-- **Hands off:** BORN / PreToolUse → page 5 (APPROVALS). CONTRACT / SubagentStop
-  → page 6 (CONTRACTS).
+  your prompt. "event" is the plain name; hook names are the level-3
+  identifiers, in kickers and details. T0–T3 are only in detail.
+- **Hands off to page 5:** At the close / SubagentStop. What it judges is the
+  agent contract: page 5, CONTRACTS.
 
-## Page 5 · APPROVALS · You sign
-
-- **Altitude:** 4 · a mechanism.
-- **Leave with:** "Before any command runs, a hook sorts it by rule: the same
-  answer every time, with no model involved. It runs, it waits for your yes,
-  or it is refused."
-
-```
-┌───────────────────────────────────────────────────────────────────────┐
-│ APPROVALS · YOU SIGN · A HOOK DECIDES, BY RULE, BEFORE ANYTHING RUNS  │
-├─────────────┬─────────────┬───────────────────┬───────────────────────┤
-│ 1 · YOU     │ 2 · AN AGENT│                   │ READ-ONLY             │
-│ Ask         │ Wants to    │   3 · PreToolUse  │ Runs                  │
-│ in your own │ run a       │      Sorts it     │ nobody is asked       │
-│ words       │ command     │                   ├───────────────────────┤
-│             │             │  a rule, in code  │ CHANGES SOMETHING     │
-│             │             │    same answer    │ Waits for your yes    │
-│             │             │     every time    │ you see the command   │
-│             │             │ no model involved ├───────────────────────┤
-│             │             │                   │ NEVER                 │
-│             │             │                   │ Refused               │
-│             │             │                   │ the never list:       │
-│             │             │                   │ irreversible commands │
-├─────────────┴─────────────┴───────────────────┴───────────────────────┤
-│              Every decision is kept · the approval chain              │
-└───────────────────────────────────────────────────────────────────────┘
-```
-Chips lit: `one-command` → YOU, AN AGENT, PreToolUse, each outcome in turn.
-`deterministic` → PreToolUse, the three outcomes. `the-human` → YOU, Waits
-for your yes. `memory` → Waits for your yes, the approval chain.
-`nothing-self-declared` → PreToolUse, the approval chain.
-
-- **Motion beat (25 s):** the APPROVALS rail appears. YOU, then AN AGENT,
-  appear left to right. The tall centered PreToolUse box appears and holds on
-  "a rule, in code". `deterministic` lights it, and the three outcomes drop in
-  top to bottom. `the-human` lights YOU and "Waits for your yes" together.
-  The approval chain band draws last, and it is the transition to page 6.
-- **Form: flow, left to right.** You ask, an agent wants a command, a hook
-  sorts it, one of three things happens: one path, one decision point.
-- **Sections and components:**
-  - YOU and AN AGENT: two tall boxes.
-  - PreToolUse: one tall **centered** box. Its detail names the tiers, the
-    classifier and the never list.
-  - A **stack** of three outcomes: READ-ONLY · Runs; CHANGES SOMETHING ·
-    Waits for your yes; NEVER · Refused (red). The second one's detail
-    covers the dialog, the single use and the 30-minute window.
-  - A base band: the approval chain.
-- **The layout move: three tall boxes lead into one stack of three.** One path
-  in, one rule, three ways out; the stack order reads as rising risk.
-- **Language notes:**
-  - "PreToolUse" is the one hook name on the page; T0–T3 are only in detail.
-  - The semantic side is one box, the agent that asked, so the `semantic`
-    chip is not used on this page.
-  - Credential reads are also refused by rule, but they stay in the facts
-    table only.
-- **Hands off to page 6:** the approval chain. What else each turn leaves is
-  its contract: page 6, CONTRACTS.
-
-## Page 6 · CONTRACTS · One contract per agent
+## Page 5 · CONTRACTS · Every agent answers with a contract
 
 - **Altitude:** 4 · a mechanism.
-- **Leave with:** "Every agent answers with a contract of its own, on the same
-  form. Gaia reads the form by rule, never the reply."
+- **Leave with:** "The orchestrator sends the work; Gaia's engine injects an
+  agent contract with this agent's own permissions; the agent does the work
+  and answers in it; the engine validates it by rule, never the prose; the
+  orchestrator keeps going from it. The agent contract names what of the
+  project contract the agent may read and write, and its updates are checked
+  before they are saved."
 
 ```
-┌───────────────────────────────────────────────────────────────────────┐
-│                  CONTRACTS · ONE CONTRACT PER AGENT                   │
-│        a form that lets the orchestrator evaluate the response        │
-├─────────┬──────────────────────────────┬──────────────────────────────┤
-│ ORCHES- │ developer                    │ Its own contract             │
-│ TRATOR  │ one turn                     │ same form, its own answers   │
-│ sends   ├──────────────────────────────┼──────────────────────────────┤
-│ one     │ gitops-operator              │ Its own contract             │
-│ turn    │ one turn                     │ same form, its own answers   │
-│ each    ├──────────────────────────────┼──────────────────────────────┤
-│         │ gaia-verifier                │ Its own contract             │
-│         │ one turn                     │ same form, its own answers   │
-├─────────┴──────────────────────────────┴──────────────────────────────┤
-│ THE FORM · the same sections for every agent                          │
-├───────────┬───────────┬───────────┬───────────┬───────────┬───────────┤
-│ STATUS    │ EVIDENCE  │ VERIFY    │ OPEN GAPS │ REACH     │ APPROVAL  │
-│ How it    │ What it   │ How it    │ What      │ What else │ What it   │
-│ ended     │ saw, did  │ checked   │ stayed    │ it touched│ asks to   │
-│           │           │           │ open      │           │ run       │
-├───────────┴───────────┴───────────┴───────────┴───────────┴───────────┤
-│ THE STATE · what the orchestrator does next                           │
-├───────────┬───────────┬───────────┬───────────┬───────────┬───────────┤
-│ COMPLETE  │ NEEDS_    │ APPROVAL_ │ NEEDS_    │ BLOCKED   │ IN_       │
-│           │ VERIFI-   │ REQUEST   │ INPUT     │           │ PROGRESS  │
-│           │ CATION    │           │           │           │           │
-│ Answer you│ Send a    │ Show the  │ Ask you   │ Route the │ Keep      │
-│           │ verifier  │ command   │           │ obstacle  │ working   │
-├───────────────────────────────────┬───────────────────────────────────┤
-│ JUDGE · at SubagentStop           │ ── the reply text is never        │
-│ Reads the contract                │    read ──                        │
-│ no valid contract: sent back      │                                   │
-└───────────────────────────────────┴───────────────────────────────────┘
+┌─ POINT 2 · CONTRACTS · EVERY AGENT ANSWERS WITH A CONTRACT ───────────┐
+│ THE ORCHESTRATOR     │ GAIA'S ENGINE          │ THE AGENT             │
+│ 1 · SENDS            │ 2 · INJECTS ►          │ 3 · RECEIVES          │
+│ The work             │ A contract for this    │ Does the work         │
+│                      │ agent                  │                       │
+│ 6 · READS            │ ◄ 5 · VALIDATES        │ ◄ 4 · ANSWERS         │
+│ Keeps orchestrating  │ By rule, not the prose │ In a structured form  │
+├──────────────────────┴────────────────────────┴───────────────────────┤
+│ TWO KINDS OF CONTRACT                                                 │
+│ 1 · AT DISPATCH      │ 2 · IN ITS ANSWER      │ 3 · AT THE CLOSE      │
+│ Names what it may use│ Carries updates        │ Checked, then saved   │
+├──────────────────────────────────┬────────────────────────────────────┤
+│ PROJECT CONTRACT                 │ AGENT CONTRACT                     │
+│ ┆ EACH PROJECT                   │ ┆ STATUS                           │
+│ ┆ ┆ project_identity · stack     │ ┆ ┆ COMPLETE · NEEDS_VERIFICATION  │
+│ ┆ ┆ environment · git            │ ┆ ┆ APPROVAL_REQUEST · NEEDS_INPUT │
+│ ┆ ┆ architecture_overview        │ ┆ ┆ BLOCKED · IN_PROGRESS          │
+│ ┆ ┆ application_services         │ ┆ EVIDENCE                         │
+│ ┆ ┆ infrastructure · …topology   │ ┆ ┆ seen · done                    │
+│ ┆ ┆ gitops_configuration         │ ┆ VERIFICATION · OPEN GAPS · REACH │
+│ ┆ ┆ cluster_details              │ ┆ APPROVAL · PROJECT UPDATES       │
+└──────────────────────────────────┴────────────────────────────────────┘
 ```
-State names wrap only in this sketch. The narrow left column is a vertical
-rail spanning the stack.
-Chips lit: `the-contract` → the three "Its own contract" boxes, the six form
-boxes. `semantic` → developer, gitops-operator, gaia-verifier.
-`deterministic` → JUDGE, STATUS. `next-move` → STATUS and the six states.
-`nothing-self-declared` → VERIFY, NEEDS_VERIFICATION. `the-human` →
-APPROVAL, APPROVAL_REQUEST. `memory` → JUDGE, one "Its own contract".
-`the-judge` → STATUS, JUDGE.
+Each `┆` is one nested envelope, the staircase's indent; the sketch folds
+the rails in pairs to fit 80 columns, and the page draws one rail per key.
+Chips lit: `the-contract` → INJECTS, RECEIVES, ANSWERS, VALIDATES, READS.
+`semantic` → SENDS, READS, RECEIVES, ANSWERS. `deterministic` → INJECTS,
+VALIDATES, AT DISPATCH, AT THE CLOSE. `project-contract` → INJECTS and the
+three relation boxes. `nothing-self-declared` → VALIDATES, READS, AT THE
+CLOSE. `next-move` → ANSWERS, READS. `the-human` → ANSWERS, READS (an answer
+can be an approval request).
 
-- **Motion beat (30 s):** the CONTRACTS thesis appears, centered. The vertical
-  rail draws, and the three agents stack in one by one, each with its own
-  contract. `the-contract` lights the three contracts, then the six form
-  boxes: the same form each time. `next-move` lights STATUS, then each state.
-  JUDGE fills and `deterministic` lights it; focus holds on "the reply text
-  is never read". The transition to page 7 is NEEDS_VERIFICATION with
-  `nothing-self-declared`: "who confirms?".
-- **Form: dashboard, read top-down.** Whose contract, what form, what state,
-  who judges.
+- **Motion beat (30 s):** the POINT 2 rail appears. The three actors draw left
+  to right and the flow plays by its kicker numbers, 1 to 6: sends, injects ►,
+  receives, ◄ answers, ◄ validates, reads. `deterministic` lights the engine
+  column; focus holds on "the reply text is never read". The relation row
+  appears, then the two staircases unfold, level by level. `project-contract`
+  lights the relations. The transition to page 6 is "is it really done?":
+  who confirms.
+- **Form: dashboard, read top-down.** A flow across three actors, then the two
+  structures the flow moves.
 - **Sections and components:**
-  - The thesis, **centered**.
-  - The per-agent **stack**: a vertical rail "ORCHESTRATOR · sends one turn
-    each" beside three rows. Each row pairs an agent box with its contract
-    box.
-  - THE FORM and THE STATE, as in revision 3.
-  - JUDGE and its separator.
-  - The kind band is **dropped**.
-- **The layout move: a stack of the same form.** Three agents, three
-  contracts, one form under them: only the answers change.
-- **Language notes:** agent names are kickers, as on page 3. State names stay
-  on the face, because the audience sees them in Gaia; the field names are
-  in detail.
-- **Hands off to page 7:** NEEDS_VERIFICATION, "who confirms?": PLANS & TASKS.
+  - The POINT 2 rail.
+  - Three envelopes, THE ORCHESTRATOR, GAIA'S ENGINE, THE AGENT, two boxes
+    each, aligned in two rows so the first row runs left to right and the
+    second back.
+  - TWO KINDS OF CONTRACT: the three relations in one row, so they stay above
+    the fold, then the two staircases side by side. Each staircase is a top
+    rail and nested envelopes of rails, one level per envelope; keys only, no
+    raw values. The six states are the possible values of `status`.
+  - Rails carry no detail, so each key's one-line meaning is in a box's
+    detail: agent-contract keys in VALIDATES, project-contract sections in
+    AT DISPATCH.
+  - The per-agent stack, THE FORM, THE STATE and the separate JUDGE box of
+    revision 4 are gone: the six states live in the staircase, JUDGE lives in
+    the engine column.
+- **The layout move: flow, then shape.** What happens across three actors,
+  then the two things that happen to it, drawn as the shape of real contracts.
+- **Language notes:** "agent contract" and "project contract" are the two
+  named kinds on this page. The engine column is titled "GAIA'S ENGINE", not
+  "deterministic"; the `deterministic` chip lights it. "Adapted to its
+  specialty" is said the way the code does it: its surface, its role, and what
+  it may read and write (facts table). The project sections are real names
+  from the agents' definitions, a representative ten.
+- **Hands off to page 6:** VALIDATES and READS, "is it really done?": PLANS &
+  TASKS.
 
-## Page 7 · PLANS & TASKS · It checks
+## Page 6 · PLANS & TASKS · It checks
 
 - **Altitude:** 4 · a mechanism.
 - **Leave with:** "An idea becomes a brief, a plan, and tasks. A specialist
@@ -648,7 +621,7 @@ RETURNS. `the-human` → YOU, CHECKS. `memory` → gaia brief, PASSES ON.
     `the-contract` crosses between them.
   - The management rail draws and its three boxes appear together. `semantic`
     lights CROSS-CHECK, then `deterministic` lights CHECKS.
-  - The enforced separator holds last, and it is the transition to page 8.
+  - The enforced separator holds last, and it is the transition to page 7.
 - **Form: flow, phases as sections.** Idea → brief → plan → tasks → agents
   execute, in time, with the management layer standing beneath it.
 - **Sections and components:**
@@ -662,9 +635,9 @@ RETURNS. `the-human` → YOU, CHECKS. `memory` → gaia brief, PASSES ON.
   nothing to carry; it shows up only where a specialist is sent.
 - **Language notes:** `gaia brief` and `gaia plan` are CLI names shown as
   kickers. PLANNER is a role. "gate" is used only in its planning sense.
-- **Hands off to page 8:** PASSES ON. What is kept is MEMORY.
+- **Hands off to page 7:** PASSES ON. What is kept is MEMORY.
 
-## Page 8 · MEMORY · It outlives the session
+## Page 7 · MEMORY · It outlives the session
 
 - **Altitude:** 4 · a mechanism.
 - **Leave with:** "Gaia keeps two kinds of memory: what it knows about your
@@ -697,7 +670,7 @@ DISPATCH, AUTOMATIC. `the-human` → CURATED, MEMORY. `nothing-self-declared`
 - **Motion beat (20 s):** the centered MEMORY box appears alone and holds.
   The two side headers appear together, then the four small boxes, two on
   each side. `memory` lights the center and the right wing. The separator
-  "you decide what is curated" draws last, and it is the transition to page 9.
+  "you decide what is curated" draws last, and it is the transition to page 8.
 - **Form: mindmap.** The idea converges on one center with two symmetric
   wings. The engine cannot draw radially, so this is a center band with
   symmetric sections, as in the skill's mindmap skeleton.
@@ -715,17 +688,17 @@ DISPATCH, AUTOMATIC. `the-human` → CURATED, MEMORY. `nothing-self-declared`
 - **The layout move: a star made of a grid.** One centered box, two wings of
   two, one line under it.
 - **Language notes:** "project context" is never called memory on the page;
-  it is one of the two wings under its own name. `semantic` has one natural
-  member here (the orchestrator curating), so the chip is not used; the
-  separator says it in words. At build, each wing's header became a box
-  (kicker "KIND 1 OF 2" and "KIND 2 OF 2", titles PROJECT CONTEXT and REAL
-  MEMORY) instead of a section title, so both wings are three cells tall and
-  the centered MEMORY box, three cells tall, ends level with them. The center
-  box's title is simply "MEMORY", the same exception to the 2–4-word rule as
-  the map's one-word actors.
-- **Hands off to page 9:** "you decide". Page 9 goes back to the map's YOU.
+  it is one of the two wings under its own name (page 5 draws it as the
+  project contract). `semantic` has one natural member here (the orchestrator
+  curating), so the chip is not used; the separator says it in words. At
+  build, each wing's header became a box (kicker "KIND 1 OF 2" and "KIND 2 OF
+  2", titles PROJECT CONTEXT and REAL MEMORY) instead of a section title, so
+  both wings are three cells tall and the centered MEMORY box, three cells
+  tall, ends level with them. The center box's title is simply "MEMORY", the
+  same exception to the 2–4-word rule as the map's one-word actors.
+- **Hands off to page 8:** "you decide". Page 8 goes back to the map's YOU.
 
-## Page 9 · Install it, ask it (BACK TO THE MAP)
+## Page 8 · Install it, ask it (BACK TO THE MAP)
 
 - **Altitude:** back to 1.
 - **Leave with:** "On my machine: 583 yes, 52 no, and 94% of commands only
@@ -741,7 +714,7 @@ DISPATCH, AUTOMATIC. `the-human` → CURATED, MEMORY. `nothing-self-declared`
 │       YOU       │      GAIA       │WHAT GAIA MANAGES│ THE SPECIALISTS │
 │    you sign     │ decides the what│ memory, plans,  │ do the how, a   │
 │                 │                 │ contracts, appr.│ contract each   │
-│     page 5      │     page 4      │   pages 5–8     │   pages 3, 6    │
+│     page 4      │     page 4      │   pages 4–7     │   pages 3, 5    │
 ├─────────────────┴─────────────────┼─────────────────┴─────────────────┤
 │ gaia approvals stats              │ gaia metrics                      │
 │ 583 yes · 52 no · 218 expired     │ 94% read-only                     │
@@ -802,7 +775,7 @@ number. `semantic` → GAIA, THE SPECIALISTS.
 - **The close:** the live install, then the first prompt. Gaia explains itself
   live.
 
-## Backup · Down to the code (after page 9, for questions only)
+## Backup · Down to the code (after page 8, for questions only)
 
 - **Altitude:** 5 · the code. Not in the video.
 - **Leave with:** "Every moment of the turn is a hook, and every hook is
@@ -831,7 +804,8 @@ chips and `the-judge` as in revision 3.
 - **Form, density, names, counts:** as in revision 3.
 - **Language notes:** the one page where function names sit on the face of
   the boxes. The per-hook chip `porton` is labelled "the checkpoint", because
-  "gate" belongs to planning only.
+  "gate" belongs to planning only. Its column headers keep the revision-4
+  moment names (BORN … CONTRACT); page 4 now names the same moments as events.
 - **Code corrections found at build** (the sketch above predates them; the
   page follows the code):
   - `build_session_events` runs at dispatch (`tool_policy.py:472`), not in
@@ -849,32 +823,36 @@ chips and `the-judge` as in revision 3.
 
 | Page | Decision | Where its useful content goes |
 |---|---|---|
-| Backup · The vision (`s0-vision`) | at build: remove the entry from `document.yaml` and delete its file | Covered by page 1; the two hosts go to page 9. |
-| Backup · Visibility (`s1-visibilidad`) | removed | Page 5's approval chain, page 7's PASSES ON, page 8. |
+| Backup · The vision (`s0-vision`) | at build: remove the entry from `document.yaml` and delete its file | Covered by page 1; the two hosts go to page 8. |
+| Backup · Visibility (`s1-visibilidad`) | removed | Page 4's approval details, page 6's PASSES ON, page 7. |
 | Backup · Standards (`s2-estandares`) | removed | Page 3's box details. |
-| It explains itself (`s5-se-explica`, hidden) | removed | Page 2 is the self-explanation; page 9's first prompt shows it live. |
+| It explains itself (`s5-se-explica`, hidden) | removed | Page 2 is the self-explanation; page 8's first prompt shows it live. |
+| 5 · You sign (`p5-you-sign`) | revision 5: merged into page 4 and its file deleted | Page 4's APPROVALS band: the rule, its three outcomes, the approval message named; tiers, never list, 30-minute window and approval chain in the details. |
 
 ## Engine limits this design respects
 
 - No edges: every relation is a chip or `order`. The map's labelled arrows are
-  separators with text. Grid only; page 8's star is a center band with
+  separators with text. Grid only; page 7's star is a center band with
   symmetric wings.
 - Chips need at least 2 members per page; every chip above lists them. Where
-  `semantic` has a single member on a page (5 and 8), it is left off and the
-  Language notes say so.
-- Rails carry no chips and no detail. Page 6's vertical rail uses the
-  `vertical` treatment with a `rowspan` covering the stack.
-- `rowspan` works only on a level made only of components, so page 5's tall
-  boxes and stack and page 8's tall center each sit in a components-only
-  section.
+  a chip has a single member on a page (`semantic` on 4 and 7, `memory` and
+  `the-judge` on 5), it is left off and the Language notes say so.
+- Rails carry no chips and no detail. Page 5's staircase keys are rails, so
+  their meanings live in the details of the boxes that handle them.
+- A spacer indent in a leaf grid leaves an interior hole once the grid
+  collapses to 2 tracks (900px), so page 5's staircase indents by nesting
+  envelopes instead.
+- `rowspan` works only on a level made only of components, so page 4's USER
+  PROMPT rail and page 7's tall center each sit in a components-only section.
 - Text caps: kicker tokens must fit the cell; descriptions clamp at 3 visual
-  lines.
+  lines. A rail title is one unbreakable token when it is a snake_case name:
+  it must fit its rail's width, and no gate checks that yet.
 - No engine changes. The drift against the diagram-builder seed stays tracked
   in memory row `project_deck_gate_ahead_of_seed_unported`.
 
 ## Claims still to check before the build
 
-- Page 6's "next move" for each state follows the `agent-contract-handoff`
-  and `agent-protocol` skills, not a code line.
-- Page 8's "each specialist gets its slice" follows the `agent-contract-handoff`
+- Page 5's "what happens next" for each state follows the
+  `agent-contract-handoff` and `agent-protocol` skills, not a code line.
+- Page 7's "each specialist gets its slice" follows the `agent-contract-handoff`
   skill; the hook that injects it was not re-read.

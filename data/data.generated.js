@@ -487,7 +487,7 @@ window.__DOC__ = {
             {
               "id": "mp-you",
               "order": 1,
-              "kicker": "→ PAGE 5",
+              "kicker": "→ PAGE 4",
               "title": "You",
               "description": [
                 "ask in your own words, approve what changes"
@@ -573,7 +573,7 @@ window.__DOC__ = {
                     {
                       "id": "mg-memory",
                       "order": 1,
-                      "kicker": "→ PAGE 8",
+                      "kicker": "→ PAGE 7",
                       "title": "Memory",
                       "description": [
                         "rules, preferences, pending"
@@ -586,7 +586,7 @@ window.__DOC__ = {
                     {
                       "id": "mg-plans",
                       "order": 2,
-                      "kicker": "→ PAGE 7",
+                      "kicker": "→ PAGE 6",
                       "title": "Plans & tasks",
                       "description": [
                         "a brief becomes checked tasks"
@@ -599,7 +599,7 @@ window.__DOC__ = {
                     {
                       "id": "mg-contracts",
                       "order": 3,
-                      "kicker": "→ PAGE 6",
+                      "kicker": "→ PAGE 5",
                       "title": "Contracts",
                       "description": [
                         "every specialist returns one"
@@ -614,7 +614,7 @@ window.__DOC__ = {
                     {
                       "id": "mg-approvals",
                       "order": 4,
-                      "kicker": "→ PAGE 5",
+                      "kicker": "→ PAGE 4",
                       "title": "Approvals",
                       "description": [
                         "your yes to one exact command"
@@ -727,7 +727,7 @@ window.__DOC__ = {
                     {
                       "id": "sc-context",
                       "order": 3,
-                      "kicker": "→ PAGE 4",
+                      "kicker": "→ PAGE 5",
                       "title": "Project context",
                       "description": [
                         "what it may read and write"
@@ -737,7 +737,7 @@ window.__DOC__ = {
                     {
                       "id": "sc-memory",
                       "order": 4,
-                      "kicker": "→ PAGE 8",
+                      "kicker": "→ PAGE 7",
                       "title": "Memory about you",
                       "description": [
                         "how you like to work"
@@ -750,7 +750,7 @@ window.__DOC__ = {
                     {
                       "id": "sc-contract",
                       "order": 5,
-                      "kicker": "→ PAGE 6",
+                      "kicker": "→ PAGE 5",
                       "title": "Its contract",
                       "description": [
                         "the blank form it must fill"
@@ -1145,35 +1145,42 @@ window.__DOC__ = {
           "key": "deterministic",
           "label": "a rule decides",
           "steps": [
-            "Every moment of the turn is a hook: code the host runs at a fixed moment, deciding by a rule, with no model involved."
+            "Every event of the turn is a hook: code the host runs at a fixed moment, deciding by a rule, with no model involved. So is the rule that sorts every command."
           ]
         },
         {
           "key": "one-turn",
           "label": "one turn",
           "steps": [
-            "One specialist's life, from dispatch to close: born, given its context, working, and handing back its contract."
+            "One specialist's life, from dispatch to close: four events, the same every time."
+          ]
+        },
+        {
+          "key": "one-command",
+          "label": "one command",
+          "steps": [
+            "Before any tool, one command meets one rule, and one of three things happens: it runs, it waits for your yes, or it never runs."
           ]
         },
         {
           "key": "the-human",
           "label": "who decides?",
           "steps": [
-            "PreToolUse holds any command that changes something, and the person sees the exact command before saying yes."
+            "A command that changes something waits before any tool runs, and you see the exact command before you say yes."
           ]
         },
         {
           "key": "nothing-self-declared",
           "label": "is it really done?",
           "steps": [
-            "The turn can stop at two moments: before a command runs, and when the contract comes back and is judged."
+            "The turn can stop at two events: before any tool, and at the close, when the contract comes back and is judged."
           ]
         },
         {
           "key": "memory",
           "label": "what do we remember?",
           "steps": [
-            "The specialist receives memory when it is born, and the close writes the episode of its turn."
+            "The specialist is handed memory with its context, the close writes the episode of its turn, and your yes or no is kept in the approval chain."
           ]
         }
       ],
@@ -1181,7 +1188,7 @@ window.__DOC__ = {
         {
           "id": "turn",
           "title": "The life of a request",
-          "subtitle": "Everything here hangs from Gaia. The left column is Gaia's own layer — what it pushes at open and what it answers on demand; from the user prompt on, someone is in the loop.",
+          "subtitle": "One turn has four events, the same every time. The left column is Gaia's own layer — what it pushes at open and what it answers on demand; from the user prompt on, someone is in the loop.",
           "treatment": [
             "envelope"
           ],
@@ -1338,8 +1345,8 @@ window.__DOC__ = {
                 },
                 {
                   "id": "lifetime",
-                  "title": "The turn's lifetime",
-                  "subtitle": "from dispatch to close",
+                  "title": "The events of one turn",
+                  "subtitle": "from dispatch to close · at each one the host runs a hook",
                   "treatment": [
                     "envelope"
                   ],
@@ -1350,16 +1357,17 @@ window.__DOC__ = {
                     {
                       "id": "lf-born",
                       "order": 1,
-                      "kicker": "BORN",
-                      "title": "PreToolUse",
+                      "kicker": "1 · PreToolUse",
+                      "title": "Before any tool",
                       "description": [
-                        "checked, given a context, recorded"
+                        "checked, sorted, can stop here"
                       ],
-                      "detail": "<b>PreToolUse</b> — the gate, and one of the two places a turn can stop. In order: it decides whether the orchestrator may use the tool at all or must delegate; it sorts the command by tier, T0 to T3, refuses the never list outright and holds a T3 command for your approval; and, when the tool is a dispatch, it builds the specialist's context, caches it, and opens the turn's contract carrying the <code>plan_task_id</code> that will later forbid the specialist from declaring its own work done. A block here is <code>exit 2</code> — the command never runs. Nothing of the specialist existed before this cell.",
+                      "detail": "<b>PreToolUse</b> — the hook the host runs before every tool call, and one of the two places a turn can stop. At the dispatch it decides whether the orchestrator may use the tool at all or must delegate, builds the specialist's context, caches it, and opens the turn's contract carrying the <code>plan_task_id</code> that will later forbid the specialist from declaring its own work done. On every command it applies the approvals rule below. A block here is <code>exit 2</code> — the command never runs. Nothing of the specialist existed before this event.",
                       "variant": "bad",
                       "filters": [
                         "deterministic",
                         "one-turn",
+                        "one-command",
                         "the-human",
                         "nothing-self-declared"
                       ]
@@ -1367,12 +1375,12 @@ window.__DOC__ = {
                     {
                       "id": "lf-receives",
                       "order": 2,
-                      "kicker": "RECEIVES",
-                      "title": "SubagentStart",
+                      "kicker": "2 · SubagentStart",
+                      "title": "Handed its context",
                       "description": [
-                        "context, routing, contract, memory"
+                        "its contract, context and memory"
                       ],
-                      "detail": "<b>SubagentStart</b> — the first instant the specialist exists. It receives the context PreToolUse already built and cached: project context, surface routing, its contract form, its contract permissions, the memory index and the recent session events. Its ANCHORS — the identifiers it was handed — are written down here, so the close can measure which fraction of that context it actually touched. What it does NOT receive from Gaia is its skills: the host injects those from the agent's own definition.",
+                      "detail": "<b>SubagentStart</b> — the first instant the specialist exists. It receives what PreToolUse already built and cached: its contract, opened for it, naming the project context it may read and write; its surface and role; the memory index and the recent session events. Its ANCHORS — the identifiers it was handed — are written down here, so the close can measure which fraction of that context it actually touched. What it does NOT receive from Gaia is its skills: the host injects those from the agent's own definition.",
                       "filters": [
                         "deterministic",
                         "one-turn",
@@ -1382,12 +1390,12 @@ window.__DOC__ = {
                     {
                       "id": "lf-works",
                       "order": 3,
-                      "kicker": "WORKS",
-                      "title": "PostToolUse",
+                      "kicker": "3 · PostToolUse",
+                      "title": "Each tool call",
                       "description": [
-                        "calls tools and produces its work"
+                        "checked before, recorded after"
                       ],
-                      "detail": "<b>PostToolUse</b> — the specialist works, and every tool it calls passes the same gate again: PreToolUse checks the call before it runs, PostToolUse records it after. That is why this is the only moment that repeats, once per tool call. PostToolUse logs the execution, seals EXECUTED or FAILED onto the hashed approval chain and, when you answer an approval question, activates that approval so the byte-identical retry finds it. A failed Bash call comes back through <b>PostToolUseFailure</b> instead.",
+                      "detail": "<b>PostToolUse</b> — the specialist works, and every tool it calls passes the same gate again: PreToolUse checks the call before it runs, PostToolUse records it after. That is why this is the only event that repeats, once per tool call. PostToolUse logs the execution, seals EXECUTED or FAILED onto the hashed approval chain and, when you answer an approval question, activates that approval so the byte-identical retry finds it. A failed Bash call comes back through <b>PostToolUseFailure</b> instead.",
                       "filters": [
                         "deterministic",
                         "one-turn"
@@ -1396,12 +1404,12 @@ window.__DOC__ = {
                     {
                       "id": "lf-contract",
                       "order": 4,
-                      "kicker": "CONTRACT",
-                      "title": "SubagentStop",
+                      "kicker": "4 · SubagentStop",
+                      "title": "At the close",
                       "description": [
-                        "reads the contract, never the reply text"
+                        "the contract is judged, never the reply"
                       ],
-                      "detail": "<b>SubagentStop</b> — the judge, and the other place a turn can stop. It reads the turn's stored contract, the one the specialist filled during its turn, and never the reply text. A missing or unfinalized contract sends the turn back (<code>exit 2</code>) and the specialist repairs it. A turn ends in one of six states, and only COMPLETE is final; a turn bound to a plan task cannot declare itself COMPLETE, so a separate verifier has to confirm it. The close also measures the turn from the transcript, computes the compliance score and writes the episode.",
+                      "detail": "<b>SubagentStop</b> — the judge, and the other place a turn can stop. It reads the turn's stored contract, the one the specialist filled during its turn, and never the reply text. A missing or unfinalized contract sends the turn back (<code>exit 2</code>) and the specialist repairs it. A turn ends in one of six states, and only COMPLETE is final; a turn bound to a plan task cannot declare itself COMPLETE, so a separate verifier has to confirm it. The close also measures the turn from the transcript, computes the compliance score and writes the episode.<br><br>Source: <code>hooks/adapters/claude_code.py:905-907</code>; <code>validator.py:908</code>.",
                       "variant": "bad",
                       "filters": [
                         "deterministic",
@@ -1434,29 +1442,71 @@ window.__DOC__ = {
                   ]
                 },
                 {
-                  "id": "human-loop",
-                  "title": "Human in the loop",
-                  "subtitle": "a name behind every change",
+                  "id": "approvals",
+                  "title": "Approvals · inside “before any tool”",
+                  "subtitle": "what the first event decides, for every command",
                   "treatment": [
                     "envelope"
                   ],
                   "order": 3,
                   "span": 7,
-                  "columns": 1,
+                  "columns": 4,
                   "children": [
                     {
-                      "id": "hl-bash",
+                      "id": "ap-sorts",
                       "order": 1,
-                      "kicker": "REVIEW",
-                      "title": "BashValidator",
+                      "kicker": "BEFORE ANY TOOL · A RULE",
+                      "title": "Sorts every command",
                       "description": [
-                        "the exact command, scope, risk"
+                        "in code, no model involved"
                       ],
-                      "detail": "The detour has four beats. <b>1 · Held at the gate.</b> The command is sorted and, if it changes live state, it is blocked with an <code>approval_id</code> — <code>exit 2</code>, it never runs. <b>2 · The turn goes up.</b> A specialist has NO channel to the person: this is the fact nobody guesses, and it is why the approval is not resolved where the block happens. The specialist returns <code>APPROVAL_REQUEST</code> carrying the id, and the orchestrator is the one that can speak to you. <b>3 · You see the values and say yes.</b> The exact command verbatim, what it touches, what it risks, how to undo it. <b>4 · Retried byte for byte.</b> The approval matches the whole command string, so a reworded retry never matches; it is single-use and lasts 30 minutes. The ladder: <b>T0</b> read-only, <b>T1</b> local validation, <b>T2</b> dry run — all free. <b>T3</b> changes live state, and only a person can let it through. Above the ladder sits the never list: commands that cannot be approved at all.",
+                      "detail": "Before any tool runs, a fixed classifier gives every command a tier: <b>T0</b> read, <b>T1</b> validate, <b>T2</b> dry run, <b>T3</b> change. It matches patterns and verbs in code; no model is consulted, so the same command gets the same answer every time. Before that, a separate fixed pattern check holds the never list.<br><br>Sources: <code>hooks/modules/security/tiers.py:29-35</code> (<code>SecurityTier</code>), <code>:78</code> (<code>_classify_command_tier_cached</code>); <code>hooks/modules/security/blocked_commands.py:678</code> (<code>is_blocked_command</code>).",
                       "filters": [
                         "deterministic",
-                        "one-turn",
-                        "the-human"
+                        "one-command"
+                      ]
+                    },
+                    {
+                      "id": "ap-runs",
+                      "order": 2,
+                      "kicker": "READ-ONLY",
+                      "title": "Runs",
+                      "description": [
+                        "nobody is asked"
+                      ],
+                      "detail": "Tiers <b>T0</b> read, <b>T1</b> validate and <b>T2</b> dry run change nothing, so the command runs and nobody is asked.<br><br>Source: <code>hooks/modules/security/tiers.py:29-35</code> (<code>SecurityTier</code>).",
+                      "filters": [
+                        "deterministic",
+                        "one-command"
+                      ]
+                    },
+                    {
+                      "id": "ap-waits",
+                      "order": 3,
+                      "kicker": "CHANGES SOMETHING",
+                      "title": "Waits for your yes",
+                      "description": [
+                        "one standard approval message"
+                      ],
+                      "detail": "A <b>T3</b> command, one that changes something, is held with an <code>approval_id</code>. A specialist has no channel to you, so its turn goes up as <code>APPROVAL_REQUEST</code> and the orchestrator brings you the approval message, the same shape every time: what is about to run, its exact bytes, its scope, its risk and how to undo it. You approve, and the specialist retries the command byte for byte; you reject, and nothing happens.<br><br>An approval is single-use, must match the approved command byte for byte, and lasts 30 minutes. Every step is kept in the approval chain.<br><br>Sources: <code>approval_grants.py:193</code>, <code>:523</code>; <code>writer.py:86</code>; <code>schema.sql:1578-1600</code>.",
+                      "filters": [
+                        "one-command",
+                        "the-human",
+                        "memory"
+                      ]
+                    },
+                    {
+                      "id": "ap-never",
+                      "order": 4,
+                      "kicker": "NEVER",
+                      "title": "Never runs",
+                      "description": [
+                        "irreversible, nothing to approve"
+                      ],
+                      "detail": "Irreversible commands are on the never list, a separate fixed pattern check. Its refusal has nothing to approve: no approval message, and no approval can let the command through.<br><br>Source: <code>hooks/modules/security/blocked_commands.py:678</code> (<code>is_blocked_command</code>).",
+                      "filters": [
+                        "deterministic",
+                        "one-command"
                       ]
                     }
                   ]
@@ -1480,7 +1530,7 @@ window.__DOC__ = {
               "style": "dotted",
               "order": 1,
               "span": 1,
-              "text": "red marks the only two moments the turn can stop — PreToolUse and SubagentStop"
+              "text": "red marks the only two events the turn can stop — before any tool and at the close"
             },
             {
               "id": "hk-count",
@@ -1497,386 +1547,217 @@ window.__DOC__ = {
       "order": 3
     },
     {
-      "id": "p5-you-sign",
-      "layout": "grid",
-      "form": "flow",
-      "columns": 1,
-      "filters": [
-        {
-          "key": "one-command",
-          "label": "one command",
-          "steps": [
-            "One command from your request to its outcome: you ask, an agent wants it, the hook sorts it, one of three things happens."
-          ]
-        },
-        {
-          "key": "deterministic",
-          "label": "a rule decides",
-          "steps": [
-            "The hook and its three outcomes are decided by a rule in code: the same answer every time, no model involved."
-          ]
-        },
-        {
-          "key": "the-human",
-          "label": "who decides?",
-          "steps": [
-            "You decide twice: when you ask, and when a command would change something."
-          ]
-        },
-        {
-          "key": "memory",
-          "label": "what do we remember?",
-          "steps": [
-            "Your yes or no is kept, in the approval chain."
-          ]
-        },
-        {
-          "key": "nothing-self-declared",
-          "label": "is it really done?",
-          "steps": [
-            "Nothing is taken on an agent's word: the hook sorts the command, and the chain records what really ran."
-          ]
-        }
-      ],
-      "sections": [
-        {
-          "id": "p5-flow",
-          "treatment": [
-            "plain"
-          ],
-          "order": 1,
-          "span": 1,
-          "columns": 4,
-          "children": [
-            {
-              "id": "p5-rail",
-              "type": "rail",
-              "order": 1,
-              "span": 4,
-              "title": "APPROVALS · YOU SIGN · A HOOK DECIDES, BY RULE, BEFORE ANYTHING RUNS"
-            },
-            {
-              "id": "p5-you",
-              "order": 2,
-              "rowspan": 3,
-              "kicker": "1 · YOU",
-              "title": "Ask for something",
-              "description": [
-                "in your own words, one request"
-              ],
-              "detail": "Your request is one prompt, in your own words. After that you are asked again only when a command would change something, and then you see the exact command before you answer.",
-              "filters": [
-                "one-command",
-                "the-human"
-              ]
-            },
-            {
-              "id": "p5-agent",
-              "order": 3,
-              "rowspan": 3,
-              "kicker": "2 · AN AGENT",
-              "title": "Wants a command",
-              "description": [
-                "to do the work you asked for"
-              ],
-              "detail": "The orchestrator or a specialist, working on your request, reaches for a command. The agent is the only part of this page run by a model; everything after it is decided by a rule.",
-              "filters": [
-                "one-command"
-              ]
-            },
-            {
-              "id": "p5-pretooluse",
-              "order": 4,
-              "rowspan": 3,
-              "treatment": [
-                "centered"
-              ],
-              "kicker": "3 · PreToolUse",
-              "title": "Sorts it",
-              "description": [
-                "a rule, in code",
-                "same answer every time",
-                "no model involved"
-              ],
-              "detail": "PreToolUse is the hook the host runs before every tool call. It hands each command to a fixed classifier that gives it a tier: <b>T0</b> read, <b>T1</b> validate, <b>T2</b> dry run, <b>T3</b> change. The classifier matches patterns and verbs in code; no model is consulted. Before that, a separate fixed pattern check holds the never list.<br><br>Sources: <code>hooks/modules/security/tiers.py:29-35</code> (<code>SecurityTier</code>), <code>:78</code> (<code>_classify_command_tier_cached</code>); <code>hooks/modules/security/blocked_commands.py:678</code> (<code>is_blocked_command</code>).",
-              "filters": [
-                "one-command",
-                "deterministic",
-                "nothing-self-declared"
-              ]
-            },
-            {
-              "id": "p5-read-only",
-              "order": 5,
-              "kicker": "READ-ONLY",
-              "title": "Runs right away",
-              "description": [
-                "nobody is asked"
-              ],
-              "detail": "Tiers <b>T0</b> read, <b>T1</b> validate and <b>T2</b> dry run change nothing, so the command runs and nobody is asked.<br><br>Source: <code>hooks/modules/security/tiers.py:29-35</code> (<code>SecurityTier</code>).",
-              "filters": [
-                "one-command",
-                "deterministic"
-              ]
-            },
-            {
-              "id": "p5-changes",
-              "order": 6,
-              "kicker": "CHANGES SOMETHING",
-              "title": "Waits for your yes",
-              "description": [
-                "you see the exact command"
-              ],
-              "detail": "A <b>T3</b> command, one that changes something, is stopped and you are asked. The dialog shows what is about to run (<code>operation</code>), its exact bytes (<code>exact_content</code>), and its <code>scope</code>, <code>risk_level</code> and <code>rollback_hint</code>. You approve, and it runs; you reject, and nothing happens.<br><br>An approval is single-use: the command must match what you approved byte for byte, and the window is 30 minutes.<br><br>Sources: <code>approval_grants.py:193</code>, <code>:523</code>; <code>writer.py:86</code>.",
-              "filters": [
-                "one-command",
-                "deterministic",
-                "the-human",
-                "memory"
-              ]
-            },
-            {
-              "id": "p5-never",
-              "order": 7,
-              "variant": "bad",
-              "kicker": "NEVER",
-              "title": "Always refused",
-              "description": [
-                "the never list: irreversible commands"
-              ],
-              "detail": "Irreversible commands are on the never list, a separate fixed pattern check. Its refusal has nothing to approve: no dialog, and no approval can let the command through.<br><br>Source: <code>hooks/modules/security/blocked_commands.py:678</code> (<code>is_blocked_command</code>).",
-              "filters": [
-                "one-command",
-                "deterministic"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "p5-chain",
-          "treatment": [
-            "plain"
-          ],
-          "order": 2,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "p5-approval-chain",
-              "order": 1,
-              "kicker": "KEEPS",
-              "title": "The approval chain",
-              "description": [
-                "every decision is kept"
-              ],
-              "detail": "Every step of an approval is appended to a hash chain that nobody rewrites: asked (<code>REQUESTED</code>), shown (<code>SHOWN</code>), your answer (<code>APPROVED</code> or rejected), and what really happened (<code>EXECUTED</code> or <code>FAILED</code>).<br><br>Source: <code>schema.sql:1578-1600</code>. What else each turn leaves is its contract: page 6.",
-              "filters": [
-                "memory",
-                "nothing-self-declared"
-              ]
-            }
-          ]
-        }
-      ],
-      "name": "5 · You sign",
-      "order": 4
-    },
-    {
       "id": "p6-contracts",
       "layout": "grid",
       "form": "dashboard",
-      "columns": 6,
+      "columns": 1,
       "filters": [
         {
           "key": "the-contract",
           "label": "one contract, out and back",
           "steps": [
-            "Three agents, three contracts, one form: only the answers change."
+            "The engine injects the agent contract, the agent fills it and answers in it, the engine validates it, and the orchestrator reads it."
           ]
         },
         {
           "key": "semantic",
           "label": "a model follows instructions",
           "steps": [
-            "Each specialist is a model working from its instructions and skills."
+            "The orchestrator and the agent are models working from their instructions; the engine between them is not."
           ]
         },
         {
           "key": "deterministic",
           "label": "a rule decides",
           "steps": [
-            "The state is a fixed word, and the judge checks the stored contract by rule."
+            "The engine decides by rule: what each agent may read and write, whether the answer is valid, and whether an update may be saved."
           ]
         },
         {
-          "key": "next-move",
-          "label": "what happens next?",
+          "key": "project-contract",
+          "label": "what may it read and write?",
           "steps": [
-            "The state a contract ends in decides the orchestrator's next move."
+            "Each agent may read some sections of the project contract and write others; its updates are checked against that before they are saved."
           ]
         },
         {
           "key": "nothing-self-declared",
           "label": "is it really done?",
           "steps": [
-            "A contract says how it was checked; a plan task waits for an independent verifier."
+            "Nothing is taken on the agent's word: the contract is validated by rule, and the orchestrator checks it before telling you."
+          ]
+        },
+        {
+          "key": "next-move",
+          "label": "what happens next?",
+          "steps": [
+            "The state the agent answers with decides the orchestrator's next move."
           ]
         },
         {
           "key": "the-human",
           "label": "who decides?",
           "steps": [
-            "A command that changes something comes back to you as an approval to give."
-          ]
-        },
-        {
-          "key": "the-judge",
-          "label": "the judge",
-          "steps": [
-            "At SubagentStop the stored contract is judged; its state decides the verdict."
+            "An answer can be an approval request: the orchestrator brings the exact command to you."
           ]
         }
       ],
       "sections": [
         {
-          "id": "p6-thesis",
+          "id": "p6-head",
           "treatment": [
             "plain"
           ],
           "order": 1,
-          "span": 6,
+          "span": 1,
           "columns": 1,
           "children": [
             {
-              "id": "p6-point",
+              "id": "p6-rail",
+              "type": "rail",
               "order": 1,
-              "kicker": "ON THE MAP · CONTRACTS",
-              "title": "One contract per agent",
-              "description": [
-                "a form that lets the orchestrator evaluate the response"
-              ],
-              "detail": "Every agent answers with a contract of its own, on the same form. Gaia reads the form by rule, never the reply.",
+              "span": 1,
               "treatment": [
                 "centered"
-              ]
+              ],
+              "title": "POINT 2 · CONTRACTS · EVERY AGENT ANSWERS WITH A CONTRACT"
             }
           ]
         },
         {
-          "id": "p6-stack",
+          "id": "p6-flow",
           "treatment": [
-            "envelope"
+            "plain"
           ],
           "order": 2,
-          "span": 6,
-          "columns": 5,
+          "span": 1,
+          "columns": 3,
           "children": [
             {
-              "id": "p6-rail-col",
+              "id": "p6-orch",
+              "title": "The orchestrator",
+              "subtitle": "a model · holds the conversation",
               "treatment": [
-                "plain"
+                "envelope"
               ],
               "order": 1,
               "span": 1,
               "columns": 1,
               "children": [
                 {
-                  "id": "p6-orchestrator",
-                  "type": "rail",
+                  "id": "p6-sends",
                   "order": 1,
-                  "rowspan": 2,
-                  "treatment": [
-                    "vertical"
+                  "kicker": "1 · SENDS",
+                  "title": "The work",
+                  "description": [
+                    "one goal, to one specialist"
                   ],
-                  "title": "ORCHESTRATOR · sends one turn each"
+                  "detail": "The orchestrator dispatches one specialist for one turn, with one goal. It does not write the specialist's contract; the engine does.",
+                  "filters": [
+                    "semantic"
+                  ]
+                },
+                {
+                  "id": "p6-reads",
+                  "order": 2,
+                  "kicker": "6 · READS",
+                  "title": "Keeps orchestrating",
+                  "description": [
+                    "reads it, checks it, decides what next"
+                  ],
+                  "detail": "The orchestrator reads the stored agent contract, not the reply text, checks what it claims against what it can open itself, and takes its next move from the state: answer you, send a verifier, show you a command, ask you, route an obstacle, or resume the turn.",
+                  "filters": [
+                    "the-contract",
+                    "semantic",
+                    "nothing-self-declared",
+                    "next-move",
+                    "the-human"
+                  ]
                 }
               ]
             },
             {
-              "id": "p6-rows",
+              "id": "p6-engine",
+              "title": "Gaia's engine",
+              "subtitle": "code · decides by rule",
               "treatment": [
-                "plain"
+                "envelope"
               ],
               "order": 2,
-              "span": 4,
-              "columns": 3,
+              "span": 1,
+              "columns": 1,
               "children": [
                 {
-                  "id": "p6-developer",
+                  "id": "p6-injects",
                   "order": 1,
-                  "kicker": "developer",
-                  "title": "One turn",
+                  "kicker": "2 · INJECTS ►",
+                  "title": "A contract for this agent",
                   "description": [
-                    "writes and tests application code"
+                    "its surface, role, what it may read and write"
                   ],
-                  "detail": "The orchestrator dispatches <b>developer</b> for one turn. The turn is born with its contract already open, named <code>&lt;agent_id&gt;.&lt;token&gt;</code>; the specialist adopts it with <code>gaia contract set/add/fill --draft-id</code> and never creates another.",
+                  "detail": "At dispatch the engine opens the agent contract and injects it as <code># Your Contract</code>. What is adapted to the agent is its own data, not the form: its <b>surface</b>, its <b>role</b> (<code>primary</code> or <code>verifier</code>), and the project-contract sections it may read (<code>can_read</code>) and write (<code>can_write</code>), taken from its own permission rows. The form it must answer in is the same for every agent.<br><br>Sources: <code>tools/context/context_provider.py:191</code> (<code>build_kernel_sections</code>), <code>:244-249</code>; <code>hooks/modules/context/kernel_builder.py:193</code> (<code>build_dispatch_kernel</code>), <code>:214-215</code>, <code>:243-244</code>.",
                   "filters": [
-                    "semantic"
+                    "the-contract",
+                    "deterministic",
+                    "project-contract"
                   ]
                 },
                 {
-                  "id": "p6-developer-contract",
-                  "order": 4,
-                  "kicker": "ANSWERS",
-                  "title": "Its own contract",
-                  "description": [
-                    "same form, its own answers"
-                  ],
-                  "detail": "For example: the change is written, tests pass, and the contract closes <code>COMPLETE</code> with <code>pending_steps: []</code>, <code>next_action: done</code> and <code>evidence_report.verification.result: pass</code>. <code>gaia contract finalize</code> is the only clean close.",
-                  "filters": [
-                    "the-contract"
-                  ]
-                },
-                {
-                  "id": "p6-gitops",
+                  "id": "p6-validates",
                   "order": 2,
-                  "kicker": "gitops-operator",
-                  "title": "One turn",
+                  "kicker": "◄ 5 · VALIDATES",
+                  "title": "By rule, not the prose",
                   "description": [
-                    "changes the cluster's desired state"
+                    "the reply text is never read"
                   ],
-                  "detail": "The orchestrator dispatches <b>gitops-operator</b> for its own turn, with its own contract. Nothing it learns is shared with developer's contract: each turn answers for itself.",
+                  "detail": "At the close, <b>SubagentStop</b> finds the turn's stored agent contract and validates it by rule; nothing in the reply text is read. A missing or unfinalized contract sends the turn back (<code>exit 2</code>). Only COMPLETE is final.<br><br>What each key of the agent contract holds:<br><b>status</b> — how the turn ended, one of six states.<br><b>evidence</b> — what it saw (files, searches) and what it did (commands, outputs).<br><b>verification</b> — how the result was checked, and whether it passed.<br><b>open gaps</b> — what it could not do or check.<br><b>reach</b> — what it touched beyond the files it was sent to.<br><b>approval</b> — the exact command it asks you to approve.<br><b>project updates</b> — changes it proposes to the project contract.<br><br>Sources: <code>hooks/adapters/claude_code.py:905-907</code>; <code>validator.py:908</code>.",
                   "filters": [
+                    "the-contract",
+                    "deterministic",
+                    "nothing-self-declared"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "p6-agent",
+              "title": "The agent",
+              "subtitle": "a model · one specialist",
+              "treatment": [
+                "envelope"
+              ],
+              "order": 3,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "p6-receives",
+                  "order": 1,
+                  "kicker": "3 · RECEIVES",
+                  "title": "Does the work",
+                  "description": [
+                    "its contract open from birth"
+                  ],
+                  "detail": "The specialist is born with its agent contract already open, named <code>&lt;agent_id&gt;.&lt;token&gt;</code>, and adopts it with <code>gaia contract set/add/fill --draft-id</code>. It pulls the project-contract sections it needs, on demand, and writes its evidence as it works.",
+                  "filters": [
+                    "the-contract",
                     "semantic"
                   ]
                 },
                 {
-                  "id": "p6-gitops-contract",
-                  "order": 5,
-                  "kicker": "ANSWERS",
-                  "title": "Its own contract",
+                  "id": "p6-answers",
+                  "order": 2,
+                  "kicker": "◄ 4 · ANSWERS",
+                  "title": "In a structured form",
                   "description": [
-                    "same form, its own answers"
+                    "the agent contract, filled as it goes"
                   ],
-                  "detail": "For example: the manifest is ready but pushing changes something, so the contract closes <code>APPROVAL_REQUEST</code> with <code>approval_request.exact_content</code> and the <code>approval_id</code> the request printed.",
+                  "detail": "The answer is the stored agent contract, closed with <code>gaia contract finalize</code>; the final message only signals that the turn ended. Its state decides what the orchestrator does next, and an <code>APPROVAL_REQUEST</code> carries the exact command for you.",
                   "filters": [
-                    "the-contract"
-                  ]
-                },
-                {
-                  "id": "p6-verifier",
-                  "order": 3,
-                  "kicker": "gaia-verifier",
-                  "title": "One turn",
-                  "description": [
-                    "checks another agent's work"
-                  ],
-                  "detail": "The orchestrator dispatches <b>gaia-verifier</b> when a plan task's producer closed <code>NEEDS_VERIFICATION</code>. It is bound to that producer's contract through <code>parent_handoff_id</code>.",
-                  "filters": [
-                    "semantic"
-                  ]
-                },
-                {
-                  "id": "p6-verifier-contract",
-                  "order": 6,
-                  "kicker": "ANSWERS",
-                  "title": "Its own contract",
-                  "description": [
-                    "same form, its own answers"
-                  ],
-                  "detail": "For example: the verifier re-runs the task's check and records the verdict in <code>evidence_report.verification</code> (<code>type</code>, <code>method</code>, <code>result</code>). Same form as the producer's; different answers.",
-                  "filters": [
-                    "the-contract"
+                    "the-contract",
+                    "semantic",
+                    "next-move",
+                    "the-human"
                   ]
                 }
               ]
@@ -1884,230 +1765,329 @@ window.__DOC__ = {
           ]
         },
         {
-          "id": "p6-form",
-          "title": "THE FORM",
-          "subtitle": "the same sections for every agent",
+          "id": "p6-kinds",
+          "title": "Two kinds of contract",
+          "subtitle": "the project contract is what Gaia knows about your project, in named sections · the agent contract is the form an agent answers in · the top row is how they meet, in the order of one turn",
           "treatment": [
             "envelope"
           ],
           "order": 3,
-          "span": 6,
-          "columns": 6,
-          "children": [
-            {
-              "id": "p6-status",
-              "order": 1,
-              "kicker": "STATUS",
-              "title": "How it ended",
-              "description": [
-                "one of six fixed states"
-              ],
-              "detail": "<code>agent_status.agent_state</code>, <code>agent_status.agent_id</code>, <code>pending_steps</code>, <code>next_action</code>. Any state outside the six is rejected (<code>PLAN_STATUS</code>), and <code>gaia contract finalize</code> refuses <code>IN_PROGRESS</code>.",
-              "filters": [
-                "the-contract",
-                "deterministic",
-                "next-move",
-                "the-judge"
-              ]
-            },
-            {
-              "id": "p6-evidence",
-              "order": 2,
-              "kicker": "EVIDENCE",
-              "title": "Seen and done",
-              "description": [
-                "what it read, ran and found"
-              ],
-              "detail": "<code>evidence_report.files_checked</code>, <code>patterns_checked</code>, <code>commands_run</code>, <code>key_outputs</code>, <code>verbatim_outputs</code>. Written during the turn, not composed at the close.",
-              "filters": [
-                "the-contract"
-              ]
-            },
-            {
-              "id": "p6-verify",
-              "order": 3,
-              "kicker": "VERIFY",
-              "title": "How it checked",
-              "description": [
-                "the proof, not the claim"
-              ],
-              "detail": "<code>evidence_report.verification</code>: <code>type</code>, <code>method</code>, <code>result</code>. <code>COMPLETE</code> needs <code>result: pass</code> (<code>VERIFICATION_RESULT</code>); a declared type must carry its evidence (<code>VERIFICATION_SHAPE</code>).",
-              "filters": [
-                "the-contract",
-                "nothing-self-declared"
-              ]
-            },
-            {
-              "id": "p6-gaps",
-              "order": 4,
-              "kicker": "OPEN GAPS",
-              "title": "What stayed open",
-              "description": [
-                "what it could not do or check"
-              ],
-              "detail": "<code>evidence_report.open_gaps</code>. A gap declared gets routed; a gap hidden surfaces later.",
-              "filters": [
-                "the-contract"
-              ]
-            },
-            {
-              "id": "p6-reach",
-              "order": 5,
-              "kicker": "REACH",
-              "title": "What else it touched",
-              "description": [
-                "impact beyond its own files"
-              ],
-              "detail": "<code>evidence_report.cross_layer_impacts</code>: what the change reached outside the file it was sent to, flagged for the agent that owns it.",
-              "filters": [
-                "the-contract"
-              ]
-            },
-            {
-              "id": "p6-approval",
-              "order": 6,
-              "kicker": "APPROVAL",
-              "title": "Asks to run",
-              "description": [
-                "the exact command, for your yes"
-              ],
-              "detail": "<code>approval_request</code>: <code>operation</code>, <code>exact_content</code>, <code>scope</code>, <code>risk_level</code>, <code>rollback</code>, <code>verification</code>, <code>approval_id</code>. Required and non-blank when the state is <code>APPROVAL_REQUEST</code>.",
-              "filters": [
-                "the-contract",
-                "the-human"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "p6-state",
-          "title": "THE STATE",
-          "subtitle": "what the orchestrator does next",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 4,
-          "span": 6,
-          "columns": 6,
-          "children": [
-            {
-              "id": "p6-complete",
-              "order": 1,
-              "kicker": "COMPLETE",
-              "title": "Answer you",
-              "description": [
-                "the only final state"
-              ],
-              "detail": "<code>COMPLETE</code> is the one terminal state: <code>pending_steps</code> empty, <code>next_action: done</code>, verification <code>pass</code>. The orchestrator reports the result to you.",
-              "filters": [
-                "next-move"
-              ]
-            },
-            {
-              "id": "p6-needs-verification",
-              "order": 2,
-              "kicker": "NEEDS_VERIFICATION",
-              "title": "Send a verifier",
-              "description": [
-                "a specialist cannot seal its own work"
-              ],
-              "detail": "A plan-task-bound turn cannot close itself <code>COMPLETE</code>. The orchestrator dispatches an independent verifier, bound through <code>parent_handoff_id</code>. Who confirms? That is page 7.",
-              "filters": [
-                "next-move",
-                "nothing-self-declared"
-              ]
-            },
-            {
-              "id": "p6-approval-request",
-              "order": 3,
-              "kicker": "APPROVAL_REQUEST",
-              "title": "Show the command",
-              "description": [
-                "you approve or reject it"
-              ],
-              "detail": "The orchestrator presents the exact command from <code>approval_request.exact_content</code>. Your yes approves that one command; the specialist then retries it byte for byte.",
-              "filters": [
-                "next-move",
-                "the-human"
-              ]
-            },
-            {
-              "id": "p6-needs-input",
-              "order": 4,
-              "kicker": "NEEDS_INPUT",
-              "title": "Ask you",
-              "description": [
-                "a choice only you can make"
-              ],
-              "detail": "<code>NEEDS_INPUT</code> names the concrete options. Your answer comes back to the same contract, which is not reset.",
-              "filters": [
-                "next-move"
-              ]
-            },
-            {
-              "id": "p6-blocked",
-              "order": 5,
-              "kicker": "BLOCKED",
-              "title": "Route the obstacle",
-              "description": [
-                "to whoever owns it"
-              ],
-              "detail": "<code>BLOCKED</code> is the costliest close: the orchestrator routes the obstacle to the agent that owns it.",
-              "filters": [
-                "next-move"
-              ]
-            },
-            {
-              "id": "p6-in-progress",
-              "order": 6,
-              "kicker": "IN_PROGRESS",
-              "title": "Keep working",
-              "description": [
-                "the turn is not done"
-              ],
-              "detail": "<code>IN_PROGRESS</code> is not a close: <code>gaia contract finalize</code> refuses it, and the orchestrator resumes the turn.",
-              "filters": [
-                "next-move"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "p6-judge",
-          "treatment": [
-            "plain"
-          ],
-          "order": 5,
-          "span": 6,
+          "span": 1,
           "columns": 2,
           "children": [
             {
-              "id": "p6-judge-box",
-              "order": 1,
-              "span": 2,
-              "kicker": "JUDGE · SubagentStop",
-              "title": "Reads the contract",
-              "description": [
-                "no valid contract: sent back"
+              "id": "p6-project",
+              "treatment": [
+                "plain"
               ],
-              "detail": "<b>SubagentStop</b> is the judge. It locates the turn's own stored contract and validates it (<code>_resolve_subagent_stop_gate_full</code>, <code>hooks/adapters/claude_code.py</code>); nothing in the reply text is read. A missing or unfinalized contract sends the turn back with <code>exit 2</code>, and one never finalized stays marked with a <code>cut_reason</code>. A plan-task-bound turn is forced to blind verification. At the same moment SubagentStop writes the turn's episode (<code>subagent_stop.py</code>).",
-              "filters": [
-                "deterministic",
-                "the-judge"
+              "order": 2,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "pc-root",
+                  "type": "rail",
+                  "order": 1,
+                  "span": 1,
+                  "title": "Project contract"
+                },
+                {
+                  "id": "pc-body",
+                  "treatment": [
+                    "envelope"
+                  ],
+                  "order": 2,
+                  "span": 1,
+                  "columns": 1,
+                  "children": [
+                    {
+                      "id": "pc-each",
+                      "type": "rail",
+                      "order": 1,
+                      "span": 1,
+                      "title": "Each project"
+                    },
+                    {
+                      "id": "pc-sections",
+                      "treatment": [
+                        "envelope"
+                      ],
+                      "order": 2,
+                      "span": 1,
+                      "columns": 2,
+                      "children": [
+                        {
+                          "id": "pc-identity",
+                          "type": "rail",
+                          "order": 1,
+                          "title": "project_identity"
+                        },
+                        {
+                          "id": "pc-stack",
+                          "type": "rail",
+                          "order": 2,
+                          "title": "stack"
+                        },
+                        {
+                          "id": "pc-env",
+                          "type": "rail",
+                          "order": 3,
+                          "title": "environment"
+                        },
+                        {
+                          "id": "pc-git",
+                          "type": "rail",
+                          "order": 4,
+                          "title": "git"
+                        },
+                        {
+                          "id": "pc-arch",
+                          "type": "rail",
+                          "order": 5,
+                          "title": "architecture_overview"
+                        },
+                        {
+                          "id": "pc-apps",
+                          "type": "rail",
+                          "order": 6,
+                          "title": "application_services"
+                        },
+                        {
+                          "id": "pc-infra",
+                          "type": "rail",
+                          "order": 7,
+                          "title": "infrastructure"
+                        },
+                        {
+                          "id": "pc-topo",
+                          "type": "rail",
+                          "order": 8,
+                          "title": "infrastructure_topology"
+                        },
+                        {
+                          "id": "pc-gitops",
+                          "type": "rail",
+                          "order": 9,
+                          "title": "gitops_configuration"
+                        },
+                        {
+                          "id": "pc-cluster",
+                          "type": "rail",
+                          "order": 10,
+                          "title": "cluster_details"
+                        }
+                      ]
+                    }
+                  ]
+                }
               ]
             },
             {
-              "id": "p6-never-read",
-              "type": "separator",
-              "order": 2,
+              "id": "p6-relations",
+              "treatment": [
+                "plain"
+              ],
+              "order": 1,
               "span": 2,
-              "text": "the reply text is never read"
+              "columns": 3,
+              "children": [
+                {
+                  "id": "p6-rel-read",
+                  "order": 1,
+                  "kicker": "1 · AT DISPATCH",
+                  "title": "Names what it may use",
+                  "description": [
+                    "can_read and can_write, per agent"
+                  ],
+                  "detail": "The agent contract names which project-contract sections this agent may read (<code>can_read</code>) and write (<code>can_write</code>), from its own permissions, declared in its definition (<code>project_context_contracts</code>). It hands over the names, not the contents: the agent reads a section on demand with <code>gaia context get-contract --section</code>.<br><br>What each section holds:<br><b>project_identity</b> — the project's name, path, remote and type.<br><b>stack</b> — its languages and tools.<br><b>environment</b> — where it runs.<br><b>git</b> — its repository conventions.<br><b>architecture_overview</b> — how its parts fit.<br><b>application_services</b> — its services (developer writes it).<br><b>infrastructure</b>, <b>infrastructure_topology</b> — its cloud (platform-architect writes them).<br><b>gitops_configuration</b> — its desired cluster state (gitops-operator).<br><b>cluster_details</b> — the live cluster (cloud-troubleshooter).<br><br>Sources: <code>hooks/modules/context/kernel_builder.py:214-215</code>, <code>:243-244</code>; <code>tools/context/context_provider.py:244-249</code>; <code>agents/developer.md:9-11</code>; <code>bin/cli/context.py:366</code>.",
+                  "filters": [
+                    "deterministic",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "p6-rel-carry",
+                  "order": 2,
+                  "kicker": "2 · IN ITS ANSWER",
+                  "title": "Carries updates",
+                  "description": [
+                    "to the sections it may write"
+                  ],
+                  "detail": "The agent contract can carry <code>update_contracts</code>: a list of <code>{contract, payload}</code> entries, each a change to one project-contract section. An agent proposes them; it cannot write the project contract directly.",
+                  "filters": [
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "p6-rel-check",
+                  "order": 3,
+                  "kicker": "3 · AT THE CLOSE",
+                  "title": "Checked, then saved",
+                  "description": [
+                    "each update against its permission"
+                  ],
+                  "detail": "At SubagentStop each update is checked against the agent's write permission, one by one, before it is saved; an update to a section it may not write is rejected and named, and the rest still apply.<br><br>Sources: <code>hooks/subagent_stop.py:176</code> calls <code>process_update_contracts</code> (<code>hooks/modules/context/context_writer.py:376</code>), which runs <code>validate_permission</code> (<code>:127</code>) per entry at <code>:436</code>.",
+                  "filters": [
+                    "deterministic",
+                    "project-contract",
+                    "nothing-self-declared"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "p6-agent-contract",
+              "treatment": [
+                "plain"
+              ],
+              "order": 3,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "ac-root",
+                  "type": "rail",
+                  "order": 1,
+                  "span": 1,
+                  "title": "Agent contract"
+                },
+                {
+                  "id": "ac-body",
+                  "treatment": [
+                    "envelope"
+                  ],
+                  "order": 2,
+                  "span": 1,
+                  "columns": 1,
+                  "children": [
+                    {
+                      "id": "ac-status",
+                      "type": "rail",
+                      "order": 1,
+                      "span": 1,
+                      "title": "status"
+                    },
+                    {
+                      "id": "ac-states",
+                      "treatment": [
+                        "envelope"
+                      ],
+                      "order": 2,
+                      "span": 1,
+                      "columns": 2,
+                      "children": [
+                        {
+                          "id": "ac-complete",
+                          "type": "rail",
+                          "order": 1,
+                          "title": "COMPLETE"
+                        },
+                        {
+                          "id": "ac-needs-verification",
+                          "type": "rail",
+                          "order": 2,
+                          "title": "NEEDS_VERIFICATION"
+                        },
+                        {
+                          "id": "ac-approval-request",
+                          "type": "rail",
+                          "order": 3,
+                          "title": "APPROVAL_REQUEST"
+                        },
+                        {
+                          "id": "ac-needs-input",
+                          "type": "rail",
+                          "order": 4,
+                          "title": "NEEDS_INPUT"
+                        },
+                        {
+                          "id": "ac-blocked",
+                          "type": "rail",
+                          "order": 5,
+                          "title": "BLOCKED"
+                        },
+                        {
+                          "id": "ac-in-progress",
+                          "type": "rail",
+                          "order": 6,
+                          "title": "IN_PROGRESS"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "ac-evidence",
+                      "type": "rail",
+                      "order": 3,
+                      "span": 1,
+                      "title": "evidence"
+                    },
+                    {
+                      "id": "ac-parts",
+                      "treatment": [
+                        "envelope"
+                      ],
+                      "order": 4,
+                      "span": 1,
+                      "columns": 2,
+                      "children": [
+                        {
+                          "id": "ac-seen",
+                          "type": "rail",
+                          "order": 1,
+                          "title": "seen"
+                        },
+                        {
+                          "id": "ac-done",
+                          "type": "rail",
+                          "order": 2,
+                          "title": "done"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "ac-verification",
+                      "type": "rail",
+                      "order": 5,
+                      "span": 1,
+                      "title": "verification"
+                    },
+                    {
+                      "id": "ac-gaps",
+                      "type": "rail",
+                      "order": 6,
+                      "span": 1,
+                      "title": "open gaps"
+                    },
+                    {
+                      "id": "ac-reach",
+                      "type": "rail",
+                      "order": 7,
+                      "span": 1,
+                      "title": "reach"
+                    },
+                    {
+                      "id": "ac-approval",
+                      "type": "rail",
+                      "order": 8,
+                      "span": 1,
+                      "title": "approval"
+                    },
+                    {
+                      "id": "ac-updates",
+                      "type": "rail",
+                      "order": 9,
+                      "span": 1,
+                      "title": "project updates"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
       ],
-      "name": "6 · Contracts",
-      "order": 5
+      "name": "5 · Contracts",
+      "order": 4
     },
     {
       "id": "p7-it-checks",
@@ -2468,7 +2448,7 @@ window.__DOC__ = {
               "description": [
                 "contract → task → gate → evidence"
               ],
-              "detail": "What one step produces is stored and read by the next: the contract names its task, the task its gate, the gate the evidence behind its result. It is kept in Gaia's database (<code>schema.sql:442-700</code>), so it survives the session. What is kept is memory, page 8.",
+              "detail": "What one step produces is stored and read by the next: the contract names its task, the task its gate, the gate the evidence behind its result. It is kept in Gaia's database (<code>schema.sql:442-700</code>), so it survives the session. What is kept is memory, page 7.",
               "filters": [
                 "the-contract",
                 "deterministic",
@@ -2509,8 +2489,8 @@ window.__DOC__ = {
           ]
         }
       ],
-      "name": "7 · It checks",
-      "order": 6
+      "name": "6 · It checks",
+      "order": 5
     },
     {
       "id": "p8-memory",
@@ -2692,8 +2672,8 @@ window.__DOC__ = {
           ]
         }
       ],
-      "name": "8 · Memory",
-      "order": 7
+      "name": "7 · Memory",
+      "order": 6
     },
     {
       "id": "p9-back-to-the-map",
@@ -2781,12 +2761,12 @@ window.__DOC__ = {
             {
               "id": "p9-you",
               "order": 1,
-              "kicker": "→ PAGE 5",
+              "kicker": "→ PAGE 4",
               "title": "YOU",
               "description": [
                 "you sign what changes something"
               ],
-              "detail": "Page 5 · You sign. Anything that changes something real needs your approval, your yes to one exact command, and a hook checks it by rule before anything runs.",
+              "detail": "Page 4 · The life of a request, its approvals. Anything that changes something real needs your approval, your yes to one exact command, and a rule sorts every command before any tool runs.",
               "treatment": [
                 "centered"
               ],
@@ -2815,12 +2795,12 @@ window.__DOC__ = {
             {
               "id": "p9-manages",
               "order": 3,
-              "kicker": "→ PAGES 5–8",
+              "kicker": "→ PAGES 4–7",
               "title": "WHAT GAIA MANAGES",
               "description": [
                 "memory, plans, contracts, approvals"
               ],
-              "detail": "Through its own command line, Gaia keeps memory (page 8), plans and tasks (page 7), contracts (page 6) and approvals (page 5), so what it learns and what it was asked outlives the session.",
+              "detail": "Through its own command line, Gaia keeps memory (page 7), plans and tasks (page 6), contracts (page 5) and approvals (page 4), so what it learns and what it was asked outlives the session.",
               "treatment": [
                 "centered"
               ],
@@ -2831,12 +2811,12 @@ window.__DOC__ = {
             {
               "id": "p9-specialist",
               "order": 4,
-              "kicker": "→ PAGES 3, 6",
+              "kicker": "→ PAGES 3, 5",
               "title": "THE SPECIALISTS",
               "description": [
                 "do the how, answer with a contract"
               ],
-              "detail": "Page 3 · What an agent is: every specialist has the same parts, and there are 8 today, one per field. Page 6 · Contracts: every specialist answers with its own contract, and the orchestrator checks what it claims before telling you.",
+              "detail": "Page 3 · What an agent is: every specialist has the same parts, and there are 8 today, one per field. Page 5 · Contracts: every specialist answers with its own contract, and the orchestrator checks what it claims before telling you.",
               "treatment": [
                 "centered"
               ],
@@ -2951,8 +2931,8 @@ window.__DOC__ = {
           ]
         }
       ],
-      "name": "9 · Install it, ask it",
-      "order": 8
+      "name": "8 · Install it, ask it",
+      "order": 7
     },
     {
       "id": "backup-code",
@@ -3449,7 +3429,7 @@ window.__DOC__ = {
         }
       ],
       "name": "Backup · Down to the code",
-      "order": 9
+      "order": 8
     }
   ]
 };

@@ -1,4 +1,4 @@
-# P7 — POINT 3 · It checks (STORYBOARD.md rev 4, "Page 7").
+# Page 6 — POINT 3 · It checks (STORYBOARD.md rev 5, "Page 6").
 # Form: flow. Five stacked bands, each a sections-only or components-only grid
 # so no level mixes leaves with sub-sections:
 #   1. p7-point   — the PLANS & TASKS rail, naming its box on the map.
@@ -228,7 +228,7 @@ sections:
         kicker: "PASSES ON"
         title: "Each step's output"
         description: ["contract → task → gate → evidence"]
-        detail: "What one step produces is stored and read by the next: the contract names its task, the task its gate, the gate the evidence behind its result. It is kept in Gaia's database (<code>schema.sql:442-700</code>), so it survives the session. What is kept is memory, page 8."
+        detail: "What one step produces is stored and read by the next: the contract names its task, the task its gate, the gate the evidence behind its result. It is kept in Gaia's database (<code>schema.sql:442-700</code>), so it survives the session. What is kept is memory, page 7."
         filters: [the-contract, deterministic, memory]
       - id: r-gates
         order: 4
