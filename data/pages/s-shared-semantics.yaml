@@ -162,7 +162,7 @@ sections:
             kicker: STRUCTURE
             title: "What an agent is"
             description: ["a contract, an identity, a scope, and known errors"]
-            detail: "An agent is more than a prompt: a contract for what it must return, an identity for how it works, a scope for what it may touch, and the errors it knows how to handle. Every agent has those same four parts, and every agent owns one area — nine specialists exist today, and more can be added. That is what lets one agent read another one's work."
+            detail: "An agent is more than a prompt: a contract for what it must return, an identity for how it works, a scope for what it may touch, and the errors it knows how to handle. Every agent has those same four parts, and every agent owns one area — nine agents exist today, the orchestrator and eight specialists, and more can be added. That is what lets one agent read another one's work."
             filters: [security]
           - id: w-protocol
             order: 3

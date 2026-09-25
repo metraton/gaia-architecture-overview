@@ -1,0 +1,303 @@
+id: backup-code
+layout: grid
+form: dashboard
+columns: 6
+
+filters:
+  - key: deterministic
+    label: "a rule decides"
+    steps:
+      - "Every box on this page is ordinary code: the same input gets the same answer, and no model is consulted."
+  - key: sesion-abre
+    label: "the session opens"
+    steps:
+      - "SessionStart runs once, before anyone asks for anything: eight calls in fixed order build what the session starts knowing."
+  - key: ruteo
+    label: "where does this belong?"
+    steps:
+      - "Two rules answer it: may the orchestrator hold this tool itself, and which surface the dispatched specialist declares as its own. No prompt scoring runs in a hook."
+  - key: porton
+    label: "the checkpoint"
+    steps:
+      - "Before any tool runs, PreToolUse asks in order: may the orchestrator hold this tool, which tier is this command, and which skill governs this file."
+  - key: despacho
+    label: "the dispatch"
+    steps:
+      - "When the tool is a dispatch, PreToolUse derives the specialist's kernel, caches the recent events and gives birth to its contract."
+  - key: entrega
+    label: "the handover"
+    steps:
+      - "SubagentStart is the first instant the specialist exists: it picks up what PreToolUse cached and claims the contract born for it."
+  - key: contabilidad
+    label: "the bookkeeping"
+    steps:
+      - "Four independent writers note what ran; Stop sweeps up the failed commands PostToolUse never saw."
+  - key: the-judge
+    label: "the judge"
+    steps:
+      - "SubagentStop reads the stored contract, never the reply text, judges it, measures the turn and writes the episode."
+
+sections:
+  - id: col-cli
+    title: "ON DEMAND"
+    subtitle: "the CLI"
+    treatment: [envelope]
+    order: 1
+    span: 6
+    columns: 7
+    children:
+      - id: cli-memory
+        order: 1
+        kicker: "gaia memory"
+        title: "Curated memory"
+        description: "written on purpose, read back later"
+        detail: "Read verbs (<code>search</code>, <code>show</code>, <code>list</code>, <code>stats</code>, <code>get-relevant</code>, <code>conflicts</code>, <code>story</code>, <code>episode-show</code>) and write verbs (<code>add</code>, <code>append</code>, <code>reclassify</code>, <code>link</code>, <code>checkpoint</code>). Only the orchestrator and gaia-operator write curated memory (<code>subagent_memory_write_guard.py:60-67</code>)."
+        filters: [deterministic]
+      - id: cli-contract
+        order: 2
+        kicker: "gaia contract"
+        title: "Contracts"
+        description: "the stored contract outranks the message"
+        detail: "The orchestrator reads with <code>contract view | list | validate</code>; <code>gaia contract list --cut</code> names the turns cut before they finalized. The verbs that change a contract (<code>set | add | fill | finalize</code>) belong to the specialist whose turn it is."
+        filters: [deterministic, the-judge]
+      - id: cli-brief
+        order: 3
+        kicker: "gaia brief"
+        title: "Briefs"
+        description: "what you asked for, with its criteria"
+        detail: "<code>brief new | edit | set-status</code> and the brief's own acceptance criteria, <code>brief ac add | edit | remove</code>."
+        filters: [deterministic]
+      - id: cli-plan
+        order: 4
+        kicker: "gaia plan · task"
+        title: "Plans and tasks"
+        description: "moves status, never promotes its own task"
+        detail: "The orchestrator moves status with <code>plan set-status</code> and <code>task set-status</code>. Splitting a plan into tasks is gaia-planner's job; promoting a task after verification is gaia-verifier's. Planning objects live in <code>schema.sql:442-700</code>."
+        filters: [deterministic]
+      - id: cli-approvals
+        order: 5
+        kicker: "gaia approvals"
+        title: "Approvals"
+        description: "sees every approval, gives none"
+        detail: "Read-only for the orchestrator: <code>approvals list | pending | show | history | stats</code>. Approving is yours, not a CLI call. The approval hash chain lives in <code>schema.sql:1578-1600</code>."
+        filters: [deterministic, porton]
+      - id: cli-schedule
+        order: 6
+        kicker: "gaia schedule"
+        title: "Schedules"
+        description: "sees the drift, cannot fix it"
+        detail: "<code>schedule list | show | status</code> and <code>notifications ack</code>. <code>schedule register | remove | sync</code> belong to gaia-operator, and <code>sync</code> needs your approval."
+        filters: [deterministic]
+      - id: cli-context
+        order: 7
+        span: 1
+        kicker: "gaia context · scan"
+        title: "Project context"
+        description: "reads it, and re-scans the workspace"
+        detail: "<code>context show | get | project</code> read the workspace; <code>context get-contract --section &lt;s&gt;</code> reads one project-context section by name; <code>scan</code> and <code>context scan</code> re-index it."
+        filters: [deterministic]
+
+  - id: col-session
+    title: "SESSION START"
+    subtitle: "SessionStart"
+    treatment: [envelope]
+    order: 2
+    span: 1
+    columns: 1
+    children:
+      - id: ss-build
+        order: 1
+        kicker: "session_context (short)"
+        title: "Eight calls, in order"
+        description: "what the session starts knowing"
+        detail: "<code>build_session_context</code> in <code>hooks/modules/session/session_manifest.py:1218</code>, called from <code>hooks/session_start.py:307</code>. Eight builder calls in a fixed order; the three boxes below are its parts."
+        filters: [deterministic, sesion-abre]
+      - id: ss-where
+        order: 2
+        kicker: "calls 1–3"
+        title: "Where you are"
+        description: "environment, projects, contracts index"
+        detail: "Environment first (workspace, machine, version, cwd, plugin root), then the project index by name only, then which project-context sections each specialist surface is handed at dispatch."
+        filters: [deterministic, sesion-abre]
+      - id: ss-open
+        order: 3
+        kicker: "calls 4–7"
+        title: "What is open"
+        description: "open threads, and what ran without you"
+        detail: "The live worklist of open threads, then three blocks that stay silent unless something ran without you: unread headless reports, schedule drift, and scheduler suspensions."
+        filters: [deterministic, sesion-abre]
+      - id: ss-anchors
+        order: 4
+        kicker: "call 8, last"
+        title: "What I know about you"
+        description: "curated memory, injected last"
+        detail: "The standing orders about how to work with you. They come last on purpose, after the operational state they should anchor against."
+        filters: [deterministic, sesion-abre]
+
+  - id: col-born
+    title: "BORN"
+    subtitle: "PreToolUse"
+    treatment: [envelope]
+    order: 3
+    span: 2
+    columns: 2
+    children:
+      - id: bn-delegate
+        order: 1
+        kicker: check_delegate_mode
+        title: "Use it or delegate"
+        description: "may the orchestrator hold this tool?"
+        detail: "<code>check_delegate_mode</code> in <code>hooks/modules/orchestrator/delegate_mode.py:367</code>, the first check PreToolUse runs (<code>hooks/adapters/tool_policy.py:267</code>). Outside the orchestrator's allowed set, the work goes to a specialist."
+        filters: [deterministic, porton, ruteo]
+      - id: bn-tier
+        order: 2
+        kicker: "classify_tier (short)"
+        title: "Tier T0 to T3"
+        description: "a rule, not a model, picks the tier"
+        detail: "<code>_classify_command_tier_cached</code> (<code>hooks/modules/security/tiers.py:78</code>) gives every command one tier of <code>SecurityTier</code> (<code>:29-35</code>): T0 read, T1 validate, T2 dry run, T3 change. The never list is a separate check, <code>is_blocked_command</code> (<code>blocked_commands.py:678</code>), with nothing to approve. A T3 approval is single-use, must match the command byte for byte, and lasts 30 minutes (<code>approval_grants.py:193</code>, <code>:523</code>; <code>writer.py:86</code>)."
+        filters: [deterministic, porton]
+      - id: bn-skill
+        order: 3
+        kicker: "expected_skill (short)"
+        title: "File to skill"
+        description: "one reminder on a Write or an Edit"
+        detail: "<code>expected_skill_for_path</code> in <code>hooks/modules/agents/artifact_skill_map.py:64</code>, called from <code>tool_policy.py:785</code>. It names the skill that governs the file being written; a reminder, never a block."
+        filters: [deterministic, porton]
+      - id: bn-routing
+        order: 4
+        kicker: "kernel_sections (short)"
+        title: "Routing"
+        description: "the specialist's own surface, no scoring"
+        detail: "<code>build_kernel_sections</code> (<code>tools/context/context_provider.py</code>), called by <code>_kernel_dispatch_facts</code> in <code>tool_policy.py:554</code>. The code's own words: \"no routing\". It reads the specialist's own <code>surface_routing</code> row and its <code>can_read</code> / <code>can_write</code> from <code>agent_contract_permissions</code>. The prompt-scoring router (<code>classify_surfaces</code>) is not called by any hook."
+        filters: [deterministic, ruteo, despacho]
+      - id: bn-birth
+        order: 5
+        span: 2
+        kicker: birth_dispatched_row
+        title: "The contract is born"
+        description: "before the specialist exists"
+        detail: "<code>birth_dispatched_row</code> in <code>hooks/modules/agents/dispatch_binding.py:338</code>, called from <code>tool_policy.py:675</code>. The contract carries the task id of a plan task, which later stops the specialist from closing its own work. Contract kinds: <code>verifier</code>, <code>task_execution</code>, <code>investigation</code>, <code>memory</code> (<code>dispatch_binding.py:96</code>)."
+        filters: [deterministic, despacho]
+
+  - id: col-receives
+    title: "RECEIVES"
+    subtitle: "SubagentStart"
+    treatment: [envelope]
+    order: 4
+    span: 1
+    columns: 1
+    children:
+      - id: rc-cached
+        order: 1
+        kicker: "read_cached (short)"
+        title: "Recent events"
+        description: "what PreToolUse cached for it"
+        detail: "<code>_read_cached_context</code> in <code>hooks/adapters/claude_code.py</code> (<code>adapt_subagent_start</code>, line 3985) forwards the recent-events digest that <code>build_session_events</code> built at the dispatch (<code>tool_policy.py:472</code>)."
+        filters: [deterministic, entrega, despacho]
+      - id: rc-claim
+        order: 2
+        kicker: "claim_kernel (short)"
+        title: "Claims its contract"
+        description: "joins the born contract to this specialist"
+        detail: "<code>_maybe_claim_dispatch_kernel</code> (<code>claude_code.py:3950</code>) claims the contract born at PreToolUse and injects the kernel: Your Contract, Your CLI, how you work. If the claim fails, the specialist starts with no contract block and opens its own."
+        filters: [deterministic, entrega]
+      - id: rc-none
+        order: 3
+        type: separator
+        style: dotted
+        text: "context pulled on demand"
+
+  - id: col-works
+    title: "WORKS"
+    subtitle: "PostToolUse"
+    treatment: [envelope]
+    order: 5
+    span: 1
+    columns: 1
+    children:
+      - id: wk-log
+        order: 1
+        kicker: log_execution
+        title: "One line per run"
+        description: "every tool call, appended"
+        detail: "<code>log_execution</code> in <code>hooks/modules/audit/logger.py:221</code>, called from <code>tool_policy.py:922</code>. One JSON line per run; nothing coordinates it with the writers in the audit band. It runs on every tool call; a failed Bash call returns through PostToolUseFailure instead."
+        filters: [deterministic, contabilidad]
+      - id: wk-repeat
+        order: 2
+        type: separator
+        style: dotted
+        text: "↻ each tool call"
+
+  - id: col-contract
+    title: "CONTRACT"
+    subtitle: "SubagentStop"
+    treatment: [envelope]
+    order: 6
+    span: 1
+    columns: 1
+    children:
+      - id: ct-gate
+        order: 1
+        kicker: "contract_gate (short)"
+        title: "Reads the contract"
+        description: "the stored one, never the reply text"
+        detail: "<code>evaluate_contract_gate</code> in <code>hooks/adapters/claude_code.py:648</code>. It reads only the turn's stored contract; a missing or unfinalized one sends the turn back (exit 2, <code>claude_code.py:905-907</code>). Six closing states, only COMPLETE is final (<code>validator.py:908</code>). A plan-task contract cannot close itself COMPLETE."
+        filters: [deterministic, the-judge]
+      - id: ct-perm
+        order: 2
+        kicker: validate_permission
+        title: "May it write here?"
+        description: "project context, section by section"
+        detail: "<code>validate_permission</code> in <code>hooks/modules/context/context_writer.py:127</code>, reached through <code>process_update_contracts</code> from <code>hooks/subagent_stop.py:176</code>. A write outside the specialist's <code>can_write</code> is refused and counted as an anomaly."
+        filters: [deterministic, the-judge]
+      - id: ct-score
+        order: 3
+        kicker: "compliance_score (short)"
+        title: "Six factors, a grade"
+        description: "nobody grades their own turn"
+        detail: "<code>compute_compliance_score</code> in <code>hooks/modules/agents/transcript_analyzer.py:439</code>, six factors (<code>:471-531</code>) over the real transcript and the auditor's anomalies, giving a score and a letter."
+        filters: [deterministic, the-judge]
+      - id: ct-episode
+        order: 4
+        kicker: "episode_writer (short)"
+        title: "Writes the episode"
+        description: "the automatic trace of the turn"
+        detail: "<code>episode_writer.write</code> in <code>hooks/modules/memory/episode_writer.py:125</code>: what was asked, what came out, what it cost, what looked odd (<code>subagent_stop.py:263</code>)."
+        filters: [deterministic, the-judge]
+
+  - id: audit
+    title: "AUDIT"
+    subtitle: "runs at every moment above, which is why it is the base and not a column"
+    treatment: [envelope]
+    order: 7
+    span: 6
+    columns: 4
+    children:
+      - id: au-chain
+        order: 1
+        kicker: record_event
+        title: "The hashed chain"
+        description: "each approval step hashed onto the last"
+        detail: "Appends SHOWN, EXECUTED, FAILED to the approval chain (<code>gaia/approvals/store.py</code>; tables in <code>schema.sql:1578-1600</code>). Change one step and the chain breaks."
+        filters: [deterministic, contabilidad]
+      - id: au-events
+        order: 2
+        kicker: write_event
+        title: "The event stream"
+        description: "one table every hook writes into"
+        detail: "<code>EventWriter().write_event</code> writes into <code>harness_events</code> (<code>hooks/modules/events/event_writer.py</code>), from PreToolUse, PostToolUse and SubagentStop alike."
+        filters: [deterministic, contabilidad]
+      - id: au-auditor
+        order: 3
+        kicker: workflow_auditor
+        title: "About twenty checks"
+        description: "the anomalies of one turn, in order"
+        detail: "<code>workflow_auditor.audit</code> (<code>hooks/modules/audit/workflow_auditor.py:445-661</code>): about twenty checks in strict order, such as skipped investigation, missing evidence, a skill loaded out of order, a write outside scope. Its list feeds the six-factor grade."
+        filters: [deterministic, the-judge]
+      - id: au-stop
+        order: 4
+        kicker: Stop
+        title: "The closing sweeper"
+        description: "closes what PostToolUse never saw"
+        detail: "A non-zero Bash exit does not reach PostToolUse, so an approved command that failed never gets its closing event there. Stop is where the turn is fully done; anything still open is reconciled."
+        filters: [deterministic, contabilidad]

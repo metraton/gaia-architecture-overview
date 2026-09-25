@@ -1,59 +1,59 @@
 # Document manifest — GAIA architecture overview deck.
 # name / order / visible live ONLY here; each page file owns id + content.
-# Form: "presentation" — each of the 6 sections is a page/act in sequence,
-# narrated live. The red thread: each act is a BELIEF that reveals its piece
-# of Gaia; by the end, Gaia is the name of what the audience already understood.
+# The order is STORYBOARD.md revision 4: Why, the map, the cast, one point of
+# the map per page in the order of one turn's life, back to the map, backup.
 title: "GAIA"
-subtitle: "Generative AI Architecture"
+subtitle: "Generative AI Interface for Agents"
 version: "0.1.0"
 
 pages:
-  # order 0 is the deck's first page. Every existing entry shifted one position
-  # back to make room; nothing was removed, hidden or renamed.
-  - id: s-arquitectura
-    name: "The real architecture"
+  - id: s-shared-semantics
+    name: "1 · Why"
     order: 0
     visible: true
-    file: pages/s-arquitectura.yaml
-  - id: s-shared-semantics
-    name: "Shared semantics"
+    file: pages/s-shared-semantics.yaml
+  - id: p2-the-map
+    name: "2 · What Gaia is"
     order: 1
     visible: true
-    file: pages/s-shared-semantics.yaml
-  - id: s0-vision
-    name: "0 · The vision"
+    file: pages/p2-the-map.yaml
+  - id: p3-whos-who
+    name: "3 · Who's who"
     order: 2
     visible: true
-    file: pages/s0-vision.yaml
-  - id: s1-visibilidad
-    name: "1 · Visibility"
+    file: pages/p3-whos-who.yaml
+  - id: p4-life-of-a-request
+    name: "4 · The life of a request"
     order: 3
     visible: true
-    file: pages/s1-visibilidad.yaml
-  - id: s2-estandares
-    name: "2 · Standards"
+    file: pages/p4-life-of-a-request.yaml
+  - id: p5-you-sign
+    name: "5 · You sign"
     order: 4
     visible: true
-    file: pages/s2-estandares.yaml
-  - id: s3-auditable
-    name: "3 · Human in the loop"
+    file: pages/p5-you-sign.yaml
+  - id: p6-contracts
+    name: "6 · Contracts"
     order: 5
     visible: true
-    file: pages/s3-auditable.yaml
-  - id: s4-esto-es-gaia
-    name: "4 · This is GAIA"
+    file: pages/p6-contracts.yaml
+  - id: p7-it-checks
+    name: "7 · It checks"
     order: 6
     visible: true
-    file: pages/s4-esto-es-gaia.yaml
-  - id: s5-se-explica
-    name: "5 · It explains itself"
+    file: pages/p7-it-checks.yaml
+  - id: p8-memory
+    name: "8 · Memory"
     order: 7
-    visible: false
-    file: pages/s5-se-explica.yaml
-  # Additive and self-contained: it references no other page, so removing any of
-  # the entries above cannot break it.
-  - id: s-memory
-    name: "Memory"
+    visible: true
+    file: pages/p8-memory.yaml
+  - id: p9-back-to-the-map
+    name: "9 · Install it, ask it"
     order: 8
     visible: true
-    file: pages/s-memory.yaml
+    file: pages/p9-back-to-the-map.yaml
+  - id: backup-code
+    name: "Backup · Down to the code"
+    order: 9
+    visible: true
+    file: pages/backup-code.yaml

@@ -1,0 +1,254 @@
+# Page 6 · POINT 2 · Contracts (STORYBOARD.md, revision 4). Dashboard read
+# top-down: whose contract, what form, what state, who judges.
+#
+# The `memory` chip is deliberately absent: its only honest member here is
+# JUDGE (SubagentStop writes the episode). A contract's `memory_delta` is a
+# proposal any agent may carry, so lighting one contract box would be
+# arbitrary, and a one-member chip lights nothing.
+#
+# State names ride the kicker, not the title: an 18-character token such as
+# NEEDS_VERIFICATION does not fit a one-sixth title cell, and the kicker still
+# keeps the name on the face as the storyboard asks.
+id: p6-contracts
+layout: grid
+form: dashboard
+columns: 6
+
+filters:
+  - key: the-contract
+    label: "one contract, out and back"
+    steps:
+      - "Three agents, three contracts, one form: only the answers change."
+  - key: semantic
+    label: "a model follows instructions"
+    steps:
+      - "Each specialist is a model working from its instructions and skills."
+  - key: deterministic
+    label: "a rule decides"
+    steps:
+      - "The state is a fixed word, and the judge checks the stored contract by rule."
+  - key: next-move
+    label: "what happens next?"
+    steps:
+      - "The state a contract ends in decides the orchestrator's next move."
+  - key: nothing-self-declared
+    label: "is it really done?"
+    steps:
+      - "A contract says how it was checked; a plan task waits for an independent verifier."
+  - key: the-human
+    label: "who decides?"
+    steps:
+      - "A command that changes something comes back to you as an approval to give."
+  - key: the-judge
+    label: "the judge"
+    steps:
+      - "At SubagentStop the stored contract is judged; its state decides the verdict."
+
+sections:
+  - id: p6-thesis
+    treatment: [plain]
+    order: 1
+    span: 6
+    columns: 1
+    children:
+      - id: p6-point
+        order: 1
+        kicker: "POINT 2 · CONTRACTS"
+        title: "One contract per agent"
+        description: ["a form that lets the orchestrator evaluate the response"]
+        detail: "Every agent answers with a contract of its own, on the same form. Gaia reads the form by rule, never the reply."
+        treatment: [centered]
+
+  - id: p6-stack
+    treatment: [envelope]
+    order: 2
+    span: 6
+    columns: 5
+    children:
+      # The rail is its own column section and the six boxes a sibling grid: in
+      # one leaf grid the engine clamps the tracks to max(single cells, widest
+      # span), which folded the authored 5 tracks down to 2.
+      - id: p6-rail-col
+        treatment: [plain]
+        order: 1
+        span: 1
+        columns: 1
+        children:
+          - id: p6-orchestrator
+            type: rail
+            order: 1
+            rowspan: 2
+            treatment: [vertical]
+            title: "ORCHESTRATOR · sends one turn each"
+      - id: p6-rows
+        treatment: [plain]
+        order: 2
+        span: 4
+        columns: 3
+        children:
+          - id: p6-developer
+            order: 1
+            kicker: developer
+            title: "One turn"
+            description: ["writes and tests application code"]
+            detail: "The orchestrator dispatches <b>developer</b> for one turn. The turn is born with its contract already open, named <code>&lt;agent_id&gt;.&lt;token&gt;</code>; the specialist adopts it with <code>gaia contract set/add/fill --draft-id</code> and never creates another."
+            filters: [semantic]
+          - id: p6-developer-contract
+            order: 4
+            kicker: ANSWERS
+            title: "Its own contract"
+            description: ["same form, its own answers"]
+            detail: "For example: the change is written, tests pass, and the contract closes <code>COMPLETE</code> with <code>pending_steps: []</code>, <code>next_action: done</code> and <code>evidence_report.verification.result: pass</code>. <code>gaia contract finalize</code> is the only clean close."
+            filters: [the-contract]
+          - id: p6-gitops
+            order: 2
+            kicker: gitops-operator
+            title: "One turn"
+            description: ["changes the cluster's desired state"]
+            detail: "The orchestrator dispatches <b>gitops-operator</b> for its own turn, with its own contract. Nothing it learns is shared with developer's contract: each turn answers for itself."
+            filters: [semantic]
+          - id: p6-gitops-contract
+            order: 5
+            kicker: ANSWERS
+            title: "Its own contract"
+            description: ["same form, its own answers"]
+            detail: "For example: the manifest is ready but pushing changes something, so the contract closes <code>APPROVAL_REQUEST</code> with <code>approval_request.exact_content</code> and the <code>approval_id</code> the request printed."
+            filters: [the-contract]
+          - id: p6-verifier
+            order: 3
+            kicker: gaia-verifier
+            title: "One turn"
+            description: ["checks another agent's work"]
+            detail: "The orchestrator dispatches <b>gaia-verifier</b> when a plan task's producer closed <code>NEEDS_VERIFICATION</code>. It is bound to that producer's contract through <code>parent_handoff_id</code>."
+            filters: [semantic]
+          - id: p6-verifier-contract
+            order: 6
+            kicker: ANSWERS
+            title: "Its own contract"
+            description: ["same form, its own answers"]
+            detail: "For example: the verifier re-runs the task's check and records the verdict in <code>evidence_report.verification</code> (<code>type</code>, <code>method</code>, <code>result</code>). Same form as the producer's; different answers."
+            filters: [the-contract]
+
+  - id: p6-form
+    title: "THE FORM"
+    subtitle: "the same sections for every agent"
+    treatment: [envelope]
+    order: 3
+    span: 6
+    columns: 6
+    children:
+      - id: p6-status
+        order: 1
+        kicker: STATUS
+        title: "How it ended"
+        description: ["one of six fixed states"]
+        detail: "<code>agent_status.agent_state</code>, <code>agent_status.agent_id</code>, <code>pending_steps</code>, <code>next_action</code>. Any state outside the six is rejected (<code>PLAN_STATUS</code>), and <code>gaia contract finalize</code> refuses <code>IN_PROGRESS</code>."
+        filters: [the-contract, deterministic, next-move, the-judge]
+      - id: p6-evidence
+        order: 2
+        kicker: EVIDENCE
+        title: "Seen and done"
+        description: ["what it read, ran and found"]
+        detail: "<code>evidence_report.files_checked</code>, <code>patterns_checked</code>, <code>commands_run</code>, <code>key_outputs</code>, <code>verbatim_outputs</code>. Written during the turn, not composed at the close."
+        filters: [the-contract]
+      - id: p6-verify
+        order: 3
+        kicker: VERIFY
+        title: "How it checked"
+        description: ["the proof, not the claim"]
+        detail: "<code>evidence_report.verification</code>: <code>type</code>, <code>method</code>, <code>result</code>. <code>COMPLETE</code> needs <code>result: pass</code> (<code>VERIFICATION_RESULT</code>); a declared type must carry its evidence (<code>VERIFICATION_SHAPE</code>)."
+        filters: [the-contract, nothing-self-declared]
+      - id: p6-gaps
+        order: 4
+        kicker: "OPEN GAPS"
+        title: "What stayed open"
+        description: ["what it could not do or check"]
+        detail: "<code>evidence_report.open_gaps</code>. A gap declared gets routed; a gap hidden surfaces later."
+        filters: [the-contract]
+      - id: p6-reach
+        order: 5
+        kicker: REACH
+        title: "What else it touched"
+        description: ["impact beyond its own files"]
+        detail: "<code>evidence_report.cross_layer_impacts</code>: what the change reached outside the file it was sent to, flagged for the agent that owns it."
+        filters: [the-contract]
+      - id: p6-approval
+        order: 6
+        kicker: APPROVAL
+        title: "Asks to run"
+        description: ["the exact command, for your yes"]
+        detail: "<code>approval_request</code>: <code>operation</code>, <code>exact_content</code>, <code>scope</code>, <code>risk_level</code>, <code>rollback</code>, <code>verification</code>, <code>approval_id</code>. Required and non-blank when the state is <code>APPROVAL_REQUEST</code>."
+        filters: [the-contract, the-human]
+
+  - id: p6-state
+    title: "THE STATE"
+    subtitle: "what the orchestrator does next"
+    treatment: [envelope]
+    order: 4
+    span: 6
+    columns: 6
+    children:
+      - id: p6-complete
+        order: 1
+        kicker: COMPLETE
+        title: "Answer you"
+        description: ["the only final state"]
+        detail: "<code>COMPLETE</code> is the one terminal state: <code>pending_steps</code> empty, <code>next_action: done</code>, verification <code>pass</code>. The orchestrator reports the result to you."
+        filters: [next-move]
+      - id: p6-needs-verification
+        order: 2
+        kicker: NEEDS_VERIFICATION
+        title: "Send a verifier"
+        description: ["the producer cannot seal its own work"]
+        detail: "A plan-task-bound turn cannot close itself <code>COMPLETE</code>. The orchestrator dispatches an independent verifier, bound through <code>parent_handoff_id</code>. Who confirms? That is POINT 3."
+        filters: [next-move, nothing-self-declared]
+      - id: p6-approval-request
+        order: 3
+        kicker: APPROVAL_REQUEST
+        title: "Show the command"
+        description: ["you approve or reject it"]
+        detail: "The orchestrator presents the exact command from <code>approval_request.exact_content</code>. Your yes approves that one command; the specialist then retries it byte for byte."
+        filters: [next-move, the-human]
+      - id: p6-needs-input
+        order: 4
+        kicker: NEEDS_INPUT
+        title: "Ask you"
+        description: ["a choice only you can make"]
+        detail: "<code>NEEDS_INPUT</code> names the concrete options. Your answer comes back to the same contract, which is not reset."
+        filters: [next-move]
+      - id: p6-blocked
+        order: 5
+        kicker: BLOCKED
+        title: "Route the obstacle"
+        description: ["to whoever owns it"]
+        detail: "<code>BLOCKED</code> is the costliest close: the orchestrator routes the obstacle to the agent that owns it."
+        filters: [next-move]
+      - id: p6-in-progress
+        order: 6
+        kicker: IN_PROGRESS
+        title: "Keep working"
+        description: ["the turn is not done"]
+        detail: "<code>IN_PROGRESS</code> is not a close: <code>gaia contract finalize</code> refuses it, and the orchestrator resumes the turn."
+        filters: [next-move]
+
+  - id: p6-judge
+    treatment: [plain]
+    order: 5
+    span: 6
+    columns: 2
+    children:
+      # The rule gets its own thin row under JUDGE: beside the box it left the
+      # band's right half with no measurable content (validate Y).
+      - id: p6-judge-box
+        order: 1
+        span: 2
+        kicker: "JUDGE · SubagentStop"
+        title: "Reads the contract"
+        description: ["no valid contract: sent back"]
+        detail: "<b>SubagentStop</b> is the judge. It locates the turn's own stored contract and validates it (<code>_resolve_subagent_stop_gate_full</code>, <code>hooks/adapters/claude_code.py</code>); nothing in the reply text is read. A missing or unfinalized contract sends the turn back with <code>exit 2</code>, and one never finalized stays marked with a <code>cut_reason</code>. A plan-task-bound turn is forced to blind verification. At the same moment SubagentStop writes the turn's episode (<code>subagent_stop.py</code>)."
+        filters: [deterministic, the-judge]
+      - id: p6-never-read
+        type: separator
+        order: 2
+        span: 2
+        text: "the reply text is never read"

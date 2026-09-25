@@ -1,0 +1,250 @@
+# P7 — POINT 3 · It checks (STORYBOARD.md rev 4, "Page 7").
+# Form: flow. Five stacked bands, each a sections-only or components-only grid
+# so no level mixes leaves with sub-sections:
+#   1. p7-point   — the POINT 3 rail.
+#   2. recorrido  — five phase-sections (IDEA → BRIEF → PLAN → TASKS → AGENTS),
+#                   each a centered header box plus one content box.
+#   3. contract-row — a 5-track leaf grid under the phases: one captioned
+#                   absence under each of the first three phases, then CARRIES
+#                   and RETURNS: the contract appears only where a specialist
+#                   is sent.
+#   4. management — the layer rail and CROSS-CHECK · PASSES ON · CHECKS.
+#   5. p7-caveat  — the enforced-caveat separator, in its own band so the
+#                   2-track tier cannot strand a hole before it. A separator
+#                   carries no detail, so the "not enforced" half lives in
+#                   CROSS-CHECK's detail.
+id: p7-it-checks
+layout: grid
+form: flow
+columns: 1
+
+filters:
+  - key: one-task
+    label: "one task"
+    steps:
+      - "One piece of work, followed from start to finish: an idea becomes a brief, the brief a plan, the plan tasks, and each task goes to a specialist."
+  - key: the-contract
+    label: "one contract, out and back"
+    steps:
+      - "The contract goes out blank with the specialist and comes back answered, and what it records is passed on to the next step."
+  - key: semantic
+    label: "a model follows instructions"
+    steps:
+      - "Planning, doing the work and cross-checking it are done by models following written instructions."
+  - key: deterministic
+    label: "a rule decides"
+    steps:
+      - "Where a check must not depend on a model, a rule in code decides: the same answer every time."
+  - key: nothing-self-declared
+    label: "is it really done?"
+    steps:
+      - "The specialist returns its answer, but a separate verifier confirms the task before it counts as done."
+  - key: the-human
+    label: "who decides?"
+    steps:
+      - "You start it with your idea, and you give your yes to each change before it runs."
+  - key: memory
+    label: "what do we remember?"
+    steps:
+      - "The brief and what each step produces are stored, so the work survives the session."
+
+sections:
+  - id: p7-point
+    treatment: [plain]
+    order: 1
+    span: 1
+    columns: 1
+    children:
+      - id: p7-rail-point
+        type: rail
+        title: "POINT 3 · IT CHECKS BEFORE TELLING YOU"
+
+  - id: recorrido
+    treatment: [plain]
+    order: 2
+    span: 1
+    columns: 5
+    children:
+      - id: p7-ph-idea
+        order: 1
+        span: 1
+        columns: 1
+        children:
+          - id: p7-h-idea
+            order: 1
+            kicker: "1 OF 5"
+            title: "The idea"
+            description: ["where every request starts"]
+            treatment: [centered]
+            filters: [one-task]
+          - id: p7-idea
+            order: 2
+            kicker: "YOU"
+            title: "A thought"
+            description: ["said in your own words"]
+            detail: "You say what you want in plain words, talking to the orchestrator. Nothing is stored yet: it is one request."
+            filters: [the-human]
+
+      - id: p7-ph-brief
+        order: 2
+        span: 1
+        columns: 1
+        children:
+          - id: p7-h-brief
+            order: 1
+            kicker: "2 OF 5"
+            title: "The brief"
+            description: ["the idea made to last"]
+            treatment: [centered]
+            filters: [one-task]
+          - id: r-brief
+            order: 2
+            kicker: "gaia brief"
+            title: "The idea, written down"
+            description: ["with criteria for done"]
+            detail: "The idea is written down as a <b>brief</b> stored in Gaia's database, with acceptance criteria that say what done looks like. It persists outside the session.<br>CLI: <code>gaia brief new</code> · <code>gaia brief ac</code> (add a criterion) · <code>gaia brief show</code>."
+            filters: [memory]
+
+      - id: p7-ph-plan
+        order: 3
+        span: 1
+        columns: 1
+        children:
+          - id: p7-h-plan
+            order: 1
+            kicker: "3 OF 5"
+            title: "The plan"
+            description: ["the brief broken down"]
+            treatment: [centered]
+            filters: [one-task]
+          - id: r-plan
+            order: 2
+            kicker: "gaia plan"
+            title: "Steps to get there"
+            description: ["one plan per brief"]
+            detail: "The brief is explored and a <b>plan</b> is saved against it: one plan per brief.<br>CLI: <code>gaia plan save</code> · <code>gaia plan show</code> · <code>gaia plan set-status</code>; later edits go through <code>gaia plan change</code>."
+
+      - id: p7-ph-tasks
+        order: 4
+        span: 1
+        columns: 1
+        children:
+          - id: p7-h-tasks
+            order: 1
+            kicker: "4 OF 5"
+            title: "The tasks"
+            description: ["the plan made checkable"]
+            treatment: [centered]
+            filters: [one-task]
+          - id: r-tareas
+            order: 2
+            kicker: "PLANNER"
+            title: "Tasks with gates"
+            description: ["each task has a gate"]
+            detail: "The planner (<code>gaia-planner</code>, a specialist following written instructions) breaks the plan into <b>tasks</b>. Each task carries a <b>gate</b>: the pass/fail check that says the task is done. Stored as plan tasks and <code>task_gates</code> (<code>schema.sql:442-700</code>)."
+            filters: [semantic]
+
+      - id: p7-ph-agents
+        order: 5
+        span: 1
+        columns: 1
+        children:
+          - id: p7-h-agents
+            order: 1
+            kicker: "5 OF 5"
+            title: "The agents"
+            description: ["the tasks put to work"]
+            treatment: [centered]
+            filters: [one-task]
+          - id: p7-execute
+            order: 2
+            kicker: "EXECUTE"
+            title: "One specialist each"
+            description: ["a specialist per task"]
+            detail: "The orchestrator sends one specialist per task. The turn is bound to its task (<code>--plan-task-id</code>, <code>dispatch_binding.py</code>), so the specialist works on that task and nothing else."
+            filters: [semantic]
+
+  - id: contract-row
+    treatment: [plain]
+    order: 3
+    span: 1
+    columns: 5
+    children:
+      # One captioned absence per phase, not one span-3 rule: the engine clamps a
+      # leaf grid to max(single cells, widest span), and a span-3 rule beside two
+      # boxes folded the 5 tracks to 3, pulling CARRIES and RETURNS off their
+      # phases.
+      - id: p7-no-contract
+        type: separator
+        order: 1
+        style: dotted
+        text: "no contract yet"
+      - id: p7-no-contract-brief
+        type: separator
+        order: 2
+        style: dotted
+        text: "no contract yet"
+      - id: p7-no-contract-plan
+        type: separator
+        order: 3
+        style: dotted
+        text: "no contract yet"
+      - id: p7-carries
+        order: 4
+        kicker: "CARRIES"
+        title: "A blank contract"
+        description: ["sent with each task"]
+        detail: "Each specialist is born with a <b>contract</b> already created for its turn: the goal, and what it may read and write. It fills the contract in as it works (<code>gaia contract set</code> · <code>add</code> · <code>fill</code>)."
+        filters: [the-contract]
+      - id: p7-returns
+        order: 5
+        kicker: "RETURNS"
+        title: "The answered contract"
+        description: ["filled in and stored"]
+        detail: "The specialist closes by declaring one of six states; only <code>COMPLETE</code> is final (<code>validator.py:908</code>). <code>SubagentStop</code> reads only the stored contract, never the reply text; a missing or unfinalized contract sends the turn back (<code>claude_code.py:905-907</code>). A turn bound to a task cannot mark itself <code>COMPLETE</code>: it returns <code>NEEDS_VERIFICATION</code>."
+        filters: [the-contract, nothing-self-declared]
+
+  - id: management
+    treatment: [plain]
+    order: 4
+    span: 1
+    columns: 3
+    children:
+      - id: p7-rail-mgmt
+        type: rail
+        order: 1
+        span: 3
+        title: "THE MANAGEMENT LAYER"
+      - id: ley-verif
+        order: 2
+        kicker: "CROSS-CHECK"
+        title: "A separate verifier"
+        description: ["confirms the task was done"]
+        detail: "<code>gaia-verifier</code>, a separate specialist, judges the task against its gate and the evidence and returns its verdict.<br><b>Enforced:</b> a turn bound to a plan task cannot seal itself <code>COMPLETE</code> (<code>_blind_verification_required</code>); it closes <code>NEEDS_VERIFICATION</code> for an independent verifier.<br><b>Not enforced:</b> who records a gate's pass or fail. No rule in code checks that; it rests on the instructions the verifier follows."
+        variant: accent
+        filters: [semantic, nothing-self-declared]
+      - id: p7-passes-on
+        order: 3
+        kicker: "PASSES ON"
+        title: "Each step's output"
+        description: ["contract → task → gate → evidence"]
+        detail: "What one step produces is stored and read by the next: the contract names its task, the task its gate, the gate the evidence behind its result. It is kept in Gaia's database (<code>schema.sql:442-700</code>), so it survives the session. What is kept is POINT 5, memory."
+        filters: [the-contract, deterministic, memory]
+      - id: r-gates
+        order: 4
+        kicker: "CHECKS"
+        title: "Only where needed"
+        description: ["a gate per task, your yes per change"]
+        detail: "Checks sit where they matter, not everywhere: a <b>gate</b> per task decides done, and a hook asks for your yes before each command that changes something (T3). Read-only commands run without asking; the tier comes from a fixed classifier, with no model involved (<code>tiers.py:78</code>, <code>_classify_command_tier_cached</code>)."
+        filters: [deterministic, the-human]
+
+  - id: p7-caveat
+    treatment: [plain]
+    order: 5
+    span: 1
+    columns: 1
+    children:
+      - id: p7-enforced
+        type: separator
+        order: 1
+        text: "enforced: a specialist can't mark its own planned work done"

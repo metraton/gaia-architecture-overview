@@ -1,0 +1,259 @@
+# Page 3 · Who's who — the zoom into the map's GAIA and SPECIALIST boxes.
+# Form: comparison. The two groups share one shape (header rail, a 2x2 of
+# boxes, one full-width closing box), so their last row lines up: NEVER beside
+# RETURNS is the difference the page teaches. YOU and WHAT GAIA ADDS are boxes,
+# not rails, because each carries a chip and a rail cannot.
+id: p3-whos-who
+layout: grid
+form: comparison
+columns: 2
+
+filters:
+  - key: one-turn
+    label: "one turn"
+    steps:
+      - "The orchestrator holds the plan and calls Gaia's own CLI; a specialist lives one turn, from its dispatch to its close, and that turn ends with a contract."
+  - key: the-contract
+    label: "one contract, out and back"
+    steps:
+      - "A specialist goes out with a task and comes back with a contract; gaia-verifier checks the work of a task against it."
+  - key: the-human
+    label: "who decides?"
+    steps:
+      - "You ask, and you decide what changes. The orchestrator cannot edit your files, so every change goes through a specialist and, when it changes something real, through your approval."
+  - key: memory
+    label: "what do we remember?"
+    steps:
+      - "The orchestrator reads memory and curates it, and memory that outlives the session is one of the things Gaia adds to Claude Code."
+  - key: deterministic
+    label: "a rule decides"
+    steps:
+      - "Two of the orchestrator's limits are decided by rule in code, not by a model: it holds no editing tools, and its only commands are Gaia's own CLI."
+  - key: semantic
+    label: "a model follows instructions"
+    steps:
+      - "A specialist's turn is a model at work, following the skills it loads for that kind of work."
+  - key: nothing-self-declared
+    label: "is it really done?"
+    steps:
+      - "A specialist does not say it is done: its contract is read, and gaia-verifier checks the work of a planned task."
+  - key: changes-things
+    label: "who changes things?"
+    steps:
+      - "Four specialists change things in your systems: application code, infrastructure code, the cluster's desired state, and live cloud diagnosis."
+  - key: plans-and-checks
+    label: "who plans and checks?"
+    steps:
+      - "gaia-planner turns a brief into a plan of tasks; gaia-verifier checks each task's work, and is never the one that did it."
+  - key: looks-after-gaia
+    label: "who looks after Gaia?"
+    steps:
+      - "Two specialists work on Gaia itself: gaia-operator runs its day-to-day operations, gaia-system changes its own code."
+
+sections:
+  - id: zoom
+    treatment: [plain]
+    order: 1
+    span: 2
+    columns: 1
+    children:
+      - id: zoom-rail
+        type: rail
+        treatment: [centered]
+        title: "ZOOM · GAIA AND THE SPECIALISTS"
+
+  - id: you
+    treatment: [plain]
+    order: 2
+    span: 2
+    columns: 1
+    children:
+      - id: you-box
+        kicker: "YOU"
+        title: "Ask in your words"
+        description: ["one request in plain language, to the orchestrator only"]
+        detail: "A <b>request</b> is one prompt, in your own words. You talk only to the orchestrator: specialists never speak to you directly, and anything they need from you comes back through it."
+        filters: [the-human]
+
+  - id: orchestrator
+    treatment: [envelope]
+    order: 3
+    span: 1
+    columns: 2
+    children:
+      - id: orch-rail
+        type: rail
+        order: 1
+        span: 2
+        title: "ORCHESTRATOR · one per session"
+      - id: orch-conversation
+        order: 2
+        kicker: "HOLDS"
+        title: "The conversation"
+        description: ["you talk only to it"]
+        detail: "The orchestrator is the only agent that keeps the thread from your request to the answer. It decides the route, shows it to you before starting, and tells you the result from what the specialists delivered."
+      - id: orch-memory
+        order: 3
+        kicker: "HOLDS"
+        title: "Curated memory"
+        description: ["reads it, and curates it"]
+        detail: "It reads curated memory at the start of the session and writes it on purpose. Only the orchestrator and gaia-operator write curated memory; the rule is <code>subagent_memory_write_guard</code>. Episodes, the automatic trace of each turn, are written at the turn's close by the SubagentStop hook."
+        filters: [memory]
+      - id: orch-plan
+        order: 4
+        kicker: "HOLDS"
+        title: "The plan"
+        description: ["briefs, plans, tasks"]
+        detail: "It writes the <b>brief</b> and moves briefs, plans and tasks from one status to the next (<code>gaia brief new|edit</code>, <code>set-status</code>). Breaking a plan into tasks belongs to gaia-planner, and closing a task after its check belongs to gaia-verifier."
+        filters: [one-turn]
+      - id: orch-cli
+        order: 5
+        kicker: "RUNS"
+        title: "Gaia's own CLI"
+        description: ["its only commands"]
+        detail: "Its commands are <code>gaia</code> verbs: <code>memory</code>, <code>contract view|list</code>, <code>brief</code>, <code>approvals list|show</code>, <code>context</code>. It can see the approvals waiting for you; it can never approve one."
+        filters: [one-turn, deterministic]
+      - id: orch-never
+        order: 6
+        span: 2
+        kicker: "NEVER"
+        title: "Edits your files"
+        description: ["no editing tools, by design"]
+        detail: "Before any tool runs, the PreToolUse hook asks whether the orchestrator may hold it at all (<code>check_delegate_mode</code> against <code>ORCHESTRATOR_ALLOWED_TOOLS</code>). Editing is not in that set, so every change is handed to a specialist. A rule in code decides this, not the model."
+        filters: [deterministic, the-human]
+
+  - id: specialist
+    treatment: [envelope]
+    order: 4
+    span: 1
+    columns: 2
+    children:
+      - id: spec-rail
+        type: rail
+        order: 1
+        span: 2
+        title: "SPECIALIST · one per piece of work"
+      - id: spec-turn
+        order: 2
+        kicker: "LIVES"
+        title: "One turn"
+        description: ["born for this piece of work"]
+        detail: "A <b>turn</b> is one specialist's life, from dispatch to close. It is born clean at the dispatch, with the project context it may read, owns one task, and ends in one of six states; only COMPLETE is final."
+        filters: [one-turn, semantic]
+      - id: spec-field
+        order: 3
+        kicker: "WORKS ON"
+        title: "Its own field"
+        description: ["code, cloud, a cluster, a live system"]
+        detail: "Each specialist owns one surface: application code, infrastructure code, the cluster's desired state, live cloud state, or Gaia itself. The request is routed to the one that owns it (<code>surface_routing</code>)."
+      - id: spec-skills
+        order: 4
+        kicker: "LOADS"
+        title: "Its skills"
+        description: ["how the work is done"]
+        detail: "A <b>skill</b> is written instructions an agent loads. Claude Code injects a specialist's skills from its own definition file; Gaia reminds it when a file it touches is governed by one, and checks afterwards that it was loaded."
+        filters: [semantic]
+      - id: spec-copy
+        order: 5
+        kicker: "WORKS IN"
+        title: "Its own copy"
+        description: ["of your repo, apart from yours"]
+        detail: "A specialist that writes to a repository works in its own copy of it, a <code>git worktree</code> created with <code>gaia worktree create</code> on its own branch, so two turns never share one working tree."
+      - id: spec-contract
+        order: 6
+        span: 2
+        kicker: "RETURNS"
+        title: "A contract"
+        description: ["a form the orchestrator reads"]
+        detail: "The <b>contract</b> says what was asked, what was found, what changed, with what evidence, and the state it ends in. The SubagentStop hook reads only the stored contract, never the reply text; a missing or unfinished contract sends the turn back (<code>exit 2</code>)."
+        filters: [one-turn, the-contract, nothing-self-declared]
+
+  - id: agents
+    title: "Agents"
+    subtitle: "9 agents: the orchestrator and 8 specialists"
+    treatment: [envelope]
+    order: 5
+    span: 2
+    columns: 5
+    children:
+      # Two rows of five tracks, so every full agent name fits its kicker (nine
+      # tracks broke cloud-troubleshooter mid-word). The orchestrator takes two
+      # tracks: it is the one agent you talk to.
+      - id: ag-orchestrator
+        order: 1
+        span: 2
+        kicker: "orchestrator"
+        title: "Talks with you"
+        description: ["routes, then tells you"]
+        detail: "<code>orchestrator</code>: the one agent you talk to. It holds the conversation and hands every change to a specialist."
+      - id: ag-operator
+        order: 2
+        kicker: "gaia-operator"
+        title: "Runs Gaia"
+        description: ["memory, schedules"]
+        detail: "<code>gaia-operator</code>: Gaia's day-to-day operations, such as curated memory and scheduled tasks (<code>gaia schedule register|sync</code>)."
+        filters: [looks-after-gaia]
+      - id: ag-planner
+        order: 3
+        kicker: "gaia-planner"
+        title: "Plans the work"
+        description: ["brief into tasks"]
+        detail: "<code>gaia-planner</code>: turns a brief into a plan of tasks, each with its gate (<code>plan save</code>, <code>task add</code>)."
+        filters: [plans-and-checks]
+      - id: ag-developer
+        order: 4
+        kicker: "developer"
+        title: "App code"
+        description: ["writes and tests it"]
+        detail: "<code>developer</code>: application code, its build and its tests."
+        filters: [changes-things]
+      - id: ag-platform
+        order: 5
+        kicker: "platform-architect"
+        title: "Infra code"
+        description: ["cloud as code"]
+        detail: "<code>platform-architect</code>: infrastructure as code, such as Terraform."
+        filters: [changes-things]
+      - id: ag-gitops
+        order: 6
+        kicker: "gitops-operator"
+        title: "Cluster config"
+        description: ["desired state"]
+        detail: "<code>gitops-operator</code>: the desired state of Kubernetes, its manifests and Flux configuration."
+        filters: [changes-things]
+      - id: ag-cloud
+        order: 7
+        kicker: "cloud-troubleshooter"
+        title: "Live systems"
+        description: ["diagnoses live state"]
+        detail: "<code>cloud-troubleshooter</code>: diagnoses live cloud state and its drift from the desired state."
+        filters: [changes-things]
+      - id: ag-system
+        order: 8
+        kicker: "gaia-system"
+        title: "Gaia's code"
+        description: ["agents, skills, hooks"]
+        detail: "<code>gaia-system</code>: changes Gaia itself, its agents, skills, hooks and CLI."
+        filters: [looks-after-gaia]
+      - id: ag-verifier
+        order: 9
+        kicker: "gaia-verifier"
+        title: "Checks the work"
+        description: ["never its own"]
+        detail: "<code>gaia-verifier</code>: checks a planned task's work against its gate. The check is bound to the task, not the role, so whoever did the work cannot close it."
+        filters: [plans-and-checks, the-contract, nothing-self-declared]
+
+  - id: adds
+    treatment: [plain]
+    order: 6
+    span: 2
+    columns: 1
+    children:
+      - id: adds-box
+        kicker: "WHAT GAIA ADDS"
+        title: "On Claude Code"
+        description:
+          - "a plugin on its hooks, subagents and skills"
+          - "+ a database, contracts, approvals that show the exact command, and memory that outlives the session"
+        detail: "Gaia is a Claude Code plugin: it registers 12 hook events and ships its agents and skills through Claude Code's own subagents and skills. On top it adds a database (<code>gaia.db</code>), contracts, approvals that show you the exact command before it runs, and memory that outlives the session."
+        filters: [memory]

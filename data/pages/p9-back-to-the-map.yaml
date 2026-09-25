@@ -1,0 +1,156 @@
+# Page 9 folds page 2's map into one row: the map boxes keep page 2's actor
+# names as titles, so the deck ends on the same five words it opened with.
+id: p9-back-to-the-map
+layout: grid
+form: comparison
+columns: 1
+
+filters:
+  - key: the-human
+    label: "who decides?"
+    steps:
+      - "You sign what changes something, and on one machine you said yes 583 times and no 52 times."
+  - key: nothing-self-declared
+    label: "is it really done?"
+    steps:
+      - "A specialist answers with a contract and gets checked; every change it asked for waited for your yes or no."
+  - key: memory
+    label: "what do we remember?"
+    steps:
+      - "Gaia reads and writes memory, so what it learns outlives the session."
+  - key: deterministic
+    label: "a rule decides"
+    steps:
+      - "Your signature is enforced by a hook, by rule, and the same rule is why most commands run without asking: 94% only read."
+  - key: semantic
+    label: "a model follows instructions"
+    steps:
+      - "Gaia and the specialists are models following written instructions: skills and agents."
+
+sections:
+  - id: p9-thesis
+    treatment: [plain]
+    order: 1
+    span: 1
+    columns: 1
+    children:
+      - id: p9-rail
+        type: rail
+        order: 1
+        title: "BACK TO THE MAP"
+      - id: p9-thesis-box
+        order: 2
+        kicker: "WHAT GAIA IS"
+        title: "Gaia converses with you and coordinates the work, but never makes the changes itself."
+        description: ["hands them to specialists, checks what they deliver, tells you"]
+        detail: "The orchestrator's own answer, the same words as page 2: <i>Gaia converses with you and coordinates the work, but never makes the changes itself. It hands them to specialists, checks what they deliver, and tells you the result. Anything that changes something real needs your signature.</i>"
+        variant: accent
+        treatment: [centered]
+
+  - id: p9-map
+    treatment: [plain]
+    order: 2
+    span: 1
+    columns: 5
+    children:
+      - id: p9-you
+        order: 1
+        kicker: "→ PAGE 5"
+        title: "YOU"
+        description: ["you sign what changes something"]
+        detail: "Page 5 · You sign. Anything that changes something real needs your approval, your yes to one exact command, and a hook checks it by rule before anything runs."
+        treatment: [centered]
+        filters: [the-human, deterministic]
+      - id: p9-gaia
+        order: 2
+        kicker: "→ PAGE 4"
+        title: "GAIA"
+        description: ["holds the conversation, never edits"]
+        detail: "Page 4 · The life of a request. Gaia is the one agent you talk to: it holds the conversation, hands the work to a specialist, and reads memory to remember what came before."
+        treatment: [centered]
+        filters: [memory, semantic]
+      - id: p9-specialist
+        order: 3
+        kicker: "→ PAGES 6, 7"
+        title: "SPECIALIST"
+        description: ["answers with a contract, then gets checked"]
+        detail: "Page 6 · Contracts: every specialist answers with its own contract. Page 7 · It checks: Gaia checks what the contract claims before telling you."
+        treatment: [centered]
+        filters: [nothing-self-declared, semantic]
+      - id: p9-memory
+        order: 4
+        kicker: "→ PAGE 8"
+        title: "MEMORY"
+        description: ["two kinds, outlives the session"]
+        detail: "Page 8 · Memory: episodes, the automatic trace of each turn, and curated memory, what Gaia writes on purpose and reads back later."
+        treatment: [centered]
+        filters: [memory]
+      - id: p9-systems
+        order: 5
+        kicker: "→ PAGE 5"
+        title: "YOUR SYSTEMS"
+        description: ["changed only after your yes"]
+        detail: "The specialist acts on your systems, and anything that changes them waits for your approval first (page 5)."
+        treatment: [centered]
+
+  - id: p9-numbers
+    title: "On my machine"
+    treatment: [envelope]
+    order: 3
+    span: 1
+    columns: 2
+    children:
+      - id: p9-approvals
+        order: 1
+        kicker: "gaia approvals stats"
+        title: "583 yes · 52 no · 218 expired"
+        description: ["you said yes or no"]
+        detail: "From <code>gaia approvals stats</code> on one machine: 583 approvals granted, 52 rejected, 218 left to expire unanswered. Turn counts are left out: before rc.3 the hooks were registered twice, which inflated them."
+        filters: [the-human, nothing-self-declared]
+      - id: p9-readonly
+        order: 2
+        kicker: "gaia metrics"
+        title: "94% read-only"
+        description: ["most commands only read"]
+        detail: "From <code>gaia metrics</code> on one machine: 423 of 450 commands were T0, read-only, 94.0%. A fixed rule classified each one; only changes asked for your approval."
+        filters: [deterministic]
+
+  - id: p9-install
+    title: "Install it, ask it"
+    subtitle: "Claude Code · OpenCode is the second host"
+    treatment: [envelope]
+    order: 4
+    span: 1
+    columns: 2
+    children:
+      - id: p9-step-marketplace
+        order: 1
+        kicker: "INSTALL · STEP 1 OF 3"
+        title: "Add the marketplace"
+        description: ["/plugin marketplace add metraton/gaia"]
+        detail: "In Claude Code, run <code>/plugin marketplace add metraton/gaia</code>. The gaia-marketplace becomes available to install from."
+      - id: p9-step-install
+        order: 2
+        kicker: "INSTALL · STEP 2 OF 3"
+        title: "Install the plugin"
+        description: ["/plugin install gaia@gaia-marketplace"]
+        detail: "Run <code>/plugin install gaia@gaia-marketplace</code>. rc.3 is released, and main's README says the plugin install alone is enough: no npm step. OpenCode is the second host."
+      - id: p9-first-prompt
+        order: 3
+        kicker: "FIRST PROMPT · STEP 3 OF 3"
+        title: "what is Gaia, and what can you do for me?"
+        description: ["Gaia explains itself, live"]
+        detail: "The first thing to ask: <i>what is Gaia, and what can you do for me?</i> Gaia explains itself live, and its answer is the map this deck opened with."
+        variant: accent
+        treatment: [centered]
+        span: 2
+
+  - id: p9-close
+    treatment: [plain]
+    order: 5
+    span: 1
+    columns: 1
+    children:
+      - id: p9-halves
+        type: separator
+        text: "hooks decide by rule · skills and agents follow · CLI joins"

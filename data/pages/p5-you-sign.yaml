@@ -1,0 +1,111 @@
+# Page 5 · POINT 4 · You sign (STORYBOARD.md revision 4).
+# Flow, left to right: one path in (YOU, AN AGENT), one rule (the tall centered
+# PreToolUse box), three ways out stacked in rising risk, and a base band for
+# the approval chain. rowspan renders only in a components-only grid, so the
+# rail, the three tall boxes and the stack share one leaf grid of 4 columns.
+id: p5-you-sign
+layout: grid
+form: flow
+columns: 1
+
+filters:
+  - key: one-command
+    label: "one command"
+    steps:
+      - "One command from your request to its outcome: you ask, an agent wants it, the hook sorts it, one of three things happens."
+  - key: deterministic
+    label: "a rule decides"
+    steps:
+      - "The hook and its three outcomes are decided by a rule in code: the same answer every time, no model involved."
+  - key: the-human
+    label: "who decides?"
+    steps:
+      - "You decide twice: when you ask, and when a command would change something."
+  - key: memory
+    label: "what do we remember?"
+    steps:
+      - "Your yes or no is kept, in the approval chain."
+  - key: nothing-self-declared
+    label: "is it really done?"
+    steps:
+      - "Nothing is taken on an agent's word: the hook sorts the command, and the chain records what really ran."
+
+sections:
+  - id: p5-flow
+    treatment: [plain]
+    order: 1
+    span: 1
+    columns: 4
+    children:
+      - id: p5-rail
+        type: rail
+        order: 1
+        span: 4
+        title: "POINT 4 · YOU SIGN · A HOOK DECIDES, BY RULE, BEFORE ANYTHING RUNS"
+
+      - id: p5-you
+        order: 2
+        rowspan: 3
+        kicker: "1 · YOU"
+        title: "Ask for something"
+        description: ["in your own words, one request"]
+        detail: "Your request is one prompt, in your own words. After that you are asked again only when a command would change something, and then you see the exact command before you answer."
+        filters: [one-command, the-human]
+
+      - id: p5-agent
+        order: 3
+        rowspan: 3
+        kicker: "2 · AN AGENT"
+        title: "Wants a command"
+        description: ["to do the work you asked for"]
+        detail: "The orchestrator or a specialist, working on your request, reaches for a command. The agent is the only part of this page run by a model; everything after it is decided by a rule."
+        filters: [one-command]
+
+      - id: p5-pretooluse
+        order: 4
+        rowspan: 3
+        treatment: [centered]
+        kicker: "3 · PreToolUse"
+        title: "Sorts it"
+        description: ["a rule, in code", "same answer every time", "no model involved"]
+        detail: "PreToolUse is the hook the host runs before every tool call. It hands each command to a fixed classifier that gives it a tier: <b>T0</b> read, <b>T1</b> validate, <b>T2</b> dry run, <b>T3</b> change. The classifier matches patterns and verbs in code; no model is consulted. Before that, a separate fixed pattern check holds the never list.<br><br>Sources: <code>hooks/modules/security/tiers.py:29-35</code> (<code>SecurityTier</code>), <code>:78</code> (<code>_classify_command_tier_cached</code>); <code>hooks/modules/security/blocked_commands.py:678</code> (<code>is_blocked_command</code>)."
+        filters: [one-command, deterministic, nothing-self-declared]
+
+      - id: p5-read-only
+        order: 5
+        kicker: "READ-ONLY"
+        title: "Runs right away"
+        description: ["nobody is asked"]
+        detail: "Tiers <b>T0</b> read, <b>T1</b> validate and <b>T2</b> dry run change nothing, so the command runs and nobody is asked.<br><br>Source: <code>hooks/modules/security/tiers.py:29-35</code> (<code>SecurityTier</code>)."
+        filters: [one-command, deterministic]
+
+      - id: p5-changes
+        order: 6
+        kicker: "CHANGES SOMETHING"
+        title: "Waits for your yes"
+        description: ["you see the exact command"]
+        detail: "A <b>T3</b> command, one that changes something, is stopped and you are asked. The dialog shows what is about to run (<code>operation</code>), its exact bytes (<code>exact_content</code>), and its <code>scope</code>, <code>risk_level</code> and <code>rollback_hint</code>. You approve, and it runs; you reject, and nothing happens.<br><br>An approval is single-use: the command must match what you approved byte for byte, and the window is 30 minutes.<br><br>Sources: <code>approval_grants.py:193</code>, <code>:523</code>; <code>writer.py:86</code>."
+        filters: [one-command, deterministic, the-human, memory]
+
+      - id: p5-never
+        order: 7
+        variant: bad
+        kicker: "NEVER"
+        title: "Always refused"
+        description: ["the never list: irreversible commands"]
+        detail: "Irreversible commands are on the never list, a separate fixed pattern check. Its refusal has nothing to approve: no dialog, and no approval can let the command through.<br><br>Source: <code>hooks/modules/security/blocked_commands.py:678</code> (<code>is_blocked_command</code>)."
+        filters: [one-command, deterministic]
+
+  - id: p5-chain
+    treatment: [plain]
+    order: 2
+    span: 1
+    columns: 1
+    children:
+      - id: p5-approval-chain
+        order: 1
+        kicker: "KEEPS"
+        title: "The approval chain"
+        description: ["every decision is kept"]
+        detail: "Every step of an approval is appended to a hash chain that nobody rewrites: asked (<code>REQUESTED</code>), shown (<code>SHOWN</code>), your answer (<code>APPROVED</code> or rejected), and what really happened (<code>EXECUTED</code> or <code>FAILED</code>).<br><br>Source: <code>schema.sql:1578-1600</code>. What else each turn leaves is its contract: page 6, POINT 2."
+        filters: [memory, nothing-self-declared]
