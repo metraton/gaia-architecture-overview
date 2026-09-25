@@ -41,15 +41,33 @@ assets/
 │                         the STRICT SCHEMA — unknown fields are a loud build
 │                         error (with a did-you-mean suggestion), never a no-op
 ├── tools/
-│   ├── validate-layout.cjs  the LAYOUT GUARDRAIL — renders every page at five
-│   │                        widths (5 reloads each) and asserts the FORM-SCOPED
-│   │                        invariant table (INTEGRITY D/R/T/C/O/F/S/B/H ·
-│   │                        DESIGN U/E/P/L/M/Y · advisory V · retired W) against
-│   │                        the real geometry; PASS/FAIL, exit≠0; PURE-READ
-│   │                        (build first); shots to a system temp dir
-│   └── verify.mjs        lighter render QA (root grid renders, no top-level cell
-│                         collisions, screenshots widths × themes)
-├── package.json          build / validate / verify scripts + js-yaml + playwright devDeps
+│   ├── check-layout.mjs     the MANDATORY layout gate — static, arithmetic,
+│   │                        no browser (js-yaml only): proves the grid
+│   │                        rectangle CLOSES (RECT/HOLE/TRACK/ROW/LANE/BAND/
+│   │                        TIER/CHIP/ORDER/TEXT) for every page at all five
+│   │                        container tiers; PASS/FAIL, exit≠0; runs anywhere
+│   │                        Gaia is installed, including with no browser
+│   ├── validate-layout.cjs  OPTIONAL REINFORCEMENT — renders every page at
+│   │                        five widths (5 reloads each) in Chromium and
+│   │                        asserts what genuinely needs PIXELS (INTEGRITY
+│   │                        D/R/T/C/O/F/S/B/H · DESIGN U/E/P/L/M/Y ·
+│   │                        advisory V · retired W); PASS/FAIL, exit≠0;
+│   │                        PURE-READ (build first); shots to a system temp
+│   │                        dir; skips cleanly where no browser exists
+│   ├── verify.mjs        lighter render QA (root grid renders, no top-level cell
+│   │                     collisions, screenshots widths × themes)
+│   ├── contrast-audit.cjs  the WCAG 2.1 contrast guardrail for the swappable
+│   │                       palettes — parses the token blocks straight out of
+│   │                       index.html (single source of truth) and checks
+│   │                       every real foreground/background pair against the
+│   │                       AA thresholds; PASS/FAIL per non-neutral palette,
+│   │                       `neutral` itself is measured and reported, not gated
+│   └── test-guards.mjs   permanent NEGATIVE-test suite — fabricates broken
+│                         decks in a system temp dir and asserts check-layout.mjs
+│                         / build-data.mjs / validate-layout.cjs actually FAIL
+│                         on each defect, proving the guards detect what they claim
+├── package.json          build / check / validate / test / contrast / verify
+│                         scripts + js-yaml + playwright devDeps
 └── data/                 ── the only part you edit ──
     ├── document.yaml     manifest: title/subtitle/version + which pages, in order
     ├── pages/overview.yaml   one starter page: two inline sections side by side
@@ -64,11 +82,18 @@ assets/
   `data/data.generated.js` means it renders with no tooling.
 - **Author:** edit the YAML under `data/`, then `npm install` once and
   `npm run build` to regenerate `data/data.generated.js` (the build also
-  enforces the strict field schema). Then `npm run validate` — the layout
-  guardrail; it is decoupled from build (pure-read: it asserts the EXISTING
-  generated data, so build first). `npm run verify` is the lighter headless QA.
-  All screenshots go to a **system temp dir** (`os.tmpdir()`, override with
-  `DIAGRAM_SHOTS_DIR`), not into the project — the repo stays clean.
+  enforces the strict field schema). Then `npm run check` — the MANDATORY
+  gate; static and arithmetic, no browser, so it runs anywhere Gaia is
+  installed. `npm run validate` is optional reinforcement: it renders every
+  page in Chromium to assert what genuinely needs pixels (legibility, word
+  fit, real geometry) — it is decoupled from build (pure-read: it asserts the
+  EXISTING generated data, so build first) and skips cleanly where no browser
+  exists. `npm run verify` is the lighter headless QA. `npm run contrast`
+  audits every palette's token pairs against WCAG 2.1 AA. `npm test` runs the
+  permanent negative-test suite that proves the guards above actually fail on
+  a broken deck, not just that they run. All screenshots go to a **system
+  temp dir** (`os.tmpdir()`, override with `DIAGRAM_SHOTS_DIR`), not into the
+  project — the repo stays clean.
 - **The dialect** (every field + the `status`/`variant` enums) is documented in
   the diagram-builder skill: `../GLOSSARY.md` and `../reference.md`.
 - **`document.yaml`'s optional `version`** renders in the header — bump it on a
