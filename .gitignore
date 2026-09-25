@@ -9,6 +9,9 @@ node_modules/
 # Scratch/diagnostic scripts — not part of the deck's build/validate/verify tooling
 tools/_diag_*.mjs
 
+# Rendered video output (tools/video/capture.mjs) — large, regenerable
+out/
+
 # Logs
 *.log
 npm-debug.log*

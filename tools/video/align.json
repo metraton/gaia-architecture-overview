@@ -1,0 +1,324 @@
+{
+  "pages": [
+    {
+      "page": "s-shared-semantics",
+      "audio": "1.wav",
+      "duration": 21.52,
+      "method": "silencedetect",
+      "speech": [
+        0.245,
+        21.12
+      ],
+      "pauses": 12,
+      "maxDeviation": 1.117,
+      "shortestMatchedPause": 0.406,
+      "sentences": [
+        {
+          "text": "Today, most people work with AI alone.",
+          "start": 0.245,
+          "end": 2.967
+        },
+        {
+          "text": "One person, one agent, one session.",
+          "start": 3.408,
+          "end": 5.936
+        },
+        {
+          "text": "Nothing carries over.",
+          "start": 6.343,
+          "end": 8.018
+        },
+        {
+          "text": "For a team to work with AI as a team, it has to share five things: how the work is shaped, how the output is shaped, what is remembered, what can be seen, and what can be checked.",
+          "start": 9.082,
+          "end": 21.12
+        }
+      ]
+    },
+    {
+      "page": "p2-the-map",
+      "audio": "2.wav",
+      "duration": 35.6,
+      "method": "silencedetect",
+      "speech": [
+        0.244,
+        35.093
+      ],
+      "pauses": 18,
+      "maxDeviation": 0.568,
+      "shortestMatchedPause": 0.283,
+      "sentences": [
+        {
+          "text": "This is Gaia.",
+          "start": 0.244,
+          "end": 1.313
+        },
+        {
+          "text": "You talk to one agent: the orchestrator.",
+          "start": 2.139,
+          "end": 3.323
+        },
+        {
+          "text": "It holds the conversation, decides what needs to happen, and never makes the change itself.",
+          "start": 3.738,
+          "end": 10.207
+        },
+        {
+          "text": "It hands the work to a specialist, each one born clean for a single piece of work, and each returning a contract: what was done, and with what evidence.",
+          "start": 10.817,
+          "end": 20.06
+        },
+        {
+          "text": "Around them, Gaia keeps approvals, contracts, memory, and plans.",
+          "start": 20.991,
+          "end": 25.613
+        },
+        {
+          "text": "And it's built from two halves.",
+          "start": 26.109,
+          "end": 27.37
+        },
+        {
+          "text": "Hooks, where a rule decides.",
+          "start": 28.066,
+          "end": 29.897
+        },
+        {
+          "text": "And skills and agents, where a model follows instructions.",
+          "start": 30.179,
+          "end": 33.124
+        },
+        {
+          "text": "The CLI joins them.",
+          "start": 33.943,
+          "end": 35.093
+        }
+      ]
+    },
+    {
+      "page": "p4-life-of-a-request",
+      "audio": "3.wav",
+      "duration": 41.72,
+      "method": "silencedetect",
+      "speech": [
+        0.227,
+        41.347
+      ],
+      "pauses": 22,
+      "maxDeviation": 1.272,
+      "shortestMatchedPause": 0.48,
+      "sentences": [
+        {
+          "text": "Every request lives the same life.",
+          "start": 0.227,
+          "end": 2.36
+        },
+        {
+          "text": "When a specialist is born, it's handed its context: its contract, the parts of the project it may touch, and what Gaia remembers about you.",
+          "start": 3.045,
+          "end": 11.156
+        },
+        {
+          "text": "Then, before any command runs, a rule, not a model, sorts it.",
+          "start": 11.934,
+          "end": 16.342
+        },
+        {
+          "text": "Reads run.",
+          "start": 17.14,
+          "end": 18.074
+        },
+        {
+          "text": "Changes wait for your yes, with the exact command in front of you.",
+          "start": 18.554,
+          "end": 22.593
+        },
+        {
+          "text": "And a few commands never run at all.",
+          "start": 23.388,
+          "end": 24.942
+        },
+        {
+          "text": "After every command, the result is recorded.",
+          "start": 26.451,
+          "end": 28.872
+        },
+        {
+          "text": "When the specialist finishes, its contract is judged by rule, never by what it says in prose.",
+          "start": 29.658,
+          "end": 34.962
+        },
+        {
+          "text": "Only two moments can stop a turn: before an execution, and at contract validation.",
+          "start": 35.828,
+          "end": 41.347
+        }
+      ]
+    },
+    {
+      "page": "p6-contracts",
+      "audio": "4.wav",
+      "duration": 34.6,
+      "method": "silencedetect",
+      "speech": [
+        0.203,
+        34.167
+      ],
+      "pauses": 13,
+      "maxDeviation": 0.802,
+      "shortestMatchedPause": 0.691,
+      "sentences": [
+        {
+          "text": "Everything travels as a contract.",
+          "start": 0.203,
+          "end": 2.532
+        },
+        {
+          "text": "The orchestrator sends the work.",
+          "start": 3.493,
+          "end": 5.106
+        },
+        {
+          "text": "Gaia's engine hands the specialist a contract made for it: what it's for, and which parts of the project it may read and write.",
+          "start": 5.797,
+          "end": 14.122
+        },
+        {
+          "text": "The specialist answers in that same form: its status, its evidence, what's still open.",
+          "start": 15.268,
+          "end": 20.573
+        },
+        {
+          "text": "The engine checks it by rule, and only then does the orchestrator read it and decide what's next.",
+          "start": 21.445,
+          "end": 26.721
+        },
+        {
+          "text": "There are two kinds: the agent contract, one per turn, and the project contract, one per project.",
+          "start": 27.702,
+          "end": 34.167
+        }
+      ]
+    },
+    {
+      "page": "p5-what-gaia-keeps",
+      "audio": "5.wav",
+      "duration": 37.44,
+      "method": "silencedetect",
+      "speech": [
+        0.254,
+        37.217
+      ],
+      "pauses": 26,
+      "maxDeviation": 0.702,
+      "shortestMatchedPause": 0.222,
+      "sentences": [
+        {
+          "text": "And Gaia remembers, in four memories, each answering one question.",
+          "start": 0.254,
+          "end": 5.287
+        },
+        {
+          "text": "Project memory: what do we know about the project, and about you?",
+          "start": 6.098,
+          "end": 9.907
+        },
+        {
+          "text": "Operational memory: what are we doing, and what is still open?",
+          "start": 10.924,
+          "end": 16.162
+        },
+        {
+          "text": "From a brief, to a plan, to tasks and their gates.",
+          "start": 16.385,
+          "end": 18.953
+        },
+        {
+          "text": "Execution memory: what did we execute, and what did it produce?",
+          "start": 20.517,
+          "end": 24.754
+        },
+        {
+          "text": "Episodic memory: what happened, and when?",
+          "start": 26.252,
+          "end": 28.73
+        },
+        {
+          "text": "Recorded by the engine, not narrated by the agent.",
+          "start": 29.007,
+          "end": 32.777
+        },
+        {
+          "text": "You decide what is curated.",
+          "start": 34.065,
+          "end": 35.262
+        },
+        {
+          "text": "The engine records the rest.",
+          "start": 35.737,
+          "end": 37.217
+        }
+      ]
+    },
+    {
+      "page": "p9-back-to-the-map",
+      "audio": "6.wav",
+      "duration": 26.2,
+      "method": "silencedetect",
+      "speech": [
+        0.241,
+        25.872
+      ],
+      "pauses": 17,
+      "maxDeviation": 0.612,
+      "shortestMatchedPause": 0.563,
+      "sentences": [
+        {
+          "text": "Starting is simple.",
+          "start": 0.241,
+          "end": 1.285
+        },
+        {
+          "text": "You install it: one command.",
+          "start": 2.005,
+          "end": 3.758
+        },
+        {
+          "text": "You ask it what it is.",
+          "start": 4.532,
+          "end": 5.481
+        },
+        {
+          "text": "You point it at your repos.",
+          "start": 6.191,
+          "end": 7.367
+        },
+        {
+          "text": "You describe the problem.",
+          "start": 7.992,
+          "end": 10.001
+        },
+        {
+          "text": "And then, you work agentically.",
+          "start": 10.564,
+          "end": 11.597
+        },
+        {
+          "text": "It plans, delegates, and asks before it changes anything.",
+          "start": 12.477,
+          "end": 16.22
+        },
+        {
+          "text": "Everything it learns stays in one database, on your machine.",
+          "start": 17.368,
+          "end": 21.255
+        },
+        {
+          "text": "So: what is Gaia, and what can you do for me?",
+          "start": 22.31,
+          "end": 25.872
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "fps": 60,
+  "width": 1920,
+  "height": 1080,
+  "theme": "light",
+  "supersample": 2,
+  "fade": 0.4,
+  "reveal": {
+    "duration": 0.7,
+    "rise": 10,
+    "anticipation": 0.3
+  },
+  "ring": { "stagger": 0.15 },
+  "pages": [
+    {
+      "page": "s-shared-semantics", "lead": 0.8, "tail": 1.2,
+      "base": [],
+      "cues": [
+        { "at": { "s": 1 }, "reveal": ["thesis"] },
+        { "at": { "s": 4 }, "reveal": ["pillars"] },
+        { "at": { "s": 4, "word": "how the work" }, "reveal": ["workflows"] },
+        { "at": { "s": 4, "word": "how the output" }, "reveal": ["standards"] },
+        { "at": { "s": 4, "word": "what is remembered" }, "reveal": ["knowledge"] },
+        { "at": { "s": 4, "word": "what can be seen" }, "reveal": ["observability"] },
+        { "at": { "s": 4, "word": "what can be checked" }, "reveal": ["audit"] },
+        { "at": { "s": 4, "end": true }, "reveal": ["channel"] }
+      ]
+    },
+    {
+      "page": "p2-the-map", "lead": 0.8, "tail": 1.2,
+      "base": [],
+      "cues": [
+        { "at": { "s": 1 }, "reveal": ["you", "gaia"] },
+        { "at": { "s": 2, "word": "the orchestrator" }, "reveal": ["gaia-orch"] },
+        { "at": { "s": 3, "word": "never makes" }, "chip": "the-human" },
+        { "at": { "s": 4 }, "chip": "one-turn" },
+        { "at": { "s": 4 }, "reveal": ["gaia-rel", "gaia-specialists"] },
+        { "at": { "s": 4, "word": "born clean" }, "reveal": ["gaia-carries"] },
+        { "at": { "s": 4, "word": "returning a contract" }, "chip": "the-contract" },
+        { "at": { "s": 4, "word": "with what evidence" }, "chip": "nothing-self-declared" },
+        { "at": { "s": 4, "end": true }, "chip": "all" },
+        { "at": { "s": 5 }, "chip": "all" },
+        { "at": { "s": 5 }, "reveal": ["gaia-manages"] },
+        { "at": { "s": 5, "word": "approvals" }, "reveal": ["mg-approvals"] },
+        { "at": { "s": 5, "word": "contracts" }, "reveal": ["mg-contracts"] },
+        { "at": { "s": 5, "word": "memory" }, "reveal": ["mg-memory"] },
+        { "at": { "s": 5, "word": "plans" }, "reveal": ["mg-plans"] },
+        { "at": { "s": 6 }, "reveal": ["halves"] },
+        { "at": { "s": 7 }, "chip": "deterministic" },
+        { "at": { "s": 8 }, "chip": "semantic" },
+        { "at": { "s": 9 }, "chip": "all" }
+      ]
+    },
+    {
+      "page": "p4-life-of-a-request", "lead": 0.8, "tail": 1.2,
+      "base": ["p4-head"],
+      "cues": [
+        { "at": { "s": 1 }, "reveal": ["turn"] },
+        { "at": { "s": 2 }, "reveal": ["lf-receives"] },
+        { "at": { "s": 2, "word": "what Gaia remembers" }, "chip": "memory" },
+        { "at": { "s": 2, "end": true }, "chip": "all" },
+        { "at": { "s": 3 }, "reveal": ["lf-born", "approvals", "ap-sorts"] },
+        { "at": { "s": 3, "word": "a rule" }, "chip": "deterministic" },
+        { "at": { "s": 4 }, "reveal": ["ap-runs"] },
+        { "at": { "s": 5 }, "reveal": ["ap-waits"] },
+        { "at": { "s": 5 }, "chip": "the-human" },
+        { "at": { "s": 6 }, "reveal": ["ap-never"] },
+        { "at": { "s": 6 }, "chip": "deterministic" },
+        { "at": { "s": 7 }, "chip": "one-command" },
+        { "at": { "s": 7 }, "reveal": ["lf-works"] },
+        { "at": { "s": 7, "end": true }, "chip": "all" },
+        { "at": { "s": 8 }, "reveal": ["lf-contract"] },
+        { "at": { "s": 8, "word": "judged" }, "chip": "nothing-self-declared" },
+        { "at": { "s": 9 }, "chip": "one-turn" },
+        { "at": { "s": 9, "end": true }, "chip": "all" },
+        { "at": { "s": 9, "end": true }, "reveal": ["footnotes"] }
+      ]
+    },
+    {
+      "page": "p6-contracts", "lead": 0.8, "tail": 1.2,
+      "base": [],
+      "cues": [
+        { "at": { "s": 1 }, "reveal": ["p6-head"] },
+        { "at": { "s": 2 }, "reveal": ["p6-flow", "p6-orch", "p6-sends"] },
+        { "at": { "s": 3 }, "reveal": ["p6-engine", "p6-injects"] },
+        { "at": { "s": 3, "word": "specialist a contract" }, "reveal": ["p6-agent", "p6-receives"] },
+        { "at": { "s": 3, "word": "a contract made" }, "chip": "the-contract" },
+        { "at": { "s": 3, "word": "which parts" }, "chip": "project-contract" },
+        { "at": { "s": 3, "end": true }, "chip": "all" },
+        { "at": { "s": 4 }, "reveal": ["p6-answers"] },
+        { "at": { "s": 5 }, "reveal": ["p6-validates"] },
+        { "at": { "s": 5 }, "chip": "deterministic" },
+        { "at": { "s": 5, "word": "orchestrator read" }, "reveal": ["p6-reads"] },
+        { "at": { "s": 5, "word": "what's next" }, "chip": "next-move" },
+        { "at": { "s": 6 }, "chip": "all" },
+        { "at": { "s": 6 }, "reveal": ["p6-kinds"] },
+        { "at": { "s": 6, "word": "the agent contract" }, "reveal": ["p6-agent-contract"] },
+        { "at": { "s": 6, "word": "the agent contract" }, "chip": "the-contract" },
+        { "at": { "s": 6, "word": "the project contract" }, "reveal": ["p6-project"] },
+        { "at": { "s": 6, "word": "the project contract" }, "chip": "project-contract" },
+        { "at": { "s": 6, "end": true }, "chip": "all" }
+      ]
+    },
+    {
+      "page": "p5-what-gaia-keeps", "lead": 0.8, "tail": 1.2,
+      "base": [],
+      "cues": [
+        { "at": { "s": 2 }, "reveal": ["sun-project", "pr-core"] },
+        { "at": { "s": 2, "offset": 0.3 }, "ring": "sun-project", "around": "pr-core" },
+        { "at": { "s": 3 }, "reveal": ["sun-operational", "op-core"] },
+        { "at": { "s": 3, "offset": 0.3 }, "ring": "sun-operational", "around": "op-core" },
+        { "at": { "s": 5 }, "reveal": ["sun-execution", "ex-core"] },
+        { "at": { "s": 5, "offset": 0.3 }, "ring": "sun-execution", "around": "ex-core" },
+        { "at": { "s": 6 }, "reveal": ["sun-episodic", "ep-core"] },
+        { "at": { "s": 6, "offset": 0.3 }, "ring": "sun-episodic", "around": "ep-core" },
+        { "at": { "s": 7 }, "chip": "deterministic" },
+        { "at": { "s": 8 }, "chip": "the-human" },
+        { "at": { "s": 9 }, "chip": "all" },
+        { "at": { "s": 9 }, "reveal": ["keeps-close"] }
+      ]
+    },
+    {
+      "page": "p9-back-to-the-map", "lead": 0.8, "tail": 1.2,
+      "base": [],
+      "cues": [
+        { "at": { "s": 1 }, "reveal": ["p9-grow-row"] },
+        { "at": { "s": 2 }, "reveal": ["p9-step-install"], "rise": 24 },
+        { "at": { "s": 2, "word": "one command" }, "reveal": ["p9-start"] },
+        { "at": { "s": 3 }, "reveal": ["p9-step-ask"], "rise": 24 },
+        { "at": { "s": 4 }, "reveal": ["p9-step-scan"], "rise": 24 },
+        { "at": { "s": 5 }, "reveal": ["p9-step-describe"], "rise": 24 },
+        { "at": { "s": 6 }, "reveal": ["p9-step-work"], "rise": 24 },
+        { "at": { "s": 7 }, "reveal": ["p9-objections"] },
+        { "at": { "s": 7, "word": "asks before" }, "chip": "the-human" },
+        { "at": { "s": 8 }, "reveal": ["p9-yours-row"] },
+        { "at": { "s": 8 }, "chip": "memory" },
+        { "at": { "s": 8, "word": "on your machine" }, "chip": "yours" },
+        { "at": { "s": 9 }, "chip": "all" },
+        { "at": { "s": 9 }, "reveal": ["p9-ask"] },
+        { "at": { "s": 9, "word": "what can you do" }, "reveal": ["p9-close"] }
+      ]
+    }
+  ]
+}
