@@ -2,13 +2,14 @@
 # Form: dashboard. Three stacked bands (each span == root columns 2):
 #   1. TOP band «Forma de trabajo compartida» — 3 boxes side by side
 #      (columns:3): the shared premise that frames everything below.
-#   2. CONTRAST band (sin nombre, variant plain = frameless wrapper, columns:2)
-#      holding TWO inline sub-sections side by side, each columns:1 (a column
-#      that grows downward). The layout is SYMMETRIC (5 vs 5, fixed --cell-h
-#      rows → equal height), but the CONTENT is deliberately asymmetric and
-#      that asymmetry ENCODES the idea: LEFT carries the substance (title +
-#      one line + a real code anchor in `detail`), RIGHT is title-only —
-#      "da igual la herramienta". The emptiness on the right is the message.
+#   2. CONTRAST band (sin nombre, treatment: [plain] = frameless wrapper,
+#      columns:2) holding TWO inline sub-sections side by side, each
+#      columns:1 (a column that grows downward). The layout is SYMMETRIC
+#      (5 vs 5, fixed --cell-h rows → equal height), but the CONTENT is
+#      deliberately asymmetric and that asymmetry ENCODES the idea: LEFT
+#      carries the substance (title + one line + a real code anchor in
+#      `detail`), RIGHT is title-only — "da igual la herramienta". The
+#      emptiness on the right is the message.
 #   3. PAYOFF band — a thin dotted separator with a centered caption at the
 #      base. Subtle by design (a labeled line, not a card) so it does not
 #      steal focus from the contrast above.
@@ -32,30 +33,30 @@ sections:
   # 1 · TOP band — the shared premise. Three aspects of one shared thing.
   - id: shared
     title: "A shared way of working"
-    variant: safe
+    variant: good
     order: 1
     span: 2
     columns: 3
     children:
       - id: sh-flujos
-        status: SHARED
+        kicker: SHARED
         title: "Same flows"
         description: ["the same way to move work forward"]
-        variant: ok
+        variant: good
       - id: sh-tools
-        status: SHARED
+        kicker: SHARED
         title: "Same tools"
         description: ["the same instruments for everyone"]
-        variant: ok
+        variant: good
       - id: sh-skills
-        status: SHARED
+        kicker: SHARED
         title: "Same skills"
         description: ["the same techniques, loaded on demand"]
-        variant: ok
+        variant: good
 
   # 2 · CONTRAST band — sin nombre, frameless wrapper holding two columns.
   - id: contrast
-    variant: plain
+    treatment: [plain]
     order: 2
     span: 2
     columns: 2
@@ -64,68 +65,68 @@ sections:
       - id: flujos
         title: "Workflows"
         subtitle: "what matters"
-        variant: normal
+        variant: neutral
         span: 1
         columns: 1
         children:
           - id: f-state
-            status: STATES
+            kicker: STATES
             title: "State Machine"
             description: ["legal turn states; no one self-declares \"done\""]
             detail: "The state machine lives in <code>hooks/modules/agents/state_tracker.py</code>: <code>_LEGAL_TRANSITIONS</code> defines the valid transitions, with a cap of 2 retries. <code>NEEDS_VERIFICATION</code> can only be promoted by a blind verifier — no one self-declares \"done\"."
-            variant: strong
+            variant: accent
           - id: f-security
-            status: SECURITY
+            kicker: SECURITY
             title: "Security Tiers + Approvals"
             description: ["classifies T0-T3 and asks for your consent before mutating"]
             detail: "Every operation is classified T0-T3 in <code>hooks/modules/security/tiers.py</code>; a T3 mutation requires your explicit consent, managed by <code>approval_grants.py</code>, before it runs."
-            variant: strong
+            variant: accent
           - id: f-routing
-            status: ROUTING
+            kicker: ROUTING
             title: "Surface Routing"
             description: ["maps intent to the right agent"]
             detail: "The router maps the prompt's intent to the surface and the specialist who owns it. Per-surface scoring lives in <code>tools/context/surface_router.py</code> (<code>_score_surface</code>)."
-            variant: strong
+            variant: accent
           - id: f-planning
-            status: PLANNING
+            kicker: PLANNING
             title: "Planning"
             description: ["breaks down and persists the work beyond the turn"]
             detail: "Work is broken down and persisted outside the turn: <code>gaia/state/transitions.py</code> and the <code>task_gates</code> table, where each gate carries a <code>verification_type</code> from the enum <code>command | code | semantic | self_review</code>."
-            variant: strong
+            variant: accent
           - id: f-verify
-            status: VERIFY
+            kicker: VERIFY
             title: "Verification"
             description: ["independent verification — no one validates their own work"]
             detail: "Every gate in <code>task_gates</code> carries a <code>verification_type</code> from the enum <code>command | code | semantic | self_review</code>. The gate is bound to the <code>plan_task_id</code>, not the role (<code>_blind_verification_required</code>)."
-            variant: strong
+            variant: accent
 
       # RIGHT · interchangeable — the tool does not matter. Title-only, by design.
       - id: tools
         title: "Tools · it does not matter"
         subtitle: "interchangeable"
-        variant: envelope
+        treatment: [envelope]
         span: 1
         columns: 1
         children:
           - id: t-claude
             title: "Claude Code"
-            variant: ext
+            treatment: [outside]
           - id: t-codex
             title: "Codex"
-            variant: ext
+            treatment: [outside]
           - id: t-cursor
             title: "Cursor"
-            variant: ext
+            treatment: [outside]
           - id: t-opencode
             title: "OpenCode"
-            variant: ext
+            treatment: [outside]
           - id: t-aider
             title: "Aider"
-            variant: ext
+            treatment: [outside]
 
   # 3 · PAYOFF band — a thin labeled line at the base (subtle, not a card).
   - id: payoff
-    variant: plain
+    treatment: [plain]
     order: 3
     span: 2
     columns: 1

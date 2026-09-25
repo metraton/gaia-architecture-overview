@@ -7,15 +7,15 @@
 #   1. «UN HARNESS DA VISIBILIDAD» — a band of 3 boxes side by side (columns:3)
 #      that map the real planning chain to human names: Ideas=briefs,
 #      Criterios=ACs/objetivos, Tareas=el plan. The "= …" mapping rides the
-#      status kicker (visible at a glance); the code anchor lives in `detail`.
+#      kicker (visible at a glance); the code anchor lives in `detail`.
 #   2. «LO QUE LO HACE COMPARTIDO» — one envelope wrapper (columns:3) holding
 #      two stacked full-width bands (each span:3, so it takes its own row):
-#        3a. `pc` (variant: envelope, columns:3) — Project Context as a
+#        3a. `pc` (treatment: [envelope], columns:3) — Project Context as a
 #            horizontal TIMELINE of 3 boxes: a per-agent contract
 #            (project_context_contracts) → injected at dispatch
 #            (build_project_context) → updated at close (update_contracts).
 #            One shape (box), one concrete anchor per node.
-#        3b. `comp2` (variant: plain, columns:2) — two inline envelope
+#        3b. `comp2` (treatment: [plain], columns:2) — two inline envelope
 #            sub-sections side by side: Auditoría (3 rastros: aprobaciones,
 #            historial, handoffs) and Memoria (3 horizontes: anchor, thread,
 #            log — a vertical "staircase" of one column each).
@@ -76,35 +76,35 @@ sections:
   - id: harness
     title: "A harness gives visibility"
     subtitle: "of the team · of the sprint · of the goals"
-    variant: safe
+    variant: good
     order: 1
     span: 3
     columns: 3
     children:
       - id: h-ideas
-        status: = BRIEFS
+        kicker: = BRIEFS
         title: "Ideas"
         description:
           - "the captured idea —"
           - "the requirement, turned into a persistent unit"
         detail: "Ideas are captured as <b>briefs</b>: the requirement stops being a loose chat message and becomes a unit that persists outside the session. Anchor: <code>bin/cli/brief.py</code>."
-        variant: strong
+        variant: accent
       - id: h-criterios
-        status: = ACs / GOALS
+        kicker: = ACs / GOALS
         title: "Criteria"
         description:
           - "what defines \"done\" —"
           - "the brief's acceptance criteria"
         detail: "The criteria are the brief's <b>acceptance criteria</b>: they define what counts as \"done\". Each AC has its own lifecycle (pending → done, with blocked and descoped). Anchor: <code>gaia/state/transitions.py</code> (AC lifecycle)."
-        variant: strong
+        variant: accent
       - id: h-tareas
-        status: = THE PLAN
+        kicker: = THE PLAN
         title: "Tasks"
         description:
           - "the broken-down plan —"
           - "the idea comes down to verifiable steps"
         detail: "Tasks are the broken-down <b>plan</b>: the idea comes down to concrete, verifiable steps that persist in the database. Anchors: <code>bin/cli/plan.py</code>, <code>bin/cli/task.py</code>."
-        variant: strong
+        variant: accent
 
   # 3 · LO QUE LO HACE COMPARTIDO — one envelope wrapper holding two stacked
   # full-width bands: `pc` (a horizontal timeline) and `comp2` (two inline
@@ -115,7 +115,7 @@ sections:
   - id: compartido
     title: "What makes it shared"
     subtitle: "it is not your board: it belongs to everyone"
-    variant: envelope
+    treatment: [envelope]
     order: 2
     span: 3
     columns: 3
@@ -126,35 +126,35 @@ sections:
       - id: pc
         title: "Project Context"
         subtitle: "a contract per agent — injected at dispatch, updated at close"
-        variant: envelope
+        treatment: [envelope]
         span: 3
         columns: 3
         children:
           - id: pc-read
             order: 1
-            status: "project_context_contracts"
+            kicker: "project_context_contracts"
             title: "Contracts per agent"
             description: "project context is a contract per agent"
-            variant: strong
+            variant: accent
             filters: [pc-flow]
           - id: pc-inject
             order: 2
-            status: "build_project_context"
+            kicker: "build_project_context"
             title: "Injected at dispatch"
             description: "at startup, the subagent receives its contract"
             filters: [pc-flow, apertura]
           - id: pc-write
             order: 3
-            status: "update_contracts"
+            kicker: "update_contracts"
             title: "Updated at close"
             description: "the subagent writes its update at close"
-            variant: strong
+            variant: accent
             filters: [pc-flow, cierre]
 
       # 3b · comp2 — two inline sub-sections side by side: Auditoría and
       # Memoria, each its own envelope frontier.
       - id: comp2
-        variant: plain
+        treatment: [plain]
         span: 3
         columns: 2
         children:
@@ -163,29 +163,29 @@ sections:
           - id: audit
             title: "Audit"
             subtitle: "three trails, all immutable"
-            variant: envelope
+            treatment: [envelope]
             span: 1
             columns: 1
             children:
               - id: au-aprob
                 order: 1
-                status: "approval_events"
+                kicker: "approval_events"
                 title: "Approvals of mutative runs"
                 description: "every approved T3 as an event — single and batch (command_set)"
-                variant: strong
+                variant: accent
                 filters: [audit-flow]
               - id: au-hist
                 order: 2
-                status: "*_history"
+                kicker: "*_history"
                 title: "Immutable history"
                 description: "context, memory, and project, append-only: never deleted"
                 filters: [audit-flow]
               - id: au-handoff
                 order: 3
-                status: "agent_contract_handoff"
+                kicker: "agent_contract_handoff"
                 title: "Handoff log"
                 description: "every handoff persisted at turn close"
-                variant: strong
+                variant: accent
                 filters: [audit-flow, cierre]
 
           # Memoria — three horizons, a vertical staircase (mem-flow chain;
@@ -193,26 +193,26 @@ sections:
           - id: mem
             title: "Memory"
             subtitle: "three horizons — read at open, written at close"
-            variant: envelope
+            treatment: [envelope]
             span: 1
             columns: 1
             children:
               - id: mem-durable
                 order: 1
-                status: "anchor"
+                kicker: "anchor"
                 title: "Durable"
                 description: "stable knowledge, across sessions and per project"
                 filters: [mem-flow, apertura]
               - id: mem-corto
                 order: 2
-                status: "thread"
+                kicker: "thread"
                 title: "Short-term"
                 description: "pending items for later sessions: a saved state"
                 filters: [mem-flow, apertura]
               - id: mem-log
                 order: 3
-                status: "log"
+                kicker: "log"
                 title: "Episodic"
                 description: "the turn's episodes, deterministic: visible in the metrics"
-                variant: strong
+                variant: accent
                 filters: [mem-flow, cierre]

@@ -28,47 +28,47 @@ sections:
   # Concept · the closing belief.
   - id: concept
     title: "Gaia se explica a sí misma"
-    variant: safe
+    variant: good
     order: 1
     span: 3
     columns: 1
     children:
       - id: s5-concept
-        status: EL CIERRE
+        kicker: EL CIERRE
         title: "Arquitectura autodescriptiva"
         description:
           - "en lenguaje natural, le preguntas a Gaia por Gaia"
           - "y responde leyendo su propia implementación"
         detail: "El recorrido cierra donde empezó: la forma de trabajar compartida es tan explícita que el propio sistema puede explicarla. Le preguntas por su arquitectura en lenguaje natural y responde leyendo su fuente."
-        variant: strong
+        variant: accent
 
   # The read-loop · an envelope frontier wrapping 3 steps (chip = the arrow).
   - id: capacidad
     title: "Una capacidad viva, no un mapa estático"
     subtitle: "haz clic en «el read-loop» para trazarlo"
-    variant: envelope
+    treatment: [envelope]
     order: 2
     span: 3
     columns: 3
     children:
       - id: rl-pregunta
         order: 1
-        status: 1 · PREGUNTA
+        kicker: 1 · PREGUNTA
         title: "Pregunta"
         description: ["en lenguaje natural"]
         detail: "Le preguntas a gaia-system por una pieza de la arquitectura en lenguaje natural — sin abrir el código tú mismo."
         filters: [read-loop]
       - id: rl-localiza
         order: 2
-        status: 2 · LOCALIZA
+        kicker: 2 · LOCALIZA
         title: "Localiza"
         description: ["el pilar en el árbol fuente gaia/, no en .claude"]
         detail: "gaia-system localiza el pilar en el árbol fuente <code>gaia/</code> —la fuente de verdad—, no en la copia instalada <code>.claude</code>. Abre el archivo real, no su memoria."
-        variant: strong
+        variant: accent
         filters: [read-loop, fuente-de-verdad]
       - id: rl-responde
         order: 3
-        status: 3 · RESPONDE
+        kicker: 3 · RESPONDE
         title: "Responde"
         description: ["explica con el archivo real"]
         detail: "Devuelve la explicación en lenguaje natural, anclada al archivo fuente que acaba de leer: la pieza nombrada y el archivo referenciado."
@@ -78,20 +78,20 @@ sections:
   - id: pilares
     title: "Los pilares — los mismos archivos que citó el recorrido"
     subtitle: "el deck cierra su propio loop"
-    variant: normal
+    variant: neutral
     order: 3
     span: 3
     columns: 5
     children:
-      - { id: pil-hooks, title: "hooks.json", variant: store, filters: [fuente-de-verdad] }
-      - { id: pil-tiers, title: "tiers.py", variant: store, filters: [fuente-de-verdad] }
-      - { id: pil-schema, title: "schema.sql", variant: store, filters: [fuente-de-verdad] }
-      - { id: pil-grants, title: "approval_grants.py", variant: store, filters: [fuente-de-verdad] }
-      - { id: pil-context, title: "context_provider.py", variant: store, filters: [fuente-de-verdad] }
+      - { id: pil-hooks, title: "hooks.json", variant: muted, filters: [fuente-de-verdad] }
+      - { id: pil-tiers, title: "tiers.py", variant: muted, filters: [fuente-de-verdad] }
+      - { id: pil-schema, title: "schema.sql", variant: muted, filters: [fuente-de-verdad] }
+      - { id: pil-grants, title: "approval_grants.py", variant: muted, filters: [fuente-de-verdad] }
+      - { id: pil-context, title: "context_provider.py", variant: muted, filters: [fuente-de-verdad] }
 
   # Base · the honesty line (a caption, not a card).
   - id: honest
-    variant: plain
+    treatment: [plain]
     order: 4
     span: 3
     columns: 1

@@ -1,128 +1,3 @@
-# S-arquitectura — la arquitectura real: la RUTA PORTANTE de un turno.
-#
-# Form: dashboard (NO timeline). Timeline eximiría M, N y ROW justo en la
-# página más densa del deck; dashboard los mantiene activos.
-#
-# Cinco bandas al root (columns:6, cada banda span:6):
-#   1. LA VIDA DE UN REQUEST — cabecera, la capa propia de Gaia y la fila del
-#      prompt. NIVEL COMPUESTO A PROPÓSITO (principio 2). La banda mezcla un
-#      `rail` (celda) con secciones, así que `columns:10` deja de crear tracks
-#      y `span` pasa a ser PESO RELATIVO: 10 (rail = band, fila propia) ·
-#      3 (la capa de Gaia) · 7 (todo lo que cuelga del prompt). Se acepta el
-#      cambio de dial porque lo que esta banda necesita NO es una retícula
-#      compartida sino tres pesos distintos y dos alturas libres.
-#      LA COLUMNA IZQUIERDA ES LA CAPA DE GAIA, no "el momento antes de la
-#      persona": arriba lo que Gaia EMPUJA sola al abrir (SessionStart), abajo
-#      lo que RESPONDE cuando se le pide. Sus filas son RIELES-BANDA
-#      (`type: rail` a span == columns — el mismo componente que hdr-gaia,
-#      pedido por el usuario señalando ese banner; a span == columns == 1 el
-#      motor no emite clase de merge — `.msp` sólo existe para span > 1 — y
-#      la celda única llena su track igual, al mismo ancho 337.4px): un
-#      rail horizontal sin rowspan es un thin leaf y su fila se emite `auto`
-#      — 33px con título de una línea, 48px con dos (regla del motor,
-#      espejada en check-layout y asserted por AGREE/thin; el techo de dos
-#      líneas por título lo asserta RAILT). Eso es lo que hace caber la capa
-#      donde antes había un hueco: el blanco bajo SessionStart era la
-#      afirmación de la versión anterior y esta página lo GASTA a propósito.
-#      ARITMÉTICA DE LA COLUMNA (medida en el render, no estimada): cabecera de
-#      sección = 16 (título) + 4 + 14 por línea de subtítulo; envelope 34,
-#      gap bajo cabecera 8, gap entre filas 8. ss-push (subtítulo de una
-#      línea, rieles 33+33+33+48) = 76 + 147 + 24 = 247; ss-pull (subtítulo
-#      de DOS líneas, SEIS rieles de una línea a ≤33 caracteres) =
-#      34 + 48 + 8 + 198 + 40 = 328 (medido en el render @2560: 328.0).
-#      La pila 4 + 6 es 247 + 8 + 328 = 583px (medida: s-open 583.0), y
-#      desde los seis pilares la IZQUIERDA manda la altura de la banda:
-#      `turn` pasó de 613 a 714px (+101), los 482px de `human-side`
-#      dejaron de ser el presupuesto, y el sobrante es vacío de marco a la
-#      derecha — COSTO ACEPTADO, registrado en el comentario de ss-pull.
-#      (Bajo el presupuesto viejo la QUINTA banda de ss-push (+41px) no
-#      cabía: 475 + 41 > 482; ese vínculo ya no rige, y la banda de anchors
-#      sigue sin dibujarse porque nadie la pidió, no por geometría.)
-#      La narrativa larga vive en los `steps` del chip `sesion-abre`.
-#      COSTO DE TÍTULO >23 CARACTERES, medido y aceptado: un título de
-#      sección de ~30 caracteres infla la flex-basis de su zona en una línea
-#      de título (+16px, medido en Chromium: a ≤23 caracteres la zona vuelve
-#      a su modelo; "SessionStart", 12, no infla; el episodio completo — el
-#      título de 30 que desalineó los bordes inferiores 14px — está en el
-#      historial de este archivo). Por eso "Orchestration tooling" tiene 21.
-#      PESOS (por qué 3/7 de 10, números del render): a peso 3 la columna mide
-#      371.4px — 337.4 interiores, 303.4px útiles para un `.rail-title`
-#      (mono 13px + 0.09em ≈ 9.0px/carácter → 33 caracteres por línea) — y
-#      deja a lifetime 738.6px contra su piso word-fit de 711.2px y a
-#      s-prompt 120.0px, EXACTAMENTE en su piso de 120px. Subir la columna a
-#      ~390px (labels más largos) deja ambos pisos a <12px con ruido flex
-#      medido de ±5px: descartado.
-#      POR QUÉ op-prompt VIVE EN SU ENVOLTORIO `plain` (s-prompt): en un
-#      nivel compuesto una celda suelta es `flex:0 0 auto; height:--cell-h`
-#      y `rowspan` no existe (`.mrsp` sólo aplica en grilla leaf); la grilla
-#      leaf de una columna le devuelve el eje vertical. Desde esta edición
-#      ES un `rail` vertical con rowspan:2 — excluido de la regla thin-leaf
-#      (isThinRowLeaf exime `vertical` y rowspan>1), así que conserva la
-#      altura. Un rail no lleva `filters` (el check LIT lo asserta), así que
-#      el chip `ruteo` perdió esta celda; los costos y el canal que
-#      sobrevive están en el comentario de s-prompt.
-#   2. LOS MÓDULOS — banda columns:1 que APILA TRES FILAS. No son dos filas de
-#      tres: la aritmética lo impide (ver ARITMÉTICA abajo). El eje horizontal
-#      hace eco del eje temporal de la banda 1 y lo DECLARA en su subtítulo.
-#   3. LA CLI DEL ORQUESTADOR — sus seis pilares, columns:3 (dos filas de
-#      tres), CAJAS no rieles-banda. Ni un módulo de hook ni el piso de
-#      auditoría: su propio instrumento, por eso entra DESPUÉS de los módulos
-#      y ANTES del piso. Rationale y aritmética de grid-shape en el comentario
-#      de la sección misma.
-#   4. EL PISO — AUDIT y METRICS a todo el ancho, debajo de los módulos. No son
-#      una columna más porque no ocurren en UN momento del eje de arriba:
-#      ocurren en TODOS. Como piso, la posición afirma algo verdadero.
-#   5. NOTAS AL PIE — dos separators dotted: la leyenda de color y el descargo
-#      de alcance. El descargo BAJÓ desde arriba: es una nota al pie, no un
-#      titular. NOTA DE SCHEMA: PAGE_FIELDS no admite `subtitle`
-#      (id/layout/columns/filters/sections/form/name/order/visible), así que un
-#      "subtítulo de página" no tiene slot; esta banda es su lugar.
-#
-# ARITMÉTICA (por qué tres filas y no dos de tres):
-#   El plano cierra en 1280px; la banda envelope deja 1246px de track area.
-#   · SEIS zonas en una fila → (1246 − 5·8)/6 = 201px por zona → 167px
-#     interiores → dos columnas darían (167−8)/2 = 79.5px, MUY por debajo del
-#     piso MIN_LEGIBLE de 120px (invariante M) y además la fila COMPUESTA haría
-#     wrap por min-content. Descartado.
-#   · TRES zonas en una fila → (1246 − 2·8)/3 = 410px por zona → 376px
-#     interiores → dos columnas de (376−8)/2 = 184px. Muy por encima del piso, y
-#     MÁS ANCHAS que los 167px de la columna única de hoy. Ese es el cambio.
-#   · CONTEXT SUBSTRATE no cabe en una fila de tres: lleva DIEZ componentes en
-#     dos sub-secciones. A 410px serían 5 filas internas (650px) contra las 2-3
-#     de sus vecinas — el hueco de 300px+ al pie de las columnas vecinas es
-#     exactamente el defecto que esta reescritura viene a cerrar. Por eso ocupa
-#     su propia fila a todo el ancho, donde sus dos mitades caben a 3 columnas
-#     de 184px y CIERRAN A LA MISMA ALTURA (2 filas cada una).
-#   Resultado: filas de 3 · 1 · 2 módulos, y las tres filas cierran su
-#   rectángulo sin huecos internos. El orden temporal se conserva intacto.
-#
-# ALTURA IGUAL POR FILA (la regla que mata los huecos al pie):
-#   Dentro de cada fila los módulos tienen EL MISMO número de filas internas.
-#   Fila 1: routing 3 · delegate 3 · approvals 3.  Fila 2: las dos mitades del
-#   sustrato, 2 y 2.  Fila 3: lifecycle 2 · skills 2.  Piso: audit 2 · metrics 2.
-#
-# CASCADA (por qué NINGUNA grilla leaf usa span == columns con un número impar
-# de celdas simples delante): a 2 tracks un band exige la fila entera, así que
-# tres celdas simples antes de un band dejan UN hueco INTERIOR en la fila previa
-# — y HOLE se asserta en TODOS los tiers, no sólo en el autorado. Por eso el
-# separador interno de AUDIT es una celda span:1 al inicio de su fila ordenada y
-# no una banda span:3: así la grilla es de seis celdas simples y tesela limpio a
-# 3, a 2 y a 1 track. Es una restricción de la cascada, no una preferencia.
-#
-# EJE DE ORDEN DENTRO DE UN MÓDULO: con dos y tres columnas el eje vertical ya
-# no puede afirmar el orden de ejecución. Lo afirma EL NÚMERO DEL KICKER. Un
-# kicker sin número no es un paso: es una tabla, o un grupo que corre en
-# paralelo. Declarado en el subtítulo de cada banda.
-#
-# KICKERS: cada uno es un símbolo verificado en el árbol fuente de Gaia
-# (hooks/, tools/, gaia/store/schema.sql), en su FORMA CORTA para que ningún
-# token se parta a mitad de palabra en su celda. El nombre completo vive en el
-# detail. El presupuesto de kicker del guardrail mide exactamente esto.
-#
-# CHIPS (7) — cada uno cruza las bandas: la celda del momento en la banda 1 y
-# los componentes del módulo que lo implementa. La celda de la banda 1 es
-# miembro OBLIGATORIO: sin ella `entrega` quedaría con un solo miembro
-# (pc-anchors) y CHIP/ARITY lo rechazaría.
 id: s-arquitectura
 layout: grid
 form: dashboard
@@ -307,7 +182,7 @@ sections:
                 type: rail
                 order: 3
                 span: 1
-                title: "Plan execution"
+                title: "Brief creation and plan execution"
               - id: pl-contract
                 type: rail
                 order: 4
@@ -317,12 +192,12 @@ sections:
                 type: rail
                 order: 5
                 span: 1
-                title: "Approval inspection"
+                title: "Approval management"
               - id: pl-schedule
                 type: rail
                 order: 6
                 span: 1
-                title: "Schedule task inspection"
+                title: "Schedule task management"
 
       # ── TODO LO QUE CUELGA DEL PROMPT. Otro nivel compuesto: la barra del
       # humano (peso 1), la vida del trabajo (peso 6) y, en su propia fila,

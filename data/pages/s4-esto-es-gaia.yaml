@@ -4,11 +4,11 @@
 # that make it Gaia.
 #
 # Form: flow. Four stacked bands (each span == root columns 4):
-#   1. HERO — a frameless (`variant: plain`, no title) band holding ONE centered
-#      strong box: the identity, first and alone in its band. No status, no
-#      description — just the name.
+#   1. HERO — a frameless (`treatment: [plain]`, no title) band holding ONE
+#      centered strong box: the identity, first and alone in its band. No
+#      kicker, no description — just the name.
 #   2. RECORRIDO — an envelope band (columns:4) of 4 boxes, each a REAL artifact
-#      (Brief · Plan · Tareas · Gates) with its VERB riding the status kicker
+#      (Brief · Plan · Tareas · Gates) with its VERB riding the kicker
 #      (exponer · explorar→generar · ejecutar · verificar). Each box belongs to
 #      the ETAPA chip of its phase (f-idea · f-plan · f-ejecuta · f-verifica).
 #   3. QUIÉN LO EJECUTA — an envelope frame holding stacked bands, all compacted
@@ -16,7 +16,7 @@
 #      that is what fires G):
 #        3a. `orq-wrap` — the Orquestador as one strong CENTERED band box: an
 #            agent that ONLY manages resources, with NO execution tools (no
-#            status kicker). It sits on top because it calls the rest.
+#            kicker). It sits on top because it calls the rest.
 #        3b. `instancias` (columns:9) — the 9 real specialists in ONE
 #            horizontal row, left→right as in the recorrido, directly below
 #            the orchestrator. Each belongs to the ETAPA chip of the phase it
@@ -60,56 +60,56 @@ filters:
       - "Verifying closes each task at its Gate: gaia-verifier confirms under blind verification — the gate is bound to the task, not the role, so no one validates their own work."
 
 sections:
-  # 1 · HERO — the identity, frameless, one centered strong box (no status, no
+  # 1 · HERO — the identity, frameless, one centered strong box (no kicker, no
   # description): first and alone in its band.
   - id: hero
-    variant: plain
+    treatment: [plain]
     order: 1
     span: 4
     columns: 1
     children:
       - id: s4-name
         title: "GAIA — Generative AI Architecture"
-        variant: strong
-        variant_extra: [centered]
+        variant: accent
+        treatment: [centered]
 
   # 2 · RECORRIDO — the real artifacts, each with its verb on the kicker.
   - id: recorrido
     title: "The natural-language journey"
     subtitle: "click \"from idea to task\""
-    variant: envelope
+    treatment: [envelope]
     order: 2
     span: 4
     columns: 4
     children:
       - id: r-brief
         order: 1
-        status: "expose an idea"
+        kicker: "expose an idea"
         title: "Brief"
         description: ["the requirement, turned into a persistent unit"]
         detail: "A <b>brief</b> captures the idea expressed in natural language: the requirement stops being a loose message and becomes a unit that persists outside the session."
         filters: [f-idea]
       - id: r-plan
         order: 2
-        status: "explore → generate a plan"
+        kicker: "explore → generate a plan"
         title: "Plan"
         description: ["the explored idea comes down to steps"]
         detail: "The idea is explored and a <b>plan</b> is generated: the breakdown of the requirement into concrete, verifiable tasks."
         filters: [f-plan]
       - id: r-tareas
         order: 3
-        status: "execute"
+        kicker: "execute"
         title: "Tasks"
         description: ["verifiable steps that persist"]
         detail: "<b>Tasks</b> are the executed plan: concrete steps that persist in the database and survive the session closing."
         filters: [f-ejecuta]
       - id: r-gates
         order: 4
-        status: "verify"
+        kicker: "verify"
         title: "Gates"
         description: ["every task carries its gate"]
         detail: "Every task carries a verification <b>gate</b> (<code>task_gates</code>). The gate is bound to the <code>plan_task_id</code>, not the role: that is why whoever produces the work does not validate it."
-        variant: strong
+        variant: accent
         filters: [f-verifica]
 
   # 3 · QUIÉN LO EJECUTA — the orchestrator on top, then a separator down to the
@@ -117,14 +117,14 @@ sections:
   # inside a plain/envelope wrapper so no grid mixes leaves with sub-sections.
   - id: motor
     title: "Who runs it"
-    variant: envelope
+    treatment: [envelope]
     order: 3
     span: 4
     columns: 1
     children:
       # 3a · el orquestador — a strong band box: only manages resources.
       - id: orq-wrap
-        variant: plain
+        treatment: [plain]
         span: 1
         columns: 1
         children:
@@ -133,8 +133,8 @@ sections:
             description:
               - "an agent that only manages resources — delegation (surfacing), parallelization, pedagogy — with no execution tools"
             detail: "The orchestrator is an agent that <b>only manages resources</b>: delegation (surfacing), task parallelization, and pedagogy. It carries no execution tools — that is why it calls the specialists for everything that mutates or produces."
-            variant: strong
-            variant_extra: [centered]
+            variant: accent
+            treatment: [centered]
 
       # 3c · instancias — the 9 real specialists in ONE horizontal row, directly
       # below the orchestrator (each lit by the ETAPA filter of the phase it
@@ -142,62 +142,62 @@ sections:
       - id: instancias
         title: "Agents"
         subtitle: "9 specialists · you can create more"
-        variant: envelope
+        treatment: [envelope]
         span: 1
         columns: 9
         children:
-          - { id: ag-orch, title: "orchestrator", variant: store, filters: [f-idea] }
-          - { id: ag-op, title: "gaia-operator", variant: store, filters: [f-idea] }
-          - { id: ag-plan, title: "gaia-planner", variant: store, filters: [f-plan] }
-          - { id: ag-dev, title: "developer", variant: store, filters: [f-ejecuta] }
-          - { id: ag-plat, title: "platform-architect", variant: store, filters: [f-ejecuta] }
-          - { id: ag-git, title: "gitops-operator", variant: store, filters: [f-ejecuta] }
-          - { id: ag-cloud, title: "cloud-troubleshooter", variant: store, filters: [f-ejecuta] }
-          - { id: ag-sys, title: "gaia-system", variant: store, filters: [f-ejecuta] }
-          - { id: ag-verif, title: "gaia-verifier", variant: store, filters: [f-verifica] }
+          - { id: ag-orch, title: "orchestrator", variant: muted, filters: [f-idea] }
+          - { id: ag-op, title: "gaia-operator", variant: muted, filters: [f-idea] }
+          - { id: ag-plan, title: "gaia-planner", variant: muted, filters: [f-plan] }
+          - { id: ag-dev, title: "developer", variant: muted, filters: [f-ejecuta] }
+          - { id: ag-plat, title: "platform-architect", variant: muted, filters: [f-ejecuta] }
+          - { id: ag-git, title: "gitops-operator", variant: muted, filters: [f-ejecuta] }
+          - { id: ag-cloud, title: "cloud-troubleshooter", variant: muted, filters: [f-ejecuta] }
+          - { id: ag-sys, title: "gaia-system", variant: muted, filters: [f-ejecuta] }
+          - { id: ag-verif, title: "gaia-verifier", variant: muted, filters: [f-verifica] }
 
       # 3d · anatomía — a second horizontal row, below the agents row: the
       # shape of one agent (title-only labels).
       - id: anatomia
         title: "Anatomy of an agent"
-        variant: envelope
+        treatment: [envelope]
         span: 1
         columns: 5
         children:
-          - { id: an-tools, title: "Execution tools", variant: store }
-          - { id: an-skills, title: "Skills", variant: store }
-          - { id: an-identidad, title: "Identity", variant: store }
-          - { id: an-contexto, title: "Injected context", variant: store }
-          - { id: an-handoff, title: "Contract handoff", variant: store }
+          - { id: an-tools, title: "Execution tools", variant: muted }
+          - { id: an-skills, title: "Skills", variant: muted }
+          - { id: an-identidad, title: "Identity", variant: muted }
+          - { id: an-contexto, title: "Injected context", variant: muted }
+          - { id: an-handoff, title: "Contract handoff", variant: muted }
 
   # 4 · LO QUE LO HACE GAIA — the base band: the four governing laws.
   - id: leyes
     title: "What makes it GAIA"
     subtitle: "the laws that govern everything"
-    variant: envelope
+    treatment: [envelope]
     order: 4
     span: 4
     columns: 4
     children:
       - id: ley-contrato
-        status: shape
+        kicker: shape
         title: "Contract"
         description: ["the shape of the output"]
         detail: "The <b>contract</b> (agent_contract_handoff) fixes the shape of every agent's output: the same schema for everyone, so the orchestrator can route on what they return."
       - id: ley-state
-        status: states
+        kicker: states
         title: "State Machine"
         description: ["the turn's legal states"]
         detail: "The <b>state machine</b> defines the turn's legal transitions (INVESTIGATE → … → COMPLETE); the runtime blocks the illegal ones."
       - id: ley-aprob
-        status: T3
+        kicker: T3
         title: "Approvals (T3)"
         description: ["human consent"]
         detail: "<b>T3 approvals</b> require the human's consent before executing any mutation of live state."
       - id: ley-verif
-        status: blind
+        kicker: blind
         title: "Blind verification"
         description: ["no one validates their own work"]
         detail: "<b>Blind verification</b>: the gate is bound to the task, not the role, so whoever produces the work cannot promote their own work to COMPLETE — an independent verifier confirms it."
-        variant: strong
+        variant: accent
         filters: [f-verifica]

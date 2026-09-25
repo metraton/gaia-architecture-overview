@@ -169,7 +169,7 @@ window.__DOC__ = {
                       "type": "rail",
                       "order": 3,
                       "span": 1,
-                      "title": "Plan execution"
+                      "title": "Brief creation and plan execution"
                     },
                     {
                       "id": "pl-contract",
@@ -183,14 +183,14 @@ window.__DOC__ = {
                       "type": "rail",
                       "order": 5,
                       "span": 1,
-                      "title": "Approval inspection"
+                      "title": "Approval management"
                     },
                     {
                       "id": "pl-schedule",
                       "type": "rail",
                       "order": 6,
                       "span": 1,
-                      "title": "Schedule task inspection"
+                      "title": "Schedule task management"
                     }
                   ]
                 }
