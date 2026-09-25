@@ -647,33 +647,120 @@ window.__DOC__ = {
               ]
             },
             {
-              "id": "gaia-specialists",
-              "title": "The specialists",
-              "subtitle": "8 of them, one per field",
+              "id": "gaia-bottom",
               "treatment": [
-                "envelope"
+                "plain"
               ],
               "order": 3,
               "span": 1,
-              "columns": 1,
+              "columns": 3,
               "children": [
                 {
-                  "id": "mp-specialists",
-                  "order": 1,
-                  "kicker": "→ PAGE 3",
-                  "title": "Do the HOW",
-                  "description": [
-                    "each born clean for one piece of work, ends with a contract"
-                  ],
-                  "detail": "Specialists do the work, each in its field: application code, infrastructure, the cluster, live systems, Gaia itself. Each one is born clean for one piece of work, owns that one task, and ends with a contract: what was done, and with what evidence.",
+                  "id": "gaia-specialists",
+                  "title": "The specialist",
+                  "subtitle": "one per piece of work, 8 today",
                   "treatment": [
-                    "centered"
+                    "envelope"
                   ],
-                  "filters": [
-                    "one-turn",
-                    "semantic",
-                    "the-contract",
-                    "nothing-self-declared"
+                  "order": 1,
+                  "span": 1,
+                  "columns": 1,
+                  "children": [
+                    {
+                      "id": "mp-specialists",
+                      "order": 1,
+                      "kicker": "→ PAGE 3",
+                      "title": "Does the HOW",
+                      "description": [
+                        "born clean for one piece of work"
+                      ],
+                      "detail": "Specialists do the work, each in its field: application code, infrastructure, the cluster, live systems, Gaia itself. Each one is born clean for one piece of work, owns that one task, and ends with a contract: what was done, and with what evidence.",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "filters": [
+                        "one-turn",
+                        "semantic",
+                        "the-contract",
+                        "nothing-self-declared"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "gaia-carries",
+                  "title": "What a specialist carries",
+                  "subtitle": "handed to it the moment it is born",
+                  "treatment": [
+                    "envelope"
+                  ],
+                  "order": 2,
+                  "span": 2,
+                  "columns": 5,
+                  "children": [
+                    {
+                      "id": "sc-identity",
+                      "order": 1,
+                      "kicker": "→ PAGE 3",
+                      "title": "Identity",
+                      "description": [
+                        "its role and its field"
+                      ],
+                      "detail": "Each specialist is defined by one file: what it is for, the field it owns, and the tools it may use. The same file decides which part of the project it may read and write.",
+                      "filters": [
+                        "semantic"
+                      ]
+                    },
+                    {
+                      "id": "sc-skills",
+                      "order": 2,
+                      "kicker": "→ PAGE 3",
+                      "title": "Skills",
+                      "description": [
+                        "how its kind of work is done"
+                      ],
+                      "detail": "Skills are written instructions: the patterns and procedures for its kind of work. The ones its definition lists are loaded when it is born; others it loads when a task calls for them.",
+                      "filters": [
+                        "semantic"
+                      ]
+                    },
+                    {
+                      "id": "sc-context",
+                      "order": 3,
+                      "kicker": "→ PAGE 4",
+                      "title": "Project context",
+                      "description": [
+                        "what it may read and write"
+                      ],
+                      "detail": "What Gaia knows about your workspace, split into sections. The specialist is told which sections it may read and which it may write, and pulls the ones it needs."
+                    },
+                    {
+                      "id": "sc-memory",
+                      "order": 4,
+                      "kicker": "→ PAGE 8",
+                      "title": "Memory about you",
+                      "description": [
+                        "how you like to work"
+                      ],
+                      "detail": "The rules and preferences you have given for how work is done are handed in when the specialist is born, so it does not ask again. The rest of memory it can search when it needs it.",
+                      "filters": [
+                        "memory"
+                      ]
+                    },
+                    {
+                      "id": "sc-contract",
+                      "order": 5,
+                      "kicker": "→ PAGE 6",
+                      "title": "Its contract",
+                      "description": [
+                        "the blank form it must fill"
+                      ],
+                      "detail": "It is born with its contract already open: who it is, what it was asked, and what it may touch. It fills the form as it works, and its turn cannot close until the form is finished.",
+                      "filters": [
+                        "the-contract",
+                        "nothing-self-declared"
+                      ]
+                    }
                   ]
                 }
               ]
@@ -705,76 +792,55 @@ window.__DOC__ = {
       "id": "p3-whos-who",
       "layout": "grid",
       "form": "comparison",
-      "columns": 2,
+      "columns": 1,
       "filters": [
         {
           "key": "one-turn",
           "label": "one turn",
           "steps": [
-            "The orchestrator holds the plan and calls Gaia's own CLI; a specialist lives one turn, from its dispatch to its close, and that turn ends with a contract."
+            "A specialist lives one turn, from its dispatch to its close, and that turn ends with a contract the orchestrator reads."
           ]
         },
         {
           "key": "the-contract",
           "label": "one contract, out and back",
           "steps": [
-            "A specialist goes out with a task and comes back with a contract; gaia-verifier checks the work of a task against it."
+            "A specialist is born with a blank contract and returns it filled; the orchestrator reads it before telling you anything."
           ]
         },
         {
           "key": "the-human",
           "label": "who decides?",
           "steps": [
-            "You ask, and you decide what changes. The orchestrator cannot edit your files, so every change goes through a specialist and, when it changes something real, through your approval."
+            "You talk only to the orchestrator, which holds no editing tools; a specialist's changes to something real wait for your approval."
           ]
         },
         {
           "key": "memory",
           "label": "what do we remember?",
           "steps": [
-            "The orchestrator reads memory and curates it, and memory that outlives the session is one of the things Gaia adds to Claude Code."
+            "The orchestrator reads and curates memory; a specialist is handed how you like to work at birth, and searches the rest."
           ]
         },
         {
           "key": "deterministic",
           "label": "a rule decides",
           "steps": [
-            "Two of the orchestrator's limits are decided by rule in code, not by a model: it holds no editing tools, and its only commands are Gaia's own CLI."
+            "Which tools an agent holds is decided by rule in code, not by the model: the orchestrator has no editing tools, and a specialist's commands pass through the approval hook."
           ]
         },
         {
           "key": "semantic",
           "label": "a model follows instructions",
           "steps": [
-            "A specialist's turn is a model at work, following the skills it loads for that kind of work."
+            "Every agent is a model following its skills: the orchestrator's for routing and reading, a specialist's for its kind of work."
           ]
         },
         {
           "key": "nothing-self-declared",
           "label": "is it really done?",
           "steps": [
-            "A specialist does not say it is done: its contract is read, and gaia-verifier checks the work of a planned task."
-          ]
-        },
-        {
-          "key": "changes-things",
-          "label": "who changes things?",
-          "steps": [
-            "Four specialists change things in your systems: application code, infrastructure code, the cluster's desired state, and live cloud diagnosis."
-          ]
-        },
-        {
-          "key": "plans-and-checks",
-          "label": "who plans and checks?",
-          "steps": [
-            "gaia-planner turns a brief into a plan of tasks; gaia-verifier checks each task's work, and is never the one that did it."
-          ]
-        },
-        {
-          "key": "looks-after-gaia",
-          "label": "who looks after Gaia?",
-          "steps": [
-            "Two specialists work on Gaia itself: gaia-operator runs its day-to-day operations, gaia-system changes its own code."
+            "A specialist does not say it is done: its contract is read, and a planned task is checked by someone who did not do it."
           ]
         }
       ],
@@ -785,7 +851,7 @@ window.__DOC__ = {
             "plain"
           ],
           "order": 1,
-          "span": 2,
+          "span": 1,
           "columns": 1,
           "children": [
             {
@@ -794,353 +860,279 @@ window.__DOC__ = {
               "treatment": [
                 "centered"
               ],
-              "title": "ZOOM · GAIA AND THE SPECIALISTS"
+              "title": "ZOOM · WHAT AN AGENT IS"
             }
           ]
         },
         {
-          "id": "you",
+          "id": "every",
+          "title": "Every agent has",
+          "subtitle": "the same five parts, whatever its job",
           "treatment": [
-            "plain"
+            "envelope"
           ],
           "order": 2,
-          "span": 2,
-          "columns": 1,
+          "span": 1,
+          "columns": 5,
           "children": [
             {
-              "id": "you-box",
-              "kicker": "YOU",
-              "title": "Ask in your words",
+              "id": "ev-identity",
+              "order": 1,
+              "kicker": "IS",
+              "title": "An identity",
               "description": [
-                "one request in plain language, to the orchestrator only"
+                "one file: its role, its field"
               ],
-              "detail": "A <b>request</b> is one prompt, in your own words. You talk only to the orchestrator: specialists never speak to you directly, and anything they need from you comes back through it.",
+              "detail": "An <b>agent</b> is one definition file: what it is for, the surface it owns, the tools it may hold and the skills it loads (<code>agents/&lt;name&gt;.md</code> frontmatter: <code>description</code>, <code>routing.surface</code>, <code>tools</code>, <code>skills</code>).",
+              "treatment": [
+                "centered"
+              ]
+            },
+            {
+              "id": "ev-skills",
+              "order": 2,
+              "kicker": "KNOWS HOW",
+              "title": "Skills",
+              "description": [
+                "written patterns and procedures"
+              ],
+              "detail": "A <b>skill</b> is written instructions an agent loads. The ones its file lists are loaded at birth; others it loads when the work calls for them.",
+              "treatment": [
+                "centered"
+              ],
               "filters": [
-                "the-human"
+                "semantic"
+              ]
+            },
+            {
+              "id": "ev-context",
+              "order": 3,
+              "kicker": "KNOWS",
+              "title": "Context and memory",
+              "description": [
+                "about your project, and about you"
+              ],
+              "detail": "<b>Project context</b> is what Gaia knows about your workspace, in sections. <b>Curated memory</b> is what outlives the session: your rules, your preferences, what is pending.",
+              "treatment": [
+                "centered"
+              ],
+              "filters": [
+                "memory"
+              ]
+            },
+            {
+              "id": "ev-tools",
+              "order": 4,
+              "kicker": "CAN USE",
+              "title": "Its tools",
+              "description": [
+                "only the ones its file grants"
+              ],
+              "detail": "Its file lists the tools it may hold, and a hook enforces the list before any tool runs. This is where the orchestrator and a specialist differ most.",
+              "treatment": [
+                "centered"
+              ],
+              "filters": [
+                "deterministic"
+              ]
+            },
+            {
+              "id": "ev-contract",
+              "order": 5,
+              "kicker": "ANSWERS WITH",
+              "title": "A contract",
+              "description": [
+                "the form Gaia reads, never the reply"
+              ],
+              "detail": "The <b>contract</b> says what was asked, what was found, what changed, with what evidence, and the state it ends in. Gaia stores it and judges it by rule.",
+              "treatment": [
+                "centered"
+              ],
+              "filters": [
+                "the-contract"
               ]
             }
           ]
         },
         {
           "id": "orchestrator",
+          "title": "The orchestrator keeps",
+          "subtitle": "one per session · the WHAT",
           "treatment": [
             "envelope"
           ],
           "order": 3,
           "span": 1,
-          "columns": 2,
+          "columns": 5,
           "children": [
             {
-              "id": "orch-rail",
-              "type": "rail",
+              "id": "or-identity",
               "order": 1,
-              "span": 2,
-              "title": "ORCHESTRATOR · one per session"
-            },
-            {
-              "id": "orch-conversation",
-              "order": 2,
-              "kicker": "HOLDS",
-              "title": "The conversation",
+              "title": "The one you talk to",
               "description": [
-                "you talk only to it"
+                "keeps the thread, decides the route"
               ],
-              "detail": "The orchestrator is the only agent that keeps the thread from your request to the answer. It decides the route, shows it to you before starting, and tells you the result from what the specialists delivered."
+              "detail": "The orchestrator is the only agent you talk to. It decides the route, shows it to you before starting, and tells you the result from what the specialists delivered.",
+              "filters": [
+                "the-human"
+              ]
             },
             {
-              "id": "orch-memory",
+              "id": "or-skills",
+              "order": 2,
+              "title": "Route and read",
+              "description": [
+                "which specialist, how to show you"
+              ],
+              "detail": "Its skills are about coordination: routing a request to the specialist that owns it, reading a returned contract, and presenting an approval to you before anything runs.",
+              "filters": [
+                "semantic"
+              ]
+            },
+            {
+              "id": "or-memory",
               "order": 3,
-              "kicker": "HOLDS",
               "title": "Curated memory",
               "description": [
-                "reads it, and curates it"
+                "reads it, and writes it on purpose"
               ],
-              "detail": "It reads curated memory at the start of the session and writes it on purpose. Only the orchestrator and gaia-operator write curated memory; the rule is <code>subagent_memory_write_guard</code>. Episodes, the automatic trace of each turn, are written at the turn's close by the SubagentStop hook.",
+              "detail": "It reads curated memory and writes it on purpose. Only the orchestrator and gaia-operator write it; every other specialist is blocked by rule (<code>subagent_memory_write_guard</code>).",
               "filters": [
                 "memory"
               ]
             },
             {
-              "id": "orch-plan",
+              "id": "or-tools",
               "order": 4,
-              "kicker": "HOLDS",
-              "title": "The plan",
-              "description": [
-                "briefs, plans, tasks"
-              ],
-              "detail": "It writes the <b>brief</b> and moves briefs, plans and tasks from one status to the next (<code>gaia brief new|edit</code>, <code>set-status</code>). Breaking a plan into tasks belongs to gaia-planner, and closing a task after its check belongs to gaia-verifier.",
-              "filters": [
-                "one-turn"
-              ]
-            },
-            {
-              "id": "orch-cli",
-              "order": 5,
-              "kicker": "RUNS",
-              "title": "Gaia's own CLI",
-              "description": [
-                "its only commands"
-              ],
-              "detail": "Its commands are <code>gaia</code> verbs: <code>memory</code>, <code>contract view|list</code>, <code>brief</code>, <code>approvals list|show</code>, <code>context</code>. It can see the approvals waiting for you; it can never approve one.",
-              "filters": [
-                "one-turn",
-                "deterministic"
-              ]
-            },
-            {
-              "id": "orch-never",
-              "order": 6,
-              "span": 2,
               "kicker": "NEVER",
               "title": "Edits your files",
               "description": [
-                "no editing tools, by design"
+                "only dispatch and Gaia's own CLI"
               ],
-              "detail": "Before any tool runs, the PreToolUse hook asks whether the orchestrator may hold it at all (<code>check_delegate_mode</code> against <code>ORCHESTRATOR_ALLOWED_TOOLS</code>). Editing is not in that set, so every change is handed to a specialist. A rule in code decides this, not the model.",
+              "detail": "Editing tools are not in its set (<code>disallowedTools</code> in its file; <code>check_delegate_mode</code> against <code>ORCHESTRATOR_ALLOWED_TOOLS</code> at PreToolUse). Every change is handed to a specialist. A rule in code decides this, not the model.",
               "filters": [
                 "deterministic",
                 "the-human"
+              ]
+            },
+            {
+              "id": "or-contract",
+              "order": 5,
+              "title": "Reads every contract",
+              "description": [
+                "and the plan, before telling you"
+              ],
+              "detail": "The orchestrator has no contract of its own to return: it reads the specialists' contracts (<code>gaia contract view</code>) and moves briefs, plans and tasks from one status to the next.",
+              "filters": [
+                "the-contract",
+                "nothing-self-declared",
+                "one-turn"
               ]
             }
           ]
         },
         {
           "id": "specialist",
+          "title": "A specialist carries",
+          "subtitle": "one per piece of work · the HOW",
           "treatment": [
             "envelope"
           ],
           "order": 4,
           "span": 1,
-          "columns": 2,
-          "children": [
-            {
-              "id": "spec-rail",
-              "type": "rail",
-              "order": 1,
-              "span": 2,
-              "title": "SPECIALIST · one per piece of work"
-            },
-            {
-              "id": "spec-turn",
-              "order": 2,
-              "kicker": "LIVES",
-              "title": "One turn",
-              "description": [
-                "born for this piece of work"
-              ],
-              "detail": "A <b>turn</b> is one specialist's life, from dispatch to close. It is born clean at the dispatch, with the project context it may read, owns one task, and ends in one of six states; only COMPLETE is final.",
-              "filters": [
-                "one-turn",
-                "semantic"
-              ]
-            },
-            {
-              "id": "spec-field",
-              "order": 3,
-              "kicker": "WORKS ON",
-              "title": "Its own field",
-              "description": [
-                "code, cloud, a cluster, a live system"
-              ],
-              "detail": "Each specialist owns one surface: application code, infrastructure code, the cluster's desired state, live cloud state, or Gaia itself. The request is routed to the one that owns it (<code>surface_routing</code>)."
-            },
-            {
-              "id": "spec-skills",
-              "order": 4,
-              "kicker": "LOADS",
-              "title": "Its skills",
-              "description": [
-                "how the work is done"
-              ],
-              "detail": "A <b>skill</b> is written instructions an agent loads. Claude Code injects a specialist's skills from its own definition file; Gaia reminds it when a file it touches is governed by one, and checks afterwards that it was loaded.",
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "spec-copy",
-              "order": 5,
-              "kicker": "WORKS IN",
-              "title": "Its own copy",
-              "description": [
-                "of your repo, apart from yours"
-              ],
-              "detail": "A specialist that writes to a repository works in its own copy of it, a <code>git worktree</code> created with <code>gaia worktree create</code> on its own branch, so two turns never share one working tree."
-            },
-            {
-              "id": "spec-contract",
-              "order": 6,
-              "span": 2,
-              "kicker": "RETURNS",
-              "title": "A contract",
-              "description": [
-                "a form the orchestrator reads"
-              ],
-              "detail": "The <b>contract</b> says what was asked, what was found, what changed, with what evidence, and the state it ends in. The SubagentStop hook reads only the stored contract, never the reply text; a missing or unfinished contract sends the turn back (<code>exit 2</code>).",
-              "filters": [
-                "one-turn",
-                "the-contract",
-                "nothing-self-declared"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "agents",
-          "title": "Agents",
-          "subtitle": "9 agents: the orchestrator and 8 specialists",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 5,
-          "span": 2,
           "columns": 5,
           "children": [
             {
-              "id": "ag-orchestrator",
+              "id": "sp-identity",
               "order": 1,
-              "span": 2,
-              "kicker": "orchestrator",
-              "title": "Talks with you",
+              "title": "One field, one task",
               "description": [
-                "routes, then tells you"
+                "born clean for this piece of work"
               ],
-              "detail": "<code>orchestrator</code>: the one agent you talk to. It holds the conversation and hands every change to a specialist."
+              "detail": "A specialist owns one surface (application code, infrastructure, the cluster, live systems, Gaia itself) and is born clean for one task. A <b>turn</b> is its whole life, from dispatch to close.",
+              "filters": [
+                "one-turn"
+              ]
             },
             {
-              "id": "ag-operator",
+              "id": "sp-skills",
               "order": 2,
-              "kicker": "gaia-operator",
-              "title": "Runs Gaia",
+              "title": "Skills of its trade",
               "description": [
-                "memory, schedules"
+                "listed in its file, loaded at birth"
               ],
-              "detail": "<code>gaia-operator</code>: Gaia's day-to-day operations, such as curated memory and scheduled tasks (<code>gaia schedule register|sync</code>).",
+              "detail": "Claude Code loads the skills its file lists (<code>skills:</code> frontmatter) when the specialist is born; Gaia reminds it when a file it touches is governed by another one.",
               "filters": [
-                "looks-after-gaia"
+                "semantic"
               ]
             },
             {
-              "id": "ag-planner",
+              "id": "sp-context",
               "order": 3,
-              "kicker": "gaia-planner",
-              "title": "Plans the work",
+              "title": "Its slice, and you",
               "description": [
-                "brief into tasks"
+                "the sections it may touch, how you work"
               ],
-              "detail": "<code>gaia-planner</code>: turns a brief into a plan of tasks, each with its gate (<code>plan save</code>, <code>task add</code>).",
+              "detail": "At SubagentStart the hook injects the sections it may read and write (<code>can_read</code>, <code>can_write</code>) and how you like work done (<code># How the user works</code>). It pulls the rest on demand (<code>gaia context get</code>, <code>gaia memory search</code>).",
               "filters": [
-                "plans-and-checks"
+                "memory"
               ]
             },
             {
-              "id": "ag-developer",
+              "id": "sp-tools",
               "order": 4,
-              "kicker": "developer",
-              "title": "App code",
+              "kicker": "HAS",
+              "title": "Editing tools",
               "description": [
-                "writes and tests it"
+                "and its own copy of the repo"
               ],
-              "detail": "<code>developer</code>: application code, its build and its tests.",
+              "detail": "It edits files and runs commands; anything that changes something real waits for your approval. When it writes to a repository it works in its own copy (<code>gaia worktree create</code>), so two turns never share one tree.",
               "filters": [
-                "changes-things"
+                "deterministic",
+                "the-human"
               ]
             },
             {
-              "id": "ag-platform",
+              "id": "sp-contract",
               "order": 5,
-              "kicker": "platform-architect",
-              "title": "Infra code",
+              "title": "Returns its contract",
               "description": [
-                "cloud as code"
+                "born blank, filled as it works"
               ],
-              "detail": "<code>platform-architect</code>: infrastructure as code, such as Terraform.",
+              "detail": "It is born with its contract open (<code># Your Contract</code>) and fills it as it works. SubagentStop reads only the stored contract, never the reply; an unfinished one sends the turn back (<code>exit 2</code>).",
               "filters": [
-                "changes-things"
-              ]
-            },
-            {
-              "id": "ag-gitops",
-              "order": 6,
-              "kicker": "gitops-operator",
-              "title": "Cluster config",
-              "description": [
-                "desired state"
-              ],
-              "detail": "<code>gitops-operator</code>: the desired state of Kubernetes, its manifests and Flux configuration.",
-              "filters": [
-                "changes-things"
-              ]
-            },
-            {
-              "id": "ag-cloud",
-              "order": 7,
-              "kicker": "cloud-troubleshooter",
-              "title": "Live systems",
-              "description": [
-                "diagnoses live state"
-              ],
-              "detail": "<code>cloud-troubleshooter</code>: diagnoses live cloud state and its drift from the desired state.",
-              "filters": [
-                "changes-things"
-              ]
-            },
-            {
-              "id": "ag-system",
-              "order": 8,
-              "kicker": "gaia-system",
-              "title": "Gaia's code",
-              "description": [
-                "agents, skills, hooks"
-              ],
-              "detail": "<code>gaia-system</code>: changes Gaia itself, its agents, skills, hooks and CLI.",
-              "filters": [
-                "looks-after-gaia"
-              ]
-            },
-            {
-              "id": "ag-verifier",
-              "order": 9,
-              "kicker": "gaia-verifier",
-              "title": "Checks the work",
-              "description": [
-                "never its own"
-              ],
-              "detail": "<code>gaia-verifier</code>: checks a planned task's work against its gate. The check is bound to the task, not the role, so whoever did the work cannot close it.",
-              "filters": [
-                "plans-and-checks",
                 "the-contract",
-                "nothing-self-declared"
+                "nothing-self-declared",
+                "one-turn"
               ]
             }
           ]
         },
         {
-          "id": "adds",
+          "id": "roster",
           "treatment": [
             "plain"
           ],
-          "order": 6,
-          "span": 2,
+          "order": 5,
+          "span": 1,
           "columns": 1,
           "children": [
             {
-              "id": "adds-box",
-              "kicker": "WHAT GAIA ADDS",
-              "title": "On Claude Code",
-              "description": [
-                "a plugin on its hooks, subagents and skills",
-                "+ a database, contracts, approvals that show the exact command, and memory that outlives the session"
-              ],
-              "detail": "Gaia is a Claude Code plugin: it registers 12 hook events and ships its agents and skills through Claude Code's own subagents and skills. On top it adds a database (<code>gaia.db</code>), contracts, approvals that show you the exact command before it runs, and memory that outlives the session.",
-              "filters": [
-                "memory"
-              ]
+              "id": "roster-line",
+              "type": "separator",
+              "order": 1,
+              "text": "9 today: orchestrator · developer · platform-architect · gitops-operator · cloud-troubleshooter"
+            },
+            {
+              "id": "roster-line-2",
+              "type": "separator",
+              "order": 2,
+              "text": "gaia-planner · gaia-verifier · gaia-operator · gaia-system · you can add your own"
             }
           ]
         }
       ],
-      "name": "3 · Who's who",
+      "name": "3 · What an agent is",
       "order": 2
     },
     {
@@ -2017,7 +2009,7 @@ window.__DOC__ = {
               "kicker": "NEEDS_VERIFICATION",
               "title": "Send a verifier",
               "description": [
-                "the producer cannot seal its own work"
+                "a specialist cannot seal its own work"
               ],
               "detail": "A plan-task-bound turn cannot close itself <code>COMPLETE</code>. The orchestrator dispatches an independent verifier, bound through <code>parent_handoff_id</code>. Who confirms? That is page 7.",
               "filters": [
@@ -2844,7 +2836,7 @@ window.__DOC__ = {
               "description": [
                 "do the how, answer with a contract"
               ],
-              "detail": "Page 3 · Who's who: 8 specialists, one per field. Page 6 · Contracts: every specialist answers with its own contract, and the orchestrator checks what it claims before telling you.",
+              "detail": "Page 3 · What an agent is: every specialist has the same parts, and there are 8 today, one per field. Page 6 · Contracts: every specialist answers with its own contract, and the orchestrator checks what it claims before telling you.",
               "treatment": [
                 "centered"
               ],

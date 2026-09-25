@@ -78,7 +78,7 @@ doctrine and glossary (slots, rails, separators, chips, the hole that speaks).
 | **Title** | The thing, in 2–4 words. |
 | **Description** | One line, few words: what it does or why it matters. |
 | **Detail** | The mechanics, identifiers, function names and evidence, shown on click. |
-| **Rail** | A title-only band that names a layer, a map position ("POINT 4 · YOU SIGN") or a group. Carries no chip and no detail. A vertical rail labels a stack beside it. |
+| **Rail** | A title-only band that names a layer, a map position ("APPROVALS · YOU SIGN") or a group. Carries no chip and no detail. A vertical rail labels a stack beside it. |
 | **Separator** | A relation or a rule, stated in the line's text. On the map it stands for a labelled arrow. |
 | **Centered box** | The `centered` treatment, for what a page turns around (the map's actors, page 5's hook, page 8's MEMORY), or for a row of equal small headers. |
 | **Chip vs order vs width vs empty cell** | A **chip** lights a relation that crosses sections, and needs at least 2 members on the page. **Order** carries a sequence inside one section. **Width** carries "belongs to", reach or importance. An **empty cell** states an absence, and it must caption itself: a separator with text, never a bare `spacer`. |
@@ -100,7 +100,6 @@ Chip keys and labels, fixed for the whole deck:
 | `next-move` | what happens next? | 6 |
 | `one-task` | one task | 7 |
 | `the-judge` (was `el-juez`) | the judge | 6, backup |
-| `changes-things`, `plans-and-checks`, `looks-after-gaia` | who changes things? / who plans and checks? / who looks after Gaia? | 3 |
 | `ruteo`, `porton`, `despacho`, `entrega`, `contabilidad`, `sesion-abre` | unchanged from today's deck | backup |
 
 ## The story in one breath
@@ -162,12 +161,12 @@ depth time goes to pages 4–8.
 |---|---|---|---|---|---|
 | 1 | Why a team needs this | — | 1 | dashboard | 1.5 |
 | 2 | What Gaia is | the map | 1 | mindmap, vertical | 1 |
-| 3 | Who's who | ZOOM · GAIA AND THE SPECIALISTS | 2 | comparison, two groups | 1 |
-| 4 | The life of a request | POINT 1 · HOLDS THE CONVERSATION | 3 | dashboard (kept) | 2.5 |
-| 5 | You sign | POINT 4 · YOU SIGN | 4 | flow, left to right | 2 |
-| 6 | Contracts | POINT 2 · EVERY AGENT ANSWERS WITH A CONTRACT | 4 | dashboard, top-down | 2 |
-| 7 | It checks | POINT 3 · IT CHECKS BEFORE TELLING YOU | 4 | flow, phases as sections | 2 |
-| 8 | Memory | POINT 5 · MEMORY OUTLIVES THE SESSION | 4 | mindmap (star) | 1.5 |
+| 3 | What an agent is | ZOOM · WHAT AN AGENT IS | 2 | comparison, matrix | 1 |
+| 4 | The life of a request | THE ORCHESTRATOR · HOLDS THE CONVERSATION | 3 | dashboard (kept) | 2.5 |
+| 5 | You sign | APPROVALS · YOU SIGN | 4 | flow, left to right | 2 |
+| 6 | Contracts | CONTRACTS · ONE CONTRACT PER AGENT | 4 | dashboard, top-down | 2 |
+| 7 | It checks | PLANS & TASKS · IT CHECKS BEFORE TELLING YOU | 4 | flow, phases as sections | 2 |
+| 8 | Memory | MEMORY · IT OUTLIVES THE SESSION | 4 | mindmap (star) | 1.5 |
 | 9 | Install it, ask it | BACK TO THE MAP | 1 | comparison | 1.5 |
 | backup | Down to the code | — | 5 | dashboard | 0 (questions only) |
 | | | | | | **15** |
@@ -180,7 +179,7 @@ video right after page 1, and page 9 returns to it.
 |---|---|---|
 | 1 | Why | 20 |
 | 2 | The map (the anchor) | 40 |
-| 3 | Who's who | 20 |
+| 3 | What an agent is | 20 |
 | 4 | The life of a request | 40 |
 | 5 | You sign | 25 |
 | 6 | Contracts | 30 |
@@ -205,6 +204,14 @@ The backup page is not in the video.
 | 12 hook events are registered, including PostToolUseFailure for Bash. | `hooks/hooks.json` |
 | The workflow auditor has about twenty checks; the compliance score has six factors. | `workflow_auditor.py:445-661`; `transcript_analyzer.py:471-531` |
 | Only the orchestrator and gaia-operator write curated memory; SubagentStop writes episodes. | `subagent_memory_write_guard.py:60-67`; `subagent_stop.py:263` |
+| **Page 2's WHAT A SPECIALIST CARRIES, item 1 · identity:** each agent is one definition file whose frontmatter names it, says what it is for, lists its tools and its surface. | `agents/developer.md:2-5` (`name`, `description`, `tools`), `:12-13` (`routing.surface`) |
+| **Item 2 · skills:** the skills a specialist loads are listed in its own frontmatter. | `agents/developer.md:21-28` (`skills:`) |
+| **Item 3 · project context:** the sections it may read and write come from its frontmatter and are rendered into its contract block at birth. | `agents/developer.md:9-11` (`project_context_contracts`); `hooks/modules/context/kernel_builder.py:214-215`, `:243-244` (`can_read`, `can_write`) |
+| **Item 4 · memory about you:** the executor-facing user preferences are injected with their full body. | `kernel_builder.py:56` (`MEMORY_HEADING = "# How the user works"`), `:388` (`build_memory_block`; `memory.type='user' AND audience='executor'`) |
+| **Item 5 · its contract:** every specialist is born with its contract open: contract id, agent id, goal, role, surface. | `kernel_builder.py:54` (`KERNEL_HEADING = "# Your Contract"`), `:193-251` (`build_dispatch_kernel`) |
+| All three blocks (contract, CLI, memory) are injected at SubagentStart, once the dispatch row is claimed. | `hooks/modules/agents/dispatch_lifecycle.py:88` (`build_kernel_context`); `kernel_builder.py:407-427` |
+| **Dropped from the carried set:** its own copy of the repo. It is not injected at birth; a specialist creates it on demand when it writes (`gaia worktree create`). | agent-protocol skill, principle 12 |
+| **Page 3 · the orchestrator never holds an editing tool.** | `agents/gaia-orchestrator.md:6` (`disallowedTools: [Glob, Grep, Edit, Write, NotebookEdit, …]`); `hooks/modules/orchestrator/delegate_mode.py:81` (`ORCHESTRATOR_ALLOWED_TOOLS`), `:367` (`check_delegate_mode`) |
 | Planning objects and the approval hash chain. | `schema.sql:442-700`, `:1578-1600` |
 | Contract kinds (not on a slide): `verifier`, `task_execution`, `investigation`, `memory`. | `hooks/modules/agents/dispatch_binding.py:96`, `:105-106`, `:509-543` |
 | **Numbers for page 9:** approvals 583 approved, 52 rejected, 218 expired; commands 423 of 450 read-only (T0), 94.0%. | contract `a237b55dcc2f80ef4.3bea760ea6ba` (`gaia approvals stats`, `gaia metrics`) |
@@ -274,18 +281,21 @@ Evidence, Compliance. `double-reader` and `security` are unchanged.
 ┆ ┆   never edits · → p4    ┆ ┆         │          │          │       ┆ ┆
 ┆ └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘ └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘ ┆
 ┆             ── ▼ delegates · ▲ returns a contract ──                  ┆
-┆ ┌┄ THE SPECIALISTS · 8 of them, one per field ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┐ ┆
-┆ ┆                   Do the HOW · → p3                                 ┆ ┆
-┆ └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘ ┆
+┆ ┌┄ THE SPECIALIST ┄┄┄┄┄┄┄┄┐ ┌┄ WHAT A SPECIALIST CARRIES ┄┄┄┄┄┄┄┄┄┄┄┄┐ ┆
+┆ ┆ one per piece of work,  ┆ ┆ Iden- │Skills │Project│Memory │ Its   ┆ ┆
+┆ ┆ 8 today                 ┆ ┆ tity  │ → p3  │context│about  │con-   ┆ ┆
+┆ ┆   Does the HOW · → p3   ┆ ┆ → p3  │       │ → p4  │you →p8│tract→6┆ ┆
+┆ └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘ └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘ ┆
 └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘
    ── hooks decide by rule · skills and agents follow · the CLI joins ──
 ```
 Chips lit: `the-human` → YOU, Approvals. `memory` → THE ORCHESTRATOR,
-Memory. `nothing-self-declared` → Plans & tasks, Contracts, THE SPECIALISTS.
-`the-contract` → Contracts, THE SPECIALISTS. `one-turn` → THE ORCHESTRATOR,
-THE SPECIALISTS. `deterministic` (the hooks) → Approvals, Contracts (a hook
-judges each contract). `semantic` (a model) → THE ORCHESTRATOR, THE
-SPECIALISTS.
+Memory, Memory about you. `nothing-self-declared` → Plans & tasks,
+Contracts, THE SPECIALIST, Its contract. `the-contract` → Contracts, THE
+SPECIALIST, Its contract. `one-turn` → THE ORCHESTRATOR, THE SPECIALIST.
+`deterministic` (the hooks) → Approvals, Contracts (a hook judges each
+contract). `semantic` (a model) → THE ORCHESTRATOR, THE SPECIALIST,
+Identity, Skills.
 
 - **Motion beat (40 s, the video's anchor):**
   - YOU appears alone, outside Gaia, then the "converse · sign" separator
@@ -295,8 +305,10 @@ SPECIALISTS.
   - THE ORCHESTRATOR appears: it decides the WHAT.
   - WHAT GAIA MANAGES fills left to right, each box with its page: Memory,
     Plans & tasks, Contracts, Approvals.
-  - The "delegates · returns a contract" separator draws; THE SPECIALISTS
-    appear: they do the HOW. The picture is complete; hold.
+  - The "delegates · returns a contract" separator draws; THE SPECIALIST
+    appears: it does the HOW. WHAT A SPECIALIST CARRIES fills left to right,
+    the same way WHAT GAIA MANAGES did: Identity, Skills, Project context,
+    Memory about you, Its contract. The picture is complete; hold.
   - `deterministic` lights Approvals and Contracts, then `semantic` lights the
     orchestrator and the specialists.
   - The closing separator holds last. The camera closes on THE ORCHESTRATOR
@@ -313,94 +325,100 @@ SPECIALISTS.
       page in the kicker; its subtitle says it is managed through Gaia's own
       CLI).
     - The "delegates · returns a contract" separator.
-    - THE SPECIALISTS, a full-width envelope with one **centered** box.
+    - A second row with the same shape: THE SPECIALIST (one third, one
+      **centered** box, "Does the HOW") and WHAT A SPECIALIST CARRIES (two
+      thirds, five small boxes, each with its page in the kicker; its
+      subtitle says they are handed over the moment it is born). The five
+      are what the dispatch hands a specialist at birth, each checked in the
+      Gaia source (facts table). Its own copy of the repo is left out: a
+      specialist makes it on demand, it is not born with it.
   - Closing separator: "hooks decide by rule · skills and agents follow · the
     CLI joins". It replaces the three-halves row; the `deterministic` and
     `semantic` chips still light what is rule and what is model.
 - **The layout move: the envelope is the boundary.** You are outside it;
-  everything Gaia is sits inside. Inside, width is reach: the orchestrator
-  takes one third, the four things Gaia manages share two thirds, and the
-  specialists span the whole width under the separator that joins them to
-  it. Navigation lives in the boxes (→ p3 … p8), not in a separate row. At
-  1920×1080 the whole page fits the first screen; below 1440px the engine
-  stacks the orchestrator above the managed set.
+  everything Gaia is sits inside. Inside, the two halves rhyme: each is an
+  actor in one third beside the set it holds in two thirds, the orchestrator
+  with what Gaia manages above the separator, the specialist with what it
+  carries below it. Same box style, same kicker-as-page treatment, so the
+  eye reads the two rows as one comparison. Navigation lives in the boxes
+  (→ p3 … p8), not in a separate row. At 1920×1080 the whole page fits the
+  first screen; below 1440px the engine stacks each actor above its set.
 - **Language notes:** the GAIA subtitle keeps the orchestrator's own words.
   "sign" is its verb; later pages say "approval" for the noun. The
   specialists return "a contract", the deck's one term, from this page on.
   The orchestrator decides the WHAT and the specialists do the HOW: the two
   capitalised words are the page's one contrast. "the CLI" is named in
-  plain words, never as a command.
-- **Hands off to page 3:** THE ORCHESTRATOR and THE SPECIALISTS. Page 3
-  zooms into both.
+  plain words, never as a command. The carried set says "Project context",
+  never "memory", and "Memory about you" for the rules and preferences
+  handed in; no heading, hook or field name reaches the face or the detail.
+- **Hands off to page 3:** the two sets. Page 3 zooms into what the
+  orchestrator keeps and what a specialist carries.
 
-## Page 3 · Who's who (ZOOM · GAIA AND THE SPECIALISTS)
+## Page 3 · What an agent is (ZOOM · WHAT AN AGENT IS)
 
 - **Altitude:** 2 · the picture.
-- **Leave with:** "Gaia is one orchestrator that holds the conversation and
-  never edits your files, plus 8 specialists that each do one piece of work
-  and come back with a contract."
+- **Leave with:** "Every agent is the same five parts: an identity, skills,
+  context and memory, its tools, and a contract. The orchestrator fills them
+  to coordinate and never holds an editing tool; a specialist fills them to
+  do one piece of work and returns its contract. Any agent, including one
+  you add, is one more instance of that anatomy."
 
 ```
 ┌───────────────────────────────────────────────────────────────────────┐
-│                    ZOOM · GAIA AND THE SPECIALISTS                    │
-├───────────────────────────────────────────────────────────────────────┤
-│ YOU · ask in your own words                                           │
-├───────────────────────────────────┬───────────────────────────────────┤
-│ ORCHESTRATOR · one per session    │ SPECIALIST · one per piece of work│
-├─────────────────┬─────────────────┼─────────────────┬─────────────────┤
-│ HOLDS           │ HOLDS           │ LIVES           │ WORKS ON        │
-│ The conversation│ Memory          │ One turn        │ Its own field   │
-│ you talk only   │ reads it, and   │ born for this   │ code, cloud, a  │
-│ to it           │ curates it      │ piece of work   │ cluster, a live │
-│                 │                 │                 │ system          │
-├─────────────────┼─────────────────┼─────────────────┼─────────────────┤
-│ HOLDS           │ RUNS            │ LOADS           │ WORKS IN        │
-│ The plan        │ Gaia's own CLI  │ Its skills      │ Its own copy    │
-│ briefs, plans,  │ its only        │ how the work    │ of your repo,   │
-│ tasks           │ commands        │ is done         │ apart from yours│
-├─────────────────┴─────────────────┼─────────────────┴─────────────────┤
-│ NEVER                             │ RETURNS                           │
-│ Edits your files                  │ A contract                        │
-│ no editing tools, by design       │ a form the orchestrator reads     │
-├───────────────────────────────────┴───────────────────────────────────┤
-│ AGENTS · 9 agents: the orchestrator and 8 specialists                 │
-├───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┤
-│orchest│operatr│planner│develop│platfrm│gitops │cloud  │system │verifir│
-│talks  │Gaia   │plans  │app    │IaC    │desired│live   │Gaia   │checks │
-├───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┤
-│ WHAT GAIA ADDS TO CLAUDE CODE · a plugin on its hooks, subagents      │
-│ and skills + a database, contracts, approvals that show the exact     │
-│ command, and memory that outlives the session                         │
-└───────────────────────────────────────────────────────────────────────┘
+│                        ZOOM · WHAT AN AGENT IS                        │
+├┄ EVERY AGENT HAS · the same five parts ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┤
+┆ IS          │ KNOWS HOW   │ KNOWS       │ CAN USE     │ ANSWERS WITH  ┆
+┆ An identity │ Skills      │ Context and │ Its tools   │ A contract    ┆
+┆             │             │ memory      │             │               ┆
+├┄ THE ORCHESTRATOR KEEPS · one per session · the WHAT ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┤
+┆ The one you │ Route and   │ Curated     │ NEVER       │ Reads every   ┆
+┆ talk to     │ read        │ memory      │ Edits files │ contract      ┆
+├┄ A SPECIALIST CARRIES · one per piece of work · the HOW ┄┄┄┄┄┄┄┄┄┄┄┄┄┤
+┆ One field,  │ Skills of   │ Its slice,  │ HAS         │ Returns its   ┆
+┆ one task    │ its trade   │ and you     │ Edit tools  │ contract      ┆
+└┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘
+ ── 9 today: orchestrator · developer · platform-architect · gitops-… ──
+ ── gaia-planner · gaia-verifier · gaia-operator · … · add your own ──
 ```
-Agent names are shortened only in this sketch; the page uses the full names.
-Chips lit: `one-turn` → The plan, Gaia's own CLI, One turn, A contract.
-`the-contract` → A contract, verifir. `changes-things` → develop, platfrm,
-gitops, cloud. `plans-and-checks` → planner, verifir. `looks-after-gaia` →
-operatr, system. `deterministic` → NEVER, Gaia's own CLI. `semantic` → Its
-skills, One turn. `memory` → Memory, WHAT GAIA ADDS. `the-human` → YOU,
-NEVER. `nothing-self-declared` → A contract, verifir.
+Chips lit: `semantic` → Skills, Route and read, Skills of its trade.
+`memory` → Context and memory, Curated memory, Its slice and you.
+`deterministic` → Its tools, NEVER Edits files, HAS Editing tools.
+`the-contract` → A contract, Reads every contract, Returns its contract.
+`the-human` → The one you talk to, NEVER, HAS. `one-turn` → Reads every
+contract, One field one task, Returns its contract.
+`nothing-self-declared` → Reads every contract, Returns its contract.
+Dropped: `changes-things`, `plans-and-checks`, `looks-after-gaia` (their
+members were the per-agent boxes, now gone).
 
-- **Motion beat (20 s):** the ZOOM rail appears first, as if the camera had
-  gone into the map's GAIA and SPECIALIST boxes. The two groups fill in pairs,
-  row by row; NEVER and RETURNS appear last, on the same row. The agent row
-  fills and its three chips light in order. The WHAT GAIA ADDS band closes
-  the page and is the transition to page 4.
-- **Form: comparison, two groups side by side.** Two roles and one
-  difference.
-- **Sections and components:** Jorge's revision-3 page 2, restored as its own
-  page, with a new top rail "ZOOM · GAIA AND THE SPECIALISTS". The ORCHESTRATOR
-  group zooms into the map's GAIA box, and the SPECIALIST group into the
-  map's SPECIALIST box.
-- **The layout move: the last row is the difference.** Both groups have the
-  same shape; NEVER · Edits your files and RETURNS · A contract share a row.
-- **Language notes:** agent names are real identifiers on a level-2 page,
-  each with a plain description. "subagents" in the base band is Claude
-  Code's feature name. "Its own copy of your repo" is plain; "git worktree"
-  is only in the detail.
-- **Hands off to page 4:** One turn. Its life is POINT 1 on the map.
+- **Motion beat (20 s):** the ZOOM rail appears, as if the camera had gone
+  into page 2's two sets. EVERY AGENT HAS fills left to right. Then the two
+  rows fill column by column, orchestrator over specialist, so each slot is
+  read as one comparison; the tools column (NEVER over HAS) lands last and
+  holds. The roster lines appear quietly: the transition to page 4.
+- **Form: comparison, as a matrix.** Three bands of five columns: the
+  anatomy, then how each role fills it. Reading down a column is the
+  comparison; reading across a band is one role.
+- **Sections and components:** the ZOOM rail; three envelopes of five boxes
+  each (EVERY AGENT HAS with **centered** boxes and a verb kicker; THE
+  ORCHESTRATOR KEEPS; A SPECIALIST CARRIES); two separators with the 9 agent
+  names and "you can add your own". No per-agent descriptions, no YOU box,
+  no WHAT GAIA ADDS band.
+- **The layout move: the column is the comparison.** All three bands have
+  five cells at the same width, so the columns line up. The only kickers in
+  the two role rows are NEVER and HAS, in the same column: the one
+  difference the page teaches carries the only extra ink. At 1920×1080 the
+  whole page fits the first screen; at 1440×900 the three bands are above
+  the fold and the roster lines sit just under it.
+- **Language notes:** roles are named; agent names appear only as the
+  roster. Real identifiers (`can_read`, `# Your Contract`,
+  `check_delegate_mode`, `gaia worktree create`) stay in the details.
+  "Project context" and "curated memory" keep their glossary meanings;
+  "memory about you" is the plain name for the rules and preferences
+  handed in at birth.
+- **Hands off to page 4:** the orchestrator's row. Its life is page 4, THE
+  ORCHESTRATOR · HOLDS THE CONVERSATION.
 
-## Page 4 · POINT 1 · The life of a request (Jorge's favourite)
+## Page 4 · THE ORCHESTRATOR · The life of a request (Jorge's favourite)
 
 - **Altitude:** 3 · the real components.
 - **Leave with:** "One turn has a fixed life of four moments. Only the work
@@ -409,7 +427,7 @@ NEVER. `nothing-self-declared` → A contract, verifir.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│     POINT 1 · HOLDS THE CONVERSATION · GAIA, the orchestration layer    │
+│                THE ORCHESTRATOR · HOLDS THE CONVERSATION                │
 ├─────────────────────┬──────┬──────────┬──────────┬───────────┬──────────┤
 │ SESSIONSTART        │      │ BORN     │ RECEIVES │ WORKS     │ CONTRACT │
 │ System context      │ USER │PreToolUse│SubagtStrt│PostToolUse│SubagtStop│
@@ -433,7 +451,7 @@ LOOP (every box on the row is a hook). `one-turn` → the same five.
 `the-human` → BORN, HUMAN IN THE LOOP. `nothing-self-declared` → BORN,
 CONTRACT. `memory` → RECEIVES, CONTRACT.
 
-- **Motion beat (40 s):** the POINT 1 rail appears, full width. The rails
+- **Motion beat (40 s):** the orchestrator's rail appears, full width. The rails
   drop in, then the tall USER PROMPT rail. `one-turn` lights BORN → RECEIVES
   → WORKS → CONTRACT. "↻ each tool call" draws under WORKS, with "once only"
   on either side. HUMAN IN THE LOOP appears last. Then `deterministic` lights
@@ -447,13 +465,13 @@ CONTRACT. `memory` → RECEIVES, CONTRACT.
   - failed Bash calls return through PostToolUseFailure;
   - the 12-events footnote.
 
-  Its top rail now starts with "POINT 1 · HOLDS THE CONVERSATION".
+  Its top rail now starts with "THE ORCHESTRATOR · HOLDS THE CONVERSATION".
 - **Language notes:** the title keeps "request", because the page starts at
   your prompt. Hook names are the level-3 identifiers this page introduces.
-- **Hands off:** BORN / PreToolUse → page 5 (POINT 4). CONTRACT / SubagentStop
-  → page 6 (POINT 2).
+- **Hands off:** BORN / PreToolUse → page 5 (APPROVALS). CONTRACT / SubagentStop
+  → page 6 (CONTRACTS).
 
-## Page 5 · POINT 4 · You sign
+## Page 5 · APPROVALS · You sign
 
 - **Altitude:** 4 · a mechanism.
 - **Leave with:** "Before any command runs, a hook sorts it by rule: the same
@@ -462,7 +480,7 @@ CONTRACT. `memory` → RECEIVES, CONTRACT.
 
 ```
 ┌───────────────────────────────────────────────────────────────────────┐
-│   POINT 4 · YOU SIGN · A HOOK DECIDES, BY RULE, BEFORE ANYTHING RUNS  │
+│ APPROVALS · YOU SIGN · A HOOK DECIDES, BY RULE, BEFORE ANYTHING RUNS  │
 ├─────────────┬─────────────┬───────────────────┬───────────────────────┤
 │ 1 · YOU     │ 2 · AN AGENT│                   │ READ-ONLY             │
 │ Ask         │ Wants to    │   3 · PreToolUse  │ Runs                  │
@@ -485,7 +503,7 @@ Chips lit: `one-command` → YOU, AN AGENT, PreToolUse, each outcome in turn.
 for your yes. `memory` → Waits for your yes, the approval chain.
 `nothing-self-declared` → PreToolUse, the approval chain.
 
-- **Motion beat (25 s):** the POINT 4 rail appears. YOU, then AN AGENT,
+- **Motion beat (25 s):** the APPROVALS rail appears. YOU, then AN AGENT,
   appear left to right. The tall centered PreToolUse box appears and holds on
   "a rule, in code". `deterministic` lights it, and the three outcomes drop in
   top to bottom. `the-human` lights YOU and "Waits for your yes" together.
@@ -509,9 +527,9 @@ for your yes. `memory` → Waits for your yes, the approval chain.
   - Credential reads are also refused by rule, but they stay in the facts
     table only.
 - **Hands off to page 6:** the approval chain. What else each turn leaves is
-  its contract: page 6, POINT 2.
+  its contract: page 6, CONTRACTS.
 
-## Page 6 · POINT 2 · Contracts
+## Page 6 · CONTRACTS · One contract per agent
 
 - **Altitude:** 4 · a mechanism.
 - **Leave with:** "Every agent answers with a contract of its own, on the same
@@ -519,7 +537,7 @@ for your yes. `memory` → Waits for your yes, the approval chain.
 
 ```
 ┌───────────────────────────────────────────────────────────────────────┐
-│             POINT 2 · EVERY AGENT ANSWERS WITH A CONTRACT             │
+│                  CONTRACTS · ONE CONTRACT PER AGENT                   │
 │        a form that lets the orchestrator evaluate the response        │
 ├─────────┬──────────────────────────────┬──────────────────────────────┤
 │ ORCHES- │ developer                    │ Its own contract             │
@@ -560,7 +578,7 @@ boxes. `semantic` → developer, gitops-operator, gaia-verifier.
 APPROVAL, APPROVAL_REQUEST. `memory` → JUDGE, one "Its own contract".
 `the-judge` → STATUS, JUDGE.
 
-- **Motion beat (30 s):** the POINT 2 thesis appears, centered. The vertical
+- **Motion beat (30 s):** the CONTRACTS thesis appears, centered. The vertical
   rail draws, and the three agents stack in one by one, each with its own
   contract. `the-contract` lights the three contracts, then the six form
   boxes: the same form each time. `next-move` lights STATUS, then each state.
@@ -582,9 +600,9 @@ APPROVAL, APPROVAL_REQUEST. `memory` → JUDGE, one "Its own contract".
 - **Language notes:** agent names are kickers, as on page 3. State names stay
   on the face, because the audience sees them in Gaia; the field names are
   in detail.
-- **Hands off to page 7:** NEEDS_VERIFICATION, "who confirms?": POINT 3.
+- **Hands off to page 7:** NEEDS_VERIFICATION, "who confirms?": PLANS & TASKS.
 
-## Page 7 · POINT 3 · It checks
+## Page 7 · PLANS & TASKS · It checks
 
 - **Altitude:** 4 · a mechanism.
 - **Leave with:** "An idea becomes a brief, a plan, and tasks. A specialist
@@ -593,7 +611,7 @@ APPROVAL, APPROVAL_REQUEST. `memory` → JUDGE, one "Its own contract".
 
 ```
 ┌───────────────────────────────────────────────────────────────────────┐
-│                 POINT 3 · IT CHECKS BEFORE TELLING YOU                │
+│             PLANS & TASKS · IT CHECKS BEFORE TELLING YOU              │
 ├─────────────┬─────────────┬─────────────┬──────────────┬──────────────┤
 │   1 · IDEA  │  2 · BRIEF  │   3 · PLAN  │  4 · TASKS   │  5 · AGENTS  │
 ├─────────────┼─────────────┼─────────────┼──────────────┼──────────────┤
@@ -622,7 +640,7 @@ RETURNS, PASSES ON. `semantic` → PLANNER, EXECUTE, CROSS-CHECK.
 RETURNS. `the-human` → YOU, CHECKS. `memory` → gaia brief, PASSES ON.
 
 - **Motion beat (30 s):**
-  - The POINT 3 rail appears. The five phase headers appear left to right as
+  - The PLANS & TASKS rail appears. The five phase headers appear left to right as
     `one-task` lights them.
   - Their content fills in. "no contract yet" draws under the first three
     phases.
@@ -644,9 +662,9 @@ RETURNS. `the-human` → YOU, CHECKS. `memory` → gaia brief, PASSES ON.
   nothing to carry; it shows up only where a specialist is sent.
 - **Language notes:** `gaia brief` and `gaia plan` are CLI names shown as
   kickers. PLANNER is a role. "gate" is used only in its planning sense.
-- **Hands off to page 8:** PASSES ON. What is kept is POINT 5, memory.
+- **Hands off to page 8:** PASSES ON. What is kept is MEMORY.
 
-## Page 8 · POINT 5 · Memory
+## Page 8 · MEMORY · It outlives the session
 
 - **Altitude:** 4 · a mechanism.
 - **Leave with:** "Gaia keeps two kinds of memory: what it knows about your
@@ -654,7 +672,7 @@ RETURNS. `the-human` → YOU, CHECKS. `memory` → gaia brief, PASSES ON.
 
 ```
 ┌───────────────────────────────────────────────────────────────────────┐
-│           POINT 5 · MEMORY OUTLIVES THE SESSION · two kinds           │
+│             MEMORY · IT OUTLIVES THE SESSION · two kinds              │
 ├─────────────────────┬───────────────────────────┬─────────────────────┤
 │ PROJECT CONTEXT     │                           │ REAL MEMORY         │
 │ what Gaia knows     │                           │ what the turns left │
@@ -684,7 +702,7 @@ DISPATCH, AUTOMATIC. `the-human` → CURATED, MEMORY. `nothing-self-declared`
   wings. The engine cannot draw radially, so this is a center band with
   symmetric sections, as in the skill's mindmap skeleton.
 - **Sections and components:**
-  - The POINT 5 rail.
+  - The MEMORY rail.
   - Left wing, PROJECT CONTEXT: `gaia scan` · Your repos, mapped; AT
     DISPATCH · Context handed in.
   - Center: MEMORY, **centered** and tall.

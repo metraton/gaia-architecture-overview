@@ -18,7 +18,7 @@ pages:
     visible: true
     file: pages/p2-the-map.yaml
   - id: p3-whos-who
-    name: "3 · Who's who"
+    name: "3 · What an agent is"
     order: 2
     visible: true
     file: pages/p3-whos-who.yaml

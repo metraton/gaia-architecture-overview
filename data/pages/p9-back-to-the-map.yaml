@@ -82,7 +82,7 @@ sections:
         kicker: "→ PAGES 3, 6"
         title: "THE SPECIALISTS"
         description: ["do the how, answer with a contract"]
-        detail: "Page 3 · Who's who: 8 specialists, one per field. Page 6 · Contracts: every specialist answers with its own contract, and the orchestrator checks what it claims before telling you."
+        detail: "Page 3 · What an agent is: every specialist has the same parts, and there are 8 today, one per field. Page 6 · Contracts: every specialist answers with its own contract, and the orchestrator checks what it claims before telling you."
         treatment: [centered]
         filters: [nothing-self-declared, semantic]
 

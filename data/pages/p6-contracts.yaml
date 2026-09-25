@@ -199,7 +199,7 @@ sections:
         order: 2
         kicker: NEEDS_VERIFICATION
         title: "Send a verifier"
-        description: ["the producer cannot seal its own work"]
+        description: ["a specialist cannot seal its own work"]
         detail: "A plan-task-bound turn cannot close itself <code>COMPLETE</code>. The orchestrator dispatches an independent verifier, bound through <code>parent_handoff_id</code>. Who confirms? That is page 7."
         filters: [next-move, nothing-self-declared]
       - id: p6-approval-request

@@ -136,22 +136,73 @@ sections:
             type: separator
             order: 1
             text: "▼ delegates · ▲ returns a contract"
-      - id: gaia-specialists
-        title: "The specialists"
-        subtitle: "8 of them, one per field"
-        treatment: [envelope]
+      # Same shape as gaia-top: an actor box beside the set it holds, so the
+      # two halves rhyme. Only what a specialist is born with is in the set;
+      # its own copy of the repo is made on demand, so it is not here.
+      - id: gaia-bottom
+        treatment: [plain]
         order: 3
         span: 1
-        columns: 1
+        columns: 3
         children:
-          - id: mp-specialists
+          - id: gaia-specialists
+            title: "The specialist"
+            subtitle: "one per piece of work, 8 today"
+            treatment: [envelope]
             order: 1
-            kicker: "→ PAGE 3"
-            title: "Do the HOW"
-            description: ["each born clean for one piece of work, ends with a contract"]
-            detail: "Specialists do the work, each in its field: application code, infrastructure, the cluster, live systems, Gaia itself. Each one is born clean for one piece of work, owns that one task, and ends with a contract: what was done, and with what evidence."
-            treatment: [centered]
-            filters: [one-turn, semantic, the-contract, nothing-self-declared]
+            span: 1
+            columns: 1
+            children:
+              - id: mp-specialists
+                order: 1
+                kicker: "→ PAGE 3"
+                title: "Does the HOW"
+                description: ["born clean for one piece of work"]
+                detail: "Specialists do the work, each in its field: application code, infrastructure, the cluster, live systems, Gaia itself. Each one is born clean for one piece of work, owns that one task, and ends with a contract: what was done, and with what evidence."
+                treatment: [centered]
+                filters: [one-turn, semantic, the-contract, nothing-self-declared]
+          - id: gaia-carries
+            title: "What a specialist carries"
+            subtitle: "handed to it the moment it is born"
+            treatment: [envelope]
+            order: 2
+            span: 2
+            columns: 5
+            children:
+              - id: sc-identity
+                order: 1
+                kicker: "→ PAGE 3"
+                title: "Identity"
+                description: ["its role and its field"]
+                detail: "Each specialist is defined by one file: what it is for, the field it owns, and the tools it may use. The same file decides which part of the project it may read and write."
+                filters: [semantic]
+              - id: sc-skills
+                order: 2
+                kicker: "→ PAGE 3"
+                title: "Skills"
+                description: ["how its kind of work is done"]
+                detail: "Skills are written instructions: the patterns and procedures for its kind of work. The ones its definition lists are loaded when it is born; others it loads when a task calls for them."
+                filters: [semantic]
+              - id: sc-context
+                order: 3
+                kicker: "→ PAGE 4"
+                title: "Project context"
+                description: ["what it may read and write"]
+                detail: "What Gaia knows about your workspace, split into sections. The specialist is told which sections it may read and which it may write, and pulls the ones it needs."
+              - id: sc-memory
+                order: 4
+                kicker: "→ PAGE 8"
+                title: "Memory about you"
+                description: ["how you like to work"]
+                detail: "The rules and preferences you have given for how work is done are handed in when the specialist is born, so it does not ask again. The rest of memory it can search when it needs it."
+                filters: [memory]
+              - id: sc-contract
+                order: 5
+                kicker: "→ PAGE 6"
+                title: "Its contract"
+                description: ["the blank form it must fill"]
+                detail: "It is born with its contract already open: who it is, what it was asked, and what it may touch. It fills the form as it works, and its turn cannot close until the form is finished."
+                filters: [the-contract, nothing-self-declared]
 
   - id: halves
     treatment: [plain]
