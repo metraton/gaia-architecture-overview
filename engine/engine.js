@@ -86,7 +86,7 @@
   // sections), plain (a bare, border-free structural wrapper — used to stack
   // sub-sections in one parent column with no extra frame).
   const SECTION_TREATMENT = {
-    envelope: 'envelope', plain: 'plain'
+    envelope: 'envelope', plain: 'plain', middle: 'middle', compact: 'compact'
   };
 
   const treatmentsOf = node => (Array.isArray(node && node.treatment) ? node.treatment : []);
@@ -155,6 +155,8 @@
       box.appendChild(descBox);
     }
 
+    if (comp.copy) box.appendChild(buildCopyButton(comp.copy === true ? comp.title : comp.copy));
+
     // The attribute IS the only record of membership: setFlow re-reads it off
     // the DOM on every chip click, so no filter→nodes map is built anywhere.
     if (Array.isArray(comp.filters) && comp.filters.length) {
@@ -172,6 +174,41 @@
     return box;
   }
 
+  // The copy button of a box that declares `copy`: it copies `text` byte for
+  // byte and flashes a check mark. Its click stops at the button, so it never
+  // opens the box's detail card or reaches the stage's close-panel handler.
+  const COPY_GLYPH = '⧉', COPIED_GLYPH = '✓';
+  function buildCopyButton(text) {
+    const btn = el('button', 'copy-btn', { type: 'button', title: 'Copy', 'aria-label': 'Copy: ' + text });
+    btn.textContent = COPY_GLYPH;
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      copyText(text).then(() => {
+        btn.textContent = COPIED_GLYPH;
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = COPY_GLYPH; btn.classList.remove('copied'); }, 1200);
+      });
+    });
+    return btn;
+  }
+  // The Clipboard API needs a secure context; under file:// or when it rejects,
+  // a hidden textarea and execCommand('copy') do the same job.
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext)
+      return navigator.clipboard.writeText(text).catch(() => legacyCopy(text));
+    return Promise.resolve(legacyCopy(text));
+  }
+  function legacyCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } finally { ta.remove(); }
+  }
+
   // Build a `separator` component (a leaf, `type: separator`): a minimal divider
   // LINE — NOT a box (no border/padding). Props: `orientation`
   // (horizontal|vertical, default horizontal), `style` (solid|dotted, default
@@ -186,6 +223,7 @@
     const orient = hasTreatment(sep, 'vertical') ? 'v' : 'h';
     const style = sep.style === 'dotted' ? 'dotted' : 'solid';
     const node = el('div', `sep sep-${orient} sep-${style}`);
+    if (sep.id) node.setAttribute('data-cid', sep.id);
     if (orient === 'h' && sep.text) {
       node.classList.add('sep-labeled');
       const s = el('span', 'sep-text'); s.textContent = sep.text; node.appendChild(s);
@@ -197,14 +235,25 @@
   // styled like a component/box but carrying ONLY a `title` (no
   // kicker/description/detail). `orientation: vertical` renders the title
   // rotated (vertical text) for swimlane labeling; default horizontal is a slim
-  // title-only box. Span is honored by the caller. Not clickable.
+  // title-only box. Span is honored by the caller. Not clickable, but it can be
+  // a chip member: `data-filters` is what setFlow lights, on a rail as on a box.
   function buildRail(rail) {
     // Orientation comes from the `vertical` TREATMENT — see buildSeparator.
     const orient = hasTreatment(rail, 'vertical') ? 'v' : 'h';
     const node = el('div', `rail rail-${orient}`);
+    if (rail.id) node.setAttribute('data-cid', rail.id);
     // `centered` is the one other treatment a rail draws; its absence means
     // start-aligned, exactly as on a box (index.html `.rail.centered`).
     if (hasTreatment(rail, 'centered')) node.classList.add('centered');
+    const v = COMPONENT_VARIANT[rail.variant] ?? '';
+    if (v) node.classList.add(v);
+    if (rail.indent > 0) {
+      node.classList.add('indented');
+      node.style.setProperty('--indent', rail.indent);
+    }
+    if (Array.isArray(rail.filters) && rail.filters.length) {
+      node.setAttribute('data-filters', rail.filters.join(' '));
+    }
     const t = el('div', 'rail-title'); t.textContent = rail.title || ''; node.appendChild(t);
     return node;
   }
@@ -592,7 +641,7 @@
     if (!filters.some(f => f.key === 'all')) {
       const allChip = el('button', 'chip on');
       allChip.setAttribute('data-flow', 'all');
-      allChip.textContent = 'Todos';
+      allChip.textContent = 'all';
       chips.appendChild(allChip);
     }
     filters.forEach(f => {
@@ -671,20 +720,21 @@
       panel.facts.classList.toggle('show', !!d.facts);
       if (d.note) { panel.note.innerHTML = d.note; panel.note.classList.add('show'); }
       else { panel.note.innerHTML = ''; panel.note.classList.remove('show'); }
-      placeDetailCard();
+      placeCard();
       openPanel();
     }
 
-    // The card is twice as wide as the narrowest root section the deck can draw
-    // (this page's plane split by the widest page's root columns), floored at two
-    // readable cells, so it reads comfortably yet never spans more than two such sections.
+    // One placement for both panel contents, a box's detail and a chip's
+    // relation. The card is twice as wide as the narrowest root section the deck
+    // can draw (this page's plane split by the widest page's root columns),
+    // floored at two readable cells, so it reads comfortably yet never spans more
+    // than two such sections. A dragged position is kept for the whole page.
     let draggedTo = null;
-    function placeDetailCard() {
+    function placeCard() {
       const plane = act.querySelector('.sec-plane');
       const cellFloor = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cell-min-w')) || 0;
       const width = Math.min(stage.clientWidth - 48,
         Math.max(2 * cellFloor, 2 * plane.clientWidth / widestRootColumns));
-      panelEl.classList.add('is-detail');
       panelEl.style.width = width + 'px';
       panelEl.style.minHeight = Math.min(1.25 * width, stage.clientHeight - 48) + 'px';
       if (draggedTo) moveCardTo(draggedTo.left, draggedTo.top);
@@ -697,13 +747,9 @@
       panelEl.style.top = draggedTo.top + 'px';
       panelEl.style.bottom = 'auto';
     }
-    function releaseDetailCard() {
-      panelEl.classList.remove('is-detail');
-      for (const prop of ['width', 'minHeight', 'left', 'top', 'bottom']) panelEl.style[prop] = '';
-    }
     const cardHandle = panelEl.querySelector('.p-head');
     cardHandle.addEventListener('pointerdown', e => {
-      if (e.button !== 0 || !panelEl.classList.contains('is-detail')) return;
+      if (e.button !== 0) return;
       const grabX = e.clientX - panelEl.offsetLeft, grabY = e.clientY - panelEl.offsetTop;
       cardHandle.setPointerCapture(e.pointerId);
       cardHandle.classList.add('dragging');
@@ -721,7 +767,6 @@
     });
 
     function showFlow(f) {
-      releaseDetailCard();
       panel.kicker.textContent = 'RELATION';
       panel.title.textContent = f.label;
       const steps = f.steps || [];
@@ -730,11 +775,14 @@
       panel.facts.classList.remove('show');
       panel.note.innerHTML = '';
       panel.note.classList.remove('show');
+      placeCard();
       openPanel();
     }
 
+    // Chip members are every node that declares `data-filters`: boxes and rails.
+    const members = act.querySelectorAll('[data-filters]');
     function clearLit() {
-      act.querySelectorAll('[data-k],.zone').forEach(e => e.classList.remove('lit'));
+      act.querySelectorAll('[data-filters],.zone').forEach(e => e.classList.remove('lit'));
     }
 
     let activeKey = 'all';
@@ -748,15 +796,15 @@
       clearLit();
       if (key === 'all') { stage.classList.remove('flowing'); closePanel(); return; }
       stage.classList.add('flowing');
-      // A LINEAR SCAN, on purpose: every box in the act re-reads and splits its
+      // A LINEAR SCAN, on purpose: every member in the act re-reads and splits its
       // own data-filters on each click. Measured on a 1968-box deck that scan is
       // 0.6ms of an ~80ms click — the remaining ~76ms is the browser restyling
       // opacity across the deck — so a prebuilt filter→nodes index would buy
       // nothing. A box lights up because IT declares the filter; a zone lights
       // up derivatively, because one of its boxes did.
       const litZones = new Set();
-      nodes.forEach(n => {
-        const fs = (n.getAttribute('data-filters') || '').split(/\s+/).filter(Boolean);
+      members.forEach(n => {
+        const fs = n.getAttribute('data-filters').split(/\s+/).filter(Boolean);
         if (fs.includes(key)) {
           n.classList.add('lit');
           const z = n.closest('.zone[data-zone]');
@@ -841,6 +889,8 @@
       canvas.addEventListener('pointerup', endDrag);
       canvas.addEventListener('pointercancel', endDrag);
     }
+
+    return { setFlow, closePanel };
   }
 
   // ── mount ──
@@ -873,7 +923,7 @@
   });
 
   const widestRootColumns = Math.max(1, ...renderable.map(p => p.columns || 1));
-  built.forEach(b => wireAct(b.act, b.detailRegistry, b.filters, widestRootColumns));
+  const wired = built.map(b => wireAct(b.act, b.detailRegistry, b.filters, widestRootColumns));
 
   // ── page navigator ──
   // Page names render as VISIBLE tabs in `order`; the current one is
@@ -930,6 +980,18 @@
     else if (e.key === 'ArrowRight') show(current + 1);
   });
   show(0);
+
+  // The narrated-video capture (tools/video/) drives pages and chips through
+  // this handle. It exists only under `?video`, so the interactive deck exposes
+  // no global state.
+  if (new URLSearchParams(location.search).has('video')) {
+    window.__deck = {
+      acts,
+      show,
+      setFlow: (i, key) => wired[i].setFlow(key),
+      closePanel: i => wired[i].closePanel()
+    };
+  }
 
   // theme toggle
   const themeToggle = document.getElementById('themeToggle');

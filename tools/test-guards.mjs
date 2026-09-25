@@ -45,18 +45,19 @@ const FIXTURE_OVERVIEW = {
   id: 'overview',
   layout: 'grid',
   columns: 1,
-  filters: [{ key: 'flow', label: 'Fixture flow' }],
+  // `kind` lights every box `flow` does not, so the intact fixture holds HARMONY.
+  filters: [{ key: 'flow', label: 'Fixture flow' }, { key: 'kind', label: 'Fixture kind' }],
   sections: [{
     id: 'section-e',
     title: 'Closed rectangle fixture',
     span: 1,
     columns: 4,
     children: [
-      { id: 'item-a', title: 'A' },
-      { id: 'item-b', title: 'B' },
-      { id: 'item-c', title: 'C', span: 2 },
+      { id: 'item-a', title: 'A', filters: ['kind'] },
+      { id: 'item-b', title: 'B', filters: ['kind'] },
+      { id: 'item-c', title: 'C', span: 2, filters: ['kind'] },
       { id: 'item-1', title: 'One', filters: ['flow'] },
-      { id: 'item-2', title: 'Two' },
+      { id: 'item-2', title: 'Two', filters: ['kind'] },
       { id: 'item-3', title: 'Three', filters: ['flow'] },
       { id: 'item-7', title: 'Seven', filters: ['flow'] },
     ],
@@ -179,8 +180,8 @@ function rmDeck(dir) {
 }
 
 // ── 3b. LIT — a filter on a separator passes CHIP and can never light ───────
-// The engine stamps `data-filters` only in buildBox; a separator/rail/spacer
-// node carries none, so its chip membership closes the CHIP join while the
+// The engine stamps `data-filters` only in buildBox and buildRail; a
+// separator/spacer node carries none, so its chip membership closes the CHIP join while the
 // render never spotlights that end. The fixture is rebuilt after the mutation
 // because this is the real flow (edit → build → check) and the strict schema
 // legitimately accepts `filters` on a separator — the defect is check-layout's
@@ -242,6 +243,27 @@ function rmDeck(dir) {
     && threeLines.ok === false && inBand.ok === true;
   report('U/rail: a rail row outside 33..48px fails the render gate, in-band passes', ok,
     `130px -> ${notApplied && notApplied.ok} | 52px -> ${threeLines && threeLines.ok} | 33/48px -> ${inBand && inBand.ok}`);
+}
+
+// ── 3e. U/compact — a short row is legal ONLY in a grid that declares it ────
+// `compact` (index.html `.zone.compact`) gives one leaf grid a shorter row. The
+// render gate must fail a grid that runs that row WITHOUT declaring it, and
+// accept the same row once it does. Box rows (railH 0), so the band rule for
+// rails does not apply.
+{
+  const { INVARIANTS } = require(path.join(ROOT, 'tools', 'validate-layout.cjs'));
+  const U = INVARIANTS.find(inv => inv.id === 'U' && inv.name === 'uniform slot height');
+  const mFor = (compact) => ({
+    heights: [130], halfSlots: [],
+    rowTracks: [{ zone: 'fixture', tracks: [74, 74], cellH: 74, compact,
+      rows: [0, 1].map(() => ({ n: 1, sepH: 0, hole: 0, railH: 0 })), overflow: [] }],
+  });
+  const undeclared = U.check(mFor(false));
+  const declared = U.check(mFor(true));
+  const ok = U && undeclared.ok === false && undeclared.detail.includes('without the `compact` treatment')
+    && declared.ok === true;
+  report('U/compact: a 74px row fails without `compact`, passes with it', ok,
+    `undeclared -> ${undeclared && undeclared.ok} | declared -> ${declared && declared.ok}\n${undeclared && undeclared.detail}`);
 }
 
 // ── 4. control positive — the intact owned fixture must pass ───────────────

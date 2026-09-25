@@ -305,6 +305,11 @@ const CSS_TEXT = {
   railTitlePx: 13,       // .rail-title font-size (mono)
   railTrackEm: 0.09,     // .rail-title letter-spacing, in em
   railBorder: 1,         // .rail border-width
+  // A hue rail (.rail.blue/.violet/.gold/.clay in index.html) is set tighter:
+  // 10.5px, no tracking, 4px (--s-1) side padding instead of the box padding.
+  railHueTitlePx: 10.5,
+  railHueTrackEm: 0,
+  railHuePadX: 4,
   railTitleLines: 2,     // RAILT's ceiling: .rail-title has NO clamp, so a
                          //   third line silently grows the auto row and the
                          //   stack it lives in — the gate owns that limit
@@ -914,6 +919,7 @@ const isThinRowLeaf = c => c && !isSection(c) &&
     || ((c.type === 'separator' || c.type === 'rail') && !treatmentsOf(c).includes('vertical')
         && (c.type === 'separator' || Math.floor(Number(c.rowspan) || 1) <= 1)));
 const isRailLeaf = c => c && !isSection(c) && c.type === 'rail';
+const RAIL_HUES = new Set(['blue', 'violet', 'gold', 'clay']);
 
 // The height of one LEAF grid at a container width: each row at its own track
 // height, plus the row gaps. A COMPOUND grid is a flex row of sections with no
@@ -1038,24 +1044,42 @@ function checkPage(page) {
         `it can never light.`);
   }
 
-  // LIT — a filter declared on a leaf TYPE the engine cannot light. buildBox is
-  // the only builder that stamps `data-filters` (and `data-k`) on its node;
-  // buildSeparator, buildRail and buildSpacer emit bare structural nodes. So a
-  // `filters:` on one of those types passes the strict schema (COMPONENT_FIELDS
-  // allows it on separator/rail), counts as a CHIP member above — the join
-  // CLOSES — and the render can never spotlight that end: the relation is
-  // declared in the data and silently absent on screen.
+  // LIT — a filter declared on a leaf TYPE the engine cannot light. buildBox and
+  // buildRail are the only builders that stamp `data-filters` on their node;
+  // buildSeparator and buildSpacer emit bare structural nodes. So a `filters:`
+  // on one of those two passes the strict schema (COMPONENT_FIELDS allows it on
+  // a separator), counts as a CHIP member above — the join CLOSES — and the
+  // render can never spotlight that end: the relation is declared in the data
+  // and silently absent on screen.
   for (const leaf of leaves) {
     asserted++;
     const t = leaf.type;
-    if ((t === 'separator' || t === 'rail' || t === 'spacer') &&
+    if ((t === 'separator' || t === 'spacer') &&
         Array.isArray(leaf.filters) && leaf.filters.length) {
       fail('LIT', `page "${pageId}" ${t} "${leaf.id ?? '(no id)'}"`,
         `declares filters [${leaf.filters.join(', ')}] on a \`${t}\`, a leaf type the engine ` +
-        `never lights: only buildBox emits \`data-filters\`, so this membership passes the CHIP ` +
-        `join and never renders. Move the filter to a box, or drop it.`);
+        `never lights: only buildBox and buildRail emit \`data-filters\`, so this membership passes the CHIP ` +
+        `join and never renders. Move the filter to a box or a rail, or drop it.`);
     }
   }
+
+  // HARMONY — every box and every rail belongs to at least one chip, so no
+  // component is left out of every question the page answers. Separators and
+  // spacers draw no content and are exempt, and so is the page's heading box:
+  // the one centered box of a frameless first root section, the deck's single
+  // title style (page 2's `mp-you`).
+  const rootFirst = (orderedChildren(page.sections || [])[0] || {}).c;
+  const kids = rootFirst && Array.isArray(rootFirst.children) ? rootFirst.children : [];
+  const heading = rootFirst && treatmentsOf(rootFirst).includes('plain') && kids.length === 1
+    && !isSection(kids[0]) && (kids[0].type ?? 'box') === 'box' && treatmentsOf(kids[0]).includes('centered')
+    ? kids[0] : null;
+  const unlit = leaves.filter(l => !(heading && l.id === heading.id) &&(l.type ?? 'box') !== 'separator' && l.type !== 'spacer'
+    && !(Array.isArray(l.filters) && l.filters.some(k => k !== RESET_CHIP)));
+  asserted++;
+  if (unlit.length)
+    fail('HARMONY', `page "${pageId}"`,
+      `${unlit.length} component(s) belong to no chip: [${unlit.map(l => l.id ?? '(no id)').join(', ')}]. ` +
+      `Every box and rail must answer at least one of the page's chips.`);
 
   // BAND — a declared span that EXCEEDS the columns it is placed in. The engine
   // clamps it (`min(child.span, cols)`) so it renders as a band and nothing looks
@@ -1263,19 +1287,27 @@ function checkPage(page) {
         if (!slot || slot.pair) continue;
         const leaf = slot.node;
         if (!isRailLeaf(leaf) || !isThinRowLeaf(leaf)) continue;
+        const hue = RAIL_HUES.has(leaf.variant);
+        const titlePx = hue ? CSS_TEXT.railHueTitlePx : CSS_TEXT.railTitlePx;
+        const trackEm = hue ? CSS_TEXT.railHueTrackEm : CSS_TEXT.railTrackEm;
         const track = (gridW - (tracks - 1) * CSS_TEXT.gap) / tracks;
         const availPx = track * p.w + (p.w - 1) * CSS_TEXT.gap
-          - 2 * (CSS_TEXT.railBorder + CSS_TEXT.boxPad);
-        const cap = capacityFor(availPx, CSS_TEXT.railTitlePx, CSS_TEXT.railTrackEm);
+          - 2 * (CSS_TEXT.railBorder + (hue ? CSS_TEXT.railHuePadX : CSS_TEXT.boxPad));
+        const cap = capacityFor(availPx, titlePx, trackEm);
         const lines = wrapLines(String(leaf.title ?? '').trim(), cap);
         asserted++;
+        // A hue rail is one word of a ring (page 5): it must hold ONE line at the
+        // 1920 tier, where the deck is presented.
+        if (hue && tier.w === 1920 && lines > 1)
+          fail('RAILT', `${g.label} > ${leaf.id ?? '(no id)'} @1920px`,
+            `hue rail title wraps to ${lines} lines of ${cap} char(s) at ${titlePx}px; a ring word must hold one line at 1920. Widen its cell (span) or shorten the word.`);
         if (lines <= CSS_TEXT.railTitleLines) continue;
         const where = `${g.label} > ${leaf.id ?? '(no id)'}`;
         const prev = railWorst.get(where);
         if (prev && prev.lines >= lines) continue;
         railWorst.set(where, { lines, where: `${where} @${tier.w}px`, detail:
           `rail title wraps to ${lines} line(s) of ${cap} char(s) at ` +
-          `${CSS_TEXT.railTitlePx}px mono + ${CSS_TEXT.railTrackEm}em tracking, and the rail ` +
+          `${titlePx}px mono + ${trackEm}em tracking, and the rail ` +
           `ceiling is ${CSS_TEXT.railTitleLines} — .rail-title has no clamp, so the extra line ` +
           `GROWS the auto row and the stack it lives in. Shorten the title or widen the cell.` });
       }
@@ -1601,8 +1633,9 @@ function main() {
     ['BAND', 'band placement and declared span within the grid'],
     ['TIER', 'collapse cascade is monotone across the container tiers'],
     ['CHIP', 'filter referential integrity (both directions) + chip arity'],
-    ['LIT', 'no filter on a leaf type the engine cannot light (separator/rail/spacer ' +
+    ['LIT', 'no filter on a leaf type the engine cannot light (separator/spacer ' +
       'carry no data-filters, so their chip membership passes the join and never renders)'],
+    ['HARMONY', 'every box and rail belongs to at least one chip (separators, spacers and the page heading box exempt)'],
     ['RAILT', 'rail titles within the two-line ceiling (a thin rail row is `auto` and ' +
       '.rail-title has no clamp, so a third line grows the row instead of clipping)'],
     ['ORDER', 'no duplicate effective `order` among siblings'],

@@ -22,23 +22,23 @@ filters:
   - key: memory
     label: "what do we remember?"
     steps:
-      - "Your rules, your preferences and what is pending per project: the orchestrator reads it and writes it, and it outlives the session."
+      - "Your rules, your preferences, what is pending per project and what Gaia knows about each project: the orchestrator reads it and writes it, and it outlives the session."
   - key: deterministic
-    label: "a rule decides"
+    label: "what does a rule decide?"
     steps:
       - "The hooks decide by a rule in code, the same answer every time, with no model involved: whether a command waits for your approval, and whether a specialist's contract is accepted."
   - key: semantic
-    label: "a model follows instructions"
+    label: "what does a model follow?"
     steps:
       - "The skills and the agents are written instructions a model follows: the orchestrator decides the what, the specialists do the how."
-  - key: the-contract
-    label: "one contract, out and back"
-    steps:
-      - "Every specialist ends its work with a contract: what was done, and with what evidence."
   - key: one-turn
-    label: "one turn"
+    label: "what happens in one turn?"
     steps:
       - "The orchestrator hands one piece of work to one specialist, and the specialist comes back with it: one turn."
+  - key: the-contract
+    label: "what travels in a contract?"
+    steps:
+      - "Every specialist ends its work with a contract: what was done, and with what evidence."
 
 sections:
   - id: you
@@ -99,28 +99,28 @@ sections:
             columns: 4
             children:
               - id: mg-memory
-                order: 1
+                order: 3
                 kicker: "→ PAGE 5"
                 title: "Memory"
                 description: ["rules, preferences, pending"]
                 detail: "Memory outlives the session: your rules, your preferences, and what is pending per project. The orchestrator reads it at the start and writes to it on purpose, through Gaia's own command line."
                 filters: [memory]
               - id: mg-plans
-                order: 2
+                order: 4
                 kicker: "→ PAGE 5"
                 title: "Plans & tasks"
                 description: ["a brief becomes checked tasks"]
                 detail: "A brief becomes a plan of tasks, and each task's work is checked by someone who did not do it. Gaia keeps them and moves them from one status to the next through its own command line."
                 filters: [nothing-self-declared]
               - id: mg-contracts
-                order: 3
+                order: 2
                 kicker: "→ PAGE 4"
                 title: "Contracts"
                 description: ["every specialist returns one"]
                 detail: "A contract says what was asked, what was found, what changed, and with what evidence. Gaia stores it, and a hook judges it by rule before the turn may close. The orchestrator reads it through Gaia's own command line."
                 filters: [the-contract, nothing-self-declared, deterministic]
               - id: mg-approvals
-                order: 4
+                order: 1
                 kicker: "→ PAGE 3"
                 title: "Approvals"
                 description: ["your yes to one exact command"]
@@ -187,6 +187,7 @@ sections:
                 title: "Project context"
                 description: ["what it may read and write"]
                 detail: "What Gaia knows about your workspace, split into sections. The specialist is told which sections it may read and which it may write, and pulls the ones it needs."
+                filters: [memory]
               - id: sc-memory
                 order: 4
                 kicker: "→ PAGE 5"

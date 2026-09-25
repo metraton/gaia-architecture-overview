@@ -428,6 +428,13 @@ const INVARIANTS = [
       // demanded CELL_H of exactly the row the engine deliberately thins.
       const badTracks = [], thinRows = [], spills = [];
       for (const g of m.rowTracks || []) {
+        // A grid's own row height: CELL_H unless it declares `compact`. A
+        // measurement that predates the cellH field reads as CELL_H. Only a grid
+        // that DECLARES `compact` may run a row other than CELL_H.
+        const cellH = g.cellH ?? CELL_H;
+        const rowH = g.compact ? cellH : CELL_H;
+        if (!g.compact && cellH !== CELL_H)
+          badTracks.push(`${g.zone}: --cell-h=${cellH}px without the \`compact\` treatment (expect ${CELL_H})`);
         g.tracks.forEach((h, i) => {
           const row = g.rows[i];
           const thin = row.n > 0 && row.sepH + row.hole + (row.railH || 0) === row.n;
@@ -446,7 +453,7 @@ const INVARIANTS = [
           const trailing = i === g.tracks.length - 1;
           const held = railRow ? h >= RAIL_ROW_MIN && h <= RAIL_ROW_MAX
             : thin && trailing ? h >= SEP_ROW_H
-            : h === (thin ? SEP_ROW_H : CELL_H);
+            : h === (thin ? SEP_ROW_H : rowH);
           if (!held) {
             badTracks.push(`${g.zone}:row${i} track=${h}px expect ${railRow
               ? `${RAIL_ROW_MIN}..${RAIL_ROW_MAX}px (rail row is auto: one title line up to the two-line ceiling)`
@@ -759,6 +766,7 @@ function measure() {
       hspan: b.classList.contains('mspan'),   // partial horizontal merge
       rowspan: b.classList.contains('mrsp'),  // vertical merge (a taller cell)
       half: b.classList.contains('half'),     // half-height: shares a slot
+      compact: !!b.closest('.zone.compact'),  // in a `compact` grid: its row is that grid's own --cell-h
       clipped: b.scrollHeight > b.clientHeight + 1 };
   });
   // single-COLUMN cells: neither a band nor a partial horizontal span. A row-span
@@ -772,7 +780,9 @@ function measure() {
   // In both cases the component's own height is not the invariant; the SLOT's is.
   // So U asserts CELL_H over this set AND, separately, over every `.half-slot`
   // (collected below) — which is the wrapper that actually occupies the grid cell.
-  const heights = [...new Set(boxes.filter(b => !b.rowspan && !b.half).map(b => b.h))].sort((a,b)=>a-b);
+  // A `compact` grid's single-row cells are asserted against that grid's own
+  // --cell-h in the track family below, so they stay out of the page-wide set.
+  const heights = [...new Set(boxes.filter(b => !b.rowspan && !b.half && !b.compact).map(b => b.h))].sort((a,b)=>a-b);
   const clipped = boxes.filter(b => b.clipped).length;
 
   // HALF SLOTS — the wrapper a `half` PAIR renders into. It is the real grid cell,
@@ -853,7 +863,9 @@ function measure() {
       }
     }
     const zoneEl = grid.closest('.zone[data-zone]');
-    return { zone: zoneEl ? zoneEl.getAttribute('data-zone') : '(root)', tracks, rows, overflow };
+    const cellH = Math.round(parseFloat(cs.getPropertyValue('--cell-h'))) || 130;
+    const compact = !!(zoneEl && zoneEl.classList.contains('compact'));
+    return { zone: zoneEl ? zoneEl.getAttribute('data-zone') : '(root)', tracks, rows, overflow, cellH, compact };
   });
 
   // FILTER REFERENTIAL INTEGRITY (invariant K). The chips and the components that
@@ -989,7 +1001,7 @@ function measure() {
     // lower rows.
     const colGap = parseFloat(getComputedStyle(g).columnGap) || 0;
     const rowGap = parseFloat(getComputedStyle(g).rowGap) || 0;
-    const cellH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cell-h')) || 130;
+    const cellH = parseFloat(getComputedStyle(g).getPropertyValue('--cell-h')) || 130;   // a compact grid's own row
     const rowPitch = cellH + rowGap;   // top-to-top distance between grid rows
     // `.half-slot` counts as a grid cell here — it IS the cell a `half` pair
     // occupies (the two boxes inside it are NOT direct children of the grid). Omit

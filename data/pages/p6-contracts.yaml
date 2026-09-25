@@ -1,62 +1,67 @@
-# Page 4 · POINT 2 · Contracts (STORYBOARD.md rev 6). The file keeps its old
-# name; only the manifest carries the page number.
+# Page 4 · Contracts (STORYBOARD.md rev 6). The file keeps its old name; only
+# the manifest carries the page number.
 #
-# Top: one flow across three actors, read by the kicker numbers 1 → 6. Bottom:
-# the three relations the code implements, in one row so they stay above the
-# fold, then the two kinds of contract as staircases of rails, the vocabulary of
-# page 3's SessionStart column. Rails carry no detail, so each key's one-line
-# meaning lives in the detail of the box that handles it: agent-contract keys
-# in VALIDATES, project-contract sections in relation 1.
+# Top: one heading box, then one flow across three actors, read left to right
+# and back. Bottom: ONE section, the two kinds of contract. Its first line is
+# the relation between them, in the order of one turn; below it, each kind is
+# the complete list of its real values as rails, the vocabulary of page 3's
+# SessionStart column. Rails carry no detail, so each key's one-line meaning
+# lives in the detail of the box that handles it: agent-contract keys in
+# VALIDATES, project-contract sections and the three relations in INJECTS.
 #
-# Each staircase is a tree: every level is a `columns: 1` grid, and every deeper
-# level is a nested envelope section, so the indent is the frame's own border and
-# padding. That indent holds at every tier because a 1-column grid never
-# collapses; spacer indents in a leaf grid left an interior hole on every row
-# once the 12 tracks collapsed to 2 at the 900px tier, and a gutter spacer beside
-# a section in a compound row would fold away below 1440px.
+# Each list is a tree drawn by the rail `indent` field: the rail still fills its
+# cell and only its frame is inset, so the indent holds at every tier. Spacer
+# indents in a leaf grid were rejected: they left an interior hole on every row
+# once the tracks collapsed at the 900px tier.
 #
-# The project tree shows five of its ten sections; the other five are named in
-# pc-sections' subtitle and all ten in relation 1's detail. In the real schema
-# verification, open gaps and reach (cross_layer_impacts) sit inside
-# evidence_report; the tree lifts them beside evidence so evidence's children
-# are the five lists of what the agent saw and did.
+# The project contract has no fixed registry in the code: its sections are the
+# ones the agents declare in `project_context_contracts`, 13 across the nine
+# agent files. In the real schema verification, open gaps and reach
+# (cross_layer_impacts) sit inside evidence_report; the tree lifts them beside
+# evidence so evidence's children are the five lists of what the agent saw and
+# did.
 #
-# The `memory` chip is deliberately absent: its only honest member would be the
-# close writing the episode, and a one-member chip lights nothing.
+# Chips: the five core questions first, then this page's own. Every rail of the
+# agent contract answers "what travels in a contract?"; every project-contract
+# section answers "what do we remember?" and "what may it read and write?".
 id: p6-contracts
 layout: grid
 form: dashboard
 columns: 1
 
 filters:
-  - key: the-contract
-    label: "one contract, out and back"
-    steps:
-      - "The engine injects the agent contract, the agent fills it and answers in it, the engine validates it, and the orchestrator reads it."
-  - key: semantic
-    label: "a model follows instructions"
-    steps:
-      - "The orchestrator and the agent are models working from their instructions; the engine between them is not."
-  - key: deterministic
-    label: "a rule decides"
-    steps:
-      - "The engine decides by rule: what each agent may read and write, whether the answer is valid, and whether an update may be saved."
-  - key: project-contract
-    label: "what may it read and write?"
-    steps:
-      - "Each agent may read some sections of the project contract and write others; its updates are checked against that before they are saved."
-  - key: nothing-self-declared
-    label: "is it really done?"
-    steps:
-      - "Nothing is taken on the agent's word: the contract is validated by rule, and the orchestrator checks it before telling you."
-  - key: next-move
-    label: "what happens next?"
-    steps:
-      - "The state the agent answers with decides the orchestrator's next move."
   - key: the-human
     label: "who decides?"
     steps:
       - "An answer can be an approval request: the orchestrator brings the exact command to you."
+  - key: nothing-self-declared
+    label: "is it really done?"
+    steps:
+      - "Nothing is taken on the agent's word: the contract is validated by rule, its verification says how the result was checked, and the orchestrator checks it before telling you."
+  - key: memory
+    label: "what do we remember?"
+    steps:
+      - "The project contract: what Gaia knows about each project, kept section by section across every session and every agent."
+  - key: deterministic
+    label: "what does a rule decide?"
+    steps:
+      - "The engine decides by rule: what each agent may read and write, whether the answer is valid, and whether an update may be saved."
+  - key: semantic
+    label: "what does a model follow?"
+    steps:
+      - "The orchestrator and the agent are models working from their instructions; the engine between them is not."
+  - key: project-contract
+    label: "what may it read and write?"
+    steps:
+      - "Each agent may read some sections of the project contract and write others; its updates are checked against that before they are saved."
+  - key: next-move
+    label: "what happens next?"
+    steps:
+      - "The state the agent answers with decides the orchestrator's next move."
+  - key: the-contract
+    label: "what travels in a contract?"
+    steps:
+      - "The engine injects the agent contract, the agent fills it and answers in it, the engine validates it, and the orchestrator reads it: its status, its evidence, its verification, its open gaps, its reach, an approval request and its project updates."
 
 sections:
   - id: p6-head
@@ -65,12 +70,13 @@ sections:
     span: 1
     columns: 1
     children:
-      - id: p6-rail
-        type: rail
+      - id: p6-title
         order: 1
-        span: 1
+        kicker: "CONTRACTS"
+        title: "Everything travels as a contract"
+        description: ["the orchestrator and the agents talk only through contracts"]
+        detail: "The orchestrator sends the work; Gaia's engine injects an agent contract with this agent's own permissions; the agent does the work and answers in it; the engine validates it by rule, never the prose; the orchestrator keeps going from it."
         treatment: [centered]
-        title: "POINT 2 · CONTRACTS · EVERY AGENT ANSWERS WITH A CONTRACT"
 
   - id: p6-flow
     treatment: [plain]
@@ -88,14 +94,14 @@ sections:
         children:
           - id: p6-sends
             order: 1
-            kicker: "1 · SENDS"
+            kicker: "SENDS"
             title: "The work"
             description: ["one goal, to one specialist"]
             detail: "The orchestrator dispatches one specialist for one turn, with one goal. It does not write the specialist's contract; the engine does."
             filters: [semantic]
           - id: p6-reads
             order: 2
-            kicker: "6 · READS"
+            kicker: "READS"
             title: "Keeps orchestrating"
             description: ["reads it, checks it, decides what next"]
             detail: "The orchestrator reads the stored agent contract, not the reply text, checks what it claims against what it can open itself, and takes its next move from the state: answer you, send a verifier, show you a command, ask you, route an obstacle, or resume the turn."
@@ -111,14 +117,14 @@ sections:
         children:
           - id: p6-injects
             order: 1
-            kicker: "2 · INJECTS ►"
+            kicker: "INJECTS ►"
             title: "A contract for this agent"
             description: ["its surface, role, what it may read and write"]
-            detail: "At dispatch the engine opens the agent contract and injects it as <code># Your Contract</code>. What is adapted to the agent is its own data, not the form: its <b>surface</b>, its <b>role</b> (<code>primary</code> or <code>verifier</code>), and the project-contract sections it may read (<code>can_read</code>) and write (<code>can_write</code>), taken from its own permission rows. The form it must answer in is the same for every agent.<br><br>Sources: <code>tools/context/context_provider.py:191</code> (<code>build_kernel_sections</code>), <code>:244-249</code>; <code>hooks/modules/context/kernel_builder.py:193</code> (<code>build_dispatch_kernel</code>), <code>:214-215</code>, <code>:243-244</code>."
+            detail: "At dispatch the engine opens the agent contract and injects it as <code># Your Contract</code>. What is adapted to the agent is its own data, not the form: its <b>surface</b>, its <b>role</b> (<code>primary</code> or <code>verifier</code>), and the project-contract sections it may read (<code>can_read</code>) and write (<code>can_write</code>), taken from its own permission rows. The form it must answer in is the same for every agent.<br><br>How the two kinds meet, in the order of one turn:<br><b>At dispatch</b> — the agent contract names the sections this agent may read and write, declared in its definition (<code>project_context_contracts</code>). It hands over the names, not the contents: the agent reads a section on demand with <code>gaia context get-contract --section</code>.<br><b>In its answer</b> — the agent contract can carry <code>update_contracts</code>, each a change to one section. An agent proposes them; it cannot write the project contract directly.<br><b>At the close</b> — SubagentStop checks each update against the agent's write permission, one by one, before it is saved; a rejected one is named, and the rest still apply.<br><br>What each project-contract section holds:<br><b>project_identity</b> — the project's name, path, remote and type.<br><b>stack</b> — its languages and tools.<br><b>environment</b> — where it runs.<br><b>git</b> — its repository conventions.<br><b>architecture_overview</b> — how its parts fit.<br><b>application_services</b> — its services (developer writes it).<br><b>infrastructure</b>, <b>infrastructure_topology</b> — its cloud (platform-architect writes them).<br><b>gitops_configuration</b> — its desired cluster state (gitops-operator).<br><b>cluster_details</b> — the live cluster (cloud-troubleshooter).<br><b>workspace_repos</b> — the repositories of the workspace.<br><b>operational_guidelines</b>, <b>releases</b> — read for planning.<br><br>Sources: <code>tools/context/context_provider.py:191</code> (<code>build_kernel_sections</code>), <code>:244-249</code>; <code>hooks/modules/context/kernel_builder.py:193</code> (<code>build_dispatch_kernel</code>), <code>:214-215</code>, <code>:243-244</code>; <code>agents/*.md</code> (<code>project_context_contracts</code>); <code>bin/cli/context.py:366</code>; <code>hooks/subagent_stop.py:176</code>, <code>hooks/modules/context/context_writer.py:376</code> (<code>process_update_contracts</code>), <code>:127</code> (<code>validate_permission</code>)."
             filters: [the-contract, deterministic, project-contract]
           - id: p6-validates
             order: 2
-            kicker: "◄ 5 · VALIDATES"
+            kicker: "◄ VALIDATES"
             title: "By rule, not the prose"
             description: ["the reply text is never read"]
             detail: "At the close, <b>SubagentStop</b> finds the turn's stored agent contract and validates it by rule; nothing in the reply text is read. A missing or unfinalized contract sends the turn back (<code>exit 2</code>). Only COMPLETE is final.<br><br>What each key of the agent contract holds:<br><b>status</b> — how the turn ended, one of six states.<br><b>evidence</b> — what it saw (files, searches) and what it did (commands, outputs).<br><b>verification</b> — how the result was checked, and whether it passed.<br><b>open gaps</b> — what it could not do or check.<br><b>reach</b> — what it touched beyond the files it was sent to.<br><b>approval</b> — the exact command it asks you to approve.<br><b>project updates</b> — changes it proposes to the project contract.<br><br>Sources: <code>hooks/adapters/claude_code.py:905-907</code>; <code>validator.py:908</code>."
@@ -134,124 +140,87 @@ sections:
         children:
           - id: p6-receives
             order: 1
-            kicker: "3 · RECEIVES"
+            kicker: "RECEIVES"
             title: "Does the work"
             description: ["its contract open from birth"]
             detail: "The specialist is born with its agent contract already open, named <code>&lt;agent_id&gt;.&lt;token&gt;</code>, and adopts it with <code>gaia contract set/add/fill --draft-id</code>. It pulls the project-contract sections it needs, on demand, and writes its evidence as it works."
             filters: [the-contract, semantic]
           - id: p6-answers
             order: 2
-            kicker: "◄ 4 · ANSWERS"
+            kicker: "◄ ANSWERS"
             title: "In a structured form"
             description: ["the agent contract, filled as it goes"]
             detail: "The answer is the stored agent contract, closed with <code>gaia contract finalize</code>; the final message only signals that the turn ended. Its state decides what the orchestrator does next, and an <code>APPROVAL_REQUEST</code> carries the exact command for you."
             filters: [the-contract, semantic, next-move, the-human]
 
   - id: p6-kinds
-    title: "Two kinds of contract"
-    subtitle: "the project contract is what Gaia knows about your project, in named sections · the agent contract is the form an agent answers in · the top row is how they meet, in the order of one turn"
+    title: "The contracts"
+    subtitle: "one for each turn · one for each project"
     treatment: [envelope]
     order: 3
     span: 1
     columns: 2
     children:
+      # Each kind is its own titled section holding a tree read by indentation:
+      # keys at indent 1, a key's values at indent 2, one per row, the same
+      # indent step in both trees. An indented rail draws a frame sized to its
+      # word, so the levels read as a staircase. How the two kinds meet is in
+      # INJECTS' detail.
+      - id: p6-agent-contract
+        title: "Agent contract"
+        treatment: [envelope]
+        order: 1
+        span: 1
+        columns: 1
+        children:
+          - {id: ac-status, type: rail, order: 2, indent: 1, title: "status", filters: [the-contract, next-move]}
+          - id: ac-states
+            treatment: [plain]
+            order: 3
+            span: 1
+            columns: 1
+            children:
+              - {id: ac-complete, type: rail, order: 1, indent: 2, title: "COMPLETE", filters: [the-contract, next-move]}
+              - {id: ac-needs-verification, type: rail, order: 2, indent: 2, title: "NEEDS_VERIFICATION", filters: [the-contract, next-move]}
+              - {id: ac-approval-request, type: rail, order: 3, indent: 2, title: "APPROVAL_REQUEST", filters: [the-contract, next-move]}
+              - {id: ac-needs-input, type: rail, order: 4, indent: 2, title: "NEEDS_INPUT", filters: [the-contract, next-move]}
+              - {id: ac-blocked, type: rail, order: 5, indent: 2, title: "BLOCKED", filters: [the-contract, next-move]}
+              - {id: ac-in-progress, type: rail, order: 6, indent: 2, title: "IN_PROGRESS", filters: [the-contract, next-move]}
+          - {id: ac-evidence, type: rail, order: 4, indent: 1, title: "evidence", filters: [the-contract]}
+          - id: ac-parts
+            treatment: [plain]
+            order: 5
+            span: 1
+            columns: 1
+            children:
+              - {id: ac-files, type: rail, order: 1, indent: 2, title: "files_checked", filters: [the-contract]}
+              - {id: ac-patterns, type: rail, order: 2, indent: 2, title: "patterns_checked", filters: [the-contract]}
+              - {id: ac-commands, type: rail, order: 3, indent: 2, title: "commands_run", filters: [the-contract]}
+              - {id: ac-key-outputs, type: rail, order: 4, indent: 2, title: "key_outputs", filters: [the-contract]}
+              - {id: ac-verbatim, type: rail, order: 5, indent: 2, title: "verbatim_outputs", filters: [the-contract]}
+          - {id: ac-verification, type: rail, order: 6, indent: 1, title: "verification", filters: [the-contract, nothing-self-declared]}
+          - {id: ac-gaps, type: rail, order: 7, indent: 1, title: "open gaps", filters: [the-contract]}
+          - {id: ac-reach, type: rail, order: 8, indent: 1, title: "reach", filters: [the-contract]}
+          - {id: ac-approval, type: rail, order: 9, indent: 1, title: "approval", filters: [the-contract, the-human]}
+          - {id: ac-updates, type: rail, order: 10, indent: 1, title: "project updates", filters: [the-contract, project-contract]}
+
       - id: p6-project
-        treatment: [plain]
+        title: "Project contract"
+        treatment: [envelope]
         order: 2
         span: 1
         columns: 1
         children:
-          - {id: pc-root, type: rail, order: 1, span: 1, title: "Project contract"}
-          - id: pc-body
-            treatment: [envelope]
-            order: 2
-            span: 1
-            columns: 1
-            children:
-              - {id: pc-each, type: rail, order: 1, span: 1, title: "Each project"}
-              - id: pc-sections
-                subtitle: "…and 5 more: application_services · infrastructure · infrastructure_topology · gitops_configuration · cluster_details"
-                treatment: [envelope]
-                order: 2
-                span: 1
-                columns: 1
-                children:
-                  - {id: pc-identity, type: rail, order: 1, title: "project_identity"}
-                  - {id: pc-stack, type: rail, order: 2, title: "stack"}
-                  - {id: pc-env, type: rail, order: 3, title: "environment"}
-                  - {id: pc-git, type: rail, order: 4, title: "git"}
-                  - {id: pc-arch, type: rail, order: 5, title: "architecture_overview"}
-
-      - id: p6-relations
-        treatment: [plain]
-        order: 1
-        span: 2
-        columns: 3
-        children:
-          - id: p6-rel-read
-            order: 1
-            kicker: "1 · AT DISPATCH"
-            title: "Names what it may use"
-            description: ["can_read and can_write, per agent"]
-            detail: "The agent contract names which project-contract sections this agent may read (<code>can_read</code>) and write (<code>can_write</code>), from its own permissions, declared in its definition (<code>project_context_contracts</code>). It hands over the names, not the contents: the agent reads a section on demand with <code>gaia context get-contract --section</code>.<br><br>What each section holds:<br><b>project_identity</b> — the project's name, path, remote and type.<br><b>stack</b> — its languages and tools.<br><b>environment</b> — where it runs.<br><b>git</b> — its repository conventions.<br><b>architecture_overview</b> — how its parts fit.<br><b>application_services</b> — its services (developer writes it).<br><b>infrastructure</b>, <b>infrastructure_topology</b> — its cloud (platform-architect writes them).<br><b>gitops_configuration</b> — its desired cluster state (gitops-operator).<br><b>cluster_details</b> — the live cluster (cloud-troubleshooter).<br><br>Sources: <code>hooks/modules/context/kernel_builder.py:214-215</code>, <code>:243-244</code>; <code>tools/context/context_provider.py:244-249</code>; <code>agents/developer.md:9-11</code>; <code>bin/cli/context.py:366</code>."
-            filters: [deterministic, project-contract]
-          - id: p6-rel-carry
-            order: 2
-            kicker: "2 · IN ITS ANSWER"
-            title: "Carries updates"
-            description: ["to the sections it may write"]
-            detail: "The agent contract can carry <code>update_contracts</code>: a list of <code>{contract, payload}</code> entries, each a change to one project-contract section. An agent proposes them; it cannot write the project contract directly."
-            filters: [project-contract]
-          - id: p6-rel-check
-            order: 3
-            kicker: "3 · AT THE CLOSE"
-            title: "Checked, then saved"
-            description: ["each update against its permission"]
-            detail: "At SubagentStop each update is checked against the agent's write permission, one by one, before it is saved; an update to a section it may not write is rejected and named, and the rest still apply.<br><br>Sources: <code>hooks/subagent_stop.py:176</code> calls <code>process_update_contracts</code> (<code>hooks/modules/context/context_writer.py:376</code>), which runs <code>validate_permission</code> (<code>:127</code>) per entry at <code>:436</code>."
-            filters: [deterministic, project-contract, nothing-self-declared]
-
-      - id: p6-agent-contract
-        treatment: [plain]
-        order: 3
-        span: 1
-        columns: 1
-        children:
-          - {id: ac-root, type: rail, order: 1, span: 1, title: "Agent contract"}
-          - id: ac-body
-            treatment: [envelope]
-            order: 2
-            span: 1
-            columns: 1
-            children:
-              - {id: ac-status, type: rail, order: 1, span: 1, title: "status"}
-              # The six states are values, not keys, so they sit side by side
-              # (2 across: at 3 across NEEDS_VERIFICATION touches its rail edge at 1920).
-              - id: ac-states
-                treatment: [envelope]
-                order: 2
-                span: 1
-                columns: 2
-                children:
-                  - {id: ac-complete, type: rail, order: 1, title: "COMPLETE"}
-                  - {id: ac-needs-verification, type: rail, order: 2, title: "NEEDS_VERIFICATION"}
-                  - {id: ac-approval-request, type: rail, order: 3, title: "APPROVAL_REQUEST"}
-                  - {id: ac-needs-input, type: rail, order: 4, title: "NEEDS_INPUT"}
-                  - {id: ac-blocked, type: rail, order: 5, title: "BLOCKED"}
-                  - {id: ac-in-progress, type: rail, order: 6, title: "IN_PROGRESS"}
-              - {id: ac-evidence, type: rail, order: 3, span: 1, title: "evidence"}
-              - id: ac-parts
-                treatment: [envelope]
-                order: 4
-                span: 1
-                columns: 1
-                children:
-                  - {id: ac-files, type: rail, order: 1, title: "files_checked"}
-                  - {id: ac-patterns, type: rail, order: 2, title: "patterns_checked"}
-                  - {id: ac-commands, type: rail, order: 3, title: "commands_run"}
-                  - {id: ac-key-outputs, type: rail, order: 4, title: "key_outputs"}
-                  - {id: ac-verbatim, type: rail, order: 5, title: "verbatim_outputs"}
-              - {id: ac-verification, type: rail, order: 5, span: 1, title: "verification"}
-              - {id: ac-gaps, type: rail, order: 6, span: 1, title: "open gaps"}
-              - {id: ac-reach, type: rail, order: 7, span: 1, title: "reach"}
-              - {id: ac-approval, type: rail, order: 8, span: 1, title: "approval"}
-              - {id: ac-updates, type: rail, order: 9, span: 1, title: "project updates"}
+          - {id: pc-identity, type: rail, order: 2, indent: 1, title: "project_identity", filters: [memory, project-contract]}
+          - {id: pc-stack, type: rail, order: 3, indent: 1, title: "stack", filters: [memory, project-contract]}
+          - {id: pc-env, type: rail, order: 4, indent: 1, title: "environment", filters: [memory, project-contract]}
+          - {id: pc-git, type: rail, order: 5, indent: 1, title: "git", filters: [memory, project-contract]}
+          - {id: pc-arch, type: rail, order: 6, indent: 1, title: "architecture_overview", filters: [memory, project-contract]}
+          - {id: pc-workspace, type: rail, order: 7, indent: 1, title: "workspace_repos", filters: [memory, project-contract]}
+          - {id: pc-services, type: rail, order: 8, indent: 1, title: "application_services", filters: [memory, project-contract]}
+          - {id: pc-infra, type: rail, order: 9, indent: 1, title: "infrastructure", filters: [memory, project-contract]}
+          - {id: pc-topology, type: rail, order: 10, indent: 1, title: "infrastructure_topology", filters: [memory, project-contract]}
+          - {id: pc-gitops, type: rail, order: 11, indent: 1, title: "gitops_configuration", filters: [memory, project-contract]}
+          - {id: pc-cluster, type: rail, order: 12, indent: 1, title: "cluster_details", filters: [memory, project-contract]}
+          - {id: pc-guidelines, type: rail, order: 13, indent: 1, title: "operational_guidelines", filters: [memory, project-contract]}
+          - {id: pc-releases, type: rail, order: 14, indent: 1, title: "releases", filters: [memory, project-contract]}

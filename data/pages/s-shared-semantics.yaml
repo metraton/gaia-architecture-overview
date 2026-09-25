@@ -13,11 +13,11 @@
 #
 # Three stacked bands at the root (columns:5):
 #   1. THESIS — a frameless (`treatment: [plain]`) band holding ONE centered
-#      accent box: the diagnosis, alone, before any structure. It ASKS; the
-#      container below ANSWERS, which is why it stays outside that container.
-#      IT CARRIES TWO THINGS ONLY — one title and one question. The band is
-#      deliberately spare: anything more competes with the five pillars it
-#      introduces. A leaf cell is a FIXED --cell-h (130px), so two lines of ink
+#      neutral box, the deck's one heading style (page 2's `mp-you`): the
+#      diagnosis, alone, before any structure. It ASKS; the container below
+#      ANSWERS, which is why it stays outside that container. IT CARRIES A
+#      KICKER, one title and one question. The band is deliberately spare:
+#      anything more competes with the five pillars it introduces. A leaf cell is a FIXED --cell-h (130px), so two lines of ink
 #      do not fill it; the void is closed in the GEOMETRY rather than with
 #      filler text, by the `centered` treatment now centring on both axes
 #      (index.html). Adding ink to fill a cell would have paid for the geometry
@@ -98,22 +98,30 @@ filters:
     label: "who decides?"
     steps:
       - "A person does, and the machine stops to let them: HOOKS halts the turn exactly where a decision is needed, and APPROVALS keeps the record of who said yes. The record names every actor that touched it — what belongs to a person, and only to a person, is the yes."
-  - key: double-reader
-    label: "can we trust it?"
-    steps:
-      - "Because the output always has the same shape, and that shape is checked, not believed: OUTPUTS is the shape, EVIDENCE is the trail read out of it, COMPLIANCE is the grade given to it. A machine and a person can both read it without taking anyone's word."
-  - key: memory
-    label: "what do we remember?"
-    steps:
-      - "The project's current facts (CONTEXT), what was already settled (DURABLE), what actually happened turn by turn (EPISODIC), and what is still open (CARRY-FORWARD) — and also the history itself (CONVENTIONS), because one shared way of writing commits and docs is what lets someone who was not there follow it. Memory is more than a memory store."
   - key: nothing-self-declared
     label: "is it really done?"
     steps:
       - "Only when someone else says so, and only when nothing is left hanging. TASK says how a step will be checked, VERIFICATION says who may check it — never whoever did the work — EVIDENCE is the trail left behind, and COMPLIANCE is the grade computed from it. CARRY-FORWARD is the rest of the answer: what is still open is carried explicitly into the next session, so nothing pending is lost. Without that, «done» can mean «quietly abandoned»."
+  - key: memory
+    label: "what do we remember?"
+    steps:
+      - "The project's current facts (CONTEXT), what was already settled (DURABLE), what actually happened turn by turn (EPISODIC), and what is still open (CARRY-FORWARD) — and also the history itself (CONVENTIONS), because one shared way of writing commits and docs is what lets someone who was not there follow it. Memory is more than a memory store."
+  - key: deterministic
+    label: "what does a rule decide?"
+    steps:
+      - "Whatever must give the same answer every time is left to rules in code, not to a model: HOOKS keep the course, CONTEXT is scanned the same way each time, EPISODIC is written by the machine, APPROVALS grades each act by risk and keeps a record nobody can edit, COMPLIANCE is computed by six mechanical checks, and ANOMALIES are flagged mechanically."
+  - key: semantic
+    label: "what does a model follow?"
+    steps:
+      - "Written instructions, the same ones for everyone: ROUTING sends each request to its owner, STRUCTURE defines what an agent is, PROTOCOL is the form agents hand each other, SKILLS are the written procedures, a BRIEF is what a plan is built from, a PLAN is what the steps come from, and VERIFICATION is a checker working from the evidence."
+  - key: double-reader
+    label: "can we trust it?"
+    steps:
+      - "Because the output always has the same shape, and that shape is checked, not believed: OUTPUTS is the shape, EVIDENCE is the trail read out of it, COMPLIANCE is the grade given to it. A machine and a person can both read it without taking anyone's word."
   - key: security
     label: "who can touch what?"
     steps:
-      - "Each agent, only its own area, and only with the consent its act deserves: STRUCTURE says what an agent may touch, APPROVALS asks for more explicit consent the riskier the act is, and ANOMALIES flags whoever steps outside their scope."
+      - "Each agent, only its own area, and only with the consent its act deserves: STRUCTURE says what an agent may touch, APPROVALS asks for more explicit consent the riskier the act is, ANOMALIES flags whoever steps outside their scope, and TOOLS says who may change the toolchain: anyone on the team, not a small group."
 
 sections:
   # 1 · THESIS — the diagnosis, frameless and alone, before any structure.
@@ -124,11 +132,11 @@ sections:
     columns: 1
     children:
       - id: th-claim
+        kicker: "THE THESIS"
         title: "An AI-oriented way of working."
         description:
           - "how does an organization break the isolation of agentic work?"
         detail: "Agentic work is lonely by default: one person, one agent, one session. Nothing is shared between them, so what one turn learns is lost for the next, no two people work alike, and a model only knows what it can read. Sharing five things turns lonely work into team work: how the work is shaped, how the output is shaped, what is remembered, what can be seen while it happens, and what can be checked afterwards."
-        variant: accent
         treatment: [centered]
 
   # 2 · THE ANSWER — one container, five members. The pillars live INSIDE it
@@ -154,6 +162,7 @@ sections:
           - id: w-routing
             order: 1
             kicker: ROUTING
+            filters: [semantic]
             title: "Agentic orchestration"
             description: ["every request goes to whoever owns it"]
             detail: "Orchestration is a way of working, not a list of roles. One coordinator does no work itself: it reads a request, sends it to whoever owns that area, and reads the answer back. Because the route follows ownership, the work moves the same way no matter who asked for it."
@@ -163,10 +172,11 @@ sections:
             title: "What an agent is"
             description: ["a contract, an identity, a scope, and known errors"]
             detail: "An agent is more than a prompt: a contract for what it must return, an identity for how it works, a scope for what it may touch, and the errors it knows how to handle. Every agent has those same four parts, and every agent owns one area — nine agents exist today, the orchestrator and eight specialists, and more can be added. That is what lets one agent read another one's work."
-            filters: [security]
+            filters: [semantic, security]
           - id: w-protocol
             order: 3
             kicker: PROTOCOL
+            filters: [semantic]
             title: "How agents talk"
             description: ["one fixed form, never loose prose"]
             detail: "Agents hand each other one fixed form, never free text. It always carries the same fields: what was done, what was run, what was checked, what is still open. Whoever reads it already knows its shape, so nobody has to read a story to work out what happened."
@@ -176,7 +186,7 @@ sections:
             title: "What keeps the course"
             description: ["the rules live outside the agent — and stop for a person"]
             detail: "The rules of a turn live outside the agent, in a layer the agent cannot rewrite. That layer says which steps are allowed, stops the retries after two, and halts the turn when an action would change something real. So staying on course does not depend on the agent's good will, and a person decides before anything real changes."
-            filters: [the-human]
+            filters: [the-human, deterministic]
 
       # 2b · STANDARDS — the shape of the output.
       - id: standards
@@ -190,6 +200,7 @@ sections:
           - id: s-skills
             order: 1
             kicker: SKILLS
+            filters: [semantic]
             title: "How the work is done"
             description: ["written procedures: how to act, how to answer, even the tone"]
             detail: "A skill is a written procedure: how to work on something, how to answer, even which tone to hold. The base discipline every agent must hold travels with it from its first word — on purpose; everything else is picked up only when it is needed, because the task matches what the skill is for or because an agent asks for it by name. So the way of working is written down once for everyone, and loaded at the moment it earns its place."
@@ -210,6 +221,7 @@ sections:
           - id: s-tools
             order: 4
             kicker: TOOLS
+            filters: [security]
             title: "Tools the team provides"
             description: ["provided from inside, shared outside, improved by anyone"]
             detail: "Any tool can be used; what matters is who provides it. The organization should provide its own internal tools, the whole team should work with the same external ones, and the setup around them should be something anyone can improve. So nobody builds the same thing twice, the work looks the same wherever it happens, and no small group owns the toolchain."
@@ -232,7 +244,7 @@ sections:
             title: "Project context"
             description: ["scanned, not remembered — and it grows with the project"]
             detail: "Project context is a process, not a file. The facts are found by scanning the project the same way every time, every turn adds what it learned, and each agent receives only the slice its role needs. Because it is measured rather than remembered, it is the most current picture available."
-            filters: [memory]
+            filters: [memory, deterministic]
           - id: k-durable
             order: 2
             kicker: DURABLE
@@ -253,7 +265,7 @@ sections:
             title: "Recorded by the machine"
             description: ["every turn is written down, not the agent's version of it"]
             detail: "The record of a turn is written by the machine when the turn closes. It captures what was asked, how risky it was, what came out, what it cost and what looked odd — every time, whether the agent cooperates or not. Nobody narrates their own turn into it, so what the turn actually was can be trusted."
-            filters: [memory]
+            filters: [memory, deterministic]
 
       # 2d · OBSERVABILITY — a value that can change.
       - id: observability
@@ -267,12 +279,14 @@ sections:
           - id: o-brief
             order: 1
             kicker: BRIEF
+            filters: [semantic]
             title: "Where ideas are kept"
             description: ["a place to capture an idea, and what «done» will mean"]
             detail: "A brief is one place where an idea is written down and kept, rather than a message in a chat that scrolls away. It captures ideas, puts them in order, turns a request or a proposal into something that can be planned, and carries what «done» will mean next to the idea itself. So an idea can be found again later, and nobody decides afterwards what finished was supposed to mean."
           - id: o-plan
             order: 2
             kicker: PLAN
+            filters: [semantic]
             title: "From idea to solution"
             description: ["research the idea, turn it into a solution, get the tasks"]
             detail: "A plan is where an idea becomes a technical solution. The idea is researched against the real code first — can this be done, and where does it land — and the tasks are what that solution needs. So the steps come out of the research instead of out of a guess, while what «done» means stays with the idea."
@@ -290,7 +304,7 @@ sections:
             description: ["who may run the check: never whoever did the work"]
             detail: "Verification is who is allowed to run the check. Whoever checks did not do the work and arrives without inheriting the author's context, so the check reads the evidence, not the author's story. The check is tied to the step rather than to a role, so it cannot be handed back to the author: nobody signs off their own. One link is named here before it exists: the checker's verdict closes the check, not yet the step — marking a step done is still a hand-made act that does not have to wait for that verdict."
             variant: warn
-            filters: [nothing-self-declared]
+            filters: [nothing-self-declared, semantic]
 
       # 2e · AUDIT — who answers for what happened.
       - id: audit
@@ -307,7 +321,7 @@ sections:
             title: "A person owns every change"
             description: ["the riskier the act, the more explicit the consent"]
             detail: "Acts are graded by risk. Reading changes nothing and needs no permission; changing something real needs a person to say yes, explicitly. The record of that yes cannot be edited afterwards: every moment of an approval — asked, shown, approved, executed — is hashed onto the moment before it, so the record breaks if a single step is altered, and the database itself refuses to change or delete an entry. The record is protected by the engine, not by a promise."
-            filters: [the-human, security]
+            filters: [the-human, security, deterministic]
           - id: a-evidence
             order: 2
             kicker: EVIDENCE
@@ -321,14 +335,14 @@ sections:
             title: "Every turn is graded"
             description: ["six mechanical checks on its own record"]
             detail: "Every turn is graded by six mechanical checks on its own record. They ask whether the answer was well formed, whether it looked before it changed anything, whether it used the context it was given, whether it ran its commands cleanly, whether it repeated itself, and whether it wrote outside what it owns — and the grade comes out as a score and a letter. Nobody is asked to rate their own turn: the grade is computed from what the turn actually did."
-            filters: [double-reader, nothing-self-declared]
+            filters: [double-reader, nothing-self-declared, deterministic]
           - id: a-anomalies
             order: 4
             kicker: ANOMALIES
             title: "Bad discipline is flagged"
             description: ["skipped checks, missing evidence, work outside scope"]
             detail: "Bad discipline is flagged on its own, apart from cost. One side names skipped looking, missing or empty evidence, a skipped check, work outside what someone owns; the other names how much it cost, how long it took, how often it called out. Keeping the two apart is the point: bad discipline is a finding by itself, not a footnote at the end of a cost report."
-            filters: [security]
+            filters: [security, deterministic]
 
   # 3 · THE COLOUR CHANNEL — declared in the content, not merely used, and at
   # the weight of a footnote: a dotted line with text, the same closing device
