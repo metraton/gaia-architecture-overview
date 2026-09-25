@@ -487,7 +487,7 @@ window.__DOC__ = {
             {
               "id": "mp-you",
               "order": 1,
-              "kicker": "→ PAGE 4",
+              "kicker": "→ PAGE 3",
               "title": "You",
               "description": [
                 "ask in your own words, approve what changes"
@@ -542,7 +542,7 @@ window.__DOC__ = {
                     {
                       "id": "mp-orchestrator",
                       "order": 1,
-                      "kicker": "→ PAGE 4",
+                      "kicker": "→ PAGE 3",
                       "title": "Decides the WHAT",
                       "description": [
                         "holds the conversation, never edits"
@@ -573,7 +573,7 @@ window.__DOC__ = {
                     {
                       "id": "mg-memory",
                       "order": 1,
-                      "kicker": "→ PAGE 7",
+                      "kicker": "→ PAGE 5",
                       "title": "Memory",
                       "description": [
                         "rules, preferences, pending"
@@ -586,7 +586,7 @@ window.__DOC__ = {
                     {
                       "id": "mg-plans",
                       "order": 2,
-                      "kicker": "→ PAGE 6",
+                      "kicker": "→ PAGE 5",
                       "title": "Plans & tasks",
                       "description": [
                         "a brief becomes checked tasks"
@@ -599,7 +599,7 @@ window.__DOC__ = {
                     {
                       "id": "mg-contracts",
                       "order": 3,
-                      "kicker": "→ PAGE 5",
+                      "kicker": "→ PAGE 4",
                       "title": "Contracts",
                       "description": [
                         "every specialist returns one"
@@ -614,7 +614,7 @@ window.__DOC__ = {
                     {
                       "id": "mg-approvals",
                       "order": 4,
-                      "kicker": "→ PAGE 4",
+                      "kicker": "→ PAGE 3",
                       "title": "Approvals",
                       "description": [
                         "your yes to one exact command"
@@ -674,7 +674,7 @@ window.__DOC__ = {
                       "description": [
                         "born clean for one piece of work"
                       ],
-                      "detail": "Specialists do the work, each in its field: application code, infrastructure, the cluster, live systems, Gaia itself. Each one is born clean for one piece of work, owns that one task, and ends with a contract: what was done, and with what evidence.",
+                      "detail": "Specialists do the work, each in its field: application code, infrastructure, the cluster, live systems, Gaia itself. Each one is born clean for one piece of work, owns that one task, and ends with a contract: what was done, and with what evidence. 9 agents today: the orchestrator, and 8 specialists: developer · platform-architect · gitops-operator · cloud-troubleshooter · gaia-planner · gaia-verifier · gaia-operator · gaia-system. You can add your own.",
                       "treatment": [
                         "centered"
                       ],
@@ -701,7 +701,6 @@ window.__DOC__ = {
                     {
                       "id": "sc-identity",
                       "order": 1,
-                      "kicker": "→ PAGE 3",
                       "title": "Identity",
                       "description": [
                         "its role and its field"
@@ -714,7 +713,6 @@ window.__DOC__ = {
                     {
                       "id": "sc-skills",
                       "order": 2,
-                      "kicker": "→ PAGE 3",
                       "title": "Skills",
                       "description": [
                         "how its kind of work is done"
@@ -727,7 +725,7 @@ window.__DOC__ = {
                     {
                       "id": "sc-context",
                       "order": 3,
-                      "kicker": "→ PAGE 5",
+                      "kicker": "→ PAGE 4",
                       "title": "Project context",
                       "description": [
                         "what it may read and write"
@@ -737,7 +735,7 @@ window.__DOC__ = {
                     {
                       "id": "sc-memory",
                       "order": 4,
-                      "kicker": "→ PAGE 7",
+                      "kicker": "→ PAGE 5",
                       "title": "Memory about you",
                       "description": [
                         "how you like to work"
@@ -750,7 +748,7 @@ window.__DOC__ = {
                     {
                       "id": "sc-contract",
                       "order": 5,
-                      "kicker": "→ PAGE 5",
+                      "kicker": "→ PAGE 4",
                       "title": "Its contract",
                       "description": [
                         "the blank form it must fill"
@@ -787,353 +785,6 @@ window.__DOC__ = {
       ],
       "name": "2 · What Gaia is",
       "order": 1
-    },
-    {
-      "id": "p3-whos-who",
-      "layout": "grid",
-      "form": "comparison",
-      "columns": 1,
-      "filters": [
-        {
-          "key": "one-turn",
-          "label": "one turn",
-          "steps": [
-            "A specialist lives one turn, from its dispatch to its close, and that turn ends with a contract the orchestrator reads."
-          ]
-        },
-        {
-          "key": "the-contract",
-          "label": "one contract, out and back",
-          "steps": [
-            "A specialist is born with a blank contract and returns it filled; the orchestrator reads it before telling you anything."
-          ]
-        },
-        {
-          "key": "the-human",
-          "label": "who decides?",
-          "steps": [
-            "You talk only to the orchestrator, which holds no editing tools; a specialist's changes to something real wait for your approval."
-          ]
-        },
-        {
-          "key": "memory",
-          "label": "what do we remember?",
-          "steps": [
-            "The orchestrator reads and curates memory; a specialist is handed how you like to work at birth, and searches the rest."
-          ]
-        },
-        {
-          "key": "deterministic",
-          "label": "a rule decides",
-          "steps": [
-            "Which tools an agent holds is decided by rule in code, not by the model: the orchestrator has no editing tools, and a specialist's commands pass through the approval hook."
-          ]
-        },
-        {
-          "key": "semantic",
-          "label": "a model follows instructions",
-          "steps": [
-            "Every agent is a model following its skills: the orchestrator's for routing and reading, a specialist's for its kind of work."
-          ]
-        },
-        {
-          "key": "nothing-self-declared",
-          "label": "is it really done?",
-          "steps": [
-            "A specialist does not say it is done: its contract is read, and a planned task is checked by someone who did not do it."
-          ]
-        }
-      ],
-      "sections": [
-        {
-          "id": "zoom",
-          "treatment": [
-            "plain"
-          ],
-          "order": 1,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "zoom-rail",
-              "type": "rail",
-              "treatment": [
-                "centered"
-              ],
-              "title": "ZOOM · WHAT AN AGENT IS"
-            }
-          ]
-        },
-        {
-          "id": "every",
-          "title": "Every agent has",
-          "subtitle": "the same five parts, whatever its job",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 2,
-          "span": 1,
-          "columns": 5,
-          "children": [
-            {
-              "id": "ev-identity",
-              "order": 1,
-              "kicker": "IS",
-              "title": "An identity",
-              "description": [
-                "one file: its role, its field"
-              ],
-              "detail": "An <b>agent</b> is one definition file: what it is for, the surface it owns, the tools it may hold and the skills it loads (<code>agents/&lt;name&gt;.md</code> frontmatter: <code>description</code>, <code>routing.surface</code>, <code>tools</code>, <code>skills</code>).",
-              "treatment": [
-                "centered"
-              ]
-            },
-            {
-              "id": "ev-skills",
-              "order": 2,
-              "kicker": "KNOWS HOW",
-              "title": "Skills",
-              "description": [
-                "written patterns and procedures"
-              ],
-              "detail": "A <b>skill</b> is written instructions an agent loads. The ones its file lists are loaded at birth; others it loads when the work calls for them.",
-              "treatment": [
-                "centered"
-              ],
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "ev-context",
-              "order": 3,
-              "kicker": "KNOWS",
-              "title": "Context and memory",
-              "description": [
-                "about your project, and about you"
-              ],
-              "detail": "<b>Project context</b> is what Gaia knows about your workspace, in sections. <b>Curated memory</b> is what outlives the session: your rules, your preferences, what is pending.",
-              "treatment": [
-                "centered"
-              ],
-              "filters": [
-                "memory"
-              ]
-            },
-            {
-              "id": "ev-tools",
-              "order": 4,
-              "kicker": "CAN USE",
-              "title": "Its tools",
-              "description": [
-                "only the ones its file grants"
-              ],
-              "detail": "Its file lists the tools it may hold, and a hook enforces the list before any tool runs. This is where the orchestrator and a specialist differ most.",
-              "treatment": [
-                "centered"
-              ],
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "ev-contract",
-              "order": 5,
-              "kicker": "ANSWERS WITH",
-              "title": "A contract",
-              "description": [
-                "the form Gaia reads, never the reply"
-              ],
-              "detail": "The <b>contract</b> says what was asked, what was found, what changed, with what evidence, and the state it ends in. Gaia stores it and judges it by rule.",
-              "treatment": [
-                "centered"
-              ],
-              "filters": [
-                "the-contract"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "orchestrator",
-          "title": "The orchestrator keeps",
-          "subtitle": "one per session · the WHAT",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 3,
-          "span": 1,
-          "columns": 5,
-          "children": [
-            {
-              "id": "or-identity",
-              "order": 1,
-              "title": "The one you talk to",
-              "description": [
-                "keeps the thread, decides the route"
-              ],
-              "detail": "The orchestrator is the only agent you talk to. It decides the route, shows it to you before starting, and tells you the result from what the specialists delivered.",
-              "filters": [
-                "the-human"
-              ]
-            },
-            {
-              "id": "or-skills",
-              "order": 2,
-              "title": "Route and read",
-              "description": [
-                "which specialist, how to show you"
-              ],
-              "detail": "Its skills are about coordination: routing a request to the specialist that owns it, reading a returned contract, and presenting an approval to you before anything runs.",
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "or-memory",
-              "order": 3,
-              "title": "Curated memory",
-              "description": [
-                "reads it, and writes it on purpose"
-              ],
-              "detail": "It reads curated memory and writes it on purpose. Only the orchestrator and gaia-operator write it; every other specialist is blocked by rule (<code>subagent_memory_write_guard</code>).",
-              "filters": [
-                "memory"
-              ]
-            },
-            {
-              "id": "or-tools",
-              "order": 4,
-              "kicker": "NEVER",
-              "title": "Edits your files",
-              "description": [
-                "only dispatch and Gaia's own CLI"
-              ],
-              "detail": "Editing tools are not in its set (<code>disallowedTools</code> in its file; <code>check_delegate_mode</code> against <code>ORCHESTRATOR_ALLOWED_TOOLS</code> at PreToolUse). Every change is handed to a specialist. A rule in code decides this, not the model.",
-              "filters": [
-                "deterministic",
-                "the-human"
-              ]
-            },
-            {
-              "id": "or-contract",
-              "order": 5,
-              "title": "Reads every contract",
-              "description": [
-                "and the plan, before telling you"
-              ],
-              "detail": "The orchestrator has no contract of its own to return: it reads the specialists' contracts (<code>gaia contract view</code>) and moves briefs, plans and tasks from one status to the next.",
-              "filters": [
-                "the-contract",
-                "nothing-self-declared",
-                "one-turn"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "specialist",
-          "title": "A specialist carries",
-          "subtitle": "one per piece of work · the HOW",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 4,
-          "span": 1,
-          "columns": 5,
-          "children": [
-            {
-              "id": "sp-identity",
-              "order": 1,
-              "title": "One field, one task",
-              "description": [
-                "born clean for this piece of work"
-              ],
-              "detail": "A specialist owns one surface (application code, infrastructure, the cluster, live systems, Gaia itself) and is born clean for one task. A <b>turn</b> is its whole life, from dispatch to close.",
-              "filters": [
-                "one-turn"
-              ]
-            },
-            {
-              "id": "sp-skills",
-              "order": 2,
-              "title": "Skills of its trade",
-              "description": [
-                "listed in its file, loaded at birth"
-              ],
-              "detail": "Claude Code loads the skills its file lists (<code>skills:</code> frontmatter) when the specialist is born; Gaia reminds it when a file it touches is governed by another one.",
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "sp-context",
-              "order": 3,
-              "title": "Its slice, and you",
-              "description": [
-                "the sections it may touch, how you work"
-              ],
-              "detail": "At SubagentStart the hook injects the sections it may read and write (<code>can_read</code>, <code>can_write</code>) and how you like work done (<code># How the user works</code>). It pulls the rest on demand (<code>gaia context get</code>, <code>gaia memory search</code>).",
-              "filters": [
-                "memory"
-              ]
-            },
-            {
-              "id": "sp-tools",
-              "order": 4,
-              "kicker": "HAS",
-              "title": "Editing tools",
-              "description": [
-                "and its own copy of the repo"
-              ],
-              "detail": "It edits files and runs commands; anything that changes something real waits for your approval. When it writes to a repository it works in its own copy (<code>gaia worktree create</code>), so two turns never share one tree.",
-              "filters": [
-                "deterministic",
-                "the-human"
-              ]
-            },
-            {
-              "id": "sp-contract",
-              "order": 5,
-              "title": "Returns its contract",
-              "description": [
-                "born blank, filled as it works"
-              ],
-              "detail": "It is born with its contract open (<code># Your Contract</code>) and fills it as it works. SubagentStop reads only the stored contract, never the reply; an unfinished one sends the turn back (<code>exit 2</code>).",
-              "filters": [
-                "the-contract",
-                "nothing-self-declared",
-                "one-turn"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "roster",
-          "treatment": [
-            "plain"
-          ],
-          "order": 5,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "roster-line",
-              "type": "separator",
-              "order": 1,
-              "text": "9 today: orchestrator · developer · platform-architect · gitops-operator · cloud-troubleshooter"
-            },
-            {
-              "id": "roster-line-2",
-              "type": "separator",
-              "order": 2,
-              "text": "gaia-planner · gaia-verifier · gaia-operator · gaia-system · you can add your own"
-            }
-          ]
-        }
-      ],
-      "name": "3 · What an agent is",
-      "order": 2
     },
     {
       "id": "p4-life-of-a-request",
@@ -1543,8 +1194,8 @@ window.__DOC__ = {
           ]
         }
       ],
-      "name": "4 · The life of a request",
-      "order": 3
+      "name": "3 · The life of a request",
+      "order": 2
     },
     {
       "id": "p6-contracts",
@@ -1809,12 +1460,13 @@ window.__DOC__ = {
                     },
                     {
                       "id": "pc-sections",
+                      "subtitle": "…and 5 more: application_services · infrastructure · infrastructure_topology · gitops_configuration · cluster_details",
                       "treatment": [
                         "envelope"
                       ],
                       "order": 2,
                       "span": 1,
-                      "columns": 2,
+                      "columns": 1,
                       "children": [
                         {
                           "id": "pc-identity",
@@ -1845,36 +1497,6 @@ window.__DOC__ = {
                           "type": "rail",
                           "order": 5,
                           "title": "architecture_overview"
-                        },
-                        {
-                          "id": "pc-apps",
-                          "type": "rail",
-                          "order": 6,
-                          "title": "application_services"
-                        },
-                        {
-                          "id": "pc-infra",
-                          "type": "rail",
-                          "order": 7,
-                          "title": "infrastructure"
-                        },
-                        {
-                          "id": "pc-topo",
-                          "type": "rail",
-                          "order": 8,
-                          "title": "infrastructure_topology"
-                        },
-                        {
-                          "id": "pc-gitops",
-                          "type": "rail",
-                          "order": 9,
-                          "title": "gitops_configuration"
-                        },
-                        {
-                          "id": "pc-cluster",
-                          "type": "rail",
-                          "order": 10,
-                          "title": "cluster_details"
                         }
                       ]
                     }
@@ -2028,19 +1650,37 @@ window.__DOC__ = {
                       ],
                       "order": 4,
                       "span": 1,
-                      "columns": 2,
+                      "columns": 1,
                       "children": [
                         {
-                          "id": "ac-seen",
+                          "id": "ac-files",
                           "type": "rail",
                           "order": 1,
-                          "title": "seen"
+                          "title": "files_checked"
                         },
                         {
-                          "id": "ac-done",
+                          "id": "ac-patterns",
                           "type": "rail",
                           "order": 2,
-                          "title": "done"
+                          "title": "patterns_checked"
+                        },
+                        {
+                          "id": "ac-commands",
+                          "type": "rail",
+                          "order": 3,
+                          "title": "commands_run"
+                        },
+                        {
+                          "id": "ac-key-outputs",
+                          "type": "rail",
+                          "order": 4,
+                          "title": "key_outputs"
+                        },
+                        {
+                          "id": "ac-verbatim",
+                          "type": "rail",
+                          "order": 5,
+                          "title": "verbatim_outputs"
                         }
                       ]
                     },
@@ -2086,594 +1726,457 @@ window.__DOC__ = {
           ]
         }
       ],
-      "name": "5 · Contracts",
-      "order": 4
+      "name": "4 · Contracts",
+      "order": 3
     },
     {
-      "id": "p7-it-checks",
+      "id": "p5-what-gaia-keeps",
       "layout": "grid",
-      "form": "flow",
-      "columns": 1,
+      "form": "dashboard",
+      "columns": 2,
       "filters": [
+        {
+          "key": "the-human",
+          "label": "who decides?",
+          "steps": [
+            "You do, and it is kept: the gates a plan must pass, the decisions and rules you set, and every approval a T3 command waited for."
+          ]
+        },
+        {
+          "key": "nothing-self-declared",
+          "label": "is it really done?",
+          "steps": [
+            "Not because a turn says so: a task stays pending until a gate's verdict is pass, and the lineage says where each fact came from."
+          ]
+        },
         {
           "key": "one-task",
           "label": "one task",
           "steps": [
-            "One piece of work, followed from start to finish: an idea becomes a brief, the brief a plan, the plan tasks, and each task goes to a specialist."
+            "One task leaves a trace in all four: the task itself, the contract that answered it, the episode of its turn, and the sections of the project it read and wrote."
           ]
         },
         {
-          "key": "the-contract",
-          "label": "one contract, out and back",
+          "key": "what-comes-back",
+          "label": "what comes back?",
           "steps": [
-            "The contract goes out blank with the specialist and comes back answered, and what it records is passed on to the next step."
-          ]
-        },
-        {
-          "key": "semantic",
-          "label": "a model follows instructions",
-          "steps": [
-            "Planning, doing the work and cross-checking it are done by models following written instructions."
-          ]
-        },
-        {
-          "key": "deterministic",
-          "label": "a rule decides",
-          "steps": [
-            "Where a check must not depend on a model, a rule in code decides: the same answer every time."
-          ]
-        },
-        {
-          "key": "nothing-self-declared",
-          "label": "is it really done?",
-          "steps": [
-            "The specialist returns its answer, but a separate verifier confirms the task before it counts as done."
-          ]
-        },
-        {
-          "key": "the-human",
-          "label": "who decides?",
-          "steps": [
-            "You start it with your idea, and you give your yes to each change before it runs."
-          ]
-        },
-        {
-          "key": "memory",
-          "label": "what do we remember?",
-          "steps": [
-            "The brief and what each step produces are stored, so the work survives the session."
+            "What the next session starts from: what was carried forward, the anchors of each project, and the events of the last 24 hours."
           ]
         }
       ],
       "sections": [
         {
-          "id": "p7-point",
+          "id": "sun-operational",
           "treatment": [
             "plain"
           ],
           "order": 1,
           "span": 1,
-          "columns": 1,
+          "columns": 4,
           "children": [
             {
-              "id": "p7-rail-point",
-              "type": "rail",
-              "title": "PLANS & TASKS · IT CHECKS BEFORE TELLING YOU"
-            }
-          ]
-        },
-        {
-          "id": "recorrido",
-          "treatment": [
-            "plain"
-          ],
-          "order": 2,
-          "span": 1,
-          "columns": 5,
-          "children": [
-            {
-              "id": "p7-ph-idea",
+              "id": "op-brief",
               "order": 1,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "p7-h-idea",
-                  "order": 1,
-                  "kicker": "1 OF 5",
-                  "title": "The idea",
-                  "description": [
-                    "where every request starts"
-                  ],
-                  "treatment": [
-                    "centered"
-                  ],
-                  "filters": [
-                    "one-task"
-                  ]
-                },
-                {
-                  "id": "p7-idea",
-                  "order": 2,
-                  "kicker": "YOU",
-                  "title": "A thought",
-                  "description": [
-                    "said in your own words"
-                  ],
-                  "detail": "You say what you want in plain words, talking to the orchestrator. Nothing is stored yet: it is one request.",
-                  "filters": [
-                    "the-human"
-                  ]
-                }
-              ]
+              "variant": "gold",
+              "title": "brief"
             },
             {
-              "id": "p7-ph-brief",
+              "id": "op-ac",
               "order": 2,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "p7-h-brief",
-                  "order": 1,
-                  "kicker": "2 OF 5",
-                  "title": "The brief",
-                  "description": [
-                    "the idea made to last"
-                  ],
-                  "treatment": [
-                    "centered"
-                  ],
-                  "filters": [
-                    "one-task"
-                  ]
-                },
-                {
-                  "id": "r-brief",
-                  "order": 2,
-                  "kicker": "gaia brief",
-                  "title": "The idea, written down",
-                  "description": [
-                    "with criteria for done"
-                  ],
-                  "detail": "The idea is written down as a <b>brief</b> stored in Gaia's database, with acceptance criteria that say what done looks like. It persists outside the session.<br>CLI: <code>gaia brief new</code> · <code>gaia brief ac</code> (add a criterion) · <code>gaia brief show</code>.",
-                  "filters": [
-                    "memory"
-                  ]
-                }
-              ]
+              "variant": "gold",
+              "title": "acceptance criteria"
             },
             {
-              "id": "p7-ph-plan",
+              "id": "op-plan",
               "order": 3,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "p7-h-plan",
-                  "order": 1,
-                  "kicker": "3 OF 5",
-                  "title": "The plan",
-                  "description": [
-                    "the brief broken down"
-                  ],
-                  "treatment": [
-                    "centered"
-                  ],
-                  "filters": [
-                    "one-task"
-                  ]
-                },
-                {
-                  "id": "r-plan",
-                  "order": 2,
-                  "kicker": "gaia plan",
-                  "title": "Steps to get there",
-                  "description": [
-                    "one plan per brief"
-                  ],
-                  "detail": "The brief is explored and a <b>plan</b> is saved against it: one plan per brief.<br>CLI: <code>gaia plan save</code> · <code>gaia plan show</code> · <code>gaia plan set-status</code>; later edits go through <code>gaia plan change</code>."
-                }
-              ]
+              "variant": "gold",
+              "title": "plan"
             },
             {
-              "id": "p7-ph-tasks",
+              "id": "op-plan-change",
               "order": 4,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "p7-h-tasks",
-                  "order": 1,
-                  "kicker": "4 OF 5",
-                  "title": "The tasks",
-                  "description": [
-                    "the plan made checkable"
-                  ],
-                  "treatment": [
-                    "centered"
-                  ],
-                  "filters": [
-                    "one-task"
-                  ]
-                },
-                {
-                  "id": "r-tareas",
-                  "order": 2,
-                  "kicker": "PLANNER",
-                  "title": "Tasks with gates",
-                  "description": [
-                    "each task has a gate"
-                  ],
-                  "detail": "The planner (<code>gaia-planner</code>, a specialist following written instructions) breaks the plan into <b>tasks</b>. Each task carries a <b>gate</b>: the pass/fail check that says the task is done. Stored as plan tasks and <code>task_gates</code> (<code>schema.sql:442-700</code>).",
-                  "filters": [
-                    "semantic"
-                  ]
-                }
-              ]
+              "variant": "gold",
+              "title": "plan change"
             },
             {
-              "id": "p7-ph-agents",
+              "id": "op-pause",
               "order": 5,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "p7-h-agents",
-                  "order": 1,
-                  "kicker": "5 OF 5",
-                  "title": "The agents",
-                  "description": [
-                    "the tasks put to work"
-                  ],
-                  "treatment": [
-                    "centered"
-                  ],
-                  "filters": [
-                    "one-task"
-                  ]
-                },
-                {
-                  "id": "p7-execute",
-                  "order": 2,
-                  "kicker": "EXECUTE",
-                  "title": "One specialist each",
-                  "description": [
-                    "a specialist per task"
-                  ],
-                  "detail": "The orchestrator sends one specialist per task. The turn is bound to its task (<code>--plan-task-id</code>, <code>dispatch_binding.py</code>), so the specialist works on that task and nothing else.",
-                  "filters": [
-                    "semantic"
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "contract-row",
-          "treatment": [
-            "plain"
-          ],
-          "order": 3,
-          "span": 1,
-          "columns": 5,
-          "children": [
-            {
-              "id": "p7-no-contract",
-              "type": "separator",
-              "order": 1,
-              "style": "dotted",
-              "text": "no contract yet"
+              "variant": "gold",
+              "title": "pause"
             },
             {
-              "id": "p7-no-contract-brief",
-              "type": "separator",
-              "order": 2,
-              "style": "dotted",
-              "text": "no contract yet"
-            },
-            {
-              "id": "p7-no-contract-plan",
-              "type": "separator",
-              "order": 3,
-              "style": "dotted",
-              "text": "no contract yet"
-            },
-            {
-              "id": "p7-carries",
-              "order": 4,
-              "kicker": "CARRIES",
-              "title": "A blank contract",
-              "description": [
-                "sent with each task"
-              ],
-              "detail": "Each specialist is born with a <b>contract</b> already created for its turn: the goal, and what it may read and write. It fills the contract in as it works (<code>gaia contract set</code> · <code>add</code> · <code>fill</code>).",
-              "filters": [
-                "the-contract"
-              ]
-            },
-            {
-              "id": "p7-returns",
-              "order": 5,
-              "kicker": "RETURNS",
-              "title": "The answered contract",
-              "description": [
-                "filled in and stored"
-              ],
-              "detail": "The specialist closes by declaring one of six states; only <code>COMPLETE</code> is final (<code>validator.py:908</code>). <code>SubagentStop</code> reads only the stored contract, never the reply text; a missing or unfinalized contract sends the turn back (<code>claude_code.py:905-907</code>). A turn bound to a task cannot mark itself <code>COMPLETE</code>: it returns <code>NEEDS_VERIFICATION</code>.",
-              "filters": [
-                "the-contract",
-                "nothing-self-declared"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "management",
-          "treatment": [
-            "plain"
-          ],
-          "order": 4,
-          "span": 1,
-          "columns": 3,
-          "children": [
-            {
-              "id": "p7-rail-mgmt",
-              "type": "rail",
-              "order": 1,
-              "span": 3,
-              "title": "THE MANAGEMENT LAYER"
-            },
-            {
-              "id": "ley-verif",
-              "order": 2,
-              "kicker": "CROSS-CHECK",
-              "title": "A separate verifier",
-              "description": [
-                "confirms the task was done"
-              ],
-              "detail": "<code>gaia-verifier</code>, a separate specialist, judges the task against its gate and the evidence and returns its verdict.<br><b>Enforced:</b> a turn bound to a plan task cannot seal itself <code>COMPLETE</code> (<code>_blind_verification_required</code>); it closes <code>NEEDS_VERIFICATION</code> for an independent verifier.<br><b>Not enforced:</b> who records a gate's pass or fail. No rule in code checks that; it rests on the instructions the verifier follows.",
-              "variant": "accent",
-              "filters": [
-                "semantic",
-                "nothing-self-declared"
-              ]
-            },
-            {
-              "id": "p7-passes-on",
-              "order": 3,
-              "kicker": "PASSES ON",
-              "title": "Each step's output",
-              "description": [
-                "contract → task → gate → evidence"
-              ],
-              "detail": "What one step produces is stored and read by the next: the contract names its task, the task its gate, the gate the evidence behind its result. It is kept in Gaia's database (<code>schema.sql:442-700</code>), so it survives the session. What is kept is memory, page 7.",
-              "filters": [
-                "the-contract",
-                "deterministic",
-                "memory"
-              ]
-            },
-            {
-              "id": "r-gates",
-              "order": 4,
-              "kicker": "CHECKS",
-              "title": "Only where needed",
-              "description": [
-                "a gate per task, your yes per change"
-              ],
-              "detail": "Checks sit where they matter, not everywhere: a <b>gate</b> per task decides done, and a hook asks for your yes before each command that changes something (T3). Read-only commands run without asking; the tier comes from a fixed classifier, with no model involved (<code>tiers.py:78</code>, <code>_classify_command_tier_cached</code>).",
-              "filters": [
-                "deterministic",
-                "the-human"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "p7-caveat",
-          "treatment": [
-            "plain"
-          ],
-          "order": 5,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "p7-enforced",
-              "type": "separator",
-              "order": 1,
-              "text": "enforced: a specialist can't mark its own planned work done"
-            }
-          ]
-        }
-      ],
-      "name": "6 · It checks",
-      "order": 5
-    },
-    {
-      "id": "p8-memory",
-      "layout": "grid",
-      "form": "mindmap",
-      "columns": 3,
-      "filters": [
-        {
-          "key": "memory",
-          "label": "what do we remember?",
-          "steps": [
-            "What the next session starts from: the curated rows written on purpose and the automatic trace of every turn. Project context sits beside it under its own name."
-          ]
-        },
-        {
-          "key": "deterministic",
-          "label": "a rule decides",
-          "steps": [
-            "No model chooses what a specialist is handed or what a turn leaves behind. The context slice follows the contract's readable sections, and the episode is written by a hook when the turn stops."
-          ]
-        },
-        {
-          "key": "the-human",
-          "label": "who decides?",
-          "steps": [
-            "You decide what is worth keeping. The orchestrator writes curated memory; a specialist only proposes."
-          ]
-        },
-        {
-          "key": "nothing-self-declared",
-          "label": "is it really done?",
-          "steps": [
-            "A specialist cannot close or graduate a thread of curated memory, and its episode is written from the stored contract, not from what it says it did."
-          ]
-        }
-      ],
-      "sections": [
-        {
-          "id": "p8-point",
-          "treatment": [
-            "plain"
-          ],
-          "order": 1,
-          "span": 3,
-          "columns": 1,
-          "children": [
-            {
-              "id": "p8-rail",
-              "type": "rail",
-              "title": "MEMORY · IT OUTLIVES THE SESSION · two kinds"
-            }
-          ]
-        },
-        {
-          "id": "p8-context",
-          "treatment": [
-            "plain"
-          ],
-          "order": 2,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "p8-context-head",
-              "order": 1,
-              "kicker": "KIND 1 OF 2",
-              "title": "PROJECT CONTEXT",
-              "description": "what Gaia knows",
-              "detail": "What Gaia knows about your workspace. It is handed to each specialist at dispatch, and it is never called memory.",
-              "variant": "muted"
-            },
-            {
-              "id": "p8-scan",
-              "order": 2,
-              "kicker": "gaia scan",
-              "title": "Your repos, mapped",
-              "description": "the shape of your workspace",
-              "detail": "<code>gaia scan</code> walks the workspace you point it at and records what it finds: each repository, its stack, its git layout, the services it holds. The result is stored as named context sections (<code>project_identity</code>, <code>stack</code>, <code>git</code>, <code>environment</code>, <code>architecture_overview</code>, <code>application_services</code>). It is project context, not memory: it describes your workspace, not what any turn learned."
-            },
-            {
-              "id": "p8-dispatch",
-              "order": 3,
-              "kicker": "AT DISPATCH",
-              "title": "Context handed in",
-              "description": "each specialist gets its slice",
-              "detail": "When the orchestrator dispatches a specialist, the contract it is born with lists the context sections it may read (<code>can_read</code>) and the ones it may change (<code>can_write</code>). The specialist reads its slice on demand with <code>gaia context get-contract --section &lt;name&gt;</code>. The slice follows the contract, not a model's choice.",
-              "filters": [
-                "deterministic"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "p8-center",
-          "treatment": [
-            "plain"
-          ],
-          "order": 3,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "p8-memory",
-              "order": 1,
-              "title": "MEMORY",
-              "description": "what the next session starts from",
-              "detail": "A session ends; what it learned does not. Two kinds of knowledge outlive it: project context on the left, what Gaia knows about your workspace, and real memory on the right, what the turns left behind. Only the right side is memory in the strict sense, and only part of it is curated, by decision.",
+              "id": "op-core",
+              "order": 6,
+              "span": 2,
+              "variant": "gold",
               "treatment": [
                 "centered"
               ],
-              "rowspan": 3,
+              "kicker": "MEMORY 1 OF 4",
+              "title": "Operational memory",
+              "description": [
+                "What are we doing, and what is still open?"
+              ],
+              "detail": "What is in flight and what is still open. A brief carries acceptance criteria and milestones; it gets one plan of tasks. Each task can depend on others, says which criteria it covers, and carries gates that someone who did not do the work checks. A plan can be paused, resumed, or changed through a managed plan change that keeps every earlier version. Also kept here: the statuses draft, open and in progress; open threads; schedules for recurring work and the notifications they leave; and each turn's next action. Commands: gaia brief, gaia ac, gaia milestone, gaia plan, gaia task, gaia schedule, gaia notifications."
+            },
+            {
+              "id": "op-carry-forward",
+              "order": 7,
+              "variant": "gold",
+              "title": "carry forward",
               "filters": [
-                "memory",
+                "what-comes-back"
+              ]
+            },
+            {
+              "id": "op-blocked",
+              "order": 8,
+              "variant": "gold",
+              "title": "blocked"
+            },
+            {
+              "id": "op-gates",
+              "order": 9,
+              "variant": "gold",
+              "title": "gates",
+              "filters": [
                 "the-human"
+              ]
+            },
+            {
+              "id": "op-pending",
+              "order": 10,
+              "variant": "gold",
+              "title": "pending",
+              "filters": [
+                "nothing-self-declared"
+              ]
+            },
+            {
+              "id": "op-tasks",
+              "order": 11,
+              "variant": "gold",
+              "title": "tasks",
+              "filters": [
+                "one-task"
               ]
             }
           ]
         },
         {
-          "id": "p8-real",
+          "id": "sun-episodic",
+          "treatment": [
+            "plain"
+          ],
+          "order": 2,
+          "span": 1,
+          "columns": 4,
+          "children": [
+            {
+              "id": "ep-sessions",
+              "order": 1,
+              "variant": "violet",
+              "title": "sessions"
+            },
+            {
+              "id": "ep-turns",
+              "order": 2,
+              "variant": "violet",
+              "title": "turns"
+            },
+            {
+              "id": "ep-hooks",
+              "order": 3,
+              "variant": "violet",
+              "title": "hooks"
+            },
+            {
+              "id": "ep-events",
+              "order": 4,
+              "variant": "violet",
+              "title": "events"
+            },
+            {
+              "id": "ep-last-24h",
+              "order": 5,
+              "variant": "violet",
+              "title": "last 24h",
+              "filters": [
+                "what-comes-back"
+              ]
+            },
+            {
+              "id": "ep-core",
+              "order": 6,
+              "span": 2,
+              "variant": "violet",
+              "treatment": [
+                "centered"
+              ],
+              "kicker": "MEMORY 2 OF 4",
+              "title": "Episodic memory",
+              "description": [
+                "What happened, and when?"
+              ],
+              "detail": "What happened and when, recorded by the engine, never written by hand. Every hook that fires leaves an event: SessionStart, SubagentStart, PostToolUse, SubagentStop and the rest. Every turn leaves one episode; sessions group them, and a timeline puts them in order. The next session starts with the last 24 hours. A turn that never closed stays as a cut turn, with its reason; anomalies and defects are listed one by one for triage. Also kept here: the transcript, the history of recent sessions, the backstop that closes a cut turn, the compaction of a long session, and the links between curated rows (supersedes, graduated). Commands: gaia query, gaia history, gaia defects, gaia memory search."
+            },
+            {
+              "id": "ep-timeline",
+              "order": 7,
+              "variant": "violet",
+              "title": "timeline"
+            },
+            {
+              "id": "ep-episodes",
+              "order": 8,
+              "variant": "violet",
+              "title": "episodes",
+              "filters": [
+                "one-task"
+              ]
+            },
+            {
+              "id": "ep-lineage",
+              "order": 9,
+              "variant": "violet",
+              "title": "lineage",
+              "filters": [
+                "nothing-self-declared"
+              ]
+            },
+            {
+              "id": "ep-cut-turns",
+              "order": 10,
+              "variant": "violet",
+              "title": "cut turns"
+            },
+            {
+              "id": "ep-anomalies",
+              "order": 11,
+              "variant": "violet",
+              "title": "anomalies"
+            }
+          ]
+        },
+        {
+          "id": "sun-project",
+          "treatment": [
+            "plain"
+          ],
+          "order": 3,
+          "span": 1,
+          "columns": 4,
+          "children": [
+            {
+              "id": "pr-anchors",
+              "order": 1,
+              "variant": "blue",
+              "title": "anchors",
+              "filters": [
+                "what-comes-back"
+              ]
+            },
+            {
+              "id": "pr-decisions",
+              "order": 2,
+              "variant": "blue",
+              "title": "decisions",
+              "filters": [
+                "the-human"
+              ]
+            },
+            {
+              "id": "pr-preferences",
+              "order": 3,
+              "variant": "blue",
+              "title": "preferences"
+            },
+            {
+              "id": "pr-sections",
+              "order": 4,
+              "variant": "blue",
+              "title": "sections",
+              "filters": [
+                "one-task"
+              ]
+            },
+            {
+              "id": "pr-workspace",
+              "order": 5,
+              "variant": "blue",
+              "title": "workspace"
+            },
+            {
+              "id": "pr-core",
+              "order": 6,
+              "span": 2,
+              "variant": "blue",
+              "treatment": [
+                "centered"
+              ],
+              "kicker": "MEMORY 3 OF 4",
+              "title": "Project memory",
+              "description": [
+                "What do we know about the project, and about you?"
+              ],
+              "detail": "What Gaia knows about the project, and about you. gaia scan maps the workspace and its repos; what it finds is kept in named sections of the project contract: project identity, stack, git, architecture, services, environment, infrastructure. Each agent may read some sections and write others, and its context at dispatch names them. About you: your rules and preferences, handed to every specialist at birth, and the decisions and anchors the orchestrator curated. Also kept here: feedback on how work went, and what did not work, as curated rows of type negative. Commands: gaia scan, gaia context, gaia memory."
+            },
+            {
+              "id": "pr-your-rules",
+              "order": 7,
+              "variant": "blue",
+              "title": "your rules",
+              "filters": [
+                "the-human"
+              ]
+            },
+            {
+              "id": "pr-scan",
+              "order": 8,
+              "variant": "blue",
+              "title": "scan"
+            },
+            {
+              "id": "pr-repos",
+              "order": 9,
+              "variant": "blue",
+              "title": "repos"
+            },
+            {
+              "id": "pr-can-read",
+              "order": 10,
+              "variant": "blue",
+              "title": "can read"
+            },
+            {
+              "id": "pr-can-write",
+              "order": 11,
+              "variant": "blue",
+              "title": "can write"
+            }
+          ]
+        },
+        {
+          "id": "sun-execution",
           "treatment": [
             "plain"
           ],
           "order": 4,
           "span": 1,
-          "columns": 1,
+          "columns": 4,
           "children": [
             {
-              "id": "p8-real-head",
+              "id": "ex-contracts",
               "order": 1,
-              "kicker": "KIND 2 OF 2",
-              "title": "REAL MEMORY",
-              "description": "what the turns left",
-              "detail": "What the turns left behind: the curated rows written on purpose, and the automatic trace of every turn.",
-              "variant": "muted"
+              "variant": "clay",
+              "title": "contracts",
+              "filters": [
+                "one-task"
+              ]
             },
             {
-              "id": "p8-curated",
+              "id": "ex-verdict",
               "order": 2,
-              "kicker": "CURATED",
-              "title": "Kept on purpose",
-              "description": "read back at the start",
-              "detail": "<b>Lifecycle.</b> A candidate first passes a gate: if it already has a home (a brief, a plan, a task, the project context, the code), it is not memory. What passes opens as a live thread with one concern and one status, grows only by appending (a dead end is recorded so nobody pays for it twice), and exits CLOSED (attention returns) or GRADUATED (knowledge survives as an anchor). Neither exit is deletion.<br><b>Lineage.</b> A graduated thread points at the anchor it produced (<code>graduated_to</code>); a wrong row is replaced by a correct one that <code>supersedes</code> it, never edited in place.<br><b>Ownership.</b> You are the authority for what is kept. Only the orchestrator and gaia-operator write curated memory; every specialist only proposes (<code>subagent_memory_write_guard.py:60-67</code>).<br><b>Machinery.</b> Rows are typed <code>project</code>, <code>user</code>, <code>feedback</code>, <code>atom</code>, <code>decision</code> or <code>negative</code>, and read with <code>gaia memory search</code>, <code>gaia memory show</code> and <code>gaia memory get-relevant</code>.",
+              "variant": "clay",
+              "title": "verdict",
               "filters": [
-                "memory",
-                "the-human",
                 "nothing-self-declared"
               ]
             },
             {
-              "id": "p8-automatic",
+              "id": "ex-pass",
               "order": 3,
-              "kicker": "AUTOMATIC",
-              "title": "Events and episodes",
-              "description": "one trace per turn",
-              "detail": "Nobody chooses to write these. Hooks record events as a turn runs, and when a specialist stops, the SubagentStop hook writes that turn's episode from its stored contract, never from the reply text (<code>subagent_stop.py:263</code>). They are evidence of what happened, kept for diagnosis; recent events are shown to the next specialist at the start of its turn.",
+              "variant": "clay",
+              "title": "pass",
               "filters": [
-                "memory",
-                "deterministic",
                 "nothing-self-declared"
               ]
+            },
+            {
+              "id": "ex-evidence",
+              "order": 4,
+              "variant": "clay",
+              "title": "evidence"
+            },
+            {
+              "id": "ex-approvals",
+              "order": 5,
+              "variant": "clay",
+              "title": "approvals",
+              "filters": [
+                "the-human"
+              ]
+            },
+            {
+              "id": "ex-core",
+              "order": 6,
+              "span": 2,
+              "variant": "clay",
+              "treatment": [
+                "centered"
+              ],
+              "kicker": "MEMORY 4 OF 4",
+              "title": "Execution memory",
+              "description": [
+                "What did we execute, and what did it produce?"
+              ],
+              "detail": "What was executed, and what it produced. Every turn answers in its agent contract: its state (COMPLETE, BLOCKED, APPROVAL_REQUEST, NEEDS_VERIFICATION, NEEDS_INPUT, IN_PROGRESS), its evidence (commands run, key outputs, open gaps) and its verification, pass or fail. A gate's verdict is kept with its task. Every approval is kept in a hashed approval chain; every command's tier is decided by a rule: T0 read, T1 validate, T2 dry run, T3 change, or never. A compliance score and an audit trail are computed from all of it. Also kept here: metrics, and the worktree of each turn that wrote. Commands: gaia contract, gaia approvals, gaia evidence, gaia metrics."
+            },
+            {
+              "id": "ex-open-gaps",
+              "order": 7,
+              "variant": "clay",
+              "title": "open gaps"
+            },
+            {
+              "id": "ex-t3",
+              "order": 8,
+              "variant": "clay",
+              "title": "T3",
+              "filters": [
+                "the-human"
+              ]
+            },
+            {
+              "id": "ex-complete",
+              "order": 9,
+              "variant": "clay",
+              "title": "COMPLETE"
+            },
+            {
+              "id": "ex-blocked",
+              "order": 10,
+              "variant": "clay",
+              "title": "BLOCKED"
+            },
+            {
+              "id": "ex-audit-trail",
+              "order": 11,
+              "variant": "clay",
+              "title": "audit trail"
             }
           ]
         },
         {
-          "id": "p8-close",
+          "id": "keeps-close",
           "treatment": [
             "plain"
           ],
           "order": 5,
-          "span": 3,
+          "span": 2,
           "columns": 1,
           "children": [
             {
-              "id": "p8-sep",
+              "id": "keeps-close-line",
               "type": "separator",
-              "text": "you decide what is curated; the orchestrator writes it"
+              "order": 1,
+              "text": "you decide what is curated · the engine records the rest"
             }
           ]
         }
       ],
-      "name": "7 · Memory",
-      "order": 6
+      "name": "5 · What Gaia keeps",
+      "order": 4
     },
     {
       "id": "p9-back-to-the-map",
@@ -2685,232 +2188,441 @@ window.__DOC__ = {
           "key": "the-human",
           "label": "who decides?",
           "steps": [
-            "You sign what changes something, and on one machine you said yes 583 times and no 52 times."
+            "You sign what changes something: on one machine you said yes 583 times and no 52 times, and every change waited for that answer."
           ]
         },
         {
           "key": "nothing-self-declared",
           "label": "is it really done?",
           "steps": [
-            "A specialist answers with a contract and gets checked; every change it asked for waited for your yes or no."
+            "The numbers on this page are counted by Gaia's own records on one machine, not claimed by an agent."
           ]
         },
         {
           "key": "memory",
           "label": "what do we remember?",
           "steps": [
-            "Gaia reads and writes memory, so what it learns outlives the session."
+            "Everything Gaia learns lives in one local database, the same for every install and every project, and uninstalling never deletes it."
           ]
         },
         {
           "key": "deterministic",
           "label": "a rule decides",
           "steps": [
-            "Your signature is enforced by a hook, by rule, and the same rule is why most commands run without asking: 94% only read."
+            "A rule, not a model, sorts every command and maps your repos: 94% of commands only read, and the scan infers nothing."
           ]
         },
         {
           "key": "semantic",
           "label": "a model follows instructions",
           "steps": [
-            "Gaia and the specialists are models following written instructions: skills and agents."
+            "Gaia is a model following written instructions, which is why you ask it instead of learning it, and why you can write your own agents and skills."
           ]
         }
       ],
       "sections": [
         {
-          "id": "p9-thesis",
+          "id": "p9-start",
+          "title": "Start here",
+          "subtitle": "two routes · pick one per Claude Code workspace: both together register every hook twice",
           "treatment": [
-            "plain"
+            "envelope"
           ],
           "order": 1,
           "span": 1,
-          "columns": 1,
+          "columns": 3,
           "children": [
             {
-              "id": "p9-rail",
-              "type": "rail",
+              "id": "p9-plugin-add",
               "order": 1,
-              "title": "BACK TO THE MAP"
+              "treatment": [
+                "half"
+              ],
+              "kicker": "PLUGIN · RECOMMENDED · 1",
+              "title": "/plugin marketplace add metraton/gaia",
+              "detail": "The recommended route, in Claude Code. <code>/plugin marketplace add metraton/gaia</code> adds the gaia-marketplace; the host clones the repository at the tag of the current release. Source: the Gaia README, <i>How it is used</i>."
             },
             {
-              "id": "p9-thesis-box",
+              "id": "p9-plugin-install",
               "order": 2,
-              "kicker": "WHAT GAIA IS",
-              "title": "Gaia converses with you and coordinates the work, but never makes the changes itself.",
-              "description": [
-                "hands them to specialists, checks what they deliver, tells you"
+              "treatment": [
+                "half"
               ],
-              "detail": "The orchestrator's own answer, the same words as page 2: <i>Gaia converses with you and coordinates the work, but never makes the changes itself. It hands them to specialists, checks what they deliver, and tells you the result. Anything that changes something real needs your signature.</i>",
+              "kicker": "2 · ONE PLUGIN, NO NPM STEP",
+              "title": "/plugin install gaia@gaia-marketplace",
+              "detail": "<code>/plugin install gaia@gaia-marketplace</code>, or from a terminal <code>claude plugin install gaia@gaia-marketplace</code>. The README: <i>For Claude Code that is the whole install; no npm step is needed.</i> Claude Code asks for a scope: for you in every project, for everyone in this repository, or for you in this repository only."
+            },
+            {
+              "id": "p9-npm-install",
+              "order": 3,
+              "treatment": [
+                "half"
+              ],
+              "kicker": "NPM · FOR OPENCODE OR THE CLI · 1",
+              "title": "npm install @jaguilar87/gaia",
+              "detail": "The npm route: the one for OpenCode, and the alternative for Claude Code when you want <code>gaia</code> on your own terminal. <code>npm install @jaguilar87/gaia</code>, or <code>pnpm add @jaguilar87/gaia</code>. Source: the Gaia README."
+            },
+            {
+              "id": "p9-npm-wire",
+              "order": 4,
+              "treatment": [
+                "half"
+              ],
+              "kicker": "2 · WIRES THE WORKSPACE",
+              "title": "gaia install",
+              "detail": "<code>gaia install</code> for Claude Code, or <code>--host opencode</code> / <code>--host all</code>. It bootstraps <code>~/.gaia/gaia.db</code> and wires the workspace; <code>gaia doctor</code> checks it. Pick one route per Claude Code workspace: the plugin and <code>gaia install</code> together register every hook twice."
+            },
+            {
+              "id": "p9-first-prompt",
+              "order": 5,
+              "rowspan": 2,
+              "kicker": "THEN ASK",
+              "title": "what is Gaia, and what can you do for me?",
+              "description": [
+                "Gaia explains itself, live"
+              ],
+              "detail": "The first thing to ask, on either route: <i>what is Gaia, and what can you do for me?</i> Gaia explains itself live, and its answer is the map this deck opened with.",
               "variant": "accent",
               "treatment": [
                 "centered"
+              ],
+              "filters": [
+                "semantic"
               ]
+            },
+            {
+              "id": "p9-plugin-reload",
+              "order": 6,
+              "treatment": [
+                "half"
+              ],
+              "kicker": "FIRST SESSION",
+              "title": "/reload-plugins",
+              "detail": "On the first session Gaia merges its permission set into <code>.claude/settings.local.json</code> and asks you to run <code>/reload-plugins</code>, or restart, to activate it. Source: the Gaia README."
+            },
+            {
+              "id": "p9-plugin-remove",
+              "order": 7,
+              "treatment": [
+                "half"
+              ],
+              "kicker": "TO REMOVE",
+              "title": "/plugin uninstall",
+              "detail": "Claude Code's own command: <code>/plugin uninstall</code> opens the plugin panel on the uninstall action; from a shell, <code>claude plugin uninstall gaia@gaia-marketplace</code> with <code>--scope</code> for the scope you installed at. Source: Claude Code's plugin documentation. Gaia's database lives outside the plugin, in <code>~/.gaia/</code>, so removing the plugin does not remove it.",
+              "variant": "muted"
+            },
+            {
+              "id": "p9-npm-remove",
+              "order": 8,
+              "treatment": [
+                "half"
+              ],
+              "kicker": "TO REMOVE · 1",
+              "title": "gaia uninstall",
+              "detail": "<code>gaia uninstall</code> disconnects Gaia from the workspace. Its own help: <i>Disconnect Gaia from this workspace (cleanup; DB is never deleted)</i>. It writes a gzip snapshot of <code>~/.gaia/gaia.db</code> first, by default, and no flag removes the database.",
+              "variant": "muted"
+            },
+            {
+              "id": "p9-npm-remove-pkg",
+              "order": 9,
+              "treatment": [
+                "half"
+              ],
+              "kicker": "TO REMOVE · 2",
+              "title": "npm uninstall @jaguilar87/gaia",
+              "detail": "Then remove the package: <code>npm uninstall @jaguilar87/gaia</code>, as INSTALL.md's manual uninstall step says. Memory, episodes and every persisted state survive <code>npm uninstall</code>.",
+              "variant": "muted"
             }
           ]
         },
         {
-          "id": "p9-map",
+          "id": "p9-yours-row",
           "treatment": [
             "plain"
           ],
           "order": 2,
           "span": 1,
-          "columns": 4,
+          "columns": 5,
           "children": [
             {
-              "id": "p9-you",
+              "id": "p9-yours",
+              "treatment": [
+                "plain"
+              ],
               "order": 1,
-              "kicker": "→ PAGE 4",
-              "title": "YOU",
-              "description": [
-                "you sign what changes something"
-              ],
-              "detail": "Page 4 · The life of a request, its approvals. Anything that changes something real needs your approval, your yes to one exact command, and a rule sorts every command before any tool runs.",
-              "treatment": [
-                "centered"
-              ],
-              "filters": [
-                "the-human",
-                "deterministic"
+              "span": 3,
+              "columns": 2,
+              "children": [
+                {
+                  "id": "p9-db",
+                  "order": 1,
+                  "kicker": "ONE DATABASE · ALL IT KNOWS · YOURS",
+                  "title": "~/.gaia/gaia.db",
+                  "description": [
+                    "every install, every project, the same knowledge",
+                    "uninstalling never deletes it"
+                  ],
+                  "detail": "Plugin or npm, one project or many, Gaia reads and writes one local database: <code>~/.gaia/gaia.db</code>, the default of <code>data_dir()</code> in <code>gaia/paths/resolver.py</code> (moved only if you set <code>GAIA_DATA_DIR</code> or <code>GAIA_DB</code>). Memory, contracts, plans and approvals all live there, on your machine. <code>gaia uninstall</code> never deletes it: <i>there is no flag that removes it</i>.",
+                  "variant": "good",
+                  "filters": [
+                    "memory"
+                  ]
+                },
+                {
+                  "id": "p9-oss",
+                  "order": 2,
+                  "kicker": "OPEN SOURCE · MIT",
+                  "title": "your agents, your skills",
+                  "description": [
+                    "github.com/metraton/gaia"
+                  ],
+                  "detail": "Gaia is MIT-licensed (<code>LICENSE</code>, <code>package.json</code>) at <code>github.com/metraton/gaia</code>. Agents and skills are written instructions, and Gaia ships a skill for writing each: <code>agent-creation</code> for a new specialist agent, <code>skill-creation</code> for a new skill.",
+                  "filters": [
+                    "semantic"
+                  ]
+                }
               ]
             },
             {
-              "id": "p9-gaia",
+              "id": "p9-numbers",
+              "treatment": [
+                "plain"
+              ],
               "order": 2,
-              "kicker": "→ PAGE 4",
-              "title": "GAIA",
-              "description": [
-                "the orchestrator decides the what"
-              ],
-              "detail": "Page 4 · The life of a request. The orchestrator is the one agent you talk to: it holds the conversation, decides the route, hands the work to a specialist, and reads memory to remember what came before. It never edits.",
-              "treatment": [
-                "centered"
-              ],
-              "filters": [
-                "memory",
-                "semantic"
-              ]
-            },
-            {
-              "id": "p9-manages",
-              "order": 3,
-              "kicker": "→ PAGES 4–7",
-              "title": "WHAT GAIA MANAGES",
-              "description": [
-                "memory, plans, contracts, approvals"
-              ],
-              "detail": "Through its own command line, Gaia keeps memory (page 7), plans and tasks (page 6), contracts (page 5) and approvals (page 4), so what it learns and what it was asked outlives the session.",
-              "treatment": [
-                "centered"
-              ],
-              "filters": [
-                "memory"
-              ]
-            },
-            {
-              "id": "p9-specialist",
-              "order": 4,
-              "kicker": "→ PAGES 3, 5",
-              "title": "THE SPECIALISTS",
-              "description": [
-                "do the how, answer with a contract"
-              ],
-              "detail": "Page 3 · What an agent is: every specialist has the same parts, and there are 8 today, one per field. Page 5 · Contracts: every specialist answers with its own contract, and the orchestrator checks what it claims before telling you.",
-              "treatment": [
-                "centered"
-              ],
-              "filters": [
-                "nothing-self-declared",
-                "semantic"
+              "span": 2,
+              "columns": 2,
+              "children": [
+                {
+                  "id": "p9-approvals",
+                  "order": 1,
+                  "kicker": "ON MY MACHINE · APPROVALS",
+                  "title": "583 yes · 52 no · 218 expired",
+                  "description": [
+                    "you said yes or no"
+                  ],
+                  "detail": "From <code>gaia approvals stats</code> on one machine: 583 approvals granted, 52 rejected, 218 left to expire unanswered. Turn counts are left out: before rc.3 the hooks were registered twice, which inflated them.",
+                  "filters": [
+                    "the-human",
+                    "nothing-self-declared"
+                  ]
+                },
+                {
+                  "id": "p9-readonly",
+                  "order": 2,
+                  "kicker": "ON MY MACHINE · COMMANDS",
+                  "title": "94% only read",
+                  "description": [
+                    "most commands never ask"
+                  ],
+                  "detail": "From <code>gaia metrics</code> on one machine: 423 of 450 commands were T0, read-only, 94.0%. A fixed rule classified each one; only changes asked for your approval.",
+                  "filters": [
+                    "nothing-self-declared",
+                    "deterministic"
+                  ]
+                }
               ]
             }
           ]
         },
         {
-          "id": "p9-numbers",
-          "title": "On my machine",
+          "id": "p9-grow-row",
           "treatment": [
-            "envelope"
+            "plain"
           ],
           "order": 3,
           "span": 1,
-          "columns": 2,
+          "columns": 5,
           "children": [
             {
-              "id": "p9-approvals",
-              "order": 1,
-              "kicker": "gaia approvals stats",
-              "title": "583 yes · 52 no · 218 expired",
-              "description": [
-                "you said yes or no"
-              ],
-              "detail": "From <code>gaia approvals stats</code> on one machine: 583 approvals granted, 52 rejected, 218 left to expire unanswered. Turn counts are left out: before rc.3 the hooks were registered twice, which inflated them.",
-              "filters": [
-                "the-human",
-                "nothing-self-declared"
-              ]
-            },
-            {
-              "id": "p9-readonly",
-              "order": 2,
-              "kicker": "gaia metrics",
-              "title": "94% read-only",
-              "description": [
-                "most commands only read"
-              ],
-              "detail": "From <code>gaia metrics</code> on one machine: 423 of 450 commands were T0, read-only, 94.0%. A fixed rule classified each one; only changes asked for your approval.",
-              "filters": [
-                "deterministic"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "p9-install",
-          "title": "Install it, ask it",
-          "subtitle": "Claude Code · OpenCode is the second host",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 4,
-          "span": 1,
-          "columns": 2,
-          "children": [
-            {
-              "id": "p9-step-marketplace",
-              "order": 1,
-              "kicker": "INSTALL · STEP 1 OF 3",
-              "title": "Add the marketplace",
-              "description": [
-                "/plugin marketplace add metraton/gaia"
-              ],
-              "detail": "In Claude Code, run <code>/plugin marketplace add metraton/gaia</code>. The gaia-marketplace becomes available to install from."
-            },
-            {
-              "id": "p9-step-install",
-              "order": 2,
-              "kicker": "INSTALL · STEP 2 OF 3",
-              "title": "Install the plugin",
-              "description": [
-                "/plugin install gaia@gaia-marketplace"
-              ],
-              "detail": "Run <code>/plugin install gaia@gaia-marketplace</code>. rc.3 is released, and main's README says the plugin install alone is enough: no npm step. OpenCode is the second host."
-            },
-            {
-              "id": "p9-first-prompt",
-              "order": 3,
-              "kicker": "FIRST PROMPT · STEP 3 OF 3",
-              "title": "what is Gaia, and what can you do for me?",
-              "description": [
-                "Gaia explains itself, live"
-              ],
-              "detail": "The first thing to ask: <i>what is Gaia, and what can you do for me?</i> Gaia explains itself live, and its answer is the map this deck opened with.",
-              "variant": "accent",
+              "id": "p9-grow",
+              "title": "From one command to the whole workspace",
+              "subtitle": "height is reach: what you do · what it reaches · what it knows",
               "treatment": [
-                "centered"
+                "envelope"
               ],
-              "span": 2
+              "order": 1,
+              "span": 3,
+              "columns": 5,
+              "children": [
+                {
+                  "id": "p9-floor-1",
+                  "type": "spacer",
+                  "order": 1
+                },
+                {
+                  "id": "p9-floor-2",
+                  "type": "spacer",
+                  "order": 2
+                },
+                {
+                  "id": "p9-floor-3",
+                  "type": "spacer",
+                  "order": 3
+                },
+                {
+                  "id": "p9-floor-4",
+                  "type": "spacer",
+                  "order": 4
+                },
+                {
+                  "id": "p9-bar-picture",
+                  "order": 5,
+                  "rowspan": 3,
+                  "kicker": "5 · IT KNOWS",
+                  "title": "the big picture",
+                  "description": [
+                    "of every project",
+                    "ready"
+                  ],
+                  "detail": "Every session opens with a list of the projects Gaia can reach, grouped by workspace, each with its path, read from the database. <code>gaia context project &lt;name&gt;</code> prints one project's card.",
+                  "variant": "accent",
+                  "filters": [
+                    "memory"
+                  ]
+                },
+                {
+                  "id": "p9-floor-5",
+                  "type": "spacer",
+                  "order": 6
+                },
+                {
+                  "id": "p9-floor-6",
+                  "type": "spacer",
+                  "order": 7
+                },
+                {
+                  "id": "p9-bar-projects",
+                  "order": 8,
+                  "rowspan": 2,
+                  "kicker": "3 · IT REACHES",
+                  "title": "any project",
+                  "description": [
+                    "one, or many",
+                    "per repo, or for you"
+                  ],
+                  "detail": "The plugin installs at a scope: for you in every project on this machine, for everyone in one repository, or for you in one repository only. On this machine it is installed at local scope, twice, in two folders. Whichever folder a session opens in, it lists every project the one database knows."
+                },
+                {
+                  "id": "p9-bar-scan",
+                  "order": 9,
+                  "rowspan": 2,
+                  "kicker": "4 · IT MAPS",
+                  "title": "one scan",
+                  "description": [
+                    "your repos",
+                    "in broad strokes"
+                  ],
+                  "detail": "<code>gaia scan --workspace &lt;name&gt;</code> walks a folder for git repos and records each as a (workspace, project) row, promoting the facts it can read into the project's identity. Its help says it: <i>Deterministic: no inference</i>, and it indexes only.",
+                  "filters": [
+                    "deterministic"
+                  ]
+                },
+                {
+                  "id": "p9-bar-install",
+                  "order": 10,
+                  "kicker": "1 · YOU DO",
+                  "title": "install",
+                  "description": [
+                    "1 command"
+                  ],
+                  "detail": "One plugin install in Claude Code, or one npm package plus <code>gaia install</code>."
+                },
+                {
+                  "id": "p9-bar-ask",
+                  "order": 11,
+                  "kicker": "2 · YOU DO",
+                  "title": "ask it",
+                  "description": [
+                    "1 question"
+                  ],
+                  "detail": "Then you ask, in plain words. The one you talk to is Gaia's orchestrator, and it answers."
+                }
+              ]
+            },
+            {
+              "id": "p9-objections",
+              "title": "What a skeptic asks",
+              "treatment": [
+                "envelope"
+              ],
+              "order": 2,
+              "span": 2,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "p9-obj-a-lot",
+                  "order": 1,
+                  "treatment": [
+                    "half"
+                  ],
+                  "kicker": "“It sounds like a lot.”",
+                  "title": "You don't learn it. You ask it.",
+                  "detail": "You don't study Gaia before using it: you ask it what it is and what it can do, and it answers. The one who answers is a model following written instructions.",
+                  "filters": [
+                    "semantic"
+                  ]
+                },
+                {
+                  "id": "p9-obj-how-i-work",
+                  "order": 2,
+                  "treatment": [
+                    "half"
+                  ],
+                  "kicker": "“Do I have to change how I work?”",
+                  "title": "No. You keep talking to Claude Code.",
+                  "detail": "Gaia's <code>settings.json</code> sets <code>\"agent\": \"gaia-orchestrator\"</code>: the orchestrator is the identity of your own Claude Code session, so the conversation stays where it was."
+                },
+                {
+                  "id": "p9-obj-one-project",
+                  "order": 3,
+                  "treatment": [
+                    "half"
+                  ],
+                  "kicker": "“Only one project?”",
+                  "title": "One, or many. It reaches every one you scan.",
+                  "detail": "Every session opens with a <i>Projects I can reach</i> block: the projects the database knows, grouped by workspace, each with its path, and a pointer to <code>gaia context project &lt;name&gt;</code>."
+                },
+                {
+                  "id": "p9-obj-repos",
+                  "order": 4,
+                  "treatment": [
+                    "half"
+                  ],
+                  "kicker": "“How does it know my repos?”",
+                  "title": "One scan maps them, in broad strokes.",
+                  "detail": "<code>gaia scan</code> records each git repo as a (workspace, project) row and promotes what it can read into the project's identity. By rule, with no inference: it does not read your code to understand it.",
+                  "filters": [
+                    "deterministic"
+                  ]
+                },
+                {
+                  "id": "p9-obj-safe",
+                  "order": 5,
+                  "treatment": [
+                    "half"
+                  ],
+                  "kicker": "“Is it safe?”",
+                  "title": "Reads run. Changes wait for your yes.",
+                  "detail": "A rule sorts every command before it runs: reads, checks and dry-runs go ahead; a change stops until you approve that exact command; a few commands never run at all.",
+                  "filters": [
+                    "the-human",
+                    "deterministic"
+                  ]
+                },
+                {
+                  "id": "p9-obj-uninstall",
+                  "order": 6,
+                  "treatment": [
+                    "half"
+                  ],
+                  "kicker": "“What happens to what it learned if I uninstall?”",
+                  "title": "Nothing. It stays in your database.",
+                  "detail": "What Gaia learns is in <code>~/.gaia/gaia.db</code>. <code>gaia uninstall</code> never deletes it and snapshots it first; the plugin lives in Claude Code's plugin folder, apart from <code>~/.gaia/</code>.",
+                  "filters": [
+                    "memory"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -2919,20 +2631,20 @@ window.__DOC__ = {
           "treatment": [
             "plain"
           ],
-          "order": 5,
+          "order": 4,
           "span": 1,
           "columns": 1,
           "children": [
             {
               "id": "p9-halves",
               "type": "separator",
-              "text": "hooks decide by rule · skills and agents follow · CLI joins"
+              "text": "hooks decide by rule · skills and agents follow · the CLI joins"
             }
           ]
         }
       ],
-      "name": "8 · Install it, ask it",
-      "order": 7
+      "name": "6 · Install it, ask it",
+      "order": 5
     },
     {
       "id": "backup-code",
@@ -3429,7 +3141,7 @@ window.__DOC__ = {
         }
       ],
       "name": "Backup · Down to the code",
-      "order": 8
+      "order": 6
     }
   ]
 };

@@ -22,6 +22,8 @@
     --warn:#C08A2E; --warn-soft:rgba(192,138,46,0.10);
     --gold:#C9A45C; --blue:#5B7E96;
     --strong:#2F7A3D; --strong-soft:rgba(47,122,61,0.14);
+    --hue-blue:#3F6E8C; --hue-blue-soft:rgba(63,110,140,0.10); --hue-violet:#7A5AA6; --hue-violet-soft:rgba(122,90,166,0.10);
+    --hue-gold:#8A6212; --hue-gold-soft:rgba(138,98,18,0.10); --hue-clay:#A84A30; --hue-clay-soft:rgba(168,74,48,0.10);
     --zone:rgba(20,20,19,0.022); --zone-line:#D1CFC5;
     --serif:Charter,"Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
     --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -39,6 +41,8 @@
     --warn:#E0AE55; --warn-soft:rgba(224,174,85,0.14);
     --gold:#D4B36F; --blue:#7FA3BC;
     --strong:#4ECB6B; --strong-soft:rgba(78,203,107,0.18);
+    --hue-blue:#7FB0D0; --hue-blue-soft:rgba(127,176,208,0.14); --hue-violet:#B79BE0; --hue-violet-soft:rgba(183,155,224,0.14);
+    --hue-gold:#D8AE55; --hue-gold-soft:rgba(216,174,85,0.14); --hue-clay:#E48A6E; --hue-clay-soft:rgba(228,138,110,0.14);
     --zone:rgba(250,249,245,0.028); --zone-line:#3D3D3A;
   }
 
@@ -92,6 +96,8 @@
     --warn:#815c1c; --warn-soft:rgba(129,92,28,0.12);
     --gold:#815c1c; --blue:#3f7885;
     --strong:#6d5a86; --strong-soft:rgba(109,90,134,0.14);
+    --hue-blue:#286983; --hue-blue-soft:rgba(40,105,131,0.10); --hue-violet:#6e5796; --hue-violet-soft:rgba(110,87,150,0.10);
+    --hue-gold:#815c1c; --hue-gold-soft:rgba(129,92,28,0.10); --hue-clay:#a1506a; --hue-clay-soft:rgba(161,80,106,0.10);
     --zone:rgba(87,82,121,0.030); --zone-line:#cecacd;
   }
   html.dark[data-palette="rose-pine"] {
@@ -104,6 +110,8 @@
     --warn:#f6c177; --warn-soft:rgba(246,193,119,0.14);
     --gold:#f6c177; --blue:#31748f;
     --strong:#c4a7e7; --strong-soft:rgba(196,167,231,0.16);
+    --hue-blue:#9ccfd8; --hue-blue-soft:rgba(156,207,216,0.14); --hue-violet:#c4a7e7; --hue-violet-soft:rgba(196,167,231,0.14);
+    --hue-gold:#f6c177; --hue-gold-soft:rgba(246,193,119,0.14); --hue-clay:#ebbcba; --hue-clay-soft:rgba(235,188,186,0.14);
     --zone:rgba(224,222,244,0.030); --zone-line:#524f67;
   }
   /* Rosé Pine MOON — the third upstream variant. Same light (DAWN) side, a
@@ -120,6 +128,8 @@
     --warn:#f6c177; --warn-soft:rgba(246,193,119,0.14);
     --gold:#f6c177; --blue:#3e8fb0;
     --strong:#c4a7e7; --strong-soft:rgba(196,167,231,0.16);
+    --hue-blue:#9ccfd8; --hue-blue-soft:rgba(156,207,216,0.14); --hue-violet:#c4a7e7; --hue-violet-soft:rgba(196,167,231,0.14);
+    --hue-gold:#f6c177; --hue-gold-soft:rgba(246,193,119,0.14); --hue-clay:#ea9a97; --hue-clay-soft:rgba(234,154,151,0.14);
     --zone:rgba(224,222,244,0.030); --zone-line:#56526e;
   }
 
@@ -138,6 +148,8 @@
     --warn:#7a4a00; --warn-soft:rgba(122,74,0,0.10);
     --gold:#6b4e00; --blue:#00457a;
     --strong:#006b22; --strong-soft:rgba(0,107,34,0.12);
+    --hue-blue:#00457a; --hue-blue-soft:rgba(0,69,122,0.10); --hue-violet:#5a2d91; --hue-violet-soft:rgba(90,45,145,0.10);
+    --hue-gold:#6b4e00; --hue-gold-soft:rgba(107,78,0,0.10); --hue-clay:#a03000; --hue-clay-soft:rgba(160,48,0,0.10);
     --zone:rgba(0,0,0,0.040); --zone-line:#000000;
   }
   html.dark[data-palette="contrast"] {
@@ -150,6 +162,8 @@
     --warn:#ffd166; --warn-soft:rgba(255,209,102,0.16);
     --gold:#ffde7a; --blue:#93d2ff;
     --strong:#7cf29a; --strong-soft:rgba(124,242,154,0.18);
+    --hue-blue:#93d2ff; --hue-blue-soft:rgba(147,210,255,0.16); --hue-violet:#d6b8ff; --hue-violet-soft:rgba(214,184,255,0.16);
+    --hue-gold:#ffde7a; --hue-gold-soft:rgba(255,222,122,0.16); --hue-clay:#ffb08a; --hue-clay-soft:rgba(255,176,138,0.16);
     --zone:rgba(255,255,255,0.050); --zone-line:#ffffff;
   }
 
@@ -762,6 +776,19 @@
   .box.accent { background:var(--strong-soft); border-color:var(--strong); border-width:2px; }
   .box.accent .k { color:var(--strong); }
   .box.muted { background:var(--surface2); }
+  /* Categorical hues: four colours with NO fixed meaning, for a page that must
+     tell four peer groups apart. The page that uses them declares what each one
+     means in its own content (principle 5); none of them may stand for good/bad. */
+  .box.blue { background:var(--hue-blue-soft); border-color:var(--hue-blue); }
+  .box.blue .k { color:var(--hue-blue); }
+  .box.violet { background:var(--hue-violet-soft); border-color:var(--hue-violet); }
+  .box.violet .k { color:var(--hue-violet); }
+  .box.gold { background:var(--hue-gold-soft); border-color:var(--hue-gold); }
+  .box.gold .k { color:var(--hue-gold); }
+  .box.clay { background:var(--hue-clay-soft); border-color:var(--hue-clay); }
+  .box.clay .k { color:var(--hue-clay); }
+  /* --muted loses AA on a tint in the dark skins; the description takes --body. */
+  .box.blue .m, .box.violet .m, .box.gold .m, .box.clay .m { color:var(--body); }
 
   /* ── STRUCTURAL TREATMENTS (the second axis) ──────────────────────────────
      A `treatment` changes HOW a component is drawn, never WHAT it means. That is

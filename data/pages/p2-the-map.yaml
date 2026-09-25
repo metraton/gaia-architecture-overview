@@ -49,7 +49,7 @@ sections:
     children:
       - id: mp-you
         order: 1
-        kicker: "→ PAGE 4"
+        kicker: "→ PAGE 3"
         title: "You"
         description: ["ask in your own words, approve what changes"]
         detail: "You talk only to the orchestrator, in your own words. Anything that changes something real — a push, an apply, a delete — waits until you approve it, after you have seen exactly what will happen."
@@ -84,7 +84,7 @@ sections:
             children:
               - id: mp-orchestrator
                 order: 1
-                kicker: "→ PAGE 4"
+                kicker: "→ PAGE 3"
                 title: "Decides the WHAT"
                 description: ["holds the conversation, never edits"]
                 detail: "The orchestrator is the one agent you talk to. It understands what you want, decides the route, shows it to you before starting, and keeps the thread end to end. It reads memory to remember what came before. It does not edit files, by design: it hands the work to a specialist."
@@ -100,28 +100,28 @@ sections:
             children:
               - id: mg-memory
                 order: 1
-                kicker: "→ PAGE 7"
+                kicker: "→ PAGE 5"
                 title: "Memory"
                 description: ["rules, preferences, pending"]
                 detail: "Memory outlives the session: your rules, your preferences, and what is pending per project. The orchestrator reads it at the start and writes to it on purpose, through Gaia's own command line."
                 filters: [memory]
               - id: mg-plans
                 order: 2
-                kicker: "→ PAGE 6"
+                kicker: "→ PAGE 5"
                 title: "Plans & tasks"
                 description: ["a brief becomes checked tasks"]
                 detail: "A brief becomes a plan of tasks, and each task's work is checked by someone who did not do it. Gaia keeps them and moves them from one status to the next through its own command line."
                 filters: [nothing-self-declared]
               - id: mg-contracts
                 order: 3
-                kicker: "→ PAGE 5"
+                kicker: "→ PAGE 4"
                 title: "Contracts"
                 description: ["every specialist returns one"]
                 detail: "A contract says what was asked, what was found, what changed, and with what evidence. Gaia stores it, and a hook judges it by rule before the turn may close. The orchestrator reads it through Gaia's own command line."
                 filters: [the-contract, nothing-self-declared, deterministic]
               - id: mg-approvals
                 order: 4
-                kicker: "→ PAGE 4"
+                kicker: "→ PAGE 3"
                 title: "Approvals"
                 description: ["your yes to one exact command"]
                 detail: "A hook decides by rule which commands change something real, and holds each one until you approve it. Gaia keeps every approval, and the orchestrator can see the ones waiting for you through its own command line; it can never approve one itself."
@@ -158,7 +158,7 @@ sections:
                 kicker: "→ PAGE 3"
                 title: "Does the HOW"
                 description: ["born clean for one piece of work"]
-                detail: "Specialists do the work, each in its field: application code, infrastructure, the cluster, live systems, Gaia itself. Each one is born clean for one piece of work, owns that one task, and ends with a contract: what was done, and with what evidence."
+                detail: "Specialists do the work, each in its field: application code, infrastructure, the cluster, live systems, Gaia itself. Each one is born clean for one piece of work, owns that one task, and ends with a contract: what was done, and with what evidence. 9 agents today: the orchestrator, and 8 specialists: developer · platform-architect · gitops-operator · cloud-troubleshooter · gaia-planner · gaia-verifier · gaia-operator · gaia-system. You can add your own."
                 treatment: [centered]
                 filters: [one-turn, semantic, the-contract, nothing-self-declared]
           - id: gaia-carries
@@ -171,34 +171,32 @@ sections:
             children:
               - id: sc-identity
                 order: 1
-                kicker: "→ PAGE 3"
                 title: "Identity"
                 description: ["its role and its field"]
                 detail: "Each specialist is defined by one file: what it is for, the field it owns, and the tools it may use. The same file decides which part of the project it may read and write."
                 filters: [semantic]
               - id: sc-skills
                 order: 2
-                kicker: "→ PAGE 3"
                 title: "Skills"
                 description: ["how its kind of work is done"]
                 detail: "Skills are written instructions: the patterns and procedures for its kind of work. The ones its definition lists are loaded when it is born; others it loads when a task calls for them."
                 filters: [semantic]
               - id: sc-context
                 order: 3
-                kicker: "→ PAGE 5"
+                kicker: "→ PAGE 4"
                 title: "Project context"
                 description: ["what it may read and write"]
                 detail: "What Gaia knows about your workspace, split into sections. The specialist is told which sections it may read and which it may write, and pulls the ones it needs."
               - id: sc-memory
                 order: 4
-                kicker: "→ PAGE 7"
+                kicker: "→ PAGE 5"
                 title: "Memory about you"
                 description: ["how you like to work"]
                 detail: "The rules and preferences you have given for how work is done are handed in when the specialist is born, so it does not ask again. The rest of memory it can search when it needs it."
                 filters: [memory]
               - id: sc-contract
                 order: 5
-                kicker: "→ PAGE 5"
+                kicker: "→ PAGE 4"
                 title: "Its contract"
                 description: ["the blank form it must fill"]
                 detail: "It is born with its contract already open: who it is, what it was asked, and what it may touch. It fills the form as it works, and its turn cannot close until the form is finished."

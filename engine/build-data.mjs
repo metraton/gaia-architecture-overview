@@ -81,7 +81,11 @@ const FILTER_FIELDS = new Set(['key', 'label', 'steps']);
 // a silent translation, so a deck is either on the new vocabulary or it fails
 // loudly at the gate. (The legacy→new mapping is tabled in the skill's
 // reference.md, "Migrating a pre-2.1 deck".)
-const COMPONENT_VARIANTS = new Set(['neutral', 'good', 'warn', 'bad', 'accent', 'muted']);
+// blue / violet / gold / clay are CATEGORICAL: they tell peer groups apart and
+// carry no risk or state, so the page that uses them must say what each means.
+const COMPONENT_VARIANTS = new Set([
+  'neutral', 'good', 'warn', 'bad', 'accent', 'muted',
+  'blue', 'violet', 'gold', 'clay']);
 const SECTION_VARIANTS = new Set(['neutral', 'good', 'bad']);
 const COMPONENT_TREATMENTS = new Set(['centered', 'half', 'vertical', 'outside']);
 const SECTION_TREATMENTS = new Set(['plain', 'envelope']);

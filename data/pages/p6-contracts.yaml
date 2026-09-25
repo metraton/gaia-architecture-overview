@@ -1,16 +1,25 @@
-# Page 5 · POINT 2 · Contracts (STORYBOARD.md rev 5). The file keeps its old
+# Page 4 · POINT 2 · Contracts (STORYBOARD.md rev 6). The file keeps its old
 # name; only the manifest carries the page number.
 #
 # Top: one flow across three actors, read by the kicker numbers 1 → 6. Bottom:
 # the three relations the code implements, in one row so they stay above the
 # fold, then the two kinds of contract as staircases of rails, the vocabulary of
-# page 4's SessionStart column. Rails carry no detail, so each key's one-line
+# page 3's SessionStart column. Rails carry no detail, so each key's one-line
 # meaning lives in the detail of the box that handles it: agent-contract keys
 # in VALIDATES, project-contract sections in relation 1.
 #
-# Each nesting level is a nested envelope section, so the indent is the frame's
-# own padding: spacer indents in a leaf grid left an interior hole on every row
-# once the 12 tracks collapsed to 2 at the 900px tier.
+# Each staircase is a tree: every level is a `columns: 1` grid, and every deeper
+# level is a nested envelope section, so the indent is the frame's own border and
+# padding. That indent holds at every tier because a 1-column grid never
+# collapses; spacer indents in a leaf grid left an interior hole on every row
+# once the 12 tracks collapsed to 2 at the 900px tier, and a gutter spacer beside
+# a section in a compound row would fold away below 1440px.
+#
+# The project tree shows five of its ten sections; the other five are named in
+# pc-sections' subtitle and all ten in relation 1's detail. In the real schema
+# verification, open gaps and reach (cross_layer_impacts) sit inside
+# evidence_report; the tree lifts them beside evidence so evidence's children
+# are the five lists of what the agent saw and did.
 #
 # The `memory` chip is deliberately absent: its only honest member would be the
 # close writing the episode, and a one-member chip lights nothing.
@@ -161,21 +170,17 @@ sections:
             children:
               - {id: pc-each, type: rail, order: 1, span: 1, title: "Each project"}
               - id: pc-sections
+                subtitle: "…and 5 more: application_services · infrastructure · infrastructure_topology · gitops_configuration · cluster_details"
                 treatment: [envelope]
                 order: 2
                 span: 1
-                columns: 2
+                columns: 1
                 children:
                   - {id: pc-identity, type: rail, order: 1, title: "project_identity"}
                   - {id: pc-stack, type: rail, order: 2, title: "stack"}
                   - {id: pc-env, type: rail, order: 3, title: "environment"}
                   - {id: pc-git, type: rail, order: 4, title: "git"}
                   - {id: pc-arch, type: rail, order: 5, title: "architecture_overview"}
-                  - {id: pc-apps, type: rail, order: 6, title: "application_services"}
-                  - {id: pc-infra, type: rail, order: 7, title: "infrastructure"}
-                  - {id: pc-topo, type: rail, order: 8, title: "infrastructure_topology"}
-                  - {id: pc-gitops, type: rail, order: 9, title: "gitops_configuration"}
-                  - {id: pc-cluster, type: rail, order: 10, title: "cluster_details"}
 
       - id: p6-relations
         treatment: [plain]
@@ -219,6 +224,8 @@ sections:
             columns: 1
             children:
               - {id: ac-status, type: rail, order: 1, span: 1, title: "status"}
+              # The six states are values, not keys, so they sit side by side
+              # (2 across: at 3 across NEEDS_VERIFICATION touches its rail edge at 1920).
               - id: ac-states
                 treatment: [envelope]
                 order: 2
@@ -236,10 +243,13 @@ sections:
                 treatment: [envelope]
                 order: 4
                 span: 1
-                columns: 2
+                columns: 1
                 children:
-                  - {id: ac-seen, type: rail, order: 1, title: "seen"}
-                  - {id: ac-done, type: rail, order: 2, title: "done"}
+                  - {id: ac-files, type: rail, order: 1, title: "files_checked"}
+                  - {id: ac-patterns, type: rail, order: 2, title: "patterns_checked"}
+                  - {id: ac-commands, type: rail, order: 3, title: "commands_run"}
+                  - {id: ac-key-outputs, type: rail, order: 4, title: "key_outputs"}
+                  - {id: ac-verbatim, type: rail, order: 5, title: "verbatim_outputs"}
               - {id: ac-verification, type: rail, order: 5, span: 1, title: "verification"}
               - {id: ac-gaps, type: rail, order: 6, span: 1, title: "open gaps"}
               - {id: ac-reach, type: rail, order: 7, span: 1, title: "reach"}

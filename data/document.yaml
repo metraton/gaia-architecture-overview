@@ -1,8 +1,8 @@
 # Document manifest — GAIA architecture overview deck.
 # name / order / visible live ONLY here; each page file owns id + content.
-# The order is STORYBOARD.md revision 5: Why, the map, the cast, one point of
-# the map per page in the order of one turn's life, back to the map, backup.
-# Page files keep their original names (p6-contracts is page 5, and so on);
+# The order is STORYBOARD.md revision 6: Why, the map, one point of the map per
+# page in the order of one turn's life, what Gaia keeps, install, backup.
+# Page files keep their original names (p6-contracts is page 4, and so on);
 # only `name` carries the page number the audience sees.
 title: "GAIA"
 subtitle: "Generative AI Interface for Agents"
@@ -19,38 +19,28 @@ pages:
     order: 1
     visible: true
     file: pages/p2-the-map.yaml
-  - id: p3-whos-who
-    name: "3 · What an agent is"
-    order: 2
-    visible: true
-    file: pages/p3-whos-who.yaml
   - id: p4-life-of-a-request
-    name: "4 · The life of a request"
-    order: 3
+    name: "3 · The life of a request"
+    order: 2
     visible: true
     file: pages/p4-life-of-a-request.yaml
   - id: p6-contracts
-    name: "5 · Contracts"
-    order: 4
+    name: "4 · Contracts"
+    order: 3
     visible: true
     file: pages/p6-contracts.yaml
-  - id: p7-it-checks
-    name: "6 · It checks"
-    order: 5
+  - id: p5-what-gaia-keeps
+    name: "5 · What Gaia keeps"
+    order: 4
     visible: true
-    file: pages/p7-it-checks.yaml
-  - id: p8-memory
-    name: "7 · Memory"
-    order: 6
-    visible: true
-    file: pages/p8-memory.yaml
+    file: pages/p5-what-gaia-keeps.yaml
   - id: p9-back-to-the-map
-    name: "8 · Install it, ask it"
-    order: 7
+    name: "6 · Install it, ask it"
+    order: 5
     visible: true
     file: pages/p9-back-to-the-map.yaml
   - id: backup-code
     name: "Backup · Down to the code"
-    order: 8
+    order: 6
     visible: true
     file: pages/backup-code.yaml

@@ -1,5 +1,14 @@
-# Page 8 folds page 2's map into one row: YOU, GAIA, WHAT GAIA MANAGES and THE
-# SPECIALISTS keep page 2's names as titles, so the deck ends on the map it opened with.
+# Page 6 closes the talk as an invitation: how to start, what it grows into,
+# what a skeptic asks, and where everything it learns is kept.
+#
+# Fit budget at 1920×1080: six slot rows. START HERE is two rows of half-slot
+# pairs (every command a loud title) with the first prompt beside them at
+# rowspan 2, so the prompt stays prominent without a third row. The database
+# band shares its one row with the numbers. The growing columns and the
+# objections share three rows side by side: the bars are rowspan 1·1·2·2·3
+# standing on one floor of spacers (6 spacers + 9 bar cells = 5 tracks × 3
+# rows), and the six objections are half slots, one question-and-answer pair
+# per half.
 id: p9-back-to-the-map
 layout: grid
 form: comparison
@@ -9,141 +18,265 @@ filters:
   - key: the-human
     label: "who decides?"
     steps:
-      - "You sign what changes something, and on one machine you said yes 583 times and no 52 times."
+      - "You sign what changes something: on one machine you said yes 583 times and no 52 times, and every change waited for that answer."
   - key: nothing-self-declared
     label: "is it really done?"
     steps:
-      - "A specialist answers with a contract and gets checked; every change it asked for waited for your yes or no."
+      - "The numbers on this page are counted by Gaia's own records on one machine, not claimed by an agent."
   - key: memory
     label: "what do we remember?"
     steps:
-      - "Gaia reads and writes memory, so what it learns outlives the session."
+      - "Everything Gaia learns lives in one local database, the same for every install and every project, and uninstalling never deletes it."
   - key: deterministic
     label: "a rule decides"
     steps:
-      - "Your signature is enforced by a hook, by rule, and the same rule is why most commands run without asking: 94% only read."
+      - "A rule, not a model, sorts every command and maps your repos: 94% of commands only read, and the scan infers nothing."
   - key: semantic
     label: "a model follows instructions"
     steps:
-      - "Gaia and the specialists are models following written instructions: skills and agents."
+      - "Gaia is a model following written instructions, which is why you ask it instead of learning it, and why you can write your own agents and skills."
 
 sections:
-  - id: p9-thesis
-    treatment: [plain]
+  - id: p9-start
+    title: "Start here"
+    subtitle: "two routes · pick one per Claude Code workspace: both together register every hook twice"
+    treatment: [envelope]
     order: 1
     span: 1
-    columns: 1
+    columns: 3
     children:
-      - id: p9-rail
-        type: rail
+      - id: p9-plugin-add
         order: 1
-        title: "BACK TO THE MAP"
-      - id: p9-thesis-box
+        treatment: [half]
+        kicker: "PLUGIN · RECOMMENDED · 1"
+        title: "/plugin marketplace add metraton/gaia"
+        detail: "The recommended route, in Claude Code. <code>/plugin marketplace add metraton/gaia</code> adds the gaia-marketplace; the host clones the repository at the tag of the current release. Source: the Gaia README, <i>How it is used</i>."
+      - id: p9-plugin-install
         order: 2
-        kicker: "WHAT GAIA IS"
-        title: "Gaia converses with you and coordinates the work, but never makes the changes itself."
-        description: ["hands them to specialists, checks what they deliver, tells you"]
-        detail: "The orchestrator's own answer, the same words as page 2: <i>Gaia converses with you and coordinates the work, but never makes the changes itself. It hands them to specialists, checks what they deliver, and tells you the result. Anything that changes something real needs your signature.</i>"
+        treatment: [half]
+        kicker: "2 · ONE PLUGIN, NO NPM STEP"
+        title: "/plugin install gaia@gaia-marketplace"
+        detail: "<code>/plugin install gaia@gaia-marketplace</code>, or from a terminal <code>claude plugin install gaia@gaia-marketplace</code>. The README: <i>For Claude Code that is the whole install; no npm step is needed.</i> Claude Code asks for a scope: for you in every project, for everyone in this repository, or for you in this repository only."
+      - id: p9-npm-install
+        order: 3
+        treatment: [half]
+        kicker: "NPM · FOR OPENCODE OR THE CLI · 1"
+        title: "npm install @jaguilar87/gaia"
+        detail: "The npm route: the one for OpenCode, and the alternative for Claude Code when you want <code>gaia</code> on your own terminal. <code>npm install @jaguilar87/gaia</code>, or <code>pnpm add @jaguilar87/gaia</code>. Source: the Gaia README."
+      - id: p9-npm-wire
+        order: 4
+        treatment: [half]
+        kicker: "2 · WIRES THE WORKSPACE"
+        title: "gaia install"
+        detail: "<code>gaia install</code> for Claude Code, or <code>--host opencode</code> / <code>--host all</code>. It bootstraps <code>~/.gaia/gaia.db</code> and wires the workspace; <code>gaia doctor</code> checks it. Pick one route per Claude Code workspace: the plugin and <code>gaia install</code> together register every hook twice."
+      - id: p9-first-prompt
+        order: 5
+        rowspan: 2
+        kicker: "THEN ASK"
+        title: "what is Gaia, and what can you do for me?"
+        description: ["Gaia explains itself, live"]
+        detail: "The first thing to ask, on either route: <i>what is Gaia, and what can you do for me?</i> Gaia explains itself live, and its answer is the map this deck opened with."
         variant: accent
         treatment: [centered]
+        filters: [semantic]
+      - id: p9-plugin-reload
+        order: 6
+        treatment: [half]
+        kicker: "FIRST SESSION"
+        title: "/reload-plugins"
+        detail: "On the first session Gaia merges its permission set into <code>.claude/settings.local.json</code> and asks you to run <code>/reload-plugins</code>, or restart, to activate it. Source: the Gaia README."
+      - id: p9-plugin-remove
+        order: 7
+        treatment: [half]
+        kicker: "TO REMOVE"
+        title: "/plugin uninstall"
+        detail: "Claude Code's own command: <code>/plugin uninstall</code> opens the plugin panel on the uninstall action; from a shell, <code>claude plugin uninstall gaia@gaia-marketplace</code> with <code>--scope</code> for the scope you installed at. Source: Claude Code's plugin documentation. Gaia's database lives outside the plugin, in <code>~/.gaia/</code>, so removing the plugin does not remove it."
+        variant: muted
+      - id: p9-npm-remove
+        order: 8
+        treatment: [half]
+        kicker: "TO REMOVE · 1"
+        title: "gaia uninstall"
+        detail: "<code>gaia uninstall</code> disconnects Gaia from the workspace. Its own help: <i>Disconnect Gaia from this workspace (cleanup; DB is never deleted)</i>. It writes a gzip snapshot of <code>~/.gaia/gaia.db</code> first, by default, and no flag removes the database."
+        variant: muted
+      - id: p9-npm-remove-pkg
+        order: 9
+        treatment: [half]
+        kicker: "TO REMOVE · 2"
+        title: "npm uninstall @jaguilar87/gaia"
+        detail: "Then remove the package: <code>npm uninstall @jaguilar87/gaia</code>, as INSTALL.md's manual uninstall step says. Memory, episodes and every persisted state survive <code>npm uninstall</code>."
+        variant: muted
 
-  - id: p9-map
+  - id: p9-yours-row
     treatment: [plain]
     order: 2
     span: 1
-    columns: 4
+    columns: 5
     children:
-      - id: p9-you
+      - id: p9-yours
+        treatment: [plain]
         order: 1
-        kicker: "→ PAGE 4"
-        title: "YOU"
-        description: ["you sign what changes something"]
-        detail: "Page 4 · The life of a request, its approvals. Anything that changes something real needs your approval, your yes to one exact command, and a rule sorts every command before any tool runs."
-        treatment: [centered]
-        filters: [the-human, deterministic]
-      - id: p9-gaia
+        span: 3
+        columns: 2
+        children:
+          - id: p9-db
+            order: 1
+            kicker: "ONE DATABASE · ALL IT KNOWS · YOURS"
+            title: "~/.gaia/gaia.db"
+            description: ["every install, every project, the same knowledge", "uninstalling never deletes it"]
+            detail: "Plugin or npm, one project or many, Gaia reads and writes one local database: <code>~/.gaia/gaia.db</code>, the default of <code>data_dir()</code> in <code>gaia/paths/resolver.py</code> (moved only if you set <code>GAIA_DATA_DIR</code> or <code>GAIA_DB</code>). Memory, contracts, plans and approvals all live there, on your machine. <code>gaia uninstall</code> never deletes it: <i>there is no flag that removes it</i>."
+            variant: good
+            filters: [memory]
+          - id: p9-oss
+            order: 2
+            kicker: "OPEN SOURCE · MIT"
+            title: "your agents, your skills"
+            description: ["github.com/metraton/gaia"]
+            detail: "Gaia is MIT-licensed (<code>LICENSE</code>, <code>package.json</code>) at <code>github.com/metraton/gaia</code>. Agents and skills are written instructions, and Gaia ships a skill for writing each: <code>agent-creation</code> for a new specialist agent, <code>skill-creation</code> for a new skill."
+            filters: [semantic]
+      - id: p9-numbers
+        treatment: [plain]
         order: 2
-        kicker: "→ PAGE 4"
-        title: "GAIA"
-        description: ["the orchestrator decides the what"]
-        detail: "Page 4 · The life of a request. The orchestrator is the one agent you talk to: it holds the conversation, decides the route, hands the work to a specialist, and reads memory to remember what came before. It never edits."
-        treatment: [centered]
-        filters: [memory, semantic]
-      - id: p9-manages
-        order: 3
-        kicker: "→ PAGES 4–7"
-        title: "WHAT GAIA MANAGES"
-        description: ["memory, plans, contracts, approvals"]
-        detail: "Through its own command line, Gaia keeps memory (page 7), plans and tasks (page 6), contracts (page 5) and approvals (page 4), so what it learns and what it was asked outlives the session."
-        treatment: [centered]
-        filters: [memory]
-      - id: p9-specialist
-        order: 4
-        kicker: "→ PAGES 3, 5"
-        title: "THE SPECIALISTS"
-        description: ["do the how, answer with a contract"]
-        detail: "Page 3 · What an agent is: every specialist has the same parts, and there are 8 today, one per field. Page 5 · Contracts: every specialist answers with its own contract, and the orchestrator checks what it claims before telling you."
-        treatment: [centered]
-        filters: [nothing-self-declared, semantic]
+        span: 2
+        columns: 2
+        children:
+          - id: p9-approvals
+            order: 1
+            kicker: "ON MY MACHINE · APPROVALS"
+            title: "583 yes · 52 no · 218 expired"
+            description: ["you said yes or no"]
+            detail: "From <code>gaia approvals stats</code> on one machine: 583 approvals granted, 52 rejected, 218 left to expire unanswered. Turn counts are left out: before rc.3 the hooks were registered twice, which inflated them."
+            filters: [the-human, nothing-self-declared]
+          - id: p9-readonly
+            order: 2
+            kicker: "ON MY MACHINE · COMMANDS"
+            title: "94% only read"
+            description: ["most commands never ask"]
+            detail: "From <code>gaia metrics</code> on one machine: 423 of 450 commands were T0, read-only, 94.0%. A fixed rule classified each one; only changes asked for your approval."
+            filters: [nothing-self-declared, deterministic]
 
-  - id: p9-numbers
-    title: "On my machine"
-    treatment: [envelope]
+  - id: p9-grow-row
+    treatment: [plain]
     order: 3
     span: 1
-    columns: 2
+    columns: 5
     children:
-      - id: p9-approvals
+      - id: p9-grow
+        title: "From one command to the whole workspace"
+        subtitle: "height is reach: what you do · what it reaches · what it knows"
+        treatment: [envelope]
         order: 1
-        kicker: "gaia approvals stats"
-        title: "583 yes · 52 no · 218 expired"
-        description: ["you said yes or no"]
-        detail: "From <code>gaia approvals stats</code> on one machine: 583 approvals granted, 52 rejected, 218 left to expire unanswered. Turn counts are left out: before rc.3 the hooks were registered twice, which inflated them."
-        filters: [the-human, nothing-self-declared]
-      - id: p9-readonly
+        span: 3
+        columns: 5
+        children:
+          - id: p9-floor-1
+            type: spacer
+            order: 1
+          - id: p9-floor-2
+            type: spacer
+            order: 2
+          - id: p9-floor-3
+            type: spacer
+            order: 3
+          - id: p9-floor-4
+            type: spacer
+            order: 4
+          - id: p9-bar-picture
+            order: 5
+            rowspan: 3
+            kicker: "5 · IT KNOWS"
+            title: "the big picture"
+            description: ["of every project", "ready"]
+            detail: "Every session opens with a list of the projects Gaia can reach, grouped by workspace, each with its path, read from the database. <code>gaia context project &lt;name&gt;</code> prints one project's card."
+            variant: accent
+            filters: [memory]
+          - id: p9-floor-5
+            type: spacer
+            order: 6
+          - id: p9-floor-6
+            type: spacer
+            order: 7
+          - id: p9-bar-projects
+            order: 8
+            rowspan: 2
+            kicker: "3 · IT REACHES"
+            title: "any project"
+            description: ["one, or many", "per repo, or for you"]
+            detail: "The plugin installs at a scope: for you in every project on this machine, for everyone in one repository, or for you in one repository only. On this machine it is installed at local scope, twice, in two folders. Whichever folder a session opens in, it lists every project the one database knows."
+          - id: p9-bar-scan
+            order: 9
+            rowspan: 2
+            kicker: "4 · IT MAPS"
+            title: "one scan"
+            description: ["your repos", "in broad strokes"]
+            detail: "<code>gaia scan --workspace &lt;name&gt;</code> walks a folder for git repos and records each as a (workspace, project) row, promoting the facts it can read into the project's identity. Its help says it: <i>Deterministic: no inference</i>, and it indexes only."
+            filters: [deterministic]
+          - id: p9-bar-install
+            order: 10
+            kicker: "1 · YOU DO"
+            title: "install"
+            description: ["1 command"]
+            detail: "One plugin install in Claude Code, or one npm package plus <code>gaia install</code>."
+          - id: p9-bar-ask
+            order: 11
+            kicker: "2 · YOU DO"
+            title: "ask it"
+            description: ["1 question"]
+            detail: "Then you ask, in plain words. The one you talk to is Gaia's orchestrator, and it answers."
+      - id: p9-objections
+        title: "What a skeptic asks"
+        treatment: [envelope]
         order: 2
-        kicker: "gaia metrics"
-        title: "94% read-only"
-        description: ["most commands only read"]
-        detail: "From <code>gaia metrics</code> on one machine: 423 of 450 commands were T0, read-only, 94.0%. A fixed rule classified each one; only changes asked for your approval."
-        filters: [deterministic]
-
-  - id: p9-install
-    title: "Install it, ask it"
-    subtitle: "Claude Code · OpenCode is the second host"
-    treatment: [envelope]
-    order: 4
-    span: 1
-    columns: 2
-    children:
-      - id: p9-step-marketplace
-        order: 1
-        kicker: "INSTALL · STEP 1 OF 3"
-        title: "Add the marketplace"
-        description: ["/plugin marketplace add metraton/gaia"]
-        detail: "In Claude Code, run <code>/plugin marketplace add metraton/gaia</code>. The gaia-marketplace becomes available to install from."
-      - id: p9-step-install
-        order: 2
-        kicker: "INSTALL · STEP 2 OF 3"
-        title: "Install the plugin"
-        description: ["/plugin install gaia@gaia-marketplace"]
-        detail: "Run <code>/plugin install gaia@gaia-marketplace</code>. rc.3 is released, and main's README says the plugin install alone is enough: no npm step. OpenCode is the second host."
-      - id: p9-first-prompt
-        order: 3
-        kicker: "FIRST PROMPT · STEP 3 OF 3"
-        title: "what is Gaia, and what can you do for me?"
-        description: ["Gaia explains itself, live"]
-        detail: "The first thing to ask: <i>what is Gaia, and what can you do for me?</i> Gaia explains itself live, and its answer is the map this deck opened with."
-        variant: accent
-        treatment: [centered]
         span: 2
+        columns: 1
+        children:
+          - id: p9-obj-a-lot
+            order: 1
+            treatment: [half]
+            kicker: "“It sounds like a lot.”"
+            title: "You don't learn it. You ask it."
+            detail: "You don't study Gaia before using it: you ask it what it is and what it can do, and it answers. The one who answers is a model following written instructions."
+            filters: [semantic]
+          - id: p9-obj-how-i-work
+            order: 2
+            treatment: [half]
+            kicker: "“Do I have to change how I work?”"
+            title: "No. You keep talking to Claude Code."
+            detail: "Gaia's <code>settings.json</code> sets <code>\"agent\": \"gaia-orchestrator\"</code>: the orchestrator is the identity of your own Claude Code session, so the conversation stays where it was."
+          - id: p9-obj-one-project
+            order: 3
+            treatment: [half]
+            kicker: "“Only one project?”"
+            title: "One, or many. It reaches every one you scan."
+            detail: "Every session opens with a <i>Projects I can reach</i> block: the projects the database knows, grouped by workspace, each with its path, and a pointer to <code>gaia context project &lt;name&gt;</code>."
+          - id: p9-obj-repos
+            order: 4
+            treatment: [half]
+            kicker: "“How does it know my repos?”"
+            title: "One scan maps them, in broad strokes."
+            detail: "<code>gaia scan</code> records each git repo as a (workspace, project) row and promotes what it can read into the project's identity. By rule, with no inference: it does not read your code to understand it."
+            filters: [deterministic]
+          - id: p9-obj-safe
+            order: 5
+            treatment: [half]
+            kicker: "“Is it safe?”"
+            title: "Reads run. Changes wait for your yes."
+            detail: "A rule sorts every command before it runs: reads, checks and dry-runs go ahead; a change stops until you approve that exact command; a few commands never run at all."
+            filters: [the-human, deterministic]
+          - id: p9-obj-uninstall
+            order: 6
+            treatment: [half]
+            kicker: "“What happens to what it learned if I uninstall?”"
+            title: "Nothing. It stays in your database."
+            detail: "What Gaia learns is in <code>~/.gaia/gaia.db</code>. <code>gaia uninstall</code> never deletes it and snapshots it first; the plugin lives in Claude Code's plugin folder, apart from <code>~/.gaia/</code>."
+            filters: [memory]
 
   - id: p9-close
     treatment: [plain]
-    order: 5
+    order: 4
     span: 1
     columns: 1
     children:
       - id: p9-halves
         type: separator
-        text: "hooks decide by rule · skills and agents follow · CLI joins"
+        text: "hooks decide by rule · skills and agents follow · the CLI joins"

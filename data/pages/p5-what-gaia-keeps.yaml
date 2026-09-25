@@ -1,0 +1,154 @@
+# Page 5 · What Gaia keeps (STORYBOARD.md rev 6). Four memories as four
+# "suns" in a 2×2: operational (top left), episodic (top right), project
+# (bottom left), execution (bottom right).
+#
+# Each sun is a 4×3 grid: the question box spans the two middle cells of the
+# middle row and 10 title-only words ring it. Colour is the one channel that
+# says which memory a word belongs to; the question box spells it.
+#
+# A word that another sun also answers sits on the edge that faces that sun,
+# and its chip lights the pair. `one-task` has one member in each sun, so its
+# four members sit in the four corners that face the page centre.
+#
+# Word boxes carry a title only: the one deliberate exception to the slot
+# rules on this page. Every word was checked in the Gaia code, and none is
+# longer than the 11 characters a word cell holds at 1920. The words that did
+# not fit the ring are in the question box's detail.
+id: p5-what-gaia-keeps
+layout: grid
+form: dashboard
+columns: 2
+
+filters:
+  - key: the-human
+    label: "who decides?"
+    steps:
+      - "You do, and it is kept: the gates a plan must pass, the decisions and rules you set, and every approval a T3 command waited for."
+  - key: nothing-self-declared
+    label: "is it really done?"
+    steps:
+      - "Not because a turn says so: a task stays pending until a gate's verdict is pass, and the lineage says where each fact came from."
+  - key: one-task
+    label: "one task"
+    steps:
+      - "One task leaves a trace in all four: the task itself, the contract that answered it, the episode of its turn, and the sections of the project it read and wrote."
+  - key: what-comes-back
+    label: "what comes back?"
+    steps:
+      - "What the next session starts from: what was carried forward, the anchors of each project, and the events of the last 24 hours."
+
+sections:
+  - id: sun-operational
+    treatment: [plain]
+    order: 1
+    span: 1
+    columns: 4
+    children:
+      - { id: op-brief, order: 1, variant: gold, title: "brief" }
+      - { id: op-ac, order: 2, variant: gold, title: "acceptance criteria" }
+      - { id: op-plan, order: 3, variant: gold, title: "plan" }
+      - { id: op-plan-change, order: 4, variant: gold, title: "plan change" }
+      - { id: op-pause, order: 5, variant: gold, title: "pause" }
+      - id: op-core
+        order: 6
+        span: 2
+        variant: gold
+        treatment: [centered]
+        kicker: "MEMORY 1 OF 4"
+        title: "Operational memory"
+        description: ["What are we doing, and what is still open?"]
+        detail: "What is in flight and what is still open. A brief carries acceptance criteria and milestones; it gets one plan of tasks. Each task can depend on others, says which criteria it covers, and carries gates that someone who did not do the work checks. A plan can be paused, resumed, or changed through a managed plan change that keeps every earlier version. Also kept here: the statuses draft, open and in progress; open threads; schedules for recurring work and the notifications they leave; and each turn's next action. Commands: gaia brief, gaia ac, gaia milestone, gaia plan, gaia task, gaia schedule, gaia notifications."
+      - { id: op-carry-forward, order: 7, variant: gold, title: "carry forward", filters: [what-comes-back] }
+      - { id: op-blocked, order: 8, variant: gold, title: "blocked" }
+      - { id: op-gates, order: 9, variant: gold, title: "gates", filters: [the-human] }
+      - { id: op-pending, order: 10, variant: gold, title: "pending", filters: [nothing-self-declared] }
+      - { id: op-tasks, order: 11, variant: gold, title: "tasks", filters: [one-task] }
+
+  - id: sun-episodic
+    treatment: [plain]
+    order: 2
+    span: 1
+    columns: 4
+    children:
+      - { id: ep-sessions, order: 1, variant: violet, title: "sessions" }
+      - { id: ep-turns, order: 2, variant: violet, title: "turns" }
+      - { id: ep-hooks, order: 3, variant: violet, title: "hooks" }
+      - { id: ep-events, order: 4, variant: violet, title: "events" }
+      - { id: ep-last-24h, order: 5, variant: violet, title: "last 24h", filters: [what-comes-back] }
+      - id: ep-core
+        order: 6
+        span: 2
+        variant: violet
+        treatment: [centered]
+        kicker: "MEMORY 2 OF 4"
+        title: "Episodic memory"
+        description: ["What happened, and when?"]
+        detail: "What happened and when, recorded by the engine, never written by hand. Every hook that fires leaves an event: SessionStart, SubagentStart, PostToolUse, SubagentStop and the rest. Every turn leaves one episode; sessions group them, and a timeline puts them in order. The next session starts with the last 24 hours. A turn that never closed stays as a cut turn, with its reason; anomalies and defects are listed one by one for triage. Also kept here: the transcript, the history of recent sessions, the backstop that closes a cut turn, the compaction of a long session, and the links between curated rows (supersedes, graduated). Commands: gaia query, gaia history, gaia defects, gaia memory search."
+      - { id: ep-timeline, order: 7, variant: violet, title: "timeline" }
+      - { id: ep-episodes, order: 8, variant: violet, title: "episodes", filters: [one-task] }
+      - { id: ep-lineage, order: 9, variant: violet, title: "lineage", filters: [nothing-self-declared] }
+      - { id: ep-cut-turns, order: 10, variant: violet, title: "cut turns" }
+      - { id: ep-anomalies, order: 11, variant: violet, title: "anomalies" }
+
+  - id: sun-project
+    treatment: [plain]
+    order: 3
+    span: 1
+    columns: 4
+    children:
+      - { id: pr-anchors, order: 1, variant: blue, title: "anchors", filters: [what-comes-back] }
+      - { id: pr-decisions, order: 2, variant: blue, title: "decisions", filters: [the-human] }
+      - { id: pr-preferences, order: 3, variant: blue, title: "preferences" }
+      - { id: pr-sections, order: 4, variant: blue, title: "sections", filters: [one-task] }
+      - { id: pr-workspace, order: 5, variant: blue, title: "workspace" }
+      - id: pr-core
+        order: 6
+        span: 2
+        variant: blue
+        treatment: [centered]
+        kicker: "MEMORY 3 OF 4"
+        title: "Project memory"
+        description: ["What do we know about the project, and about you?"]
+        detail: "What Gaia knows about the project, and about you. gaia scan maps the workspace and its repos; what it finds is kept in named sections of the project contract: project identity, stack, git, architecture, services, environment, infrastructure. Each agent may read some sections and write others, and its context at dispatch names them. About you: your rules and preferences, handed to every specialist at birth, and the decisions and anchors the orchestrator curated. Also kept here: feedback on how work went, and what did not work, as curated rows of type negative. Commands: gaia scan, gaia context, gaia memory."
+      - { id: pr-your-rules, order: 7, variant: blue, title: "your rules", filters: [the-human] }
+      - { id: pr-scan, order: 8, variant: blue, title: "scan" }
+      - { id: pr-repos, order: 9, variant: blue, title: "repos" }
+      - { id: pr-can-read, order: 10, variant: blue, title: "can read" }
+      - { id: pr-can-write, order: 11, variant: blue, title: "can write" }
+
+  - id: sun-execution
+    treatment: [plain]
+    order: 4
+    span: 1
+    columns: 4
+    children:
+      - { id: ex-contracts, order: 1, variant: clay, title: "contracts", filters: [one-task] }
+      - { id: ex-verdict, order: 2, variant: clay, title: "verdict", filters: [nothing-self-declared] }
+      - { id: ex-pass, order: 3, variant: clay, title: "pass", filters: [nothing-self-declared] }
+      - { id: ex-evidence, order: 4, variant: clay, title: "evidence" }
+      - { id: ex-approvals, order: 5, variant: clay, title: "approvals", filters: [the-human] }
+      - id: ex-core
+        order: 6
+        span: 2
+        variant: clay
+        treatment: [centered]
+        kicker: "MEMORY 4 OF 4"
+        title: "Execution memory"
+        description: ["What did we execute, and what did it produce?"]
+        detail: "What was executed, and what it produced. Every turn answers in its agent contract: its state (COMPLETE, BLOCKED, APPROVAL_REQUEST, NEEDS_VERIFICATION, NEEDS_INPUT, IN_PROGRESS), its evidence (commands run, key outputs, open gaps) and its verification, pass or fail. A gate's verdict is kept with its task. Every approval is kept in a hashed approval chain; every command's tier is decided by a rule: T0 read, T1 validate, T2 dry run, T3 change, or never. A compliance score and an audit trail are computed from all of it. Also kept here: metrics, and the worktree of each turn that wrote. Commands: gaia contract, gaia approvals, gaia evidence, gaia metrics."
+      - { id: ex-open-gaps, order: 7, variant: clay, title: "open gaps" }
+      - { id: ex-t3, order: 8, variant: clay, title: "T3", filters: [the-human] }
+      - { id: ex-complete, order: 9, variant: clay, title: "COMPLETE" }
+      - { id: ex-blocked, order: 10, variant: clay, title: "BLOCKED" }
+      - { id: ex-audit-trail, order: 11, variant: clay, title: "audit trail" }
+
+  - id: keeps-close
+    treatment: [plain]
+    order: 5
+    span: 2
+    columns: 1
+    children:
+      - id: keeps-close-line
+        type: separator
+        order: 1
+        text: "you decide what is curated · the engine records the rest"

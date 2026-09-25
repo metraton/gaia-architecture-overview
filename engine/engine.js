@@ -63,7 +63,8 @@
   // where both enums are validated. The engine only translates; it never decides
   // what is legal.
   const COMPONENT_VARIANT = {
-    neutral: '', good: 'good', warn: 'warn', bad: 'bad', accent: 'accent', muted: 'muted'
+    neutral: '', good: 'good', warn: 'warn', bad: 'bad', accent: 'accent', muted: 'muted',
+    blue: 'blue', violet: 'violet', gold: 'gold', clay: 'clay'
   };
   const SECTION_VARIANT = {
     neutral: '', good: 'good', bad: 'bad'
