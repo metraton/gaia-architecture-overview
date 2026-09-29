@@ -37,65 +37,78 @@ assets/
 ├── index.html            entry + template (design-system CSS inline, help HUD)
 ├── engine/
 │   ├── engine.js         render engine — dialect only, no domain knowledge (@version 2.0.0)
-│   └── build-data.mjs    build step: data/*.yaml → data/data.generated.js, plus
-│                         the STRICT SCHEMA — unknown fields are a loud build
-│                         error (with a did-you-mean suggestion), never a no-op
+│   ├── build-data.mjs    build step: data/*.yaml → data/data.generated.js and
+│   │                     data/breakpoints.generated.css, plus the STRICT SCHEMA —
+│   │                     unknown fields are a loud build error (with a
+│   │                     did-you-mean suggestion), never a no-op
+│   ├── tokens.mjs        the design tokens: defaults, schema and CSS projection
+│   ├── chips.cjs         core-chip inheritance, shared by the build and the census
+│   └── yaml.cjs          the reader for the YAML dialect — refuses, by line,
+│                         anything outside it
 ├── tools/
-│   ├── check-layout.mjs     the MANDATORY layout gate — static, arithmetic,
-│   │                        no browser (js-yaml only): proves the grid
-│   │                        rectangle CLOSES (RECT/HOLE/TRACK/ROW/LANE/BAND/
-│   │                        TIER/CHIP/ORDER/TEXT) for every page at all five
-│   │                        container tiers; PASS/FAIL, exit≠0; runs anywhere
-│   │                        Gaia is installed, including with no browser
-│   ├── validate-layout.cjs  OPTIONAL REINFORCEMENT — renders every page at
-│   │                        five widths (5 reloads each) in Chromium and
-│   │                        asserts what genuinely needs PIXELS (INTEGRITY
-│   │                        D/R/T/C/O/F/S/B/H · DESIGN U/E/P/L/M/Y ·
-│   │                        advisory V · retired W); PASS/FAIL, exit≠0;
-│   │                        PURE-READ (build first); shots to a system temp
-│   │                        dir; skips cleanly where no browser exists
-│   ├── verify.mjs        lighter render QA (root grid renders, no top-level cell
-│   │                     collisions, screenshots widths × themes)
-│   ├── contrast-audit.cjs  the WCAG 2.1 contrast guardrail for the swappable
-│   │                       palettes — parses the token blocks straight out of
-│   │                       index.html (single source of truth) and checks
-│   │                       every real foreground/background pair against the
-│   │                       AA thresholds; PASS/FAIL per non-neutral palette,
-│   │                       `neutral` itself is measured and reported, not gated
-│   └── test-guards.mjs   permanent NEGATIVE-test suite — fabricates broken
-│                         decks in a system temp dir and asserts check-layout.mjs
-│                         / build-data.mjs / validate-layout.cjs actually FAIL
-│                         on each defect, proving the guards detect what they claim
-├── package.json          build / check / validate / test / contrast / verify
-│                         scripts + js-yaml + playwright devDeps
+│   ├── check-layout.mjs     the gate, mandatory (`npm run model`) — proves the
+│   │                        grid CLOSES arithmetically over the authored YAML;
+│   │                        NO browser, exit≠0 on any [FAIL]
+│   ├── static-census.cjs    the authored-data reader and the form list (FORMS)
+│   │                        the build and the model share — one parse path
+│   ├── census.mjs           the per-page summary (`npm run census [-- --json]`):
+│   │                        sections and nesting, resolved columns/span/width
+│   │                        and start cell, colours and chip scope, by authored id
+│   ├── test-guards.mjs      the negative-test suite (`npm test`) — fabricates one
+│   │                        broken deck per case in a temp dir and asserts the
+│   │                        guard FAILS as claimed
+│   ├── contrast-audit.cjs   WCAG 2.1 contrast audit of the swappable palettes
+│   │                        (`npm run contrast`), reading the tokens out of
+│   │                        index.html so a palette edit is audited by construction
+│   └── video/               the optional narrated video, made from this deck only
+│                            (`npm run video:*`); its own package.json is the one
+│                            place Playwright lives — see ../video.md
+├── package.json          the diagram scripts (build · model · census · test · contrast)
+│                         and the video:* scripts; no dependencies
+├── .gitignore            keeps tools/video/node_modules and out/ out of git
+├── video/script.json     the seed's video script: what each page says and shows
 └── data/                 ── the only part you edit ──
-    ├── document.yaml     manifest: title/subtitle/version + which pages, in order
-    ├── pages/overview.yaml   one starter page: two inline sections side by side
-    │                         (with nesting), a base band with a separator and a
-    │                         rail, a row-span bar chart, and a partial 2-of-4 merge
-    └── data.generated.js committed build output (window.__DOC__) — renders with zero tooling
+    ├── document.yaml     manifest: title/subtitle/version, tokens, core chips, and
+    │                     which pages, in order
+    ├── pages/*.yaml      the seed: one page per principle, a flow page, two
+    │                     feature pages and the edge-case page
+    ├── data.generated.js committed build output (window.__DOC__) — renders with zero tooling
+    └── breakpoints.generated.css  committed build output: the three @container
+                          collapse tiers, written from tokens.breakpoints
 ```
 
 ## Use
 
 - **View immediately:** open `index.html` in any browser. The committed
   `data/data.generated.js` means it renders with no tooling.
-- **Author:** edit the YAML under `data/`, then `npm install` once and
-  `npm run build` to regenerate `data/data.generated.js` (the build also
-  enforces the strict field schema). Then `npm run check` — the MANDATORY
-  gate; static and arithmetic, no browser, so it runs anywhere Gaia is
-  installed. `npm run validate` is optional reinforcement: it renders every
-  page in Chromium to assert what genuinely needs pixels (legibility, word
-  fit, real geometry) — it is decoupled from build (pure-read: it asserts the
-  EXISTING generated data, so build first) and skips cleanly where no browser
-  exists. `npm run verify` is the lighter headless QA. `npm run contrast`
-  audits every palette's token pairs against WCAG 2.1 AA. `npm test` runs the
-  permanent negative-test suite that proves the guards above actually fail on
-  a broken deck, not just that they run. All screenshots go to a **system
-  temp dir** (`os.tmpdir()`, override with `DIAGRAM_SHOTS_DIR`), not into the
-  project — the repo stays clean.
-- **The dialect** (every field + the `status`/`variant` enums) is documented in
-  the diagram-builder skill: `../GLOSSARY.md` and `../reference.md`.
+- **Author:** edit the YAML under `data/`, then `npm run build` to regenerate
+  `data/data.generated.js` (the build also enforces the strict field schema).
+  Nothing to install: the deck has no npm dependencies. Then **`npm run model`
+  — the mandatory gate**: arithmetic over the authored YAML, no browser. Never
+  declare a layout change done until it is green. Whether the page LOOKS right
+  is a human review: open `index.html` and look. `npm run census -- --json`
+  prints what each page resolved to, so it can be checked against the sketch
+  agreed before building without reading the YAML. Its fields, at the
+  presentation viewport:
+  - `width` has ONE normal form: the reduced fraction of the parent's width
+    (`1/1` is the whole row, `1/2` half, `2/3` two thirds), or `content` for a
+    component sitting directly in a flex row. The share comes from
+    `check-layout.mjs` `rowShare`, the rule the model's width chain uses.
+  - `start` is `{row, col}`, 1-based within the parent: the grid cell, or the
+    line and position on it in a flex row. A section's `grid` says which:
+    `tracks` and a root holding a band are grids, `row` is a flex row, `stack`
+    (`columns: 1`) puts one child per row — so two groups side by side share a
+    row, and two stacked groups do not.
+  - `variant_source` is `authored`, `default` (an unset colour is neutral; the
+    engine never inherits one from a section) or `colourless` (separator, spacer).
+  - a chip's `scope` is `members`, `all` (the reserved reset, which declares no
+    members and lights everything) or `none`.
+
+  `npm test` runs the
+  negative-test suite over the guards themselves, and `npm run contrast` audits
+  the palettes against WCAG 2.1.
+- **The dialect** (every field and the `variant`/`treatment` sets) is documented
+  in the diagram-builder skill's `../build.md`.
 - **`document.yaml`'s optional `version`** renders in the header — bump it on a
   meaningful change. The engine also
   supports click-and-drag panning on the canvas (grab/grabbing cursor) as a
@@ -166,6 +179,5 @@ whatever the target repo's deploy layer turns out to be:
 Vendored from a frozen reference architecture-diagram artifact (HUD included)
 and made domain-free: neutral title/subtitle placeholders (the engine overwrites
 them from `document.yaml`), domain names stripped from comments, a generic
-`package.json` name, a `verify.mjs` with generic collision assertions (no
-diagram-specific zone names), and a domain-free seed `data/`. No absolute paths;
-`js-yaml` is a bare import resolved from `node_modules`.
+`package.json` name, and a domain-free seed `data/`. No absolute paths and no
+`node_modules`: the YAML is read by the deck's own `engine/yaml.cjs`.

@@ -1,20 +1,25 @@
-// Writes tools/video/align.json: the start and end of every narrated sentence,
-// in seconds inside its page's WAV. Cues in timeline.json name sentences, never
-// seconds, so this file is the only timing source and can be replaced (e.g. by
-// word timestamps) without touching the cues.
+// Writes video/align.json: the start and end of every sentence, in seconds
+// inside its page's audio. Cues name sentences, never seconds, so this file is
+// the only timing source and can be replaced without touching the script.
 //
-// Per page, the character estimate spreads the sentences over the speech span
-// in proportion to their length. ffmpeg silencedetect then proposes pauses; the
-// sentence boundaries are matched to pauses monotonically, preferring long
-// pauses near the estimate. The match is accepted only when every matched pause
-// lies within TOLERANCE_S of its estimate; otherwise the page keeps the estimate.
+//   npm run video:align
+//
+// A page whose voice left word timings (method=words) takes each sentence from
+// its first to its last word. They are used only when the words file is at
+// least as new as the audio, since audio dropped later was not timed by them,
+// and only when its words spell the page's sentences letter for letter.
+// Otherwise (manual audio, a voice without timings, Kokoro in Spanish) the page
+// falls back to silencedetect: the character estimate spreads the sentences
+// over the speech span in proportion to their length; ffmpeg silencedetect
+// proposes pauses, and the sentence boundaries are matched to them
+// monotonically, preferring long pauses near the estimate. The match is kept
+// only when every matched pause lies within TOLERANCE_S of its estimate;
+// otherwise the page keeps the estimate (method=chars).
 import { spawnSync } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { existsSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { audioPath, fail, readScript, requireDeck, wordsPath } from './deck.mjs';
+import { ALIGN_FILE, loadTimeline } from './timeline.mjs';
 
-const HERE = dirname(fileURLToPath(import.meta.url));
-const ROOT = join(HERE, '..', '..');
 const SILENCE_FILTER = 'silencedetect=noise=-35dB:d=0.15';
 const TOLERANCE_S = 2.0;
 const PAUSE_WEIGHT = 1.5;
@@ -22,7 +27,7 @@ const EDGE_S = 0.01;
 
 function run(cmd, args) {
   const r = spawnSync(cmd, args, { encoding: 'utf8' });
-  if (r.status !== 0) throw new Error(`${cmd} ${args.join(' ')} failed:\n${r.stderr}`);
+  if (r.status !== 0) fail(`${cmd} ${args.join(' ')} failed: ${(r.stderr || r.error?.message || '').trim()}`);
   return r;
 }
 
@@ -81,9 +86,63 @@ function matchPauses(expected, gaps) {
   return picked.map(i => gaps[i]);
 }
 
-function alignPage({ page, audio, sentences }) {
-  const wav = join(ROOT, audio);
+const round = x => Math.round(x * 1000) / 1000;
+const letters = s => s.toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');
+
+/** Returns the page's word timings, or null (saying why) when there are none it can trust. */
+function readWords(page, wav) {
+  const file = wordsPath(page);
+  if (!existsSync(file)) return null;
+  if (statSync(file).mtimeMs < statSync(wav).mtimeMs) {
+    console.log(`[video] ${page.page}: ${file} is older than the audio; not using its word timings`);
+    return null;
+  }
+  let words = null;
+  try { words = JSON.parse(readFileSync(file, 'utf8')); } catch { words = null; }
+  if (Array.isArray(words) && words.every(w => typeof w.word === 'string' && w.end >= w.start)) return words;
+  console.log(`[video] ${page.page}: ${file} is not a list of {word, start, end}; not using it`);
+  return null;
+}
+
+// Walks the words in order, attributing their letters to the sentence being
+// spelled; punctuation tokens carry no letters and are skipped. Returns null
+// as soon as the words stop spelling the sentences.
+function sentencesFromWords(sentences, words) {
+  const targets = sentences.map(letters);
+  const spans = [];
+  let k = 0, spelled = '';
+  for (const w of words) {
+    const l = letters(w.word);
+    if (!l) continue;
+    if (k >= targets.length) return null;
+    if (!spelled) spans[k] = { start: w.start };
+    spelled += l;
+    if (!targets[k].startsWith(spelled)) return null;
+    spans[k].end = w.end;
+    if (spelled === targets[k]) { k += 1; spelled = ''; }
+  }
+  return k === targets.length ? spans : null;
+}
+
+function alignPage(page, wav) {
   const duration = durationOf(wav);
+  const words = readWords(page, wav);
+  const spans = words && sentencesFromWords(page.sentences, words);
+  if (words && !spans) console.log(`[video] ${page.page}: its word timings do not spell its sentences; not using them`);
+  if (!spans) return alignBySilence(page, wav, duration);
+  return {
+    page: page.page,
+    audio: page.audio,
+    duration: round(duration),
+    method: 'words',
+    speech: [round(spans[0].start), round(spans[spans.length - 1].end)],
+    words: words.length,
+    sentences: page.sentences.map((text, k) => ({ text, start: round(spans[k].start), end: round(spans[k].end) })),
+  };
+}
+
+function alignBySilence(page, wav, duration) {
+  const { sentences } = page;
   const gaps = silencesOf(wav, duration);
   const lead = gaps.find(g => g.start <= EDGE_S);
   const trail = gaps.find(g => g.end >= duration - EDGE_S && g !== lead);
@@ -94,27 +153,28 @@ function alignPage({ page, audio, sentences }) {
   const matched = matchPauses(expected, interior);
   const deviations = matched ? matched.map((g, k) => Math.abs((g.start + g.end) / 2 - expected[k])) : [];
   const accepted = matched !== null && deviations.every(d => d <= TOLERANCE_S);
-
   const starts = [speechStart, ...(accepted ? matched.map(g => g.end) : expected)];
   const ends = [...(accepted ? matched.map(g => g.start) : expected), speechEnd];
-  const round = x => Math.round(x * 1000) / 1000;
   return {
-    page, audio,
+    page: page.page,
+    audio: page.audio,
     duration: round(duration),
     method: accepted ? 'silencedetect' : 'chars',
     speech: [round(speechStart), round(speechEnd)],
     pauses: interior.length,
-    maxDeviation: matched ? round(Math.max(0, ...deviations)) : null,
-    shortestMatchedPause: matched && matched.length ? round(Math.min(...matched.map(g => g.end - g.start))) : null,
-    sentences: sentences.map((text, k) => ({ text, start: round(starts[k]), end: round(ends[k]) }))
+    sentences: sentences.map((text, k) => ({ text, start: round(starts[k]), end: round(ends[k]) })),
   };
 }
 
-const narration = JSON.parse(readFileSync(join(HERE, 'narration.json'), 'utf8'));
-const pages = narration.pages.map(alignPage);
-writeFileSync(join(HERE, 'align.json'), JSON.stringify({ pages }, null, 2) + '\n');
+const doc = requireDeck();
+const timeline = loadTimeline(doc, readScript());
+const wavs = timeline.pages.map(p => [p, audioPath(p)]);
+const missing = wavs.filter(([, wav]) => !existsSync(wav)).map(([p, wav]) => `${p.page} (${wav})`);
+if (missing.length) fail(`no narration audio for ${missing.join(', ')}: voice the exported script (npm run video:voice) to those paths`);
+const pages = wavs.map(([p, wav]) => alignPage(p, wav));
+writeFileSync(ALIGN_FILE, JSON.stringify({ pages }, null, 2) + '\n');
 for (const p of pages) {
-  console.log(`${p.audio} ${p.page}: method=${p.method} duration=${p.duration}s speech=${p.speech.join('-')}s ` +
-    `sentences=${p.sentences.length} pauses=${p.pauses} maxDeviation=${p.maxDeviation}s shortestMatchedPause=${p.shortestMatchedPause}s`);
-  console.log('   starts: ' + p.sentences.map(s => s.start.toFixed(2)).join(' '));
+  const evidence = p.method === 'words' ? `words=${p.words}` : `pauses=${p.pauses}`;
+  console.log(`[video] ${p.page}: method=${p.method} duration=${p.duration}s speech=${p.speech.join('-')}s ` +
+    `sentences=${p.sentences.length} ${evidence}`);
 }

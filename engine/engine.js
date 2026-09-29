@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────
 // engine.js — data-driven render engine for a diagram deck.
-// @version 2.0.0  (part of the diagram-builder skill; keep in sync
-//                  with the skill's GLOSSARY.md + reference.md)
+// @version 2.0.0  (part of the diagram-builder skill; the dialect it reads
+//                  is documented in the skill's build.md)
 //
 // Reads window.__DOC__ (produced by build-data.mjs from the YAML manifest +
 // page files) and builds the DOM. No framework, no build step beyond the
@@ -84,7 +84,9 @@
   };
   // Section treatments: envelope (borderless dashed container that groups nested
   // sections), plain (a bare, border-free structural wrapper — used to stack
-  // sub-sections in one parent column with no extra frame).
+  // sub-sections in one parent column with no extra frame), middle (the grid is
+  // centred vertically in the height its row stretches it to) and compact (one
+  // leaf grid on a shorter row — see `.zone.compact` in index.html).
   const SECTION_TREATMENT = {
     envelope: 'envelope', plain: 'plain', middle: 'middle', compact: 'compact'
   };
@@ -94,8 +96,19 @@
   // A half LEAF: only a component can occupy (and therefore divide) a slot.
   const isHalfLeaf = c => c && !Array.isArray(c.children) && hasTreatment(c, 'half');
 
+  // The resolved design tokens (engine/tokens.mjs, merged by the build). The
+  // engine never holds a visual number of its own: it applies the build's CSS
+  // projection and reads the few values only JS consumes.
+  const TOKENS = doc.tokens;
+  if (!TOKENS || !doc.css_vars) {
+    console.error('[engine] window.__DOC__ carries no tokens; rebuild the deck (npm run build).');
+    return;
+  }
+  const applyVars = (node, vars) => { for (const k in vars || {}) node.style.setProperty(k, vars[k]); };
+  applyVars(document.documentElement, doc.css_vars);
+
   // Default column count for a section's grid when it omits `columns`.
-  const DEFAULT_SECTION_COLUMNS = 2;
+  const DEFAULT_SECTION_COLUMNS = TOKENS.default_columns;
 
   const el = (tag, cls, attrs) => {
     const n = document.createElement(tag);
@@ -115,6 +128,7 @@
       const ev = COMPONENT_VARIANT[extra] ?? '';
       if (ev && !parts.includes(ev)) parts.push(ev);
     }
+    if (comp.lead === true) parts.push('lead');
     for (const t of treatmentsOf(comp)) {
       const tv = COMPONENT_TREATMENT[t] ?? '';
       if (tv && !parts.includes(tv)) parts.push(tv);
@@ -141,6 +155,7 @@
   // is the small mark above the title — it names no state, it is just the mark.)
   function buildBox(comp, detailRegistry) {
     const box = el('div', componentClasses(comp), { 'data-k': comp.id });
+    applyVars(box, comp.css_vars);   // a per-box clamp override (tokens: on the component)
     if (comp.kicker) { const k = el('div', 'k'); k.textContent = comp.kicker; box.appendChild(k); }
     const t = el('div', 't'); t.textContent = comp.title || ''; box.appendChild(t);
     const rawDesc = comp.description;
@@ -384,13 +399,13 @@
   // --sep-row-h for a row of separators / declared holes or `auto` for a row
   // that holds a rail. `auto` and not `minmax(--sep-row-h, auto)` because a
   // rail is a BORDERED BOX whose content is the row: a one-line rail is 33px,
-  // and flooring seven of them at 40px costs 7px each — measured, that floor
-  // alone overflows the one stack this exists for (496px against a 482px
-  // ceiling, while content height closes at 461). A two-line rail (48px) is
-  // what `auto` exists to hold: a fixed --sep-row-h track clips it. Returns
+  // and flooring a stack of them at 40px costs 7px each — measured, that floor
+  // alone overflowed the stack a rail column was authored for (496px against a
+  // 482px ceiling, while content height closed at 461). A two-line rail (48px)
+  // is what `auto` exists to hold: a fixed --sep-row-h track clips it. Returns
   // null when NO row is thin, so a grid without one is left on the plain
   // fixed-row default (no inline style). A row with NO occupant at all (an
-  // UNdeclared interior hole — RECT/HOLE in `npm run check` owns that defect)
+  // UNdeclared interior hole — RECT/HOLE in `npm run model` owns that defect)
   // keeps --cell-h: an empty track is not a thin row, and only a hole someone
   // DECLARED with a spacer earns the reduced height.
   function rowTrackList(items, tracks) {
@@ -600,6 +615,11 @@
     const classes = ['zone', SECTION_VARIANT[sec.variant] ?? ''];
     for (const t of treatmentsOf(sec)) classes.push(SECTION_TREATMENT[t] ?? '');
     const zone = el('section', classes.filter(Boolean).join(' '), { 'data-zone': sec.id });
+    // A section override (tokens: on the section, or the `compact` preset) is
+    // set inline and inherits down the subtree like the property it is.
+    // data-cell-h DECLARES the override row, which validate U holds the grid to.
+    applyVars(zone, sec.css_vars);
+    if (sec.tokens && sec.tokens.row && sec.tokens.row.cell_h) zone.setAttribute('data-cell-h', String(sec.tokens.row.cell_h));
     // Titleless container: draw no header when the section declares no
     // title/subtitle — so a pure structural wrapper (e.g. a `plain`
     // stack) shows only its children's frames, with no empty header line.
@@ -620,7 +640,6 @@
     // later act, so a page gets reported under its neighbour's name AND its
     // neighbour's `form` — which then scopes the wrong invariants and reads the
     // wrong authored spans). Stamping the id lets a consumer join by identity.
-    // See the id-keyed lookups in tools/validate-layout.cjs (discovery, measure).
     const act = el('section', pageIndex === 0 ? 'act active' : 'act',
       { 'data-act': String(pageIndex), 'data-page-id': String(page.id) });
 
@@ -725,18 +744,18 @@
     }
 
     // One placement for both panel contents, a box's detail and a chip's
-    // relation. The card is twice as wide as the narrowest root section the deck
-    // can draw (this page's plane split by the widest page's root columns),
-    // floored at two readable cells, so it reads comfortably yet never spans more
-    // than two such sections. A dragged position is kept for the whole page.
+    // relation. The card is `panel.width_cols` times as wide as the narrowest
+    // root section the deck can draw (this page's plane split by the widest
+    // page's root columns), floored at that many readable cells, and kept
+    // inside the stage less the dock inset on each side. Its height is left to
+    // its text (the .panel rule caps it). A dragged position is kept for the page.
     let draggedTo = null;
     function placeCard() {
       const plane = act.querySelector('.sec-plane');
-      const cellFloor = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--cell-min-w')) || 0;
-      const width = Math.min(stage.clientWidth - 48,
-        Math.max(2 * cellFloor, 2 * plane.clientWidth / widestRootColumns));
+      const { inset, width_cols: cols } = TOKENS.panel;
+      const width = Math.min(stage.clientWidth - 2 * inset,
+        Math.max(cols * TOKENS.cell_min_w, cols * plane.clientWidth / widestRootColumns));
       panelEl.style.width = width + 'px';
-      panelEl.style.minHeight = Math.min(1.25 * width, stage.clientHeight - 48) + 'px';
       if (draggedTo) moveCardTo(draggedTo.left, draggedTo.top);
     }
     function moveCardTo(left, top) {
@@ -922,6 +941,8 @@
     built.push({ act, detailRegistry, filters, page });
   });
 
+  // The detail card's width is measured against the WIDEST root grid in the
+  // deck, so it is the same card on every page (see placeCard).
   const widestRootColumns = Math.max(1, ...renderable.map(p => p.columns || 1));
   const wired = built.map(b => wireAct(b.act, b.detailRegistry, b.filters, widestRootColumns));
 
@@ -981,9 +1002,8 @@
   });
   show(0);
 
-  // The narrated-video capture (tools/video/) drives pages and chips through
-  // this handle. It exists only under `?video`, so the interactive deck exposes
-  // no global state.
+  // The narrated-video capture drives pages and chips through this handle. It
+  // exists only under `?video`, so the interactive deck exposes no global state.
   if (new URLSearchParams(location.search).has('video')) {
     window.__deck = {
       acts,

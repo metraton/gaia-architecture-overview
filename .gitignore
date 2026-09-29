@@ -12,6 +12,9 @@ tools/_diag_*.mjs
 # Rendered video output (tools/video/capture.mjs) — large, regenerable
 out/
 
+# Narration audio: voiced outside git, read from the paths video/script.json declares
+video/audio/
+
 # Logs
 *.log
 npm-debug.log*

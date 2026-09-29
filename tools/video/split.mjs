@@ -1,32 +1,34 @@
-// Cuts a rendered video into one clip per page, at the page boundaries of the
-// same plan capture.mjs rendered from.
+// Cuts a captured video into one clip per page, at the page boundaries of the
+// same plan the capture rendered from.
 //
-//   node tools/video/split.mjs [--pages id,id,...] [--in out/gaia.mp4] [--outdir out/pages]
+//   npm run video:split [-- --pages id,id] [--in name.mp4]
 //
-// Pass the same --pages the capture used, so the plan (and every boundary) is
-// the same. Each clip is re-encoded, not stream-copied: capture.mjs encodes with
-// x264's default keyframe spacing (up to 250 frames, ~4 s at 60 fps), and a
-// stream copy can only cut on a keyframe, so its cuts would land seconds away
-// from the page boundary. Boundaries fall on the faded-out frame between pages.
+// Pass the same --pages the capture used, so every boundary is the same. Each
+// clip is re-encoded, not stream-copied: a stream copy can only cut on a
+// keyframe, and x264's default spacing would land cuts seconds off the boundary.
 import { spawnSync } from 'node:child_process';
-import { mkdirSync } from 'node:fs';
+import { existsSync, mkdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { ROOT, argValue, buildPlan, readJson, selectedPages } from './plan.mjs';
+import { OUT_DIR, argValue, fail, readScript, requireDeck } from './deck.mjs';
+import { FRAME, buildPlan, loadTimeline, readAlign, selectedPages } from './timeline.mjs';
 
-const timeline = readJson('timeline.json');
-const align = readJson('align.json');
-const input = resolve(ROOT, argValue('--in', 'out/gaia.mp4'));
-const outdir = resolve(ROOT, argValue('--outdir', 'out/pages'));
-const plan = buildPlan(timeline, align, {}, selectedPages(timeline));
+const doc = requireDeck();
+const timeline = loadTimeline(doc, readScript());
+const plan = buildPlan(timeline, readAlign(), selectedPages(timeline));
+const unvoiced = plan.pages.filter(p => p.method === 'estimate').map(p => p.page);
+if (unvoiced.length) fail(`split needs the aligned narration of ${unvoiced.join(', ')}; its boundaries would not match the capture`);
+const input = resolve(OUT_DIR, argValue('--in', 'deck.mp4'));
+if (!existsSync(input)) fail(`no captured video at ${input}; run npm run video:capture first`);
+const outdir = join(OUT_DIR, 'pages');
 
 mkdirSync(outdir, { recursive: true });
 plan.pages.forEach((p, i) => {
   const clip = join(outdir, `${String(i + 1).padStart(2, '0')}-${p.page}.mp4`);
   const args = ['-hide_banner', '-nostats', '-loglevel', 'error', '-y', '-i', input,
     '-ss', p.start.toFixed(3), '-to', p.end.toFixed(3),
-    '-c:v', 'libx264', '-preset', 'slow', '-tune', 'animation', '-crf', '10', '-pix_fmt', 'yuv420p', '-r', String(timeline.fps),
+    '-c:v', 'libx264', '-preset', 'slow', '-tune', 'animation', '-crf', '10', '-pix_fmt', 'yuv420p', '-r', String(FRAME.fps),
     '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2', '-movflags', '+faststart', clip];
   const r = spawnSync('ffmpeg', args, { stdio: 'inherit' });
-  if (r.status !== 0) throw new Error(`ffmpeg failed on ${p.page} (exit ${r.status})`);
-  console.log(`[split] ${clip}: ${p.start.toFixed(3)}-${p.end.toFixed(3)} s (${(p.end - p.start).toFixed(2)} s)`);
+  if (r.status !== 0) fail(`ffmpeg failed on ${p.page} (exit ${r.status})`);
+  console.log(`[video] ${clip}: ${p.start.toFixed(3)}-${p.end.toFixed(3)} s`);
 });

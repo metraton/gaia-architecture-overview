@@ -1,4 +1,4 @@
-// Frame-exact renderer for the narrated video, injected by capture.mjs into
+// Frame-exact renderer for the narrated video, injected by browser.mjs into
 // index.html?video. Every visual property it sets is a pure function of the
 // time passed to window.__seek(t), and CSS transitions are switched off, so a
 // screenshot after __seek depends on t alone and never on the wall clock.
@@ -12,14 +12,11 @@
   const deck = window.__deck;
   if (!deck) throw new Error('driver.js: window.__deck is missing; load index.html?video');
 
-  // The frame shows the page's chip bar and its content on the day background.
-  // All other deck chrome is hidden, and the canvas stops being a padded scroll
-  // box. The chip bar keeps the deck's chip style; frame() places it. The "all"
-  // reset chip is hidden: at rest it is the only highlighted pill, so it would
-  // read as a lit chip whenever nothing is lit.
-  // Opacity of a chip's non-members in video mode (the deck uses 0.18 for boxes):
-  // light enough that the page stays readable, dark enough that the lit
-  // members still stand out.
+  // The frame shows the page's chip bar and its content on the day background;
+  // all other deck chrome is hidden. The "all" reset chip is hidden too: at rest
+  // it is the only highlighted pill, so it would read as a lit chip.
+  // VIDEO_DIM is the opacity of a lit chip's non-members: lighter than the
+  // interactive deck's, so the page stays readable while the members stand out.
   const VIDEO_DIM = 0.6;
   const css = document.createElement('style');
   css.textContent =
@@ -29,16 +26,14 @@
     '.canvas{inset:0!important;padding:0!important;overflow:hidden!important;scrollbar-width:none!important;cursor:default!important}' +
     '.actbar{position:absolute!important;left:0;right:0;z-index:1;padding:0!important;justify-content:center!important}' +
     '.actbar .chips{justify-content:center}' +
-    // A lit chip dims non-members less than the interactive deck does, and never
-    // dims section titles or the chip-less heading box.
     `.stage.flowing .box:not(.lit),.stage.flowing .rail:not(.lit){opacity:${VIDEO_DIM}!important}` +
     '.stage.flowing .box:not([data-filters]),.stage.flowing .canvas .zone-header{opacity:1!important}' +
     '::-webkit-scrollbar{display:none!important}';
   document.head.appendChild(css);
 
-  // Fraction of the frame kept free on each side around chip bar plus content.
+  // Fraction of the frame kept free on each side, and the gap between the chip
+  // bar and the content, in frame pixels.
   const FRAME_MARGIN = 0.06;
-  // Space between the chip bar and the content, in frame pixels.
   const BAR_GAP = 28;
 
   const ID_SELECTOR = id => `[data-k="${id}"],[data-zone="${id}"],[data-cid="${id}"]`;
@@ -51,24 +46,9 @@
   let shownIndex = -1;
   let appliedChip = 'all';
 
-  // Rails of a ring, ordered clockwise from 12 o'clock around the core centre.
-  function ringOrder(zone, core) {
-    const c = core.getBoundingClientRect();
-    const cx = c.left + c.width / 2, cy = c.top + c.height / 2;
-    const angle = n => {
-      const r = n.getBoundingClientRect();
-      const a = Math.atan2(r.left + r.width / 2 - cx, cy - (r.top + r.height / 2));
-      return a < 0 ? a + 2 * Math.PI : a;
-    };
-    return [...zone.querySelectorAll('[data-cid]')].filter(n => n.classList.contains('rail'))
-      .sort((a, b) => angle(a) - angle(b));
-  }
-
-  // Stacks the chip bar (at its native size) above the content plane, scales the
-  // plane so bar + gap + content fit inside FRAME_MARGIN, and centres the stack.
-  // The plane keeps the width and tier it was laid out at, so the scale is a
-  // transform over the deck's own 1920px layout, not a relayout; a static
-  // transform is rasterised at its final size, so text stays crisp.
+  // Stacks the chip bar above the content plane, scales the plane so both fit
+  // inside FRAME_MARGIN, and centres the stack. The scale is a transform over
+  // the deck's own layout, not a relayout, so the deck's breakpoints hold.
   function frame(act) {
     const plane = act.querySelector('.sec-plane');
     const bar = act.querySelector('.actbar');
@@ -83,57 +63,47 @@
     bar.style.top = `${top}px`;
     plane.style.cssText = `position:absolute;left:0;top:0;margin:0;max-width:none;width:${w}px;` +
       `transform-origin:0 0;transform:translate(${x}px,${y}px) scale(${scale})`;
-    return { width: w, height: h, bar: barH, scale: Math.round(scale * 1000) / 1000, binds: scale === byWidth ? 'width' : 'height' };
   }
 
-  // plan: { fade, reveal:{duration,rise,anticipation}, ring:{stagger},
-  //         pages:[{ page, start, end, base:[id], filters:[key],
-  //                  cues:[{ t, reveal?:[id], rise?, chip?, ring?, around? }] }] }
-  // `t` is the anchor time. Every motion cue (reveal, ring, a lit chip)
-  // fires reveal.anticipation seconds before it, but never before the page's fade-in
-  // has finished; a clear (chip "all") fires on its anchor. Chips are ordered by
-  // anchor, so an anticipated chip is never cancelled by an earlier-anchored clear.
-  // Returns the list of problems; an empty list means every cue can render.
+  // plan: { fade, reveal:{duration,rise,anticipation},
+  //         pages:[{ page, start, voiceAt, end, base:[id], cues:[{ t, reveal?:[id], chip? }] }] }
+  // A reveal or a lit chip fires reveal.anticipation seconds before its anchor,
+  // never before the page's fade-in ends; a clear (chip "all") fires on it.
+  // Returns the problems found against the rendered deck; empty means it fits.
   function load(plan) {
     const errors = [];
-    const framing = {};
-    window.__videoFraming = framing;
     const pages = plan.pages.map(p => {
       const index = deck.acts.findIndex(a => a.dataset.pageId === p.page);
       if (index < 0) { errors.push(`${p.page}: no rendered page with this id`); return null; }
       const act = deck.acts[index];
       deck.show(index);
-      framing[p.page] = frame(act);
-      const lead = plan.reveal.anticipation || 0;
-      const early = t => Math.max(p.start + plan.fade, t - lead);
+      frame(act);
+      const filters = [...act.querySelectorAll('.chip[data-flow]')].map(c => c.dataset.flow);
+      const early = t => Math.max(p.start + plan.fade, t - (plan.reveal.anticipation || 0));
       const at = new Map();
       const reveals = [];
       const chips = [];
       const find = (id, where) => {
         const n = act.querySelector(ID_SELECTOR(id));
-        if (!n) errors.push(`${p.page}: ${where} names "${id}", which is not on the page`);
+        if (!n) errors.push(`${p.page}: ${where} names "${id}", which is not on the rendered page`);
         return n;
-      };
-      const addReveal = (n, t, rise) => {
-        if (!n) return;
-        reveals.push({ el: n, t, rise });
-        at.set(n, Math.min(at.has(n) ? at.get(n) : Infinity, t));
       };
       for (const cue of p.cues) {
         const fire = early(cue.t);
-        if (cue.reveal) for (const id of cue.reveal) addReveal(find(id, 'reveal'), fire, cue.rise ?? plan.reveal.rise);
-        if (cue.chip !== undefined) {
-          if (cue.chip !== 'all' && !p.filters.includes(cue.chip)) errors.push(`${p.page}: chip "${cue.chip}" is not a filter of the page`);
-          chips.push({ anchor: cue.t, t: cue.chip === 'all' ? cue.t : fire, key: cue.chip });
+        for (const id of cue.reveal || []) {
+          const n = find(id, 'reveal');
+          if (!n) continue;
+          reveals.push({ el: n, t: fire, rise: plan.reveal.rise });
+          at.set(n, Math.min(at.has(n) ? at.get(n) : Infinity, fire));
         }
-        if (cue.ring) {
-          const zone = find(cue.ring, 'ring'), core = find(cue.around, 'ring core');
-          if (zone && core) ringOrder(zone, core).forEach((n, i) => addReveal(n, fire + i * plan.ring.stagger, plan.reveal.rise));
+        if (cue.chip !== undefined) {
+          if (cue.chip !== 'all' && !filters.includes(cue.chip)) errors.push(`${p.page}: chip "${cue.chip}" is not rendered on the page`);
+          chips.push({ anchor: cue.t, t: cue.chip === 'all' ? cue.t : fire, key: cue.chip });
         }
       }
       for (const id of p.base) find(id, 'base');
 
-      // An element is on screen once it and every cued ancestor have been revealed.
+      // An element is on screen once it and every cued ancestor are revealed.
       const visibleAt = n => {
         let t = -Infinity;
         for (let a = n; a && act.contains(a); a = a.parentElement && a.parentElement.closest(ID_ATTRS)) {
@@ -141,23 +111,21 @@
         }
         return t;
       };
-      const round = x => x.toFixed(2);
+      const secs = x => (x - p.voiceAt).toFixed(2);
       for (const c of chips) {
         if (c.key === 'all') continue;
         const members = [...act.querySelectorAll('[data-filters]')]
           .filter(m => m.getAttribute('data-filters').split(/\s+/).includes(c.key));
         const first = Math.min(...members.map(visibleAt));
-        if (!(first <= c.t)) errors.push(`${p.page}: chip "${c.key}" fires at ${round(c.t - p.voiceAt)} s but no member is revealed before ${round(first - p.voiceAt)} s`);
+        if (!(first <= c.t)) errors.push(`${p.page}: chip "${c.key}" fires at ${secs(c.t)} s but no member is revealed before ${secs(first)} s`);
       }
-
       const roots = [...act.querySelectorAll(ID_ATTRS)].filter(n => !n.parentElement.closest(ID_ATTRS));
       for (const r of roots) {
-        const id = idOf(r);
-        if (!p.base.includes(id) && !at.has(r)) errors.push(`${p.page}: top-level "${id}" is neither in base nor cued`);
+        if (!p.base.includes(idOf(r)) && !at.has(r)) errors.push(`${p.page}: top-level "${idOf(r)}" is neither shown from the start nor revealed`);
       }
       for (const [n, t] of at) {
         for (let a = n.parentElement.closest(ID_ATTRS); a && act.contains(a); a = a.parentElement.closest(ID_ATTRS)) {
-          if (at.has(a) && at.get(a) > t) errors.push(`${p.page}: "${idOf(n)}" is cued before its ancestor "${idOf(a)}"`);
+          if (at.has(a) && at.get(a) > t) errors.push(`${p.page}: "${idOf(n)}" is revealed before its section "${idOf(a)}"`);
         }
       }
       chips.sort((a, b) => a.anchor - b.anchor);
