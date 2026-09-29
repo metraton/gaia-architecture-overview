@@ -2834,9 +2834,6 @@ window.__DOC__ = {
                 {
                   "id": "p9-plugin-add",
                   "order": 1,
-                  "treatment": [
-                    "half"
-                  ],
                   "kicker": "RECOMMENDED",
                   "title": "/plugin marketplace add metraton/gaia",
                   "copy": true,
@@ -2848,9 +2845,6 @@ window.__DOC__ = {
                 {
                   "id": "p9-plugin-install",
                   "order": 2,
-                  "treatment": [
-                    "half"
-                  ],
                   "kicker": "ONE PLUGIN, NO NPM STEP",
                   "title": "/plugin install gaia@gaia-marketplace",
                   "copy": true,
@@ -3131,7 +3125,7 @@ window.__DOC__ = {
                   "order": 5,
                   "rowspan": 5,
                   "kicker": "YOU",
-                  "title": "work agentically",
+                  "title": "work with agents",
                   "description": [
                     "it plans, delegates, and asks before it changes anything"
                   ],
@@ -3162,7 +3156,7 @@ window.__DOC__ = {
                   "order": 9,
                   "rowspan": 4,
                   "kicker": "YOU",
-                  "title": "describe the problem",
+                  "title": "state the problem",
                   "description": [
                     "it finds the project and the right specialist"
                   ],
@@ -3186,7 +3180,7 @@ window.__DOC__ = {
                   "order": 12,
                   "rowspan": 3,
                   "kicker": "YOU",
-                  "title": "point it at your repos",
+                  "title": "scan your repos",
                   "description": [
                     "one scan, from wherever you are"
                   ],
@@ -3282,7 +3276,7 @@ window.__DOC__ = {
                     "half"
                   ],
                   "kicker": "“Only one project?”",
-                  "title": "One, or many. It reaches every one you scan.",
+                  "title": "One or many: it reaches all you scan.",
                   "filters": [
                     "yours"
                   ],
@@ -3361,7 +3355,7 @@ window.__DOC__ = {
       "filters": [
         {
           "key": "deterministic",
-          "label": "a rule decides",
+          "label": "what does a rule decide?",
           "steps": [
             "Every box on this page is ordinary code: the same input gets the same answer, and no model is consulted."
           ]
@@ -3502,7 +3496,7 @@ window.__DOC__ = {
               "span": 1,
               "kicker": "gaia context · scan",
               "title": "Project context",
-              "description": "reads it, and re-scans the workspace",
+              "description": "reads it, re-scans repos",
               "detail": "<code>context show | get | project</code> read the workspace; <code>context get-contract --section &lt;s&gt;</code> reads one project-context section by name; <code>scan</code> and <code>context scan</code> re-index it.",
               "filters": [
                 "deterministic"
@@ -3676,7 +3670,7 @@ window.__DOC__ = {
               "order": 2,
               "kicker": "claim_kernel (short)",
               "title": "Claims its contract",
-              "description": "joins the born contract to this specialist",
+              "description": "adopts the born contract",
               "detail": "<code>_maybe_claim_dispatch_kernel</code> (<code>claude_code.py:3950</code>) claims the contract born at PreToolUse and injects the kernel: Your Contract, Your CLI, how you work. If the claim fails, the specialist starts with no contract block and opens its own.",
               "filters": [
                 "deterministic",
@@ -3740,7 +3734,7 @@ window.__DOC__ = {
               "order": 1,
               "kicker": "contract_gate (short)",
               "title": "Reads the contract",
-              "description": "the stored one, never the reply text",
+              "description": "stored, never the reply",
               "detail": "<code>evaluate_contract_gate</code> in <code>hooks/adapters/claude_code.py:648</code>. It reads only the turn's stored contract; a missing or unfinalized one sends the turn back (exit 2, <code>claude_code.py:905-907</code>). Six closing states, only COMPLETE is final (<code>validator.py:908</code>). A plan-task contract cannot close itself COMPLETE.",
               "filters": [
                 "deterministic",

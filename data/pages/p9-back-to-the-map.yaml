@@ -59,7 +59,6 @@ sections:
         children:
           - id: p9-plugin-add
             order: 1
-            treatment: [half]
             kicker: "RECOMMENDED"
             title: "/plugin marketplace add metraton/gaia"
             copy: true
@@ -67,7 +66,6 @@ sections:
             detail: "The recommended route, in Claude Code. <code>/plugin marketplace add metraton/gaia</code> adds the gaia-marketplace; the host clones the repository at the tag of the current release. Source: the Gaia README, <i>How it is used</i>."
           - id: p9-plugin-install
             order: 2
-            treatment: [half]
             kicker: "ONE PLUGIN, NO NPM STEP"
             title: "/plugin install gaia@gaia-marketplace"
             copy: true
@@ -224,7 +222,7 @@ sections:
             order: 5
             rowspan: 5
             kicker: "YOU"
-            title: "work agentically"
+            title: "work with agents"
             description: ["it plans, delegates, and asks before it changes anything"]
             detail: "For larger work the orchestrator writes a brief and a plan of tasks, hands each task to the specialist that owns it, and has the result checked by someone who did not do the work. Anything that changes something real waits until you approve the exact command, and every approval is kept."
             variant: accent
@@ -236,7 +234,7 @@ sections:
             order: 9
             rowspan: 4
             kicker: "YOU"
-            title: "describe the problem"
+            title: "state the problem"
             description: ["it finds the project and the right specialist"]
             detail: "You describe the problem in your own words. The orchestrator finds the project in the one database and routes the work to the specialist that owns that surface; it never edits files itself."
             filters: [semantic]
@@ -246,7 +244,7 @@ sections:
             order: 12
             rowspan: 3
             kicker: "YOU"
-            title: "point it at your repos"
+            title: "scan your repos"
             description: ["one scan, from wherever you are"]
             detail: "<code>gaia scan --workspace &lt;name&gt;</code> walks a folder for git repos and records each as a (workspace, project) row in the one database, <code>~/.gaia/gaia.db</code>, promoting the facts it can read into the project's identity. Its help says it: <i>Deterministic: no inference</i>. From then on every session opens with a <i>Projects I can reach</i> block: the projects the database knows, grouped by workspace, each with its path."
             filters: [deterministic, yours]
@@ -291,7 +289,7 @@ sections:
             order: 3
             treatment: [half]
             kicker: "“Only one project?”"
-            title: "One, or many. It reaches every one you scan."
+            title: "One or many: it reaches all you scan."
             filters: [yours]
             detail: "Every session opens with a <i>Projects I can reach</i> block: the projects the database knows, grouped by workspace, each with its path, and a pointer to <code>gaia context project &lt;name&gt;</code>."
           - id: p9-obj-repos
