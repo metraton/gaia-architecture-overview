@@ -2,7 +2,7 @@
   "pages": [
     {
       "page": "s-shared-semantics",
-      "audio": "1.wav",
+      "audio": "audio/1.wav",
       "duration": 21.52,
       "method": "silencedetect",
       "speech": [
@@ -10,8 +10,6 @@
         21.12
       ],
       "pauses": 12,
-      "maxDeviation": 1.117,
-      "shortestMatchedPause": 0.406,
       "sentences": [
         {
           "text": "Today, most people work with AI alone.",
@@ -37,7 +35,7 @@
     },
     {
       "page": "p2-the-map",
-      "audio": "2.wav",
+      "audio": "audio/2.wav",
       "duration": 35.6,
       "method": "silencedetect",
       "speech": [
@@ -45,8 +43,6 @@
         35.093
       ],
       "pauses": 18,
-      "maxDeviation": 0.568,
-      "shortestMatchedPause": 0.283,
       "sentences": [
         {
           "text": "This is Gaia.",
@@ -97,7 +93,7 @@
     },
     {
       "page": "p4-life-of-a-request",
-      "audio": "3.wav",
+      "audio": "audio/3.wav",
       "duration": 41.72,
       "method": "silencedetect",
       "speech": [
@@ -105,8 +101,6 @@
         41.347
       ],
       "pauses": 22,
-      "maxDeviation": 1.272,
-      "shortestMatchedPause": 0.48,
       "sentences": [
         {
           "text": "Every request lives the same life.",
@@ -157,7 +151,7 @@
     },
     {
       "page": "p6-contracts",
-      "audio": "4.wav",
+      "audio": "audio/4.wav",
       "duration": 34.6,
       "method": "silencedetect",
       "speech": [
@@ -165,8 +159,6 @@
         34.167
       ],
       "pauses": 13,
-      "maxDeviation": 0.802,
-      "shortestMatchedPause": 0.691,
       "sentences": [
         {
           "text": "Everything travels as a contract.",
@@ -202,7 +194,7 @@
     },
     {
       "page": "p5-what-gaia-keeps",
-      "audio": "5.wav",
+      "audio": "audio/5.wav",
       "duration": 37.44,
       "method": "silencedetect",
       "speech": [
@@ -210,8 +202,6 @@
         37.217
       ],
       "pauses": 26,
-      "maxDeviation": 0.702,
-      "shortestMatchedPause": 0.222,
       "sentences": [
         {
           "text": "And Gaia remembers, in four memories, each answering one question.",
@@ -262,7 +252,7 @@
     },
     {
       "page": "p9-back-to-the-map",
-      "audio": "6.wav",
+      "audio": "audio/6.wav",
       "duration": 26.2,
       "method": "silencedetect",
       "speech": [
@@ -270,8 +260,6 @@
         25.872
       ],
       "pauses": 17,
-      "maxDeviation": 0.612,
-      "shortestMatchedPause": 0.563,
       "sentences": [
         {
           "text": "Starting is simple.",
