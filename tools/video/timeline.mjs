@@ -1,5 +1,5 @@
 // The video's timeline, derived from the deck: pages in the deck's order, what
-// each sentence shows in the order the deck places it, and only the chips the
+// each sentence shows in the order its section places it, and only the chips the
 // page declares. The script says when; the deck says what and in which order.
 // The plan turns it into seconds: every page is a slot of lead + speech + tail,
 // laid end to end from t=0, so capture and split cut at the same boundaries.
@@ -24,12 +24,12 @@ const WORD = /[\p{L}\p{N}][\p{L}\p{N}'’-]*/gu;
 /** The letters and digits of a text, lower-cased: what a said word and a timed word share. */
 export const letters = s => s.toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');
 
-function preorder(nodes, out = []) {
+function preorder(nodes, out = [], parentOf = {}, parent = null) {
   for (const n of nodes || []) {
-    if (n.id) out.push(n.id);
-    preorder(n.children, out);
+    if (n.id) { out.push(n.id); parentOf[n.id] = parent; }
+    preorder(n.children, out, parentOf, n.id ?? parent);
   }
-  return out;
+  return { order: out, parentOf };
 }
 
 // Where a cue's word first occurs in the sentence: its character index, for the
@@ -67,19 +67,20 @@ function sentenceCues(s, at, errors) {
 }
 
 function derivePage(page, sp, errors) {
-  const order = preorder(page.sections);
+  const { order, parentOf } = preorder(page.sections);
   const chips = (page.filters || []).map(f => f.key);
   const shown = new Set();
   const cues = [];
-  let reached = -1;
+  const reachedIn = new Map();
   sp.sentences.forEach((s, k) => {
     const at = `${sp.page} sentence ${k + 1}`;
     for (const cue of sentenceCues(s, at, errors)) {
       for (const id of cue.reveal || []) {
         const i = order.indexOf(id);
+        const reached = reachedIn.get(parentOf[id]) ?? -1;
         if (i < 0) errors.push(`${at}: shows "${id}", which is not on the page`);
-        else if (i < reached) errors.push(`${at}: shows "${id}" after "${order[reached]}", out of the deck's order`);
-        else reached = i;
+        else if (i < reached) errors.push(`${at}: shows "${id}" after "${order[reached]}", out of its section's order`);
+        else reachedIn.set(parentOf[id], i);
         shown.add(id);
       }
       if (cue.chip !== undefined && cue.chip !== 'all' && !chips.includes(cue.chip)) {
@@ -91,7 +92,8 @@ function derivePage(page, sp, errors) {
     }
   });
   const base = (page.sections || []).map(n => n.id).filter(id => id && !shown.has(id));
-  return { page: sp.page, audio: sp.audio, duration: sp.duration, sentences: sp.sentences.map(s => s.say), base, cues };
+  return { page: sp.page, audio: sp.audio, duration: sp.duration, sentences: sp.sentences.map(s => s.say),
+    timing: sp.sentences.map(s => ({ seconds: s.seconds, pause: s.pause ?? 0 })), base, cues };
 }
 
 /** Derives the timeline of the script's pages from the deck, or fails naming every mismatch. */
@@ -121,7 +123,8 @@ export function readAlign() {
 
 // Sentence times inside a page's audio: from align.json when it was made for
 // these sentences, else an estimate by length. A stale alignment fails. A silent
-// page spreads the estimate over its declared duration, which capture accepts.
+// page takes each sentence's own seconds and pause, or spreads the estimate over
+// its declared duration; capture accepts both.
 function sentenceTimes(page, align) {
   const a = align.pages.find(x => x.page === page.page);
   if (a) {
@@ -131,6 +134,14 @@ function sentenceTimes(page, align) {
     return { method: a.method, duration: a.duration, sentences: a.sentences };
   }
   let t = 0;
+  if (page.timing.every(x => x.seconds !== undefined)) {
+    const sentences = page.sentences.map((text, k) => {
+      const start = t, end = t + page.timing[k].seconds;
+      t = end + page.timing[k].pause;
+      return { text, start, end };
+    });
+    return { method: 'fixed', duration: t, sentences };
+  }
   const sentences = page.sentences.map(text => {
     const start = t;
     t += text.length / CHARS_PER_SECOND;

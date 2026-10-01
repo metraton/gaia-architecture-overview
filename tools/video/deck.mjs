@@ -21,7 +21,7 @@ const PLAYWRIGHT = join(HERE, 'node_modules', 'playwright');
 // speed or any markup belongs to the voice step, so an unknown key is refused.
 const SCRIPT_KEYS = new Set(['pages']);
 const PAGE_KEYS = new Set(['page', 'audio', 'duration', 'sentences']);
-const SENTENCE_KEYS = new Set(['say', 'show', 'chip', 'type', 'ask', 'cues']);
+const SENTENCE_KEYS = new Set(['say', 'seconds', 'pause', 'show', 'chip', 'type', 'ask', 'cues']);
 const CUE_KEYS = new Set(['at', 'show', 'chip', 'type', 'ask']);
 
 /** Prints one `[video]` message and ends the process with exit 1. */
@@ -72,8 +72,13 @@ export function readScript() {
     const where = `page ${p.page ?? i + 1}`;
     refuseUnknown(p, PAGE_KEYS, where);
     if (typeof p.page !== 'string') errors.push(`${where}: "page" must name a page id of the deck`);
-    if ((p.audio === undefined) === (p.duration === undefined)) {
-      errors.push(`${where}: give exactly one of "audio" (the narration file, relative to ${VIDEO_DIR}) or "duration" (seconds of a silent slot)`);
+    const sentences = Array.isArray(p.sentences) ? p.sentences : [];
+    const secondsCount = sentences.filter(s => s && s.seconds !== undefined).length;
+    if (secondsCount && secondsCount !== sentences.length) errors.push(`${where}: "seconds" must be on every sentence or on none`);
+    const timed = sentences.length > 0 && secondsCount === sentences.length;
+    if ([p.audio !== undefined, p.duration !== undefined, timed].filter(Boolean).length !== 1) {
+      errors.push(`${where}: time the page one way: "audio" (the narration file, relative to ${VIDEO_DIR}), ` +
+        `"duration" (seconds of a silent slot), or "seconds" on every sentence`);
     }
     if (p.audio !== undefined && typeof p.audio !== 'string') errors.push(`${where}: "audio" must declare the narration file, relative to ${VIDEO_DIR}`);
     if (p.duration !== undefined && !(typeof p.duration === 'number' && p.duration > 0)) errors.push(`${where}: "duration" must be a positive number of seconds`);
@@ -88,6 +93,9 @@ export function readScript() {
       if (s.chip !== undefined && typeof s.chip !== 'string') errors.push(`${at}: "chip" must be one chip key`);
       if (s.type !== undefined && typeof s.type !== 'string') errors.push(`${at}: "type" must be the id of one box to type`);
       if (s.ask !== undefined && typeof s.ask !== 'string') errors.push(`${at}: "ask" must be the id of one prompt box`);
+      if (s.seconds !== undefined && !(typeof s.seconds === 'number' && s.seconds > 0)) errors.push(`${at}: "seconds" must be a positive number`);
+      if (s.pause !== undefined && !(typeof s.pause === 'number' && s.pause >= 0)) errors.push(`${at}: "pause" must be a number of seconds, 0 or more`);
+      if (s.pause !== undefined && s.seconds === undefined) errors.push(`${at}: "pause" follows a sentence timed with "seconds"`);
       if (s.cues !== undefined && !(Array.isArray(s.cues) && s.cues.length)) {
         errors.push(`${at}: "cues" must list word cues ({ "at": <word>, "show", "chip", "type" or "ask" })`);
       }
