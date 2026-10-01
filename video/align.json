@@ -2271,869 +2271,953 @@
     {
       "page": "p-pilot-your-yes",
       "audio": "audio/7.wav",
-      "duration": 70.575,
+      "duration": 92.875,
       "method": "words",
       "speech": [
-        0.325,
-        70.325
+        0.35,
+        92.325
       ],
-      "words": 214,
+      "words": 241,
       "sentences": [
         {
-          "text": "Here is what happens when you ask Gaia for a change.",
-          "start": 0.325,
-          "end": 3.15,
+          "text": "Let's follow one request, from your question to the result.",
+          "start": 0.35,
+          "end": 3.75,
           "words": [
             {
-              "word": "Here",
-              "start": 0.325
+              "word": "Let's",
+              "start": 0.35
             },
             {
-              "word": "is",
-              "start": 0.55
+              "word": "follow",
+              "start": 0.6
             },
             {
-              "word": "what",
-              "start": 0.7
+              "word": "one",
+              "start": 0.925
             },
             {
-              "word": "happens",
-              "start": 0.85
+              "word": "request",
+              "start": 1.15
             },
             {
-              "word": "when",
-              "start": 1.262
-            },
-            {
-              "word": "you",
-              "start": 1.387
-            },
-            {
-              "word": "ask",
-              "start": 1.512
-            },
-            {
-              "word": "Gaia",
-              "start": 1.8
-            },
-            {
-              "word": "for",
-              "start": 2.125
-            },
-            {
-              "word": "a",
-              "start": 2.237
-            },
-            {
-              "word": "change",
-              "start": 2.337
-            }
-          ]
-        },
-        {
-          "text": "You ask for something, in your own words.",
-          "start": 3.775,
-          "end": 6.125,
-          "words": [
-            {
-              "word": "You",
-              "start": 3.775
-            },
-            {
-              "word": "ask",
-              "start": 3.912
-            },
-            {
-              "word": "for",
-              "start": 4.175
-            },
-            {
-              "word": "something",
-              "start": 4.3
-            },
-            {
-              "word": "in",
-              "start": 4.875
+              "word": "from",
+              "start": 1.975
             },
             {
               "word": "your",
-              "start": 4.963
+              "start": 2.138
             },
             {
-              "word": "own",
-              "start": 5.137
+              "word": "question",
+              "start": 2.275
             },
             {
-              "word": "words",
-              "start": 5.4
+              "word": "to",
+              "start": 2.775
+            },
+            {
+              "word": "the",
+              "start": 2.862
+            },
+            {
+              "word": "result",
+              "start": 2.95
             }
           ]
         },
         {
-          "text": "The orchestrator, the agent you talk to, sends the job to a specialist.",
-          "start": 6.675,
-          "end": 11.025,
+          "text": "It starts with you: you ask for something, in your own words.",
+          "start": 5.5,
+          "end": 9,
           "words": [
             {
-              "word": "The",
-              "start": 6.675
+              "word": "It",
+              "start": 5.5
             },
             {
-              "word": "orchestrator",
-              "start": 6.8
+              "word": "starts",
+              "start": 5.625
             },
             {
-              "word": "the",
-              "start": 7.537
-            },
-            {
-              "word": "agent",
-              "start": 7.688
+              "word": "with",
+              "start": 5.987
             },
             {
               "word": "you",
-              "start": 8.025
+              "start": 6.15
             },
             {
-              "word": "talk",
-              "start": 8.15
+              "word": "you",
+              "start": 6.662
             },
             {
-              "word": "to",
-              "start": 8.463
+              "word": "ask",
+              "start": 6.838
             },
             {
-              "word": "sends",
-              "start": 9.037
+              "word": "for",
+              "start": 7.125
+            },
+            {
+              "word": "something",
+              "start": 7.263
+            },
+            {
+              "word": "in",
+              "start": 7.738
+            },
+            {
+              "word": "your",
+              "start": 7.812
+            },
+            {
+              "word": "own",
+              "start": 7.988
+            },
+            {
+              "word": "words",
+              "start": 8.25
+            }
+          ]
+        },
+        {
+          "text": "Next, the orchestrator, the agent you talk to, sends the job to a specialist.",
+          "start": 10.125,
+          "end": 14.825,
+          "words": [
+            {
+              "word": "Next",
+              "start": 10.125
             },
             {
               "word": "the",
-              "start": 9.4
+              "start": 10.463
             },
             {
-              "word": "job",
-              "start": 9.537
+              "word": "orchestrator",
+              "start": 10.575
+            },
+            {
+              "word": "the",
+              "start": 11.312
+            },
+            {
+              "word": "agent",
+              "start": 11.463
+            },
+            {
+              "word": "you",
+              "start": 11.8
+            },
+            {
+              "word": "talk",
+              "start": 11.925
             },
             {
               "word": "to",
-              "start": 9.9
+              "start": 12.238
+            },
+            {
+              "word": "sends",
+              "start": 12.863
+            },
+            {
+              "word": "the",
+              "start": 13.188
+            },
+            {
+              "word": "job",
+              "start": 13.312
+            },
+            {
+              "word": "to",
+              "start": 13.675
             },
             {
               "word": "a",
-              "start": 9.988
+              "start": 13.762
             },
             {
               "word": "specialist",
-              "start": 10.05
+              "start": 13.838
             }
           ]
         },
         {
           "text": "Before it starts, Gaia gives it what it needs: the goal, your rules, and a form to fill in.",
-          "start": 11.6,
-          "end": 16.825,
+          "start": 15.9,
+          "end": 21.125,
           "words": [
             {
               "word": "Before",
-              "start": 11.6
-            },
-            {
-              "word": "it",
-              "start": 11.888
-            },
-            {
-              "word": "starts",
-              "start": 11.975
-            },
-            {
-              "word": "Gaia",
-              "start": 12.525
-            },
-            {
-              "word": "gives",
-              "start": 12.85
-            },
-            {
-              "word": "it",
-              "start": 13.062
-            },
-            {
-              "word": "what",
-              "start": 13.138
-            },
-            {
-              "word": "it",
-              "start": 13.263
-            },
-            {
-              "word": "needs",
-              "start": 13.35
-            },
-            {
-              "word": "the",
-              "start": 14.125
-            },
-            {
-              "word": "goal",
-              "start": 14.263
-            },
-            {
-              "word": "your",
-              "start": 14.7
-            },
-            {
-              "word": "rules",
-              "start": 14.913
-            },
-            {
-              "word": "and",
-              "start": 15.388
-            },
-            {
-              "word": "a",
-              "start": 15.488
-            },
-            {
-              "word": "form",
-              "start": 15.562
-            },
-            {
-              "word": "to",
               "start": 15.9
             },
             {
+              "word": "it",
+              "start": 16.188
+            },
+            {
+              "word": "starts",
+              "start": 16.275
+            },
+            {
+              "word": "Gaia",
+              "start": 16.825
+            },
+            {
+              "word": "gives",
+              "start": 17.15
+            },
+            {
+              "word": "it",
+              "start": 17.363
+            },
+            {
+              "word": "what",
+              "start": 17.438
+            },
+            {
+              "word": "it",
+              "start": 17.562
+            },
+            {
+              "word": "needs",
+              "start": 17.65
+            },
+            {
+              "word": "the",
+              "start": 18.425
+            },
+            {
+              "word": "goal",
+              "start": 18.562
+            },
+            {
+              "word": "your",
+              "start": 19
+            },
+            {
+              "word": "rules",
+              "start": 19.212
+            },
+            {
+              "word": "and",
+              "start": 19.688
+            },
+            {
+              "word": "a",
+              "start": 19.788
+            },
+            {
+              "word": "form",
+              "start": 19.863
+            },
+            {
+              "word": "to",
+              "start": 20.2
+            },
+            {
               "word": "fill",
-              "start": 16.038
+              "start": 20.337
             },
             {
               "word": "in",
-              "start": 16.275
+              "start": 20.575
             }
           ]
         },
         {
-          "text": "The specialist does the work.",
-          "start": 17.375,
-          "end": 19.1,
+          "text": "Then the specialist does the work.",
+          "start": 22.9,
+          "end": 24.675,
           "words": [
             {
-              "word": "The",
-              "start": 17.375
-            },
-            {
-              "word": "specialist",
-              "start": 17.488
-            },
-            {
-              "word": "does",
-              "start": 18.15
+              "word": "Then",
+              "start": 22.9
             },
             {
               "word": "the",
-              "start": 18.375
+              "start": 23.012
+            },
+            {
+              "word": "specialist",
+              "start": 23.113
+            },
+            {
+              "word": "does",
+              "start": 23.775
+            },
+            {
+              "word": "the",
+              "start": 24
             },
             {
               "word": "work",
-              "start": 18.5
+              "start": 24.125
             }
           ]
         },
         {
           "text": "It reads files, edits code, and runs tests.",
-          "start": 19.675,
-          "end": 22.525,
+          "start": 25.75,
+          "end": 28.6,
           "words": [
             {
               "word": "It",
-              "start": 19.675
+              "start": 25.75
             },
             {
               "word": "reads",
-              "start": 19.8
+              "start": 25.875
             },
             {
               "word": "files",
-              "start": 20.088
+              "start": 26.162
             },
             {
               "word": "edits",
-              "start": 20.65
+              "start": 26.725
             },
             {
               "word": "code",
-              "start": 20.975
+              "start": 27.05
             },
             {
               "word": "and",
-              "start": 21.313
+              "start": 27.387
             },
             {
               "word": "runs",
-              "start": 21.425
+              "start": 27.5
             },
             {
               "word": "tests",
-              "start": 21.738
+              "start": 27.812
             }
           ]
         },
         {
-          "text": "Gaia checks every action with fixed rules.",
-          "start": 23.125,
-          "end": 25.725,
+          "text": "All the while, Gaia checks every action with fixed rules.",
+          "start": 29.7,
+          "end": 33.025,
           "words": [
             {
+              "word": "All",
+              "start": 29.7
+            },
+            {
+              "word": "the",
+              "start": 29.862
+            },
+            {
+              "word": "while",
+              "start": 29.95
+            },
+            {
               "word": "Gaia",
-              "start": 23.125
+              "start": 30.375
             },
             {
               "word": "checks",
-              "start": 23.413
+              "start": 30.662
             },
             {
               "word": "every",
-              "start": 23.763
+              "start": 31.037
             },
             {
               "word": "action",
-              "start": 24.088
+              "start": 31.362
             },
             {
               "word": "with",
-              "start": 24.463
+              "start": 31.737
             },
             {
               "word": "fixed",
-              "start": 24.638
+              "start": 31.912
             },
             {
               "word": "rules",
-              "start": 24.95
+              "start": 32.25
             }
           ]
         },
         {
-          "text": "Safe actions go through, and you are not asked.",
-          "start": 26.35,
-          "end": 29.075,
+          "text": "Safe actions go through, so you are not asked.",
+          "start": 34.15,
+          "end": 36.7,
           "words": [
             {
               "word": "Safe",
-              "start": 26.35
+              "start": 34.15
             },
             {
               "word": "actions",
-              "start": 26.6
+              "start": 34.375
             },
             {
               "word": "go",
-              "start": 27.025
+              "start": 34.775
             },
             {
               "word": "through",
-              "start": 27.213
+              "start": 34.962
             },
             {
-              "word": "and",
-              "start": 27.725
+              "word": "so",
+              "start": 35.425
             },
             {
               "word": "you",
-              "start": 27.85
+              "start": 35.55
             },
             {
               "word": "are",
-              "start": 28
+              "start": 35.675
             },
             {
               "word": "not",
-              "start": 28.1
+              "start": 35.775
             },
             {
               "word": "asked",
-              "start": 28.363
+              "start": 36.012
             }
           ]
         },
         {
           "text": "Now the specialist wants to push the code.",
-          "start": 29.7,
-          "end": 32,
+          "start": 38.525,
+          "end": 40.825,
           "words": [
             {
               "word": "Now",
-              "start": 29.7
+              "start": 38.525
             },
             {
               "word": "the",
-              "start": 29.888
+              "start": 38.713
             },
             {
               "word": "specialist",
-              "start": 29.988
+              "start": 38.813
             },
             {
               "word": "wants",
-              "start": 30.625
+              "start": 39.45
             },
             {
               "word": "to",
-              "start": 30.838
+              "start": 39.663
             },
             {
               "word": "push",
-              "start": 30.925
+              "start": 39.75
             },
             {
               "word": "the",
-              "start": 31.175
+              "start": 40
             },
             {
               "word": "code",
-              "start": 31.288
+              "start": 40.113
             }
           ]
         },
         {
           "text": "That changes something other people use.",
-          "start": 32.6,
-          "end": 35.025,
+          "start": 41.925,
+          "end": 44.35,
           "words": [
             {
               "word": "That",
-              "start": 32.6
+              "start": 41.925
             },
             {
               "word": "changes",
-              "start": 32.862
+              "start": 42.188
             },
             {
               "word": "something",
-              "start": 33.275
+              "start": 42.6
             },
             {
               "word": "other",
-              "start": 33.637
+              "start": 42.962
             },
             {
               "word": "people",
-              "start": 33.95
+              "start": 43.275
             },
             {
               "word": "use",
-              "start": 34.337
+              "start": 43.663
             }
           ]
         },
         {
           "text": "So Gaia stops it, and the specialist waits.",
-          "start": 35.625,
-          "end": 38.275,
+          "start": 45.45,
+          "end": 48.1,
           "words": [
             {
               "word": "So",
-              "start": 35.625
+              "start": 45.45
             },
             {
               "word": "Gaia",
-              "start": 35.775
+              "start": 45.6
             },
             {
               "word": "stops",
-              "start": 36.075
+              "start": 45.9
             },
             {
               "word": "it",
-              "start": 36.5
+              "start": 46.325
             },
             {
               "word": "and",
-              "start": 36.8
+              "start": 46.625
             },
             {
               "word": "the",
-              "start": 36.913
+              "start": 46.738
             },
             {
               "word": "specialist",
-              "start": 37
+              "start": 46.825
             },
             {
               "word": "waits",
-              "start": 37.6
+              "start": 47.425
             }
           ]
         },
         {
-          "text": "The orchestrator asks you.",
-          "start": 38.825,
-          "end": 40.525,
+          "text": "This is where you come in: the orchestrator asks you.",
+          "start": 49.875,
+          "end": 53.025,
           "words": [
             {
-              "word": "The",
-              "start": 38.825
+              "word": "This",
+              "start": 49.875
             },
             {
-              "word": "orchestrator",
-              "start": 38.95
+              "word": "is",
+              "start": 50.075
             },
             {
-              "word": "asks",
-              "start": 39.637
+              "word": "where",
+              "start": 50.225
             },
             {
               "word": "you",
-              "start": 40.075
+              "start": 50.375
+            },
+            {
+              "word": "come",
+              "start": 50.525
+            },
+            {
+              "word": "in",
+              "start": 50.775
+            },
+            {
+              "word": "the",
+              "start": 51.275
+            },
+            {
+              "word": "orchestrator",
+              "start": 51.425
+            },
+            {
+              "word": "asks",
+              "start": 52.113
+            },
+            {
+              "word": "you",
+              "start": 52.55
             }
           ]
         },
         {
           "text": "Gaia writes the question, and checks it word for word.",
-          "start": 41.15,
-          "end": 44.25,
+          "start": 54.15,
+          "end": 57.25,
           "words": [
             {
               "word": "Gaia",
-              "start": 41.15
+              "start": 54.15
             },
             {
               "word": "writes",
-              "start": 41.45
+              "start": 54.45
             },
             {
               "word": "the",
-              "start": 41.737
+              "start": 54.738
             },
             {
               "word": "question",
-              "start": 41.825
+              "start": 54.825
             },
             {
               "word": "and",
-              "start": 42.575
+              "start": 55.575
             },
             {
               "word": "checks",
-              "start": 42.712
+              "start": 55.713
             },
             {
               "word": "it",
-              "start": 43.012
+              "start": 56.013
             },
             {
               "word": "word",
-              "start": 43.125
+              "start": 56.125
             },
             {
               "word": "for",
-              "start": 43.4
+              "start": 56.4
             },
             {
               "word": "word",
-              "start": 43.562
+              "start": 56.563
             }
           ]
         },
         {
           "text": "You see who asks, the exact command, and how to undo it.",
-          "start": 44.85,
-          "end": 48.35,
+          "start": 58.35,
+          "end": 61.85,
           "words": [
             {
               "word": "You",
-              "start": 44.85
+              "start": 58.35
             },
             {
               "word": "see",
-              "start": 44.987
+              "start": 58.488
             },
             {
               "word": "who",
-              "start": 45.2
+              "start": 58.7
             },
             {
               "word": "asks",
-              "start": 45.387
+              "start": 58.888
             },
             {
               "word": "the",
-              "start": 45.975
+              "start": 59.475
             },
             {
               "word": "exact",
-              "start": 46.125
+              "start": 59.625
             },
             {
               "word": "command",
-              "start": 46.575
+              "start": 60.075
             },
             {
               "word": "and",
-              "start": 47.112
+              "start": 60.613
             },
             {
               "word": "how",
-              "start": 47.225
+              "start": 60.725
             },
             {
               "word": "to",
-              "start": 47.362
+              "start": 60.863
             },
             {
               "word": "undo",
-              "start": 47.475
+              "start": 60.975
             },
             {
               "word": "it",
-              "start": 47.9
+              "start": 61.4
             }
           ]
         },
         {
-          "text": "You approve.",
-          "start": 48.95,
-          "end": 49.925,
+          "text": "Let's say you approve.",
+          "start": 63.65,
+          "end": 65.025,
           "words": [
             {
-              "word": "You",
-              "start": 48.95
+              "word": "Let's",
+              "start": 63.65
+            },
+            {
+              "word": "say",
+              "start": 63.9
+            },
+            {
+              "word": "you",
+              "start": 64.1
             },
             {
               "word": "approve",
-              "start": 49.125
+              "start": 64.25
             }
           ]
         },
         {
           "text": "Gaia writes down your answer.",
-          "start": 50.55,
-          "end": 52.25,
+          "start": 66.15,
+          "end": 67.85,
           "words": [
             {
               "word": "Gaia",
-              "start": 50.55
+              "start": 66.15
             },
             {
               "word": "writes",
-              "start": 50.825
+              "start": 66.425
             },
             {
               "word": "down",
-              "start": 51.125
+              "start": 66.725
             },
             {
               "word": "your",
-              "start": 51.363
+              "start": 66.963
             },
             {
               "word": "answer",
-              "start": 51.488
+              "start": 67.088
             }
           ]
         },
         {
           "text": "It works once, for this command only.",
-          "start": 52.825,
-          "end": 55.05,
+          "start": 68.925,
+          "end": 71.15,
           "words": [
             {
               "word": "It",
-              "start": 52.825
+              "start": 68.925
             },
             {
               "word": "works",
-              "start": 52.95
+              "start": 69.05
             },
             {
               "word": "once",
-              "start": 53.225
+              "start": 69.325
             },
             {
               "word": "for",
-              "start": 53.625
+              "start": 69.725
             },
             {
               "word": "this",
-              "start": 53.738
+              "start": 69.838
             },
             {
               "word": "command",
-              "start": 53.925
+              "start": 70.025
             },
             {
               "word": "only",
-              "start": 54.325
+              "start": 70.425
             }
           ]
         },
         {
-          "text": "The specialist continues where it stopped.",
-          "start": 55.6,
-          "end": 57.925,
+          "text": "With that, the specialist continues where it stopped.",
+          "start": 72.225,
+          "end": 75.125,
           "words": [
             {
-              "word": "The",
-              "start": 55.6
+              "word": "With",
+              "start": 72.225
+            },
+            {
+              "word": "that",
+              "start": 72.4
+            },
+            {
+              "word": "the",
+              "start": 72.763
             },
             {
               "word": "specialist",
-              "start": 55.675
+              "start": 72.863
             },
             {
               "word": "continues",
-              "start": 56.3
+              "start": 73.45
             },
             {
               "word": "where",
-              "start": 56.925
+              "start": 74.075
             },
             {
               "word": "it",
-              "start": 57.113
+              "start": 74.263
             },
             {
               "word": "stopped",
-              "start": 57.225
+              "start": 74.4
             }
           ]
         },
         {
           "text": "The command runs, exactly as you approved it.",
-          "start": 58.475,
-          "end": 61.475,
+          "start": 76.875,
+          "end": 79.875,
           "words": [
             {
               "word": "The",
-              "start": 58.475
+              "start": 76.875
             },
             {
               "word": "command",
-              "start": 58.55
+              "start": 76.95
             },
             {
               "word": "runs",
-              "start": 59
+              "start": 77.4
             },
             {
               "word": "exactly",
-              "start": 59.75
+              "start": 78.15
             },
             {
               "word": "as",
-              "start": 60.325
+              "start": 78.725
             },
             {
               "word": "you",
-              "start": 60.45
+              "start": 78.85
             },
             {
               "word": "approved",
-              "start": 60.575
+              "start": 78.975
             },
             {
               "word": "it",
-              "start": 61.05
+              "start": 79.45
             }
           ]
         },
         {
           "text": "Gaia checks the specialist's report.",
-          "start": 62.075,
-          "end": 64.1,
+          "start": 80.975,
+          "end": 83,
           "words": [
             {
               "word": "Gaia",
-              "start": 62.075
+              "start": 80.975
             },
             {
               "word": "checks",
-              "start": 62.363
+              "start": 81.263
             },
             {
               "word": "the",
-              "start": 62.663
+              "start": 81.563
             },
             {
               "word": "specialist's",
-              "start": 62.75
+              "start": 81.65
             },
             {
               "word": "report",
-              "start": 63.325
+              "start": 82.225
             }
           ]
         },
         {
-          "text": "Then the orchestrator tells you the result.",
-          "start": 64.675,
-          "end": 66.975,
+          "text": "And only then does the orchestrator tell you the result.",
+          "start": 84.075,
+          "end": 87.475,
           "words": [
             {
-              "word": "Then",
-              "start": 64.675
+              "word": "And",
+              "start": 84.075
+            },
+            {
+              "word": "only",
+              "start": 84.225
+            },
+            {
+              "word": "then",
+              "start": 84.55
+            },
+            {
+              "word": "does",
+              "start": 85.088
             },
             {
               "word": "the",
-              "start": 64.812
+              "start": 85.313
             },
             {
               "word": "orchestrator",
-              "start": 64.925
+              "start": 85.463
             },
             {
-              "word": "tells",
-              "start": 65.575
+              "word": "tell",
+              "start": 86.138
             },
             {
               "word": "you",
-              "start": 65.925
+              "start": 86.413
             },
             {
               "word": "the",
-              "start": 66.1
+              "start": 86.575
             },
             {
               "word": "result",
-              "start": 66.2
+              "start": 86.675
             }
           ]
         },
         {
           "text": "Nothing that matters runs without you seeing it.",
-          "start": 67.6,
-          "end": 70.325,
+          "start": 89.6,
+          "end": 92.325,
           "words": [
             {
               "word": "Nothing",
-              "start": 67.6
+              "start": 89.6
             },
             {
               "word": "that",
-              "start": 67.975
+              "start": 89.975
             },
             {
               "word": "matters",
-              "start": 68.188
+              "start": 90.188
             },
             {
               "word": "runs",
-              "start": 68.637
+              "start": 90.638
             },
             {
               "word": "without",
-              "start": 69.037
+              "start": 91.038
             },
             {
               "word": "you",
-              "start": 69.35
+              "start": 91.35
             },
             {
               "word": "seeing",
-              "start": 69.525
+              "start": 91.525
             },
             {
               "word": "it",
-              "start": 69.9
+              "start": 91.9
             }
           ]
         }

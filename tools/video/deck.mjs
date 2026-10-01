@@ -95,7 +95,9 @@ export function readScript() {
       if (s.ask !== undefined && typeof s.ask !== 'string') errors.push(`${at}: "ask" must be the id of one prompt box`);
       if (s.seconds !== undefined && !(typeof s.seconds === 'number' && s.seconds > 0)) errors.push(`${at}: "seconds" must be a positive number`);
       if (s.pause !== undefined && !(typeof s.pause === 'number' && s.pause >= 0)) errors.push(`${at}: "pause" must be a number of seconds, 0 or more`);
-      if (s.pause !== undefined && s.seconds === undefined) errors.push(`${at}: "pause" follows a sentence timed with "seconds"`);
+      if (s.pause !== undefined && s.seconds === undefined && p.audio === undefined) {
+        errors.push(`${at}: "pause" follows a sentence timed with "seconds" or voiced into the page's "audio"`);
+      }
       if (s.cues !== undefined && !(Array.isArray(s.cues) && s.cues.length)) {
         errors.push(`${at}: "cues" must list word cues ({ "at": <word>, "show", "chip", "type" or "ask" })`);
       }

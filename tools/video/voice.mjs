@@ -3,8 +3,10 @@
 // plus, when it can time words, the page's words file beside it (wordsPath).
 //
 //   npm run video:voice [-- --provider kokoro|manual] [--voice <id>[,<id>...]] [--speed <x>]
-//                          [--kokoro-venv <dir>] [--kokoro-model <dir>]
+//                          [--kokoro-venv <dir>] [--kokoro-model <dir>] [--pages id,id]
 //
+// A sentence's `pause` in the script is voiced as that many seconds of silence
+// after it, so the alignment of a paced page stays word-accurate.
 // kokoro runs this folder's kokoro_say.py with the interpreter of a venv the
 // person created, on a model they downloaded; it installs nothing. When either
 // is absent or Kokoro fails, the step continues as manual, which only reports
@@ -15,7 +17,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { DECK, HERE, argValue, audioPath, fail, readScript, requireDeck, scriptTextPath, wordsPath } from './deck.mjs';
-import { loadTimeline, voicedPages } from './timeline.mjs';
+import { loadTimeline, selectedPages, voicedPages } from './timeline.mjs';
 
 const PROVIDERS = ['kokoro', 'manual'];
 const KOKORO_HOME = join(homedir(), '.local', 'share', 'gaia-tts', 'kokoro');
@@ -41,7 +43,7 @@ function kokoro(jobs, venv, model, voice, speed) {
   if (missing.length) return `Kokoro is not installed (missing ${missing.join(', ')})`;
   for (const j of jobs) {
     const args = [KOKORO_SAY, '--model-dir', model, '--text-file', j.text, '--voice', voice, '--speed', speed,
-      '--out', j.audio, '--words', j.words];
+      '--out', j.audio, '--words', j.words, ...(j.gaps ? ['--gaps', j.gaps] : [])];
     const r = spawnSync(python, args, { encoding: 'utf8' });
     if (r.status !== 0) {
       const last = (r.stderr || r.error?.message || `exit ${r.status}`).trim().split('\n').pop();
@@ -58,9 +60,11 @@ const speed = argValue('--speed', KOKORO_SPEED);
 if (!(Number(speed) > 0)) fail(`--speed: "${speed}" is not a positive number`);
 const doc = requireDeck();
 const timeline = loadTimeline(doc, readScript());
+const chosen = selectedPages(timeline);
 const jobs = voicedPages(timeline).map((p, i) => ({
   page: p.page, text: scriptTextPath(p, i), audio: audioPath(p), words: wordsPath(p), said: p.sentences.join('\n') + '\n',
-}));
+  gaps: p.timing.some(x => x.pause) ? p.timing.map(x => x.pause).join(',') : '',
+})).filter(j => chosen.includes(j.page));
 const stale = jobs.filter(j => !existsSync(j.text) || readFileSync(j.text, 'utf8') !== j.said).map(j => j.text);
 if (stale.length) fail(`the exported text is missing or older than the script: ${stale.join(', ')}; run npm run video:script --prefix ${DECK}`);
 
