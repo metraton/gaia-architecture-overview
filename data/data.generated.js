@@ -155,52 +155,38 @@ window.__DOC__ = {
       "columns": 5,
       "filters": [
         {
-          "key": "the-human",
-          "label": "who decides?",
+          "key": "pillar-workflows",
+          "label": "1 · workflows",
           "steps": [
-            "A person does, and the machine stops to let them: HOOKS halts the turn exactly where a decision is needed, and APPROVALS keeps the record of who said yes. The record names every actor that touched it — what belongs to a person, and only to a person, is the yes."
+            "First, a workflow. You talk to one agent, the orchestrator, in your own words, and it turns what you ask into clear steps, each one sent to the agent that owns it. Every agent is built the same way, and answers in the same form, so what comes back is organized and checked. Fixed rules in code keep it all on course."
           ]
         },
         {
-          "key": "nothing-self-declared",
-          "label": "is it really done?",
+          "key": "pillar-standards",
+          "label": "2 · standards",
           "steps": [
-            "Only when someone else says so, and only when nothing is left hanging. TASK says how a step will be checked, VERIFICATION says who may check it — never whoever did the work — EVIDENCE is the trail left behind, and COMPLIANCE is the grade computed from it. CARRY-FORWARD is the rest of the answer: what is still open is carried explicitly into the next session, so nothing pending is lost. Without that, «done» can mean «quietly abandoned»."
+            "Second, standards. Every agent follows the same written patterns, its output is structured, so the next agent can use it right away, and commits, pull requests and docs read the same, so anyone can follow what happened. The team also shares its tools."
           ]
         },
         {
-          "key": "memory",
-          "label": "what do we remember?",
+          "key": "pillar-knowledge",
+          "label": "3 · knowledge",
           "steps": [
-            "The project's current facts (CONTEXT), what was already settled (DURABLE), what each turn did, stored as its filled-in contract (CONTRACTS), and what is still open (CARRY-FORWARD) — and also the history itself (CONVENTIONS), because one shared way of writing commits and docs is what lets someone who was not there follow it. Memory is more than a memory store."
+            "Third, knowledge that grows as you work. Gaia scans each project, keeps the decisions you made, brings back the work left open, and stores every turn as a filled-in form."
           ]
         },
         {
-          "key": "deterministic",
-          "label": "what does a rule decide?",
+          "key": "pillar-observability",
+          "label": "4 · observability",
           "steps": [
-            "Whatever must give the same answer every time is left to rules in code, not to a model: HOOKS keep the course, CONTEXT is scanned the same way each time, CONTRACTS are stored as structured data, APPROVALS grades each act by risk and keeps a record nobody can edit, COMPLIANCE is computed by six mechanical checks, and ANOMALIES are flagged mechanically."
+            "Fourth, you can see where the work stands. Every idea is written down, turned into a plan, split into small tasks with their tests, and checked by a separate agent."
           ]
         },
         {
-          "key": "semantic",
-          "label": "what does a model follow?",
+          "key": "pillar-audit",
+          "label": "5 · audit",
           "steps": [
-            "Written instructions, the same ones for everyone: ROUTING sends each request to its owner, STRUCTURE defines what an agent is, PROTOCOL is the form agents hand each other, SKILLS are the written procedures, a BRIEF is what a plan is built from, a PLAN is what the steps come from, and VERIFICATION is a checker working from the evidence."
-          ]
-        },
-        {
-          "key": "double-reader",
-          "label": "can we trust it?",
-          "steps": [
-            "Because the output always has the same shape, and that shape is checked, not believed: OUTPUTS is the shape, EVIDENCE is the trail read out of it, COMPLIANCE is the grade given to it. A machine and a person can both read it without taking anyone's word."
-          ]
-        },
-        {
-          "key": "security",
-          "label": "who can touch what?",
-          "steps": [
-            "Each agent, only its own area, and only with the consent its act deserves: STRUCTURE says what an agent may touch, APPROVALS asks for more explicit consent the riskier the act is, ANOMALIES flags whoever steps outside their scope, and TOOLS says who may change the toolchain: anyone on the team, not a small group."
+            "And fifth, audit. A person is in charge of every change that matters, every step leaves a trail, every turn is graded, and bad habits are flagged."
           ]
         }
       ],
@@ -235,8 +221,7 @@ window.__DOC__ = {
         },
         {
           "id": "pillars",
-          "title": "GAIA",
-          "subtitle": "an organization should share…",
+          "title": "What an organization should share",
           "order": 2,
           "span": 5,
           "columns": 5,
@@ -256,14 +241,14 @@ window.__DOC__ = {
                   "id": "w-routing",
                   "order": 1,
                   "kicker": "ROUTING",
-                  "filters": [
-                    "semantic"
-                  ],
                   "title": "Agentic orchestration",
                   "description": [
                     "every request goes to whoever owns it"
                   ],
-                  "detail": "Orchestration is a way of working, not a list of roles. One coordinator does no work itself: it reads a request, sends it to whoever owns that area, and reads the answer back. Because the route follows ownership, the work moves the same way no matter who asked for it."
+                  "detail": "Orchestration is a way of working, not a list of roles. One coordinator does no work itself: it reads a request, sends it to whoever owns that area, and reads the answer back. Because the route follows ownership, the work moves the same way no matter who asked for it.",
+                  "filters": [
+                    "pillar-workflows"
+                  ]
                 },
                 {
                   "id": "w-structure",
@@ -275,22 +260,21 @@ window.__DOC__ = {
                   ],
                   "detail": "An agent is more than a prompt: a contract for what it must return, an identity for how it works, a scope for what it may touch, and the errors it knows how to handle. Every agent has those same four parts, and every agent owns one area — nine agents exist today, the orchestrator and eight specialists, and more can be added. That is what lets one agent read another one's work.",
                   "filters": [
-                    "semantic",
-                    "security"
+                    "pillar-workflows"
                   ]
                 },
                 {
                   "id": "w-protocol",
                   "order": 3,
                   "kicker": "PROTOCOL",
-                  "filters": [
-                    "semantic"
-                  ],
                   "title": "How agents talk",
                   "description": [
                     "one fixed form, never loose prose"
                   ],
-                  "detail": "Agents hand each other one fixed form, never free text. It always carries the same fields: what was done, what was run, what was checked, what is still open. Whoever reads it already knows its shape, so nobody has to read a story to work out what happened."
+                  "detail": "Agents hand each other one fixed form, never free text. It always carries the same fields: what was done, what was run, what was checked, what is still open. Whoever reads it already knows its shape, so nobody has to read a story to work out what happened.",
+                  "filters": [
+                    "pillar-workflows"
+                  ]
                 },
                 {
                   "id": "w-hooks",
@@ -302,8 +286,7 @@ window.__DOC__ = {
                   ],
                   "detail": "Some rules live in code, outside the agent, and run at fixed moments: before each action and when a turn ends. The agent cannot rewrite or skip them. When an action would change something real, they stop it for a person.",
                   "filters": [
-                    "the-human",
-                    "deterministic"
+                    "pillar-workflows"
                   ]
                 }
               ]
@@ -323,53 +306,53 @@ window.__DOC__ = {
                   "id": "s-skills",
                   "order": 1,
                   "kicker": "SKILLS",
-                  "filters": [
-                    "semantic"
-                  ],
-                  "title": "How the work is done",
+                  "title": "Shared patterns",
                   "description": [
-                    "written procedures: how to act, how to answer, even the tone"
+                    "how every agent works and answers"
                   ],
-                  "detail": "A skill is a written procedure: how to work on something, how to answer, even which tone to hold. The base discipline every agent must hold travels with it from its first word — on purpose; everything else is picked up only when it is needed, because the task matches what the skill is for or because an agent asks for it by name. So the way of working is written down once for everyone, and loaded at the moment it earns its place."
+                  "detail": "Skills are written patterns: how to approach a task, how to answer, even the tone. Every agent follows the same ones, so the work behaves the same no matter who asked.",
+                  "filters": [
+                    "pillar-standards"
+                  ]
                 },
                 {
                   "id": "s-outputs",
                   "order": 2,
                   "kicker": "OUTPUTS",
-                  "title": "The standard is the output",
+                  "title": "Made for agents",
                   "description": [
-                    "one shape, read by the next agent and by a person"
+                    "structured, ready to reuse"
                   ],
-                  "detail": "The output has one fixed shape. The next agent can use the work without reading it again, and a person can check it without having to interpret it. One shape, two readers — drop the shape and both of them are back to reading prose.",
+                  "detail": "Every result has one structured shape. The next agent can use it right away, without reading it again or guessing what happened.",
                   "filters": [
-                    "double-reader"
+                    "pillar-standards"
                   ]
                 },
                 {
                   "id": "s-conventions",
                   "order": 3,
                   "kicker": "CONVENTIONS",
-                  "title": "Commits, PRs, docs",
+                  "title": "Readable by everyone",
                   "description": [
-                    "one way of writing the history, for everyone"
+                    "commits, PRs, docs"
                   ],
-                  "detail": "One shared way of writing the project's history: how a commit message is written, what a pull request has to explain, how a README is laid out. When everyone writes the same way, the history stays readable for someone who was not there. That makes it memory too, even though it does not live in a memory store — and it is what makes the past usable months later.",
+                  "detail": "Commits, pull requests and docs follow one style. A person who was not there can still understand quickly what changed and why.",
                   "filters": [
-                    "memory"
+                    "pillar-standards"
                   ]
                 },
                 {
                   "id": "s-tools",
                   "order": 4,
                   "kicker": "TOOLS",
-                  "filters": [
-                    "security"
-                  ],
                   "title": "Tools the team provides",
                   "description": [
                     "provided from inside, shared outside, improved by anyone"
                   ],
-                  "detail": "Any tool can be used; what matters is who provides it. The organization should provide its own internal tools, the whole team should work with the same external ones, and the setup around them should be something anyone can improve. So nobody builds the same thing twice, the work looks the same wherever it happens, and no small group owns the toolchain."
+                  "detail": "Any tool can be used; what matters is who provides it. The organization should provide its own internal tools, the whole team should work with the same external ones, and the setup around them should be something anyone can improve. So nobody builds the same thing twice, the work looks the same wherever it happens, and no small group owns the toolchain.",
+                  "filters": [
+                    "pillar-standards"
+                  ]
                 }
               ]
             },
@@ -394,8 +377,7 @@ window.__DOC__ = {
                   ],
                   "detail": "Project context is a process, not a file. The facts are found by scanning the project the same way every time, every turn adds what it learned, and each agent receives only the slice its role needs. Because it is measured rather than remembered, it is the most current picture available.",
                   "filters": [
-                    "memory",
-                    "deterministic"
+                    "pillar-knowledge"
                   ]
                 },
                 {
@@ -408,7 +390,7 @@ window.__DOC__ = {
                   ],
                   "detail": "Long memory keeps what stays true after the session that produced it is closed: decisions already taken, stable facts, dead ends worth not walking again. It holds facts about the project — not rules for the tool, not a record of how anyone behaves. So a new session starts knowing what the project already settled, instead of deciding it again.",
                   "filters": [
-                    "memory"
+                    "pillar-knowledge"
                   ]
                 },
                 {
@@ -421,8 +403,7 @@ window.__DOC__ = {
                   ],
                   "detail": "Some work is left open on purpose, and this is where it waits. A pending item does not die with the chat that raised it: it comes back at the start of the next session. That is what makes stopping safe — nothing pending is lost, and «done» can never mean «quietly abandoned».",
                   "filters": [
-                    "memory",
-                    "nothing-self-declared"
+                    "pillar-knowledge"
                   ]
                 },
                 {
@@ -435,8 +416,7 @@ window.__DOC__ = {
                   ],
                   "detail": "Every turn closes with its contract: what was asked, what ran, what it printed and what is still open. Gaia stores it as structured data, next to the record the machine writes of each turn. Later sessions can search what was really done, instead of reading old chats.",
                   "filters": [
-                    "memory",
-                    "deterministic"
+                    "pillar-knowledge"
                   ]
                 }
               ]
@@ -456,27 +436,27 @@ window.__DOC__ = {
                   "id": "o-brief",
                   "order": 1,
                   "kicker": "BRIEF",
-                  "filters": [
-                    "semantic"
-                  ],
                   "title": "Where ideas are kept",
                   "description": [
                     "a place to capture an idea, and what «done» will mean"
                   ],
-                  "detail": "A brief is one place where an idea is written down and kept, rather than a message in a chat that scrolls away. It captures ideas, puts them in order, turns a request or a proposal into something that can be planned, and carries what «done» will mean next to the idea itself. So an idea can be found again later, and nobody decides afterwards what finished was supposed to mean."
+                  "detail": "A brief is one place where an idea is written down and kept, rather than a message in a chat that scrolls away. It captures ideas, puts them in order, turns a request or a proposal into something that can be planned, and carries what «done» will mean next to the idea itself. So an idea can be found again later, and nobody decides afterwards what finished was supposed to mean.",
+                  "filters": [
+                    "pillar-observability"
+                  ]
                 },
                 {
                   "id": "o-plan",
                   "order": 2,
                   "kicker": "PLAN",
-                  "filters": [
-                    "semantic"
-                  ],
                   "title": "From idea to solution",
                   "description": [
                     "research the idea, turn it into a solution, get the tasks"
                   ],
-                  "detail": "A plan is where an idea becomes a technical solution. The idea is researched against the real code first — can this be done, and where does it land — and the tasks are what that solution needs. So the steps come out of the research instead of out of a guess, while what «done» means stays with the idea."
+                  "detail": "A plan is where an idea becomes a technical solution. The idea is researched against the real code first — can this be done, and where does it land — and the tasks are what that solution needs. So the steps come out of the research instead of out of a guess, while what «done» means stays with the idea.",
+                  "filters": [
+                    "pillar-observability"
+                  ]
                 },
                 {
                   "id": "o-task",
@@ -488,7 +468,7 @@ window.__DOC__ = {
                   ],
                   "detail": "A task is a group of steps, and each step carries the check that closes it. The check is decided when the work is planned, not improvised when it is reviewed — a command to run, a piece of code, a judgement, or a review. A step is atomic on purpose: it is either waiting, done or skipped, and the «being worked on» lives in the turn that works it, not in the step. From a planned step, the turn that did the work and the turn that checked it can both be followed — step, work and check stay one thread.",
                   "filters": [
-                    "nothing-self-declared"
+                    "pillar-observability"
                   ]
                 },
                 {
@@ -501,8 +481,7 @@ window.__DOC__ = {
                   ],
                   "detail": "A separate agent checks the work. It starts with no memory of how the work was done, so it can only test what the evidence shows. It never checks its own work.",
                   "filters": [
-                    "nothing-self-declared",
-                    "semantic"
+                    "pillar-observability"
                   ]
                 }
               ]
@@ -528,9 +507,7 @@ window.__DOC__ = {
                   ],
                   "detail": "Reading changes nothing, so it runs on its own. A change that matters stops until a person approves that exact command. The record of each answer cannot be edited later.",
                   "filters": [
-                    "the-human",
-                    "security",
-                    "deterministic"
+                    "pillar-audit"
                   ]
                 },
                 {
@@ -543,8 +520,7 @@ window.__DOC__ = {
                   ],
                   "detail": "Every turn leaves a trail inside its own answer. It records what was run, what was touched, what was checked and what is still open — a filled-in form, not a story. So it can be read without having to trust whoever wrote it.",
                   "filters": [
-                    "double-reader",
-                    "nothing-self-declared"
+                    "pillar-audit"
                   ]
                 },
                 {
@@ -557,9 +533,7 @@ window.__DOC__ = {
                   ],
                   "detail": "Every turn is graded by six mechanical checks on its own record. They ask whether the answer was well formed, whether it looked before it changed anything, whether it used the context it was given, whether it ran its commands cleanly, whether it repeated itself, and whether it wrote outside what it owns — and the grade comes out as a score and a letter. Nobody is asked to rate their own turn: the grade is computed from what the turn actually did.",
                   "filters": [
-                    "double-reader",
-                    "nothing-self-declared",
-                    "deterministic"
+                    "pillar-audit"
                   ]
                 },
                 {
@@ -572,40 +546,12 @@ window.__DOC__ = {
                   ],
                   "detail": "Bad discipline is flagged on its own, apart from cost. One side names skipped looking, missing or empty evidence, a skipped check, work outside what someone owns; the other names how much it cost, how long it took, how often it called out. Keeping the two apart is the point: bad discipline is a finding by itself, not a footnote at the end of a cost report.",
                   "filters": [
-                    "security",
-                    "deterministic"
+                    "pillar-audit"
                   ]
                 }
               ]
             }
           ]
-        },
-        {
-          "id": "prompt",
-          "treatment": [
-            "plain",
-            "compact"
-          ],
-          "tokens": {
-            "row": {
-              "cell_h": 60
-            }
-          },
-          "order": 3,
-          "span": 5,
-          "columns": 1,
-          "children": [
-            {
-              "id": "p1-prompt",
-              "order": 1,
-              "variant": "accent",
-              "kicker": "PROMPT",
-              "title": "Why would my team need Gaia?"
-            }
-          ],
-          "css_vars": {
-            "--cell-h": "60px"
-          }
         }
       ],
       "name": "1 · Why",
