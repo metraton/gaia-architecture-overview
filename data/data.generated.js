@@ -3938,7 +3938,7 @@ window.__DOC__ = {
               "title": "You",
               "subtitle": "the one who approves",
               "treatment": [
-                "plain"
+                "envelope"
               ],
               "order": 1,
               "span": 1,
@@ -3972,9 +3972,9 @@ window.__DOC__ = {
                 {
                   "id": "s7-y4",
                   "order": 3,
-                  "title": "Sees the execution details",
+                  "title": "Sees the details",
                   "description": [
-                    "who asks · what runs · how to undo"
+                    "who · what runs · how to undo"
                   ],
                   "detail": "The question names the agent and the exact command. Details adds what it does, its impact, how it is checked and how to roll it back.",
                   "filters": [
@@ -3986,7 +3986,7 @@ window.__DOC__ = {
                   "order": 4,
                   "title": "Decides",
                   "description": [
-                    "approve · reject · or let it expire"
+                    "approve · reject · let it expire"
                   ],
                   "detail": "Approve covers this one command, once. Reject means nothing runs. A request nobody answers expires.",
                   "filters": [
@@ -4012,7 +4012,7 @@ window.__DOC__ = {
               "title": "The orchestrator",
               "subtitle": "the model you talk to",
               "treatment": [
-                "plain"
+                "envelope"
               ],
               "order": 2,
               "span": 1,
@@ -4087,7 +4087,7 @@ window.__DOC__ = {
               "title": "Gaia's engine",
               "subtitle": "code, a rule, no model",
               "treatment": [
-                "plain"
+                "envelope"
               ],
               "order": 3,
               "span": 1,
@@ -4099,7 +4099,7 @@ window.__DOC__ = {
                   "kicker": "CONTEXT INJECTION",
                   "title": "Prepares the specialist",
                   "description": [
-                    "its goal, its contract, your rules"
+                    "goal, contract, your rules"
                   ],
                   "detail": "When a specialist starts, a hook (SubagentStart) injects its contract (the goal and the form it fills in), what it may read and write in the project, your standing rules and the commands it can use. Project details are read on demand.",
                   "filters": [
@@ -4152,7 +4152,7 @@ window.__DOC__ = {
                   "kicker": "AUDIT TRAIL",
                   "title": "Records your answer",
                   "description": [
-                    "a one-time pass for this specialist"
+                    "one-time pass, this specialist"
                   ],
                   "detail": "Each answer is stamped and linked to the step before, so a changed record shows. An approval becomes a one-time pass bound to this session and this specialist.",
                   "filters": [
@@ -4179,7 +4179,7 @@ window.__DOC__ = {
               "title": "The specialist",
               "subtitle": "a model, one field",
               "treatment": [
-                "plain"
+                "envelope"
               ],
               "order": 4,
               "span": 1,
@@ -4190,7 +4190,7 @@ window.__DOC__ = {
                   "order": 1,
                   "title": "Subagent born",
                   "description": [
-                    "its identity · its skills · its tools"
+                    "identity · skills · tools"
                   ],
                   "detail": "Each agent is one file that names it and lists its tools and the skills it needs. Claude Code loads those skills when the agent starts.",
                   "filters": [
@@ -4202,7 +4202,7 @@ window.__DOC__ = {
                   "order": 2,
                   "title": "Does the work",
                   "description": [
-                    "reads files · edits code · runs tests"
+                    "reads · edits · runs tests"
                   ],
                   "detail": "Most of the work is reading and editing files and running checks.",
                   "filters": [
@@ -4228,7 +4228,7 @@ window.__DOC__ = {
                   "id": "s7-s6",
                   "order": 4,
                   "kicker": "EXECUTION",
-                  "title": "Runs it once, then reports",
+                  "title": "Runs it, then reports",
                   "description": [
                     "only the approved command"
                   ],

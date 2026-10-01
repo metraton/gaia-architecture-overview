@@ -56,7 +56,7 @@ sections:
       - id: s7-you
         title: "You"
         subtitle: "the one who approves"
-        treatment: [plain]
+        treatment: [envelope]
         order: 1
         span: 1
         columns: 1
@@ -76,14 +76,14 @@ sections:
             filters: [moment-work]
           - id: s7-y4
             order: 3
-            title: "Sees the execution details"
-            description: ["who asks · what runs · how to undo"]
+            title: "Sees the details"
+            description: ["who · what runs · how to undo"]
             detail: "The question names the agent and the exact command. Details adds what it does, its impact, how it is checked and how to roll it back."
             filters: [moment-asked]
           - id: s7-y5
             order: 4
             title: "Decides"
-            description: ["approve · reject · or let it expire"]
+            description: ["approve · reject · let it expire"]
             detail: "Approve covers this one command, once. Reject means nothing runs. A request nobody answers expires."
             filters: [moment-decide]
           - id: s7-y6
@@ -96,7 +96,7 @@ sections:
       - id: s7-orch
         title: "The orchestrator"
         subtitle: "the model you talk to"
-        treatment: [plain]
+        treatment: [envelope]
         order: 2
         span: 1
         columns: 1
@@ -137,7 +137,7 @@ sections:
       - id: s7-engine
         title: "Gaia's engine"
         subtitle: "code, a rule, no model"
-        treatment: [plain]
+        treatment: [envelope]
         order: 3
         span: 1
         columns: 1
@@ -146,7 +146,7 @@ sections:
             order: 1
             kicker: "CONTEXT INJECTION"
             title: "Prepares the specialist"
-            description: ["its goal, its contract, your rules"]
+            description: ["goal, contract, your rules"]
             detail: "When a specialist starts, a hook (SubagentStart) injects its contract (the goal and the form it fills in), what it may read and write in the project, your standing rules and the commands it can use. Project details are read on demand."
             filters: [moment-ask]
           - id: s7-e2
@@ -175,7 +175,7 @@ sections:
             order: 5
             kicker: "AUDIT TRAIL"
             title: "Records your answer"
-            description: ["a one-time pass for this specialist"]
+            description: ["one-time pass, this specialist"]
             detail: "Each answer is stamped and linked to the step before, so a changed record shows. An approval becomes a one-time pass bound to this session and this specialist."
             filters: [moment-decide]
           - id: s7-e6
@@ -189,7 +189,7 @@ sections:
       - id: s7-spec
         title: "The specialist"
         subtitle: "a model, one field"
-        treatment: [plain]
+        treatment: [envelope]
         order: 4
         span: 1
         columns: 1
@@ -197,13 +197,13 @@ sections:
           - id: s7-s1
             order: 1
             title: "Subagent born"
-            description: ["its identity · its skills · its tools"]
+            description: ["identity · skills · tools"]
             detail: "Each agent is one file that names it and lists its tools and the skills it needs. Claude Code loads those skills when the agent starts."
             filters: [moment-ask]
           - id: s7-s2
             order: 2
             title: "Does the work"
-            description: ["reads files · edits code · runs tests"]
+            description: ["reads · edits · runs tests"]
             detail: "Most of the work is reading and editing files and running checks."
             filters: [moment-work]
           - id: s7-s3
@@ -216,7 +216,7 @@ sections:
           - id: s7-s6
             order: 4
             kicker: "EXECUTION"
-            title: "Runs it once, then reports"
+            title: "Runs it, then reports"
             description: ["only the approved command"]
             detail: "The same specialist runs the approved command once, then closes its contract: what changed, the commands, their output and what is still open."
             filters: [moment-run]
