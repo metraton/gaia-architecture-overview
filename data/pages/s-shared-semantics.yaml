@@ -1,93 +1,10 @@
-# S-shared-semantics — the deck's opening page: what an organization must SHARE
-# for AI to work as a team instead of five people each alone with an agent.
+# The page says what an organization must share, not how Gaia implements it,
+# so its face keeps no internal table or field names.
 #
-# The page is CONCEPTUAL: it says what an organization needs, not how Gaia
-# implements it. The language is deliberately plain — short sentences, no
-# internal table or field names — and a technical anchor survives ONLY where it
-# IS the proof of the claim and there is no conceptual way to say it (the hashed
-# approval chain in APPROVALS is the one case left).
-#
-# Form: dashboard — the reading DIVERGES into five pillars; it is a structure
-# that stands, not a process that moves, so there is no timeline and no flow
-# chip.
-#
-# Three stacked bands at the root (columns:5):
-#   1. THESIS — a frameless (`treatment: [plain]`) band holding ONE centered
-#      neutral box, the deck's one heading style (page 2's `mp-you`): the
-#      diagnosis, alone, before any structure. It ASKS; the container below
-#      ANSWERS, which is why it stays outside that container. IT CARRIES A
-#      KICKER, one title and one question. The band is deliberately spare:
-#      anything more competes with the five pillars it introduces. A leaf cell is a FIXED --cell-h (130px), so two lines of ink
-#      do not fill it; the void is closed in the GEOMETRY rather than with
-#      filler text, by the `centered` treatment now centring on both axes
-#      (index.html). Adding ink to fill a cell would have paid for the geometry
-#      with meaning.
-#   2. THE ANSWER — ONE container section, `An organization should share…`,
-#      holding the five pillars as its nested children. The nesting is the
-#      assertion: the five pillars are the five MEMBERS OF ONE answer, not five
-#      neighbouring topics, and the parts of one thing belong inside its
-#      section. The container's title is an ellipsis that the five pillar names
-#      complete as you read them. Inside it, five INLINE sections (span:1) share
-#      one compound row, each `columns: 1` so its four boxes stack downward;
-#      they stay five distinct sections because each pillar IS distinct — what
-#      the container asserts is their common membership, not their sameness.
-#      All five carry exactly four boxes, so the row closes as a full rectangle
-#      with no hole to declare.
-#      COST OF THE NESTING: one more level eats horizontal room, and the five
-#      columns only appear above the 1440px stage tier (~1460px of browser).
-#      The container-query cut is on the STAGE, not on the nested container, so
-#      the extra level does not move that threshold — it only narrows each
-#      pillar slice by the container's own padding.
-#   3. THE COLOUR CHANNEL — a frameless base band holding a dotted separator
-#      WITH TEXT (the same footnote weight `s0-vision` closes with), not a
-#      card: it speaks about the page, not about the pillars, so it stays
-#      outside the container too, and a card here would compete with the
-#      pillars for attention. It still DECLARES the channel in the content:
-#      amber means "named here, not instrumented yet", and exactly one box on
-#      the page carries it (`o-verification`: the checker's verdict closes the
-#      check, but does not yet close the step itself). No glyph anywhere: the
-#      colour and this line ARE the whole channel.
-#
-# FILTERS — five cross-cutting relations. Each one is ANCHORED in a different
-# pillar and REACHES boxes of other pillars, which is the whole point: the five
-# pillars are not silos. The overlaps between chips are deliberate — one box can
-# belong to several relations, and showing that is the reason the chips exist.
-#
-# EVERY LABEL IS A QUESTION, and that is the device of the chip bar: the bar is
-# the list of questions the audience already arrives with, and clicking one
-# ANSWERS it by lighting boxes across several pillars at once. So the relation
-# text of each chip is written as the answer to its own question, not as a
-# definition. The key stays a stable descriptive slug; the label is what the
-# audience reads.
-#   * the-human            — "who decides?" — anchored in WORKFLOWS (HOOKS), reaches AUDIT
-#                            (APPROVALS): the machine halts where a person
-#                            decides, and the yes in the record belongs only
-#                            to a person.
-#   * double-reader        — "can we trust it?" — anchored in STANDARDS
-#                            (OUTPUTS), reaches AUDIT (EVIDENCE, COMPLIANCE):
-#                            one output shape is what makes the work readable by
-#                            a machine and by a person without taking anyone's
-#                            word for it.
-#   * memory               — "what do we remember?" — anchored in KNOWLEDGE (CONTEXT, DURABLE,
-#                            EPISODIC, CARRY-FORWARD), reaches STANDARDS
-#                            (CONVENTIONS). The reach IS the claim: a shared
-#                            way of writing commits and docs is what keeps the
-#                            history readable for someone who was not there,
-#                            and that is memory too, even though it lives in
-#                            the history and not in a memory store.
-#   * nothing-self-declared — "is it really done?" — anchored in OBSERVABILITY
-#                            (TASK, VERIFICATION), reaches AUDIT (EVIDENCE,
-#                            COMPLIANCE) and KNOWLEDGE (CARRY-FORWARD): nobody
-#                            certifies their own work — and the question is not
-#                            answered by the check alone. What guarantees that
-#                            nothing pending is lost is the work carried
-#                            explicitly into the next session; without it,
-#                            "done" can mean "quietly abandoned". That is why
-#                            this chip crosses three pillars.
-#   * security             — "who can touch what?" — anchored in AUDIT (APPROVALS, ANOMALIES), reaches
-#                            WORKFLOWS (STRUCTURE): scope and risk — what an
-#                            agent may touch, how much consent an act needs, and
-#                            what is flagged when someone steps outside.
+# The five pillars sit inside the GAIA section because they are members of one
+# answer; each chip is anchored in one pillar and reaches boxes of others, which
+# is why one box can carry several chips. Each " " keeps the last two words
+# of a line together at 1920px.
 id: s-shared-semantics
 layout: grid
 form: dashboard
@@ -105,11 +22,11 @@ filters:
   - key: memory
     label: "what do we remember?"
     steps:
-      - "The project's current facts (CONTEXT), what was already settled (DURABLE), what actually happened turn by turn (EPISODIC), and what is still open (CARRY-FORWARD) — and also the history itself (CONVENTIONS), because one shared way of writing commits and docs is what lets someone who was not there follow it. Memory is more than a memory store."
+      - "The project's current facts (CONTEXT), what was already settled (DURABLE), what each turn did, stored as its filled-in contract (CONTRACTS), and what is still open (CARRY-FORWARD) — and also the history itself (CONVENTIONS), because one shared way of writing commits and docs is what lets someone who was not there follow it. Memory is more than a memory store."
   - key: deterministic
     label: "what does a rule decide?"
     steps:
-      - "Whatever must give the same answer every time is left to rules in code, not to a model: HOOKS keep the course, CONTEXT is scanned the same way each time, EPISODIC is written by the machine, APPROVALS grades each act by risk and keeps a record nobody can edit, COMPLIANCE is computed by six mechanical checks, and ANOMALIES are flagged mechanically."
+      - "Whatever must give the same answer every time is left to rules in code, not to a model: HOOKS keep the course, CONTEXT is scanned the same way each time, CONTRACTS are stored as structured data, APPROVALS grades each act by risk and keeps a record nobody can edit, COMPLIANCE is computed by six mechanical checks, and ANOMALIES are flagged mechanically."
   - key: semantic
     label: "what does a model follow?"
     steps:
@@ -124,33 +41,27 @@ filters:
       - "Each agent, only its own area, and only with the consent its act deserves: STRUCTURE says what an agent may touch, APPROVALS asks for more explicit consent the riskier the act is, ANOMALIES flags whoever steps outside their scope, and TOOLS says who may change the toolchain: anyone on the team, not a small group."
 
 sections:
-  # 1 · THESIS — the diagnosis, frameless and alone, before any structure.
   - id: thesis
-    treatment: [plain]
+    treatment: [plain, compact]
+    tokens:
+      row:
+        cell_h: 60
     order: 1
     span: 5
     columns: 1
     children:
       - id: th-claim
-        kicker: "THE THESIS"
-        title: "An AI-oriented way of working."
-        description:
-          - "how does an organization break the isolation of agentic work?"
+        title: "Becoming AI-first"
         detail: "Agentic work is lonely by default: one person, one agent, one session. Nothing is shared between them, so what one turn learns is lost for the next, no two people work alike, and a model only knows what it can read. Sharing five things turns lonely work into team work: how the work is shaped, how the output is shaped, what is remembered, what can be seen while it happens, and what can be checked afterwards."
         treatment: [centered]
 
-  # 2 · THE ANSWER — one container, five members. The pillars live INSIDE it
-  # because they are the parts of one answer; the thesis above asks and this
-  # section answers. Each pillar keeps its own section: distinct things stay
-  # distinct, and the container asserts only that they belong to one answer.
   - id: pillars
-    title: "An organization should share…"
-    treatment: [envelope]
+    title: "GAIA"
+    subtitle: "an organization should share…"
     order: 2
     span: 5
     columns: 5
     children:
-      # 2a · WORKFLOWS — the shape of the work.
       - id: workflows
         title: "WORKFLOWS"
         subtitle: "the shape of the work"
@@ -170,7 +81,7 @@ sections:
             order: 2
             kicker: STRUCTURE
             title: "What an agent is"
-            description: ["a contract, an identity, a scope, and known errors"]
+            description: ["a contract, an identity, a scope, and known errors"]
             detail: "An agent is more than a prompt: a contract for what it must return, an identity for how it works, a scope for what it may touch, and the errors it knows how to handle. Every agent has those same four parts, and every agent owns one area — nine agents exist today, the orchestrator and eight specialists, and more can be added. That is what lets one agent read another one's work."
             filters: [semantic, security]
           - id: w-protocol
@@ -183,12 +94,11 @@ sections:
           - id: w-hooks
             order: 4
             kicker: HOOKS
-            title: "What keeps the course"
-            description: ["the rules live outside the agent — and stop for a person"]
-            detail: "The rules of a turn live outside the agent, in a layer the agent cannot rewrite. That layer says which steps are allowed, stops the retries after two, and halts the turn when an action would change something real. So staying on course does not depend on the agent's good will, and a person decides before anything real changes."
+            title: "Guardrails in code"
+            description: ["the agent cannot skip them"]
+            detail: "Some rules live in code, outside the agent, and run at fixed moments: before each action and when a turn ends. The agent cannot rewrite or skip them. When an action would change something real, they stop it for a person."
             filters: [the-human, deterministic]
 
-      # 2b · STANDARDS — the shape of the output.
       - id: standards
         title: "STANDARDS"
         subtitle: "the shape of the output"
@@ -201,20 +111,20 @@ sections:
             order: 1
             kicker: SKILLS
             filters: [semantic]
-            title: "How the work is done"
+            title: "How the work is done"
             description: ["written procedures: how to act, how to answer, even the tone"]
             detail: "A skill is a written procedure: how to work on something, how to answer, even which tone to hold. The base discipline every agent must hold travels with it from its first word — on purpose; everything else is picked up only when it is needed, because the task matches what the skill is for or because an agent asks for it by name. So the way of working is written down once for everyone, and loaded at the moment it earns its place."
           - id: s-outputs
             order: 2
             kicker: OUTPUTS
             title: "The standard is the output"
-            description: ["one shape, read by the next agent and by a person"]
+            description: ["one shape, read by the next agent and by a person"]
             detail: "The output has one fixed shape. The next agent can use the work without reading it again, and a person can check it without having to interpret it. One shape, two readers — drop the shape and both of them are back to reading prose."
             filters: [double-reader]
           - id: s-conventions
             order: 3
             kicker: CONVENTIONS
-            title: "Commits, PRs, docs"
+            title: "Commits, PRs, docs"
             description: ["one way of writing the history, for everyone"]
             detail: "One shared way of writing the project's history: how a commit message is written, what a pull request has to explain, how a README is laid out. When everyone writes the same way, the history stays readable for someone who was not there. That makes it memory too, even though it does not live in a memory store — and it is what makes the past usable months later."
             filters: [memory]
@@ -222,17 +132,13 @@ sections:
             order: 4
             kicker: TOOLS
             filters: [security]
-            title: "Tools the team provides"
+            title: "Tools the team provides"
             description: ["provided from inside, shared outside, improved by anyone"]
             detail: "Any tool can be used; what matters is who provides it. The organization should provide its own internal tools, the whole team should work with the same external ones, and the setup around them should be something anyone can improve. So nobody builds the same thing twice, the work looks the same wherever it happens, and no small group owns the toolchain."
 
-      # 2c · KNOWLEDGE — horizons of WORK memory, every one of them tied to a
-      # project and to the environment around it, never to a person. The three
-      # horizons below are deliberately three separate boxes and not one: they
-      # are distinct horizons of memory, not facets of one store.
       - id: knowledge
         title: "KNOWLEDGE"
-        subtitle: "project memory, never personal"
+        subtitle: "what the project learns"
         treatment: [envelope]
         order: 3
         span: 1
@@ -242,14 +148,14 @@ sections:
             order: 1
             kicker: CONTEXT
             title: "Project context"
-            description: ["scanned, not remembered — and it grows with the project"]
+            description: ["scanned each time, and it grows with the project"]
             detail: "Project context is a process, not a file. The facts are found by scanning the project the same way every time, every turn adds what it learned, and each agent receives only the slice its role needs. Because it is measured rather than remembered, it is the most current picture available."
             filters: [memory, deterministic]
           - id: k-durable
             order: 2
             kicker: DURABLE
             title: "Long memory"
-            description: ["decisions and facts about the project — not rules for the tool"]
+            description: ["decisions and facts about the project"]
             detail: "Long memory keeps what stays true after the session that produced it is closed: decisions already taken, stable facts, dead ends worth not walking again. It holds facts about the project — not rules for the tool, not a record of how anyone behaves. So a new session starts knowing what the project already settled, instead of deciding it again."
             filters: [memory]
           - id: k-carry
@@ -261,16 +167,15 @@ sections:
             filters: [memory, nothing-self-declared]
           - id: k-episodic
             order: 4
-            kicker: EPISODIC
-            title: "Recorded by the machine"
-            description: ["every turn is written down, not the agent's version of it"]
-            detail: "The record of a turn is written by the machine when the turn closes. It captures what was asked, how risky it was, what came out, what it cost and what looked odd — every time, whether the agent cooperates or not. Nobody narrates their own turn into it, so what the turn actually was can be trusted."
+            kicker: CONTRACTS
+            title: "Structured knowledge"
+            description: ["every turn is stored as a filled-in form"]
+            detail: "Every turn closes with its contract: what was asked, what ran, what it printed and what is still open. Gaia stores it as structured data, next to the record the machine writes of each turn. Later sessions can search what was really done, instead of reading old chats."
             filters: [memory, deterministic]
 
-      # 2d · OBSERVABILITY — a value that can change.
       - id: observability
         title: "OBSERVABILITY"
-        subtitle: "a value that can change"
+        subtitle: "where the work stands"
         treatment: [envelope]
         order: 4
         span: 1
@@ -280,36 +185,34 @@ sections:
             order: 1
             kicker: BRIEF
             filters: [semantic]
-            title: "Where ideas are kept"
+            title: "Where ideas are kept"
             description: ["a place to capture an idea, and what «done» will mean"]
             detail: "A brief is one place where an idea is written down and kept, rather than a message in a chat that scrolls away. It captures ideas, puts them in order, turns a request or a proposal into something that can be planned, and carries what «done» will mean next to the idea itself. So an idea can be found again later, and nobody decides afterwards what finished was supposed to mean."
           - id: o-plan
             order: 2
             kicker: PLAN
             filters: [semantic]
-            title: "From idea to solution"
+            title: "From idea to solution"
             description: ["research the idea, turn it into a solution, get the tasks"]
             detail: "A plan is where an idea becomes a technical solution. The idea is researched against the real code first — can this be done, and where does it land — and the tasks are what that solution needs. So the steps come out of the research instead of out of a guess, while what «done» means stays with the idea."
           - id: o-task
             order: 3
             kicker: TASK
-            title: "Atomic, checkable steps"
+            title: "Atomic, checkable steps"
             description: ["every step says how it will be checked"]
             detail: "A task is a group of steps, and each step carries the check that closes it. The check is decided when the work is planned, not improvised when it is reviewed — a command to run, a piece of code, a judgement, or a review. A step is atomic on purpose: it is either waiting, done or skipped, and the «being worked on» lives in the turn that works it, not in the step. From a planned step, the turn that did the work and the turn that checked it can both be followed — step, work and check stay one thread."
             filters: [nothing-self-declared]
           - id: o-verification
             order: 4
             kicker: VERIFICATION
-            title: "Blind by design"
-            description: ["who may run the check: never whoever did the work"]
-            detail: "Verification is who is allowed to run the check. Whoever checks did not do the work and arrives without inheriting the author's context, so the check reads the evidence, not the author's story. The check is tied to the step rather than to a role, so it cannot be handed back to the author: nobody signs off their own. One link is named here before it exists: the checker's verdict closes the check, not yet the step — marking a step done is still a hand-made act that does not have to wait for that verdict."
-            variant: warn
+            title: "Validator agents"
+            description: ["start fresh, test the evidence"]
+            detail: "A separate agent checks the work. It starts with no memory of how the work was done, so it can only test what the evidence shows. It never checks its own work."
             filters: [nothing-self-declared, semantic]
 
-      # 2e · AUDIT — who answers for what happened.
       - id: audit
         title: "AUDIT"
-        subtitle: "who answers for what happened"
+        subtitle: "who answers for changes"
         treatment: [envelope]
         order: 5
         span: 1
@@ -318,44 +221,43 @@ sections:
           - id: a-approvals
             order: 1
             kicker: APPROVALS
-            title: "A person owns every change"
-            description: ["the riskier the act, the more explicit the consent"]
-            detail: "Acts are graded by risk. Reading changes nothing and needs no permission; changing something real needs a person to say yes, explicitly. The record of that yes cannot be edited afterwards: every moment of an approval — asked, shown, approved, executed — is hashed onto the moment before it, so the record breaks if a single step is altered, and the database itself refuses to change or delete an entry. The record is protected by the engine, not by a promise."
+            title: "A person in charge"
+            description: ["of every change that matters"]
+            detail: "Reading changes nothing, so it runs on its own. A change that matters stops until a person approves that exact command. The record of each answer cannot be edited later."
             filters: [the-human, security, deterministic]
           - id: a-evidence
             order: 2
             kicker: EVIDENCE
-            title: "The work leaves a trail"
-            description: ["what was run, what was touched, what was checked"]
+            title: "The work leaves a trail"
+            description: ["what was run, what was touched, what was checked"]
             detail: "Every turn leaves a trail inside its own answer. It records what was run, what was touched, what was checked and what is still open — a filled-in form, not a story. So it can be read without having to trust whoever wrote it."
             filters: [double-reader, nothing-self-declared]
           - id: a-compliance
             order: 3
             kicker: COMPLIANCE
-            title: "Every turn is graded"
+            title: "Every turn is graded"
             description: ["six mechanical checks on its own record"]
             detail: "Every turn is graded by six mechanical checks on its own record. They ask whether the answer was well formed, whether it looked before it changed anything, whether it used the context it was given, whether it ran its commands cleanly, whether it repeated itself, and whether it wrote outside what it owns — and the grade comes out as a score and a letter. Nobody is asked to rate their own turn: the grade is computed from what the turn actually did."
             filters: [double-reader, nothing-self-declared, deterministic]
           - id: a-anomalies
             order: 4
             kicker: ANOMALIES
-            title: "Bad discipline is flagged"
-            description: ["skipped checks, missing evidence, work outside scope"]
+            title: "Bad discipline is flagged"
+            description: ["skipped checks, missing evidence, work outside scope"]
             detail: "Bad discipline is flagged on its own, apart from cost. One side names skipped looking, missing or empty evidence, a skipped check, work outside what someone owns; the other names how much it cost, how long it took, how often it called out. Keeping the two apart is the point: bad discipline is a finding by itself, not a footnote at the end of a cost report."
             filters: [security, deterministic]
 
-  # 3 · THE COLOUR CHANNEL — declared in the content, not merely used, and at
-  # the weight of a footnote: a dotted line with text, the same closing device
-  # `s0-vision` uses. It speaks about the page, so it sits outside the
-  # container, and as a line it cannot compete with the pillars for attention.
-  - id: channel
-    treatment: [plain]
+  - id: prompt
+    treatment: [plain, compact]
+    tokens:
+      row:
+        cell_h: 60
     order: 3
     span: 5
     columns: 1
     children:
-      - id: ch-legend
-        type: separator
-        style: dotted
-        span: 1
-        text: "amber = named here, not instrumented yet · exactly one box carries it: VERIFICATION, in Observability"
+      - id: p1-prompt
+        order: 1
+        variant: accent
+        kicker: "PROMPT"
+        title: "Why would my team need Gaia?"

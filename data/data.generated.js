@@ -172,14 +172,14 @@ window.__DOC__ = {
           "key": "memory",
           "label": "what do we remember?",
           "steps": [
-            "The project's current facts (CONTEXT), what was already settled (DURABLE), what actually happened turn by turn (EPISODIC), and what is still open (CARRY-FORWARD) — and also the history itself (CONVENTIONS), because one shared way of writing commits and docs is what lets someone who was not there follow it. Memory is more than a memory store."
+            "The project's current facts (CONTEXT), what was already settled (DURABLE), what each turn did, stored as its filled-in contract (CONTRACTS), and what is still open (CARRY-FORWARD) — and also the history itself (CONVENTIONS), because one shared way of writing commits and docs is what lets someone who was not there follow it. Memory is more than a memory store."
           ]
         },
         {
           "key": "deterministic",
           "label": "what does a rule decide?",
           "steps": [
-            "Whatever must give the same answer every time is left to rules in code, not to a model: HOOKS keep the course, CONTEXT is scanned the same way each time, EPISODIC is written by the machine, APPROVALS grades each act by risk and keeps a record nobody can edit, COMPLIANCE is computed by six mechanical checks, and ANOMALIES are flagged mechanically."
+            "Whatever must give the same answer every time is left to rules in code, not to a model: HOOKS keep the course, CONTEXT is scanned the same way each time, CONTRACTS are stored as structured data, APPROVALS grades each act by risk and keeps a record nobody can edit, COMPLIANCE is computed by six mechanical checks, and ANOMALIES are flagged mechanically."
           ]
         },
         {
@@ -208,32 +208,35 @@ window.__DOC__ = {
         {
           "id": "thesis",
           "treatment": [
-            "plain"
+            "plain",
+            "compact"
           ],
+          "tokens": {
+            "row": {
+              "cell_h": 60
+            }
+          },
           "order": 1,
           "span": 5,
           "columns": 1,
           "children": [
             {
               "id": "th-claim",
-              "kicker": "THE THESIS",
-              "title": "An AI-oriented way of working.",
-              "description": [
-                "how does an organization break the isolation of agentic work?"
-              ],
+              "title": "Becoming AI-first",
               "detail": "Agentic work is lonely by default: one person, one agent, one session. Nothing is shared between them, so what one turn learns is lost for the next, no two people work alike, and a model only knows what it can read. Sharing five things turns lonely work into team work: how the work is shaped, how the output is shaped, what is remembered, what can be seen while it happens, and what can be checked afterwards.",
               "treatment": [
                 "centered"
               ]
             }
-          ]
+          ],
+          "css_vars": {
+            "--cell-h": "60px"
+          }
         },
         {
           "id": "pillars",
-          "title": "An organization should share…",
-          "treatment": [
-            "envelope"
-          ],
+          "title": "GAIA",
+          "subtitle": "an organization should share…",
           "order": 2,
           "span": 5,
           "columns": 5,
@@ -268,7 +271,7 @@ window.__DOC__ = {
                   "kicker": "STRUCTURE",
                   "title": "What an agent is",
                   "description": [
-                    "a contract, an identity, a scope, and known errors"
+                    "a contract, an identity, a scope, and known errors"
                   ],
                   "detail": "An agent is more than a prompt: a contract for what it must return, an identity for how it works, a scope for what it may touch, and the errors it knows how to handle. Every agent has those same four parts, and every agent owns one area — nine agents exist today, the orchestrator and eight specialists, and more can be added. That is what lets one agent read another one's work.",
                   "filters": [
@@ -293,11 +296,11 @@ window.__DOC__ = {
                   "id": "w-hooks",
                   "order": 4,
                   "kicker": "HOOKS",
-                  "title": "What keeps the course",
+                  "title": "Guardrails in code",
                   "description": [
-                    "the rules live outside the agent — and stop for a person"
+                    "the agent cannot skip them"
                   ],
-                  "detail": "The rules of a turn live outside the agent, in a layer the agent cannot rewrite. That layer says which steps are allowed, stops the retries after two, and halts the turn when an action would change something real. So staying on course does not depend on the agent's good will, and a person decides before anything real changes.",
+                  "detail": "Some rules live in code, outside the agent, and run at fixed moments: before each action and when a turn ends. The agent cannot rewrite or skip them. When an action would change something real, they stop it for a person.",
                   "filters": [
                     "the-human",
                     "deterministic"
@@ -323,7 +326,7 @@ window.__DOC__ = {
                   "filters": [
                     "semantic"
                   ],
-                  "title": "How the work is done",
+                  "title": "How the work is done",
                   "description": [
                     "written procedures: how to act, how to answer, even the tone"
                   ],
@@ -335,7 +338,7 @@ window.__DOC__ = {
                   "kicker": "OUTPUTS",
                   "title": "The standard is the output",
                   "description": [
-                    "one shape, read by the next agent and by a person"
+                    "one shape, read by the next agent and by a person"
                   ],
                   "detail": "The output has one fixed shape. The next agent can use the work without reading it again, and a person can check it without having to interpret it. One shape, two readers — drop the shape and both of them are back to reading prose.",
                   "filters": [
@@ -346,7 +349,7 @@ window.__DOC__ = {
                   "id": "s-conventions",
                   "order": 3,
                   "kicker": "CONVENTIONS",
-                  "title": "Commits, PRs, docs",
+                  "title": "Commits, PRs, docs",
                   "description": [
                     "one way of writing the history, for everyone"
                   ],
@@ -362,7 +365,7 @@ window.__DOC__ = {
                   "filters": [
                     "security"
                   ],
-                  "title": "Tools the team provides",
+                  "title": "Tools the team provides",
                   "description": [
                     "provided from inside, shared outside, improved by anyone"
                   ],
@@ -373,7 +376,7 @@ window.__DOC__ = {
             {
               "id": "knowledge",
               "title": "KNOWLEDGE",
-              "subtitle": "project memory, never personal",
+              "subtitle": "what the project learns",
               "treatment": [
                 "envelope"
               ],
@@ -387,7 +390,7 @@ window.__DOC__ = {
                   "kicker": "CONTEXT",
                   "title": "Project context",
                   "description": [
-                    "scanned, not remembered — and it grows with the project"
+                    "scanned each time, and it grows with the project"
                   ],
                   "detail": "Project context is a process, not a file. The facts are found by scanning the project the same way every time, every turn adds what it learned, and each agent receives only the slice its role needs. Because it is measured rather than remembered, it is the most current picture available.",
                   "filters": [
@@ -401,7 +404,7 @@ window.__DOC__ = {
                   "kicker": "DURABLE",
                   "title": "Long memory",
                   "description": [
-                    "decisions and facts about the project — not rules for the tool"
+                    "decisions and facts about the project"
                   ],
                   "detail": "Long memory keeps what stays true after the session that produced it is closed: decisions already taken, stable facts, dead ends worth not walking again. It holds facts about the project — not rules for the tool, not a record of how anyone behaves. So a new session starts knowing what the project already settled, instead of deciding it again.",
                   "filters": [
@@ -425,12 +428,12 @@ window.__DOC__ = {
                 {
                   "id": "k-episodic",
                   "order": 4,
-                  "kicker": "EPISODIC",
-                  "title": "Recorded by the machine",
+                  "kicker": "CONTRACTS",
+                  "title": "Structured knowledge",
                   "description": [
-                    "every turn is written down, not the agent's version of it"
+                    "every turn is stored as a filled-in form"
                   ],
-                  "detail": "The record of a turn is written by the machine when the turn closes. It captures what was asked, how risky it was, what came out, what it cost and what looked odd — every time, whether the agent cooperates or not. Nobody narrates their own turn into it, so what the turn actually was can be trusted.",
+                  "detail": "Every turn closes with its contract: what was asked, what ran, what it printed and what is still open. Gaia stores it as structured data, next to the record the machine writes of each turn. Later sessions can search what was really done, instead of reading old chats.",
                   "filters": [
                     "memory",
                     "deterministic"
@@ -441,7 +444,7 @@ window.__DOC__ = {
             {
               "id": "observability",
               "title": "OBSERVABILITY",
-              "subtitle": "a value that can change",
+              "subtitle": "where the work stands",
               "treatment": [
                 "envelope"
               ],
@@ -456,7 +459,7 @@ window.__DOC__ = {
                   "filters": [
                     "semantic"
                   ],
-                  "title": "Where ideas are kept",
+                  "title": "Where ideas are kept",
                   "description": [
                     "a place to capture an idea, and what «done» will mean"
                   ],
@@ -469,7 +472,7 @@ window.__DOC__ = {
                   "filters": [
                     "semantic"
                   ],
-                  "title": "From idea to solution",
+                  "title": "From idea to solution",
                   "description": [
                     "research the idea, turn it into a solution, get the tasks"
                   ],
@@ -479,7 +482,7 @@ window.__DOC__ = {
                   "id": "o-task",
                   "order": 3,
                   "kicker": "TASK",
-                  "title": "Atomic, checkable steps",
+                  "title": "Atomic, checkable steps",
                   "description": [
                     "every step says how it will be checked"
                   ],
@@ -492,12 +495,11 @@ window.__DOC__ = {
                   "id": "o-verification",
                   "order": 4,
                   "kicker": "VERIFICATION",
-                  "title": "Blind by design",
+                  "title": "Validator agents",
                   "description": [
-                    "who may run the check: never whoever did the work"
+                    "start fresh, test the evidence"
                   ],
-                  "detail": "Verification is who is allowed to run the check. Whoever checks did not do the work and arrives without inheriting the author's context, so the check reads the evidence, not the author's story. The check is tied to the step rather than to a role, so it cannot be handed back to the author: nobody signs off their own. One link is named here before it exists: the checker's verdict closes the check, not yet the step — marking a step done is still a hand-made act that does not have to wait for that verdict.",
-                  "variant": "warn",
+                  "detail": "A separate agent checks the work. It starts with no memory of how the work was done, so it can only test what the evidence shows. It never checks its own work.",
                   "filters": [
                     "nothing-self-declared",
                     "semantic"
@@ -508,7 +510,7 @@ window.__DOC__ = {
             {
               "id": "audit",
               "title": "AUDIT",
-              "subtitle": "who answers for what happened",
+              "subtitle": "who answers for changes",
               "treatment": [
                 "envelope"
               ],
@@ -520,11 +522,11 @@ window.__DOC__ = {
                   "id": "a-approvals",
                   "order": 1,
                   "kicker": "APPROVALS",
-                  "title": "A person owns every change",
+                  "title": "A person in charge",
                   "description": [
-                    "the riskier the act, the more explicit the consent"
+                    "of every change that matters"
                   ],
-                  "detail": "Acts are graded by risk. Reading changes nothing and needs no permission; changing something real needs a person to say yes, explicitly. The record of that yes cannot be edited afterwards: every moment of an approval — asked, shown, approved, executed — is hashed onto the moment before it, so the record breaks if a single step is altered, and the database itself refuses to change or delete an entry. The record is protected by the engine, not by a promise.",
+                  "detail": "Reading changes nothing, so it runs on its own. A change that matters stops until a person approves that exact command. The record of each answer cannot be edited later.",
                   "filters": [
                     "the-human",
                     "security",
@@ -535,9 +537,9 @@ window.__DOC__ = {
                   "id": "a-evidence",
                   "order": 2,
                   "kicker": "EVIDENCE",
-                  "title": "The work leaves a trail",
+                  "title": "The work leaves a trail",
                   "description": [
-                    "what was run, what was touched, what was checked"
+                    "what was run, what was touched, what was checked"
                   ],
                   "detail": "Every turn leaves a trail inside its own answer. It records what was run, what was touched, what was checked and what is still open — a filled-in form, not a story. So it can be read without having to trust whoever wrote it.",
                   "filters": [
@@ -549,7 +551,7 @@ window.__DOC__ = {
                   "id": "a-compliance",
                   "order": 3,
                   "kicker": "COMPLIANCE",
-                  "title": "Every turn is graded",
+                  "title": "Every turn is graded",
                   "description": [
                     "six mechanical checks on its own record"
                   ],
@@ -564,9 +566,9 @@ window.__DOC__ = {
                   "id": "a-anomalies",
                   "order": 4,
                   "kicker": "ANOMALIES",
-                  "title": "Bad discipline is flagged",
+                  "title": "Bad discipline is flagged",
                   "description": [
-                    "skipped checks, missing evidence, work outside scope"
+                    "skipped checks, missing evidence, work outside scope"
                   ],
                   "detail": "Bad discipline is flagged on its own, apart from cost. One side names skipped looking, missing or empty evidence, a skipped check, work outside what someone owns; the other names how much it cost, how long it took, how often it called out. Keeping the two apart is the point: bad discipline is a finding by itself, not a footnote at the end of a cost report.",
                   "filters": [
@@ -579,22 +581,31 @@ window.__DOC__ = {
           ]
         },
         {
-          "id": "channel",
+          "id": "prompt",
           "treatment": [
-            "plain"
+            "plain",
+            "compact"
           ],
+          "tokens": {
+            "row": {
+              "cell_h": 60
+            }
+          },
           "order": 3,
           "span": 5,
           "columns": 1,
           "children": [
             {
-              "id": "ch-legend",
-              "type": "separator",
-              "style": "dotted",
-              "span": 1,
-              "text": "amber = named here, not instrumented yet · exactly one box carries it: VERIFICATION, in Observability"
+              "id": "p1-prompt",
+              "order": 1,
+              "variant": "accent",
+              "kicker": "PROMPT",
+              "title": "Why would my team need Gaia?"
             }
-          ]
+          ],
+          "css_vars": {
+            "--cell-h": "60px"
+          }
         }
       ],
       "name": "1 · Why",

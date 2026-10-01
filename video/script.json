@@ -15,7 +15,7 @@
             { "at": "remembered", "show": ["knowledge"] },
             { "at": "seen", "show": ["observability"] },
             { "at": "checked", "show": ["audit"] },
-            { "at": "checked", "show": ["channel"] }
+            { "at": "checked", "show": ["prompt"] }
           ] }
       ]
     },
