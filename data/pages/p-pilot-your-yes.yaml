@@ -1,36 +1,30 @@
-# Pilot of the console story, scene 7: the GAIA screen walks one approval from
-# the request to its sealed chain, and the prompt at the bottom is the approval
-# question itself. Scenario values (store-api, staging, 6 resources) are
-# illustrative; the console wording follows Gaia's approval surface.
+# The scenario values (store-api, staging, 6 resources, the times) are
+# illustrative. Each " " keeps the last two words of a line together at 1920px.
 id: p-pilot-your-yes
 form: dashboard
 columns: 1
 
 filters:
-  - key: the-human
-    label: "who decides?"
+  - key: only-reads
+    label: "what if it only reads?"
     steps:
-      - "You do: the command waits until you answer the question in the prompt."
-  - key: memory
-    label: "what do we remember?"
-    steps:
-      - "Gaia keeps the request while it waits, and seals every step of the approval into a hashed chain."
-  - key: deterministic
-    label: "what does a rule decide?"
-    steps:
-      - "A rule in code sorts every command before it runs, and another records every step after it; no model is consulted."
-  - key: semantic
-    label: "what does a model follow?"
-    steps:
-      - "The specialist that asks and the orchestrator that brings you the question are models following instructions."
+      - "The specialist runs a command that only reads, and it goes straight through."
   - key: if-approved
     label: "what if you approve?"
     steps:
-      - "The specialist asks, the rule holds the change, Gaia keeps the request, you approve, and the command runs once; the chain records requested, shown, approved and executed."
+      - "The command stops, Gaia shows you everything, you approve, and it runs once; the record shows asked, shown, approved and ran."
   - key: if-rejected
     label: "what if you reject?"
     steps:
-      - "The specialist asks, the rule holds the change, Gaia keeps the request, you reject, and nothing runs; the chain records the rejection."
+      - "The command stops, Gaia shows you everything, you reject, and nothing runs; the record keeps your answer."
+  - key: no-answer
+    label: "what if no one answers?"
+    steps:
+      - "The command stops, Gaia shows you everything, nobody answers, and the request expires."
+  - key: forbidden
+    label: "what if it's forbidden?"
+    steps:
+      - "The specialist tries something on the forbidden list, and it never runs."
 
 sections:
   - id: s7-title
@@ -46,178 +40,183 @@ sections:
 
   - id: s7-gaia
     title: "GAIA"
+    tokens:
+      type:
+        title:
+          lines: 3
     order: 2
     span: 1
     columns: 5
     children:
       - id: s7-asks
-        title: "It asks"
-        subtitle: "a specialist needs a change"
-        treatment: [envelope]
+        treatment: [plain]
         order: 1
         span: 1
         columns: 1
         children:
-          - id: s7-specialist
+          - id: s7-step-asks
             order: 1
-            kicker: "PLATFORM-ARCHITECT"
-            title: "Wants a change"
-            description: ["staging for store-api"]
-            filters: [semantic, if-approved, if-rejected]
-          - id: s7-command
+            title: "1 · A specialist wants to run a command"
+            filters: [only-reads, if-approved, if-rejected, no-answer, forbidden]
+          - id: s7-specialist
             order: 2
-            kicker: "COMMAND"
-            title: "terraform apply"
-            description: ["creates 6, changes 0, destroys 0"]
-            detail: "The plan behind the request: 6 resources to add, 0 to change, 0 to destroy, all in the store-api staging workspace."
-            filters: [if-approved, if-rejected]
-          - id: s7-relay
+            kicker: "PLATFORM-ARCHITECT"
+            title: "Wants to create staging"
+            description: ["for store-api"]
+            detail: "Each specialist works in one field; this one handles infrastructure as code. The orchestrator, the agent you talk to, gave it this task."
+            filters: [only-reads, if-approved, if-rejected, no-answer, forbidden]
+          - id: s7-command
             order: 3
-            kicker: "THROUGH GAIA"
-            title: "No channel to you"
-            description: ["Gaia brings the question"]
-            detail: "A specialist has no channel to you. Its turn closes as <code>APPROVAL_REQUEST</code> with the <code>approval_id</code>, and the orchestrator brings you the question."
-            filters: [semantic, if-approved, if-rejected]
+            kicker: "THE COMMAND"
+            title: "terraform apply"
+            description: ["creates 6 · changes 0 · destroys 0"]
+            detail: "Terraform says what it will do before doing it: 6 resources to create, none to change or destroy."
+            filters: [if-approved, if-rejected, no-answer]
+          - id: s7-asks-end
+            type: spacer
+            order: 4
 
       - id: s7-before
-        title: "Before it runs"
-        subtitle: "PreToolUse · rule, no model"
-        treatment: [envelope]
+        treatment: [plain]
         order: 2
         span: 1
         columns: 1
         children:
-          - id: s7-reads
+          - id: s7-step-before
             order: 1
-            kicker: "READS"
-            title: "Run"
-            description: ["nobody is asked"]
-            detail: "Tiers <b>T0</b> read, <b>T1</b> validate and <b>T2</b> dry run change nothing, so they run. The classifier matches patterns and verbs in code.<br><br>Source: <code>hooks/modules/security/tiers.py:29-35</code> (<code>SecurityTier</code>), <code>:78</code> (<code>_classify_command_tier_cached</code>)."
-            filters: [deterministic]
-          - id: s7-changes
+            title: "2 · Gaia checks it before it runs"
+            description: ["a rule in code decides, not a model"]
+            filters: [only-reads, if-approved, if-rejected, no-answer, forbidden]
+          - id: s7-reads
             order: 2
-            kicker: "CHANGES"
-            title: "Wait for you"
-            description: ["terraform apply is here"]
-            detail: "A <b>T3</b> command, one that changes something, is held before it runs and sealed with an <code>approval_id</code>."
-            filters: [deterministic, the-human, if-approved, if-rejected]
-          - id: s7-forbidden
+            title: "Only reads? It runs."
+            description: ["nobody is asked"]
+            detail: "Before every command, a hook (code that runs at a fixed moment, here PreToolUse) sorts it. Commands that only read, like logs, plans or status, go straight through."
+            filters: [only-reads]
+          - id: s7-changes
             order: 3
-            kicker: "FORBIDDEN"
-            title: "Never run"
-            description: ["no signature lifts it"]
-            detail: "Irreversible commands, and reading a credentials file, are refused by a fixed pattern check with nothing to approve: <code>[SENSITIVE_PATH] Reading or listing '&lt;path&gt;' is refused (environment secrets file): its contents are credentials or account access. This block is not approvable and no signature lifts it.</code><br><br>Sources: <code>hooks/modules/security/blocked_commands.py:678</code> (<code>is_blocked_command</code>); <code>sensitive_paths.py:229-237</code>."
+            title: "Changes something? It stops."
+            description: ["and waits for you"]
+            detail: "A command that changes something real is held. The specialist ends its turn with an approval request in its contract, and waits."
+            filters: [if-approved, if-rejected, no-answer]
+          - id: s7-forbidden
+            order: 4
+            title: "Forbidden? It never runs."
+            description: ["no one can approve it"]
+            detail: "Some things are refused every time, like reading a credentials file. There is nothing to approve, and no signature lifts it."
             variant: bad
-            filters: [deterministic]
+            filters: [forbidden]
 
       - id: s7-waits
-        title: "It waits"
-        subtitle: "Gaia keeps the request"
-        treatment: [envelope]
+        treatment: [plain]
         order: 3
         span: 1
         columns: 1
         children:
-          - id: s7-exact
+          - id: s7-step-waits
             order: 1
-            kicker: "WHO · WHAT"
-            title: "The exact command"
-            description: ["byte for byte, as asked"]
-            detail: "Gaia keeps who asks (platform-architect), the exact command (<code>terraform apply</code>), what it does, its impact and how to undo it. The specialist's turn stops here until you answer."
-            filters: [memory, if-approved, if-rejected]
-          - id: s7-impact
+            title: "3 · Gaia asks you, and shows you everything"
+            filters: [if-approved, if-rejected, no-answer]
+          - id: s7-who
             order: 2
-            kicker: "DOES · IMPACT"
-            title: "What it changes"
-            description: ["6 resources in staging · production untouched"]
-            filters: [memory, if-approved, if-rejected]
-          - id: s7-undo
+            title: "Who is asking"
+            description: ["platform-architect"]
+            detail: "Gaia names the agent that asked, so you know who will run it."
+            filters: [if-approved, if-rejected, no-answer]
+          - id: s7-exact
             order: 3
-            kicker: "ROLLBACK"
-            title: "How to undo it"
-            description: ["terraform destroy on the staging workspace"]
-            filters: [memory, if-approved, if-rejected]
+            title: "The exact command"
+            description: ["terraform apply, letter for letter"]
+            detail: "What you see is what runs. If the command changes by one character, your approval no longer covers it."
+            filters: [if-approved, if-rejected, no-answer]
+          - id: s7-impact
+            order: 4
+            title: "What changes, and how to undo it"
+            description: ["6 new resources in staging, production untouched"]
+            detail: "The specialist writes what the command does, its impact, how the result is checked and how to roll it back. You read it under Details."
+            filters: [if-approved, if-rejected, no-answer]
 
       - id: s7-decide
-        title: "You decide"
-        subtitle: "in the prompt below"
-        treatment: [envelope]
+        treatment: [plain]
         order: 4
         span: 1
         columns: 1
         children:
-          - id: s7-approve
+          - id: s7-step-decide
             order: 1
-            kicker: "APPROVE"
-            title: "It runs once"
-            description: ["exactly this command, within 30 min"]
-            detail: "Your approval is single-use, must match the approved command byte for byte, and lasts 30 minutes; the specialist retries the command and the grant is spent (<code>grant_state CONSUMED</code>).<br><br>Sources: <code>approval_grants.py:193</code>, <code>:523</code>; <code>writer.py:86</code>."
-            variant: good
-            filters: [the-human, if-approved]
-          - id: s7-reject
+            title: "4 · You answer in the prompt"
+            filters: [if-approved, if-rejected, no-answer]
+          - id: s7-approve
             order: 2
-            kicker: "REJECT"
-            title: "Nothing runs"
-            description: ["and that is recorded too"]
-            detail: "The approval ends in state <code>rejected</code>, one of its recorded outcomes beside <code>approved</code>, <code>revoked</code> and <code>expired</code>.<br><br>Source: <code>gaia/store/schema.sql:1555-1560</code>; counted by <code>gaia approvals stats</code>."
-            variant: bad
-            filters: [the-human, if-rejected]
-          - id: s7-expires
+            title: "Approve: it runs once"
+            description: ["only this command, within 30 minutes"]
+            detail: "Your approval covers this one command, once, for 30 minutes. The same specialist picks up where it stopped and runs it."
+            variant: good
+            filters: [if-approved]
+          - id: s7-reject
             order: 3
-            kicker: "NO ANSWER"
-            title: "It expires"
-            description: ["nothing runs without your answer"]
-            detail: "A request nobody answers ends in state <code>expired</code>.<br><br>Source: <code>gaia/store/schema.sql:1555-1560</code>."
-            filters: [the-human]
+            title: "Reject: nothing runs"
+            description: ["and that is recorded"]
+            detail: "Nothing runs, and the rejection stays in the record."
+            variant: bad
+            filters: [if-rejected]
+          - id: s7-expires
+            order: 4
+            title: "No answer: it expires"
+            description: ["nothing runs"]
+            detail: "A request nobody answers expires. Trying again needs a new approval."
+            filters: [no-answer]
 
       - id: s7-sealed
-        title: "Sealed"
-        subtitle: "PostToolUse · hashed links"
-        treatment: [envelope]
+        treatment: [plain]
         order: 5
         span: 1
         columns: 1
         children:
-          - id: s7-requested
+          - id: s7-step-sealed
             order: 1
-            title: "Requested"
-            treatment: [half]
-            detail: "Event <code>REQUESTED</code>, hash <code>050ecb1e9d23</code>, from <code>gaia approvals show P-a6275b13f8304ccb8c79ed20122eea82</code> (the build of this deck). Each event carries the hash of the one before it."
-            filters: [memory, deterministic, if-approved, if-rejected]
-          - id: s7-shown
+            title: "5 · Gaia keeps the record"
+            description: ["every step stamped, and linked to the one before"]
+            filters: [if-approved, if-rejected, no-answer]
+          - id: s7-asked
             order: 2
-            title: "Shown"
+            title: "Asked · 10:41"
             treatment: [half]
-            detail: "Event <code>SHOWN</code>, hash <code>71fafb594311</code>: the question reached you. A <code>NOOP</code> event (<code>2d0c8b546a6b</code>) sits between requested and shown in the same chain."
-            filters: [memory, deterministic, if-approved, if-rejected]
-          - id: s7-approved
+            detail: "Recorded the moment the hook stopped the command."
+            filters: [if-approved, if-rejected, no-answer]
+          - id: s7-shown
             order: 3
-            title: "Approved"
+            title: "Shown to you · 10:41"
             treatment: [half]
-            variant: good
-            detail: "Event <code>APPROVED</code>, hash <code>d8a54faf1170</code>. The grant window then runs 30 minutes from the decision."
-            filters: [memory, deterministic, if-approved]
-          - id: s7-executed
+            detail: "Recorded when the question opened in your prompt."
+            filters: [if-approved, if-rejected, no-answer]
+          - id: s7-approved
             order: 4
-            title: "Executed"
+            title: "Approved · 10:42"
             treatment: [half]
+            detail: "Your answer, with its time."
             variant: good
-            detail: "Event <code>EXECUTED</code>, hash <code>05cc1d77a194</code>, sealed by the <b>PostToolUse</b> hook after the command ran. Outcome <code>executed</code>, grant <code>CONSUMED</code>, window closed: a second run needs a new approval."
-            filters: [memory, deterministic, if-approved]
-          - id: s7-rejected
+            filters: [if-approved]
+          - id: s7-ran
             order: 5
-            kicker: "OR"
-            title: "Rejected"
-            description: ["the chain ends, recorded"]
-            detail: "A rejection is recorded as the approval's final state <code>rejected</code> and nothing executes."
+            title: "Ran · 10:42"
+            treatment: [half]
+            detail: "After it runs, another hook (PostToolUse) marks it executed or failed. Each record carries a fingerprint of the one before, so a changed record shows. You can see it all with <code>gaia approvals show</code>."
+            variant: good
+            filters: [if-approved]
+          - id: s7-rejected
+            order: 6
+            title: "Or rejected"
+            description: ["nothing ran"]
+            detail: "If you reject, the record ends with your answer and its time."
             variant: bad
-            filters: [memory, deterministic, if-rejected]
+            filters: [if-rejected]
 
   - id: s7-prompt
     treatment: [plain]
     tokens:
       row:
-        cell_h: 164
+        cell_h: 150
     order: 3
     span: 1
     columns: 1
@@ -234,8 +233,8 @@ sections:
         description:
           - "[ GAIA-SECURITY ] [ AGENT-REQUEST ] [ platform-architect ] [ COMMAND ] [ terraform apply ]"
           - "› 1. Approve · authorizes exactly this command"
-          - "2. Reject · nothing runs"
-          - "3. Details · what it does, impact, verification, how to undo it"
-          - "4. Type something"
+          - "  2. Reject · nothing runs"
+          - "  3. Details · what it does, impact, verification, how to undo it"
+          - "  4. Type something"
         detail: "<code>[ GAIA-SECURITY ] [ DETAILS ] [ platform-architect ] [ COMMAND: terraform apply ] [ DOES: creates the 6 resources of the store-api staging environment ] [ IMPACT: new resources in staging only; production is not touched ] [ VERIFICATION: terraform plan shows no changes and the staging endpoint answers ] [ SHARED-STATE: writes the staging Terraform state, nothing else ] [ ROLLBACK: terraform destroy on the staging workspace removes the 6 resources ]</code>"
-        filters: [the-human, if-approved, if-rejected]
+        filters: [if-approved, if-rejected, no-answer]
