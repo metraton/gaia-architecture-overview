@@ -3850,38 +3850,45 @@ window.__DOC__ = {
       "columns": 1,
       "filters": [
         {
-          "key": "follow-command",
-          "label": "follow the command",
+          "key": "moment-ask",
+          "label": "1 · you ask",
           "steps": [
-            "The specialist asks to run git push and pauses; the engine stops it and keeps the request; the orchestrator asks you with the question Gaia wrote, checked word for word; you see who asks, the exact command and how to undo it."
+            "You ask in your own words. The orchestrator sends the goal, and the engine prepares the specialist before it starts."
           ]
         },
         {
-          "key": "follow-answer",
-          "label": "follow your answer",
+          "key": "moment-work",
+          "label": "2 · it works",
           "steps": [
-            "You decide; the engine records the answer as a one-time pass; the orchestrator resumes the same specialist, which runs the command once, matched byte for byte, and reports; the orchestrator tells you the result from the checked report."
+            "The specialist reads and edits. Every action is checked by rule; safe ones never reach you."
           ]
         },
         {
-          "key": "the-model",
-          "label": "what does the model do?",
+          "key": "moment-stop",
+          "label": "3 · a change stops",
           "steps": [
-            "The orchestrator and the specialist are models: one talks to you and hands out the work, the other does it in its field."
+            "A command that changes something is stopped. The specialist pauses and its request goes to the orchestrator."
           ]
         },
         {
-          "key": "deterministic",
-          "label": "what does a rule decide?",
+          "key": "moment-asked",
+          "label": "4 · you're asked",
           "steps": [
-            "Gaia's engine is code: it prepares the specialist, checks every action, stops the command, checks the question, records your answer and validates the result, all by rule."
+            "The orchestrator asks you with the question Gaia wrote, checked word for word."
           ]
         },
         {
-          "key": "you-come-in",
-          "label": "where do you come in?",
+          "key": "moment-decide",
+          "label": "5 · you decide",
           "steps": [
-            "You ask, you see the execution details of a command that changes something, and you decide in the prompt."
+            "Your answer is recorded as a one-time pass, and the same specialist picks up where it stopped."
+          ]
+        },
+        {
+          "key": "moment-run",
+          "label": "6 · it runs",
+          "steps": [
+            "The exact command runs once. The report is checked by rule before you hear the result."
           ]
         }
       ],
@@ -3927,333 +3934,309 @@ window.__DOC__ = {
           "columns": 4,
           "children": [
             {
-              "id": "s7-h-you",
-              "order": 1,
+              "id": "s7-you",
               "title": "You",
-              "description": [
-                "the one who approves"
-              ],
+              "subtitle": "the one who approves",
               "treatment": [
-                "centered"
+                "plain"
               ],
-              "filters": [
-                "you-come-in"
+              "order": 1,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "s7-y1",
+                  "order": 1,
+                  "title": "Asks for something",
+                  "description": [
+                    "add a health check to store-api"
+                  ],
+                  "detail": "You ask in your own words. The orchestrator works out what you want and which specialist owns it.",
+                  "filters": [
+                    "moment-ask"
+                  ]
+                },
+                {
+                  "id": "s7-y2",
+                  "order": 2,
+                  "rowspan": 2,
+                  "title": "Nothing reaches you",
+                  "description": [
+                    "safe actions never ask"
+                  ],
+                  "detail": "Reading is safe, so Gaia never asks you about it.",
+                  "filters": [
+                    "moment-work"
+                  ]
+                },
+                {
+                  "id": "s7-y4",
+                  "order": 3,
+                  "title": "Sees the execution details",
+                  "description": [
+                    "who asks · what runs · how to undo"
+                  ],
+                  "detail": "The question names the agent and the exact command. Details adds what it does, its impact, how it is checked and how to roll it back.",
+                  "filters": [
+                    "moment-asked"
+                  ]
+                },
+                {
+                  "id": "s7-y5",
+                  "order": 4,
+                  "title": "Decides",
+                  "description": [
+                    "approve · reject · or let it expire"
+                  ],
+                  "detail": "Approve covers this one command, once. Reject means nothing runs. A request nobody answers expires.",
+                  "filters": [
+                    "moment-decide"
+                  ]
+                },
+                {
+                  "id": "s7-y6",
+                  "order": 5,
+                  "title": "Gets the result",
+                  "description": [
+                    "what changed, and the proof"
+                  ],
+                  "detail": "The orchestrator tells you what changed and what it is based on.",
+                  "filters": [
+                    "moment-run"
+                  ]
+                }
               ]
             },
             {
-              "id": "s7-h-orch",
-              "order": 2,
+              "id": "s7-orch",
               "title": "The orchestrator",
-              "description": [
-                "the model you talk to"
-              ],
+              "subtitle": "the model you talk to",
               "treatment": [
-                "centered"
+                "plain"
               ],
-              "filters": [
-                "the-model"
+              "order": 2,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "s7-o1",
+                  "order": 1,
+                  "rowspan": 2,
+                  "title": "Sends the goal",
+                  "description": [
+                    "to the specialist for that field"
+                  ],
+                  "detail": "The orchestrator never edits files or runs changes itself. It hands the work to a specialist.",
+                  "filters": [
+                    "moment-ask"
+                  ]
+                },
+                {
+                  "id": "s7-o3",
+                  "order": 2,
+                  "title": "Gets the request",
+                  "description": [
+                    "from the specialist's report"
+                  ],
+                  "detail": "The specialist's turn ends with an approval request in its contract. The orchestrator reads it from there.",
+                  "filters": [
+                    "moment-stop"
+                  ]
+                },
+                {
+                  "id": "s7-o4",
+                  "order": 3,
+                  "kicker": "ASK TOOL",
+                  "title": "Asks you",
+                  "description": [
+                    "with the question Gaia wrote"
+                  ],
+                  "detail": "The orchestrator asks Gaia for the question and opens it without changing a word.",
+                  "filters": [
+                    "moment-asked"
+                  ]
+                },
+                {
+                  "id": "s7-o5",
+                  "order": 4,
+                  "title": "Resumes the specialist",
+                  "description": [
+                    "the same one, where it stopped"
+                  ],
+                  "detail": "The orchestrator resumes the same specialist. Its context is not injected again.",
+                  "filters": [
+                    "moment-decide"
+                  ]
+                },
+                {
+                  "id": "s7-o6",
+                  "order": 5,
+                  "title": "Tells you the result",
+                  "description": [
+                    "from the checked report"
+                  ],
+                  "detail": "The orchestrator reports from the checked contract and from what it opens itself, not from the specialist's message.",
+                  "filters": [
+                    "moment-run"
+                  ]
+                }
               ]
             },
             {
-              "id": "s7-h-engine",
-              "order": 3,
+              "id": "s7-engine",
               "title": "Gaia's engine",
-              "description": [
-                "code, a rule, no model"
-              ],
+              "subtitle": "code, a rule, no model",
               "treatment": [
-                "centered"
+                "plain"
               ],
-              "filters": [
-                "deterministic"
+              "order": 3,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "s7-e1",
+                  "order": 1,
+                  "kicker": "CONTEXT INJECTION",
+                  "title": "Prepares the specialist",
+                  "description": [
+                    "its goal, its contract, your rules"
+                  ],
+                  "detail": "When a specialist starts, a hook (SubagentStart) injects its contract (the goal and the form it fills in), what it may read and write in the project, your standing rules and the commands it can use. Project details are read on demand.",
+                  "filters": [
+                    "moment-ask"
+                  ]
+                },
+                {
+                  "id": "s7-e2",
+                  "order": 2,
+                  "kicker": "SCAN",
+                  "title": "Checks every action",
+                  "description": [
+                    "reads pass · risky actions stop"
+                  ],
+                  "detail": "Before each action, a hook (PreToolUse) checks it by rule: commands, file reads and edits, dispatches and questions. Reading a credentials file is refused, and nothing can approve it.",
+                  "filters": [
+                    "moment-work"
+                  ]
+                },
+                {
+                  "id": "s7-e3",
+                  "order": 3,
+                  "kicker": "HOOK",
+                  "title": "Stops the command",
+                  "description": [
+                    "holds it and keeps the request"
+                  ],
+                  "detail": "A command that changes something is held and a pending request is stored. When the specialist's turn ends, a hook (SubagentStop) checks its contract and keeps the request alive.",
+                  "variant": "warn",
+                  "filters": [
+                    "moment-stop"
+                  ]
+                },
+                {
+                  "id": "s7-e4",
+                  "order": 4,
+                  "kicker": "ASK CHECK",
+                  "title": "Checks the question",
+                  "description": [
+                    "word for word, or it is refused"
+                  ],
+                  "detail": "A hook checks the question before it opens. If it differs by one character from what Gaia wrote, it is refused. Each question shown is recorded.",
+                  "filters": [
+                    "moment-asked"
+                  ]
+                },
+                {
+                  "id": "s7-e5",
+                  "order": 5,
+                  "kicker": "AUDIT TRAIL",
+                  "title": "Records your answer",
+                  "description": [
+                    "a one-time pass for this specialist"
+                  ],
+                  "detail": "Each answer is stamped and linked to the step before, so a changed record shows. An approval becomes a one-time pass bound to this session and this specialist.",
+                  "filters": [
+                    "moment-decide"
+                  ]
+                },
+                {
+                  "id": "s7-e6",
+                  "order": 6,
+                  "kicker": "VALIDATION",
+                  "title": "Matches and validates",
+                  "description": [
+                    "exact command, report by rule"
+                  ],
+                  "detail": "The retried command must match the approved one byte for byte. After it runs, a hook (PostToolUse) records executed or failed. At the end, SubagentStop checks the contract; a missing or unfinished one sends the specialist back.",
+                  "filters": [
+                    "moment-run"
+                  ]
+                }
               ]
             },
             {
-              "id": "s7-h-spec",
-              "order": 4,
+              "id": "s7-spec",
               "title": "The specialist",
-              "description": [
-                "a model, one field"
-              ],
+              "subtitle": "a model, one field",
               "treatment": [
-                "centered"
+                "plain"
               ],
-              "filters": [
-                "the-model"
-              ]
-            },
-            {
-              "id": "s7-y1",
-              "order": 5,
-              "title": "Asks for something",
-              "description": [
-                "add a health check to store-api"
-              ],
-              "detail": "You ask in your own words. The orchestrator works out what you want and which specialist owns it.",
-              "filters": [
-                "you-come-in"
-              ]
-            },
-            {
-              "id": "s7-o1",
-              "order": 6,
-              "title": "Sends the goal",
-              "description": [
-                "to the specialist for that field"
-              ],
-              "detail": "The orchestrator never edits files or runs changes itself. It hands the work to a specialist.",
-              "filters": [
-                "the-model"
-              ]
-            },
-            {
-              "id": "s7-e1",
-              "order": 7,
-              "kicker": "CONTEXT INJECTION",
-              "title": "Prepares the specialist",
-              "description": [
-                "its goal, its contract, your rules"
-              ],
-              "detail": "When a specialist starts, a hook (SubagentStart) injects its contract (the goal and the form it fills in), what it may read and write in the project, your standing rules and the commands it can use. Project details are read on demand.",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "s7-s1",
-              "order": 8,
-              "title": "Subagent born",
-              "description": [
-                "its identity · its skills · its tools"
-              ],
-              "detail": "Each agent is one file that names it and lists its tools and the skills it needs. Claude Code loads those skills when the agent starts.",
-              "filters": [
-                "the-model"
-              ]
-            },
-            {
-              "id": "s7-y2",
-              "order": 9,
-              "title": "Nothing reaches you",
-              "description": [
-                "safe actions never ask"
-              ],
-              "detail": "Reading is safe, so Gaia never asks you about it.",
-              "filters": [
-                "you-come-in"
-              ]
-            },
-            {
-              "id": "s7-o2",
-              "type": "spacer",
-              "order": 10
-            },
-            {
-              "id": "s7-e2",
-              "order": 11,
-              "kicker": "SCAN",
-              "title": "Checks every action",
-              "description": [
-                "reads pass · risky actions stop"
-              ],
-              "detail": "Before each action, a hook (PreToolUse) checks it by rule: commands, file reads and edits, dispatches and questions. Reading a credentials file is refused, and nothing can approve it.",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "s7-s2",
-              "order": 12,
-              "title": "Does the work",
-              "description": [
-                "reads files · edits code · runs tests"
-              ],
-              "detail": "Most of the work is reading and editing files and running checks.",
-              "filters": [
-                "the-model"
-              ]
-            },
-            {
-              "id": "s7-y3",
-              "type": "spacer",
-              "order": 13
-            },
-            {
-              "id": "s7-o3",
-              "order": 14,
-              "title": "Gets the request",
-              "description": [
-                "from the specialist's report"
-              ],
-              "detail": "The specialist's turn ends with an approval request in its contract. The orchestrator reads it from there.",
-              "filters": [
-                "the-model",
-                "follow-command"
-              ]
-            },
-            {
-              "id": "s7-e3",
-              "order": 15,
-              "kicker": "HOOK",
-              "title": "Stops the command",
-              "description": [
-                "holds it and keeps the request"
-              ],
-              "detail": "A command that changes something is held and a pending request is stored. When the specialist's turn ends, a hook (SubagentStop) checks its contract and keeps the request alive.",
-              "variant": "warn",
-              "filters": [
-                "deterministic",
-                "follow-command"
-              ]
-            },
-            {
-              "id": "s7-s3",
-              "order": 16,
-              "title": "git push",
-              "description": [
-                "asks for approval and pauses"
-              ],
-              "detail": "git push sends commits to the shared repository, so it changes something other people use.",
-              "filters": [
-                "the-model",
-                "follow-command"
-              ]
-            },
-            {
-              "id": "s7-y4",
-              "order": 17,
-              "title": "Sees the execution details",
-              "description": [
-                "who asks · what runs · how to undo"
-              ],
-              "detail": "The question names the agent and the exact command. Details adds what it does, its impact, how it is checked and how to roll it back.",
-              "filters": [
-                "you-come-in",
-                "follow-command"
-              ]
-            },
-            {
-              "id": "s7-o4",
-              "order": 18,
-              "kicker": "ASK TOOL",
-              "title": "Asks you",
-              "description": [
-                "with the question Gaia wrote"
-              ],
-              "detail": "The orchestrator asks Gaia for the question and opens it without changing a word.",
-              "filters": [
-                "the-model",
-                "follow-command"
-              ]
-            },
-            {
-              "id": "s7-e4",
-              "order": 19,
-              "kicker": "ASK CHECK",
-              "title": "Checks the question",
-              "description": [
-                "word for word, or it is refused"
-              ],
-              "detail": "A hook checks the question before it opens. If it differs by one character from what Gaia wrote, it is refused. Each question shown is recorded.",
-              "filters": [
-                "deterministic",
-                "follow-command"
-              ]
-            },
-            {
-              "id": "s7-s4",
-              "type": "spacer",
-              "order": 20
-            },
-            {
-              "id": "s7-y5",
-              "order": 21,
-              "title": "Decides",
-              "description": [
-                "approve · reject · or let it expire"
-              ],
-              "detail": "Approve covers this one command, once. Reject means nothing runs. A request nobody answers expires.",
-              "filters": [
-                "you-come-in",
-                "follow-answer"
-              ]
-            },
-            {
-              "id": "s7-o5",
-              "order": 22,
-              "title": "Resumes the specialist",
-              "description": [
-                "the same one, where it stopped"
-              ],
-              "detail": "The orchestrator resumes the same specialist. Its context is not injected again.",
-              "filters": [
-                "the-model",
-                "follow-answer"
-              ]
-            },
-            {
-              "id": "s7-e5",
-              "order": 23,
-              "kicker": "AUDIT TRAIL",
-              "title": "Records your answer",
-              "description": [
-                "a one-time pass for this specialist"
-              ],
-              "detail": "Each answer is stamped and linked to the step before, so a changed record shows. An approval becomes a one-time pass bound to this session and this specialist.",
-              "filters": [
-                "deterministic",
-                "follow-answer"
-              ]
-            },
-            {
-              "id": "s7-s5",
-              "type": "spacer",
-              "order": 24
-            },
-            {
-              "id": "s7-y6",
-              "type": "spacer",
-              "order": 25
-            },
-            {
-              "id": "s7-o6",
-              "order": 26,
-              "title": "Tells you the result",
-              "description": [
-                "from the checked report"
-              ],
-              "detail": "The orchestrator reports from the checked contract and from what it opens itself, not from the specialist's message.",
-              "filters": [
-                "the-model",
-                "follow-answer"
-              ]
-            },
-            {
-              "id": "s7-e6",
-              "order": 27,
-              "kicker": "VALIDATION",
-              "title": "Matches and validates",
-              "description": [
-                "exact command, report by rule"
-              ],
-              "detail": "The retried command must match the approved one byte for byte. After it runs, a hook (PostToolUse) records executed or failed. At the end, SubagentStop checks the contract; a missing or unfinished one sends the specialist back.",
-              "filters": [
-                "deterministic",
-                "follow-answer"
-              ]
-            },
-            {
-              "id": "s7-s6",
-              "order": 28,
-              "kicker": "EXECUTION",
-              "title": "Runs it once, then reports",
-              "description": [
-                "only the approved command"
-              ],
-              "detail": "The same specialist runs the approved command once, then closes its contract: what changed, the commands, their output and what is still open.",
-              "filters": [
-                "the-model",
-                "follow-answer"
+              "order": 4,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "s7-s1",
+                  "order": 1,
+                  "title": "Subagent born",
+                  "description": [
+                    "its identity · its skills · its tools"
+                  ],
+                  "detail": "Each agent is one file that names it and lists its tools and the skills it needs. Claude Code loads those skills when the agent starts.",
+                  "filters": [
+                    "moment-ask"
+                  ]
+                },
+                {
+                  "id": "s7-s2",
+                  "order": 2,
+                  "title": "Does the work",
+                  "description": [
+                    "reads files · edits code · runs tests"
+                  ],
+                  "detail": "Most of the work is reading and editing files and running checks.",
+                  "filters": [
+                    "moment-work"
+                  ]
+                },
+                {
+                  "id": "s7-s3",
+                  "order": 3,
+                  "rowspan": 3,
+                  "title": "git push",
+                  "description": [
+                    "asks for approval and pauses"
+                  ],
+                  "detail": "git push sends commits to the shared repository, so it changes something other people use.",
+                  "filters": [
+                    "moment-stop",
+                    "moment-asked",
+                    "moment-decide"
+                  ]
+                },
+                {
+                  "id": "s7-s6",
+                  "order": 4,
+                  "kicker": "EXECUTION",
+                  "title": "Runs it once, then reports",
+                  "description": [
+                    "only the approved command"
+                  ],
+                  "detail": "The same specialist runs the approved command once, then closes its contract: what changed, the commands, their output and what is still open.",
+                  "filters": [
+                    "moment-run"
+                  ]
+                }
               ]
             }
           ],
@@ -4297,9 +4280,8 @@ window.__DOC__ = {
               ],
               "detail": "<code>[ GAIA-SECURITY ] [ DETAILS ] [ developer ] [ COMMAND: git push origin feature/health-check ] [ DOES: pushes the health-check commits to the shared repository ] [ IMPACT: updates the feature/health-check branch; main is not touched ] [ VERIFICATION: CI runs on the branch and must pass ] [ SHARED-STATE: the remote branch feature/health-check ] [ ROLLBACK: push the previous commit back to the branch ]</code>",
               "filters": [
-                "you-come-in",
-                "follow-command",
-                "follow-answer"
+                "moment-asked",
+                "moment-decide"
               ],
               "css_vars": {
                 "--desc-lines": "5"
