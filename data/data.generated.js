@@ -3850,38 +3850,38 @@ window.__DOC__ = {
       "columns": 1,
       "filters": [
         {
+          "key": "the-model",
+          "label": "what does the model do?",
+          "steps": [
+            "The specialist is a model working in one field: it gets its goal, reads and plans, asks for the change, runs it once approved, and reports in its contract."
+          ]
+        },
+        {
+          "key": "deterministic",
+          "label": "what does a rule decide?",
+          "steps": [
+            "Gaia's engine is code: it hands the specialist what it needs, sorts every command, stops a change, records each step and checks the contract, all by rule."
+          ]
+        },
+        {
+          "key": "you-come-in",
+          "label": "where do you come in?",
+          "steps": [
+            "Only when a command would change something real: you see who asks, what runs and how to undo it, and you answer in the prompt."
+          ]
+        },
+        {
           "key": "only-reads",
           "label": "what if it only reads?",
           "steps": [
-            "The specialist runs a command that only reads, and it goes straight through."
+            "The specialist reads and plans, the rule lets reads pass, and nothing reaches you."
           ]
         },
         {
-          "key": "if-approved",
-          "label": "what if you approve?",
+          "key": "changes",
+          "label": "what if it changes something?",
           "steps": [
-            "The command stops, Gaia shows you everything, you approve, and it runs once; the record shows asked, shown, approved and ran."
-          ]
-        },
-        {
-          "key": "if-rejected",
-          "label": "what if you reject?",
-          "steps": [
-            "The command stops, Gaia shows you everything, you reject, and nothing runs; the record keeps your answer."
-          ]
-        },
-        {
-          "key": "no-answer",
-          "label": "what if no one answers?",
-          "steps": [
-            "The command stops, Gaia shows you everything, nobody answers, and the request expires."
-          ]
-        },
-        {
-          "key": "forbidden",
-          "label": "what if it's forbidden?",
-          "steps": [
-            "The specialist tries something on the forbidden list, and it never runs."
+            "The rule stops the change and asks you; once you approve, the specialist runs it once and the engine records every step."
           ]
         }
       ],
@@ -3892,6 +3892,11 @@ window.__DOC__ = {
             "plain",
             "compact"
           ],
+          "tokens": {
+            "row": {
+              "cell_h": 60
+            }
+          },
           "order": 1,
           "span": 1,
           "columns": 1,
@@ -3905,370 +3910,255 @@ window.__DOC__ = {
               ]
             }
           ],
-          "tokens": {
-            "row": {
-              "cell_h": 74
-            }
-          },
           "css_vars": {
-            "--cell-h": "74px"
+            "--cell-h": "60px"
           }
         },
         {
           "id": "s7-gaia",
           "title": "GAIA",
           "tokens": {
-            "type": {
-              "title": {
-                "lines": 3
-              }
+            "row": {
+              "cell_h": 86
             }
           },
           "order": 2,
           "span": 1,
-          "columns": 5,
+          "columns": 3,
           "children": [
             {
-              "id": "s7-asks",
-              "treatment": [
-                "plain"
-              ],
+              "id": "s7-h-spec",
               "order": 1,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "s7-step-asks",
-                  "order": 1,
-                  "title": "1 · A specialist wants to run a command",
-                  "filters": [
-                    "only-reads",
-                    "if-approved",
-                    "if-rejected",
-                    "no-answer",
-                    "forbidden"
-                  ]
-                },
-                {
-                  "id": "s7-specialist",
-                  "order": 2,
-                  "kicker": "PLATFORM-ARCHITECT",
-                  "title": "Wants to create staging",
-                  "description": [
-                    "for store-api"
-                  ],
-                  "detail": "Each specialist works in one field; this one handles infrastructure as code. The orchestrator, the agent you talk to, gave it this task.",
-                  "filters": [
-                    "only-reads",
-                    "if-approved",
-                    "if-rejected",
-                    "no-answer",
-                    "forbidden"
-                  ]
-                },
-                {
-                  "id": "s7-command",
-                  "order": 3,
-                  "kicker": "THE COMMAND",
-                  "title": "terraform apply",
-                  "description": [
-                    "creates 6 · changes 0 · destroys 0"
-                  ],
-                  "detail": "Terraform says what it will do before doing it: 6 resources to create, none to change or destroy.",
-                  "filters": [
-                    "if-approved",
-                    "if-rejected",
-                    "no-answer"
-                  ]
-                },
-                {
-                  "id": "s7-asks-end",
-                  "type": "spacer",
-                  "order": 4
-                }
+              "title": "The specialist",
+              "description": [
+                "a model, one field"
+              ],
+              "treatment": [
+                "centered"
+              ],
+              "filters": [
+                "the-model"
               ]
             },
             {
-              "id": "s7-before",
-              "treatment": [
-                "plain"
-              ],
+              "id": "s7-h-engine",
               "order": 2,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "s7-step-before",
-                  "order": 1,
-                  "title": "2 · Gaia checks it before it runs",
-                  "description": [
-                    "a rule in code decides, not a model"
-                  ],
-                  "filters": [
-                    "only-reads",
-                    "if-approved",
-                    "if-rejected",
-                    "no-answer",
-                    "forbidden"
-                  ]
-                },
-                {
-                  "id": "s7-reads",
-                  "order": 2,
-                  "title": "Only reads? It runs.",
-                  "description": [
-                    "nobody is asked"
-                  ],
-                  "detail": "Before every command, a hook (code that runs at a fixed moment, here PreToolUse) sorts it. Commands that only read, like logs, plans or status, go straight through.",
-                  "filters": [
-                    "only-reads"
-                  ]
-                },
-                {
-                  "id": "s7-changes",
-                  "order": 3,
-                  "title": "Changes something? It stops.",
-                  "description": [
-                    "and waits for you"
-                  ],
-                  "detail": "A command that changes something real is held. The specialist ends its turn with an approval request in its contract, and waits.",
-                  "filters": [
-                    "if-approved",
-                    "if-rejected",
-                    "no-answer"
-                  ]
-                },
-                {
-                  "id": "s7-forbidden",
-                  "order": 4,
-                  "title": "Forbidden? It never runs.",
-                  "description": [
-                    "no one can approve it"
-                  ],
-                  "detail": "Some things are refused every time, like reading a credentials file. There is nothing to approve, and no signature lifts it.",
-                  "variant": "bad",
-                  "filters": [
-                    "forbidden"
-                  ]
-                }
+              "title": "Gaia's engine",
+              "description": [
+                "code: a rule, no model"
+              ],
+              "treatment": [
+                "centered"
+              ],
+              "filters": [
+                "deterministic"
               ]
             },
             {
-              "id": "s7-waits",
-              "treatment": [
-                "plain"
-              ],
+              "id": "s7-h-you",
               "order": 3,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "s7-step-waits",
-                  "order": 1,
-                  "title": "3 · Gaia asks you, and shows you everything",
-                  "filters": [
-                    "if-approved",
-                    "if-rejected",
-                    "no-answer"
-                  ]
-                },
-                {
-                  "id": "s7-who",
-                  "order": 2,
-                  "title": "Who is asking",
-                  "description": [
-                    "platform-architect"
-                  ],
-                  "detail": "Gaia names the agent that asked, so you know who will run it.",
-                  "filters": [
-                    "if-approved",
-                    "if-rejected",
-                    "no-answer"
-                  ]
-                },
-                {
-                  "id": "s7-exact",
-                  "order": 3,
-                  "title": "The exact command",
-                  "description": [
-                    "terraform apply, letter for letter"
-                  ],
-                  "detail": "What you see is what runs. If the command changes by one character, your approval no longer covers it.",
-                  "filters": [
-                    "if-approved",
-                    "if-rejected",
-                    "no-answer"
-                  ]
-                },
-                {
-                  "id": "s7-impact",
-                  "order": 4,
-                  "title": "What changes, and how to undo it",
-                  "description": [
-                    "6 new resources in staging, production untouched"
-                  ],
-                  "detail": "The specialist writes what the command does, its impact, how the result is checked and how to roll it back. You read it under Details.",
-                  "filters": [
-                    "if-approved",
-                    "if-rejected",
-                    "no-answer"
-                  ]
-                }
+              "title": "You",
+              "description": [
+                "the one who decides"
+              ],
+              "treatment": [
+                "centered"
+              ],
+              "filters": [
+                "you-come-in"
               ]
             },
             {
-              "id": "s7-decide",
-              "treatment": [
-                "plain"
-              ],
+              "id": "s7-s1",
               "order": 4,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "s7-step-decide",
-                  "order": 1,
-                  "title": "4 · You answer in the prompt",
-                  "filters": [
-                    "if-approved",
-                    "if-rejected",
-                    "no-answer"
-                  ]
-                },
-                {
-                  "id": "s7-approve",
-                  "order": 2,
-                  "title": "Approve: it runs once",
-                  "description": [
-                    "only this command, within 30 minutes"
-                  ],
-                  "detail": "Your approval covers this one command, once, for 30 minutes. The same specialist picks up where it stopped and runs it.",
-                  "variant": "good",
-                  "filters": [
-                    "if-approved"
-                  ]
-                },
-                {
-                  "id": "s7-reject",
-                  "order": 3,
-                  "title": "Reject: nothing runs",
-                  "description": [
-                    "and that is recorded"
-                  ],
-                  "detail": "Nothing runs, and the rejection stays in the record.",
-                  "variant": "bad",
-                  "filters": [
-                    "if-rejected"
-                  ]
-                },
-                {
-                  "id": "s7-expires",
-                  "order": 4,
-                  "title": "No answer: it expires",
-                  "description": [
-                    "nothing runs"
-                  ],
-                  "detail": "A request nobody answers expires. Trying again needs a new approval.",
-                  "filters": [
-                    "no-answer"
-                  ]
-                }
+              "kicker": "STARTS ►",
+              "title": "Gets its goal, loads its skills",
+              "description": [
+                "create staging for store-api"
+              ],
+              "detail": "The orchestrator, the agent you talk to, gives it the goal. Skills are written instructions for its field; it loads the ones the task needs.",
+              "filters": [
+                "the-model"
               ]
             },
             {
-              "id": "s7-sealed",
-              "treatment": [
-                "plain"
-              ],
+              "id": "s7-e1",
               "order": 5,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "s7-step-sealed",
-                  "order": 1,
-                  "title": "5 · Gaia keeps the record",
-                  "description": [
-                    "every step stamped, and linked to the one before"
-                  ],
-                  "filters": [
-                    "if-approved",
-                    "if-rejected",
-                    "no-answer"
-                  ]
-                },
-                {
-                  "id": "s7-asked",
-                  "order": 2,
-                  "title": "Asked · 10:41",
-                  "treatment": [
-                    "half"
-                  ],
-                  "detail": "Recorded the moment the hook stopped the command.",
-                  "filters": [
-                    "if-approved",
-                    "if-rejected",
-                    "no-answer"
-                  ]
-                },
-                {
-                  "id": "s7-shown",
-                  "order": 3,
-                  "title": "Shown to you · 10:41",
-                  "treatment": [
-                    "half"
-                  ],
-                  "detail": "Recorded when the question opened in your prompt.",
-                  "filters": [
-                    "if-approved",
-                    "if-rejected",
-                    "no-answer"
-                  ]
-                },
-                {
-                  "id": "s7-approved",
-                  "order": 4,
-                  "title": "Approved · 10:42",
-                  "treatment": [
-                    "half"
-                  ],
-                  "detail": "Your answer, with its time.",
-                  "variant": "good",
-                  "filters": [
-                    "if-approved"
-                  ]
-                },
-                {
-                  "id": "s7-ran",
-                  "order": 5,
-                  "title": "Ran · 10:42",
-                  "treatment": [
-                    "half"
-                  ],
-                  "detail": "After it runs, another hook (PostToolUse) marks it executed or failed. Each record carries a fingerprint of the one before, so a changed record shows. You can see it all with <code>gaia approvals show</code>.",
-                  "variant": "good",
-                  "filters": [
-                    "if-approved"
-                  ]
-                },
-                {
-                  "id": "s7-rejected",
-                  "order": 6,
-                  "title": "Or rejected",
-                  "description": [
-                    "nothing ran"
-                  ],
-                  "detail": "If you reject, the record ends with your answer and its time.",
-                  "variant": "bad",
-                  "filters": [
-                    "if-rejected"
-                  ]
-                }
+              "kicker": "AT THE START",
+              "title": "Hands it what it needs",
+              "description": [
+                "the project, your rules, its contract"
+              ],
+              "detail": "When a specialist starts, a hook (SubagentStart, code that runs at a fixed moment) hands it which parts of the project it may read and write, your standing rules, and its contract: the form it fills in as it works.",
+              "filters": [
+                "deterministic"
               ]
+            },
+            {
+              "id": "s7-y1",
+              "type": "spacer",
+              "order": 6
+            },
+            {
+              "id": "s7-s2",
+              "order": 7,
+              "kicker": "WORKS ►",
+              "title": "Reads and plans",
+              "description": [
+                "the code, the current state, terragrunt plan"
+              ],
+              "detail": "Most of the work is reading: the code, the current state, and a plan of what would change.",
+              "filters": [
+                "the-model",
+                "only-reads"
+              ]
+            },
+            {
+              "id": "s7-e2",
+              "order": 8,
+              "kicker": "BEFORE EACH COMMAND",
+              "title": "Only reads? It passes.",
+              "description": [
+                "forbidden? it never runs"
+              ],
+              "detail": "Before every command, a hook (PreToolUse) sorts it by rule. Commands that only read pass. Some are refused every time, like reading a credentials file, and nothing can approve them.",
+              "filters": [
+                "deterministic",
+                "only-reads"
+              ]
+            },
+            {
+              "id": "s7-y2",
+              "order": 9,
+              "title": "Reads never reach you",
+              "description": [
+                "nobody asks you"
+              ],
+              "detail": "Reading is safe, so Gaia never asks you about it.",
+              "filters": [
+                "you-come-in",
+                "only-reads"
+              ]
+            },
+            {
+              "id": "s7-s3",
+              "order": 10,
+              "kicker": "WANTS A CHANGE ►",
+              "title": "terragrunt apply",
+              "description": [
+                "creates 6 · changes 0 · destroys 0"
+              ],
+              "detail": "Terragrunt runs Terraform across the project's modules. This apply would create 6 resources in staging and touch nothing in production.",
+              "filters": [
+                "the-model",
+                "changes"
+              ]
+            },
+            {
+              "id": "s7-e3",
+              "order": 11,
+              "kicker": "A CHANGE ►",
+              "title": "Stops it and asks you",
+              "description": [
+                "the specialist pauses its turn"
+              ],
+              "detail": "A command that changes something real is held. The specialist ends its turn with an approval request in its contract. Gaia writes the question word for word; the orchestrator only opens it for you.",
+              "variant": "warn",
+              "filters": [
+                "deterministic",
+                "changes"
+              ]
+            },
+            {
+              "id": "s7-y3",
+              "order": 12,
+              "kicker": "YOU SEE",
+              "title": "Who, what, and how to undo it",
+              "description": [
+                "platform-architect · terragrunt apply"
+              ],
+              "detail": "The question names the agent and the exact command. Details adds what it does, its impact, how it is checked and how to roll it back. If the command changes by one character, your approval no longer covers it.",
+              "filters": [
+                "you-come-in",
+                "changes"
+              ]
+            },
+            {
+              "id": "s7-s4",
+              "order": 13,
+              "kicker": "◄ RUNS IT",
+              "title": "Once, exactly as approved",
+              "description": [
+                "within 30 minutes"
+              ],
+              "detail": "The same specialist picks up where it stopped and runs the approved command.",
+              "filters": [
+                "the-model",
+                "changes"
+              ]
+            },
+            {
+              "id": "s7-e4",
+              "order": 14,
+              "kicker": "◄ AFTER EACH COMMAND",
+              "title": "Records it",
+              "description": [
+                "asked · shown · approved · ran"
+              ],
+              "detail": "Each step is stamped with its time and linked to the one before, so a changed record shows. After the command runs, a hook (PostToolUse) marks it executed or failed. You can see it all with <code>gaia approvals show</code>.",
+              "filters": [
+                "deterministic",
+                "changes"
+              ]
+            },
+            {
+              "id": "s7-y4",
+              "order": 15,
+              "kicker": "◄ YOU ANSWER",
+              "title": "In the prompt below",
+              "description": [
+                "approve, reject, or let it expire"
+              ],
+              "detail": "Approve covers this one command, once, for 30 minutes. Reject means nothing runs. A request nobody answers expires.",
+              "filters": [
+                "you-come-in",
+                "changes"
+              ]
+            },
+            {
+              "id": "s7-s5",
+              "order": 16,
+              "kicker": "◄ FINISHES",
+              "title": "Reports what it did",
+              "description": [
+                "in its contract"
+              ],
+              "detail": "It closes its contract: its status, the commands it ran, what they printed, and what is still open.",
+              "filters": [
+                "the-model"
+              ]
+            },
+            {
+              "id": "s7-e5",
+              "order": 17,
+              "kicker": "◄ AT THE END",
+              "title": "Checks the contract by rule",
+              "description": [
+                "not by what the specialist says"
+              ],
+              "detail": "When the turn ends, a hook (SubagentStop) reads the stored contract, never the reply text. A missing or unfinished contract sends the specialist back to finish it.",
+              "filters": [
+                "deterministic"
+              ]
+            },
+            {
+              "id": "s7-y5",
+              "type": "spacer",
+              "order": 18
             }
           ],
           "css_vars": {
-            "--title-lines": "3"
+            "--cell-h": "86px"
           }
         },
         {
@@ -4278,7 +4168,7 @@ window.__DOC__ = {
           ],
           "tokens": {
             "row": {
-              "cell_h": 150
+              "cell_h": 144
             }
           },
           "order": 3,
@@ -4299,17 +4189,16 @@ window.__DOC__ = {
                 }
               },
               "description": [
-                "[ GAIA-SECURITY ] [ AGENT-REQUEST ] [ platform-architect ] [ COMMAND ] [ terraform apply ]",
+                "[ GAIA-SECURITY ] [ AGENT-REQUEST ] [ platform-architect ] [ COMMAND ] [ terragrunt apply ]",
                 "› 1. Approve · authorizes exactly this command",
                 "  2. Reject · nothing runs",
                 "  3. Details · what it does, impact, verification, how to undo it",
                 "  4. Type something"
               ],
-              "detail": "<code>[ GAIA-SECURITY ] [ DETAILS ] [ platform-architect ] [ COMMAND: terraform apply ] [ DOES: creates the 6 resources of the store-api staging environment ] [ IMPACT: new resources in staging only; production is not touched ] [ VERIFICATION: terraform plan shows no changes and the staging endpoint answers ] [ SHARED-STATE: writes the staging Terraform state, nothing else ] [ ROLLBACK: terraform destroy on the staging workspace removes the 6 resources ]</code>",
+              "detail": "<code>[ GAIA-SECURITY ] [ DETAILS ] [ platform-architect ] [ COMMAND: terragrunt apply ] [ DOES: creates the 6 resources of the store-api staging environment ] [ IMPACT: new resources in staging only; production is not touched ] [ VERIFICATION: terragrunt plan shows no changes and the staging endpoint answers ] [ SHARED-STATE: writes the staging Terraform state, nothing else ] [ ROLLBACK: terragrunt destroy on the staging environment removes the 6 resources ]</code>",
               "filters": [
-                "if-approved",
-                "if-rejected",
-                "no-answer"
+                "you-come-in",
+                "changes"
               ],
               "css_vars": {
                 "--desc-lines": "5"
@@ -4317,7 +4206,7 @@ window.__DOC__ = {
             }
           ],
           "css_vars": {
-            "--cell-h": "150px"
+            "--cell-h": "144px"
           }
         }
       ],
