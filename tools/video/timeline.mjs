@@ -10,7 +10,9 @@ import { DECK, VIDEO_DIR, argValue, fail } from './deck.mjs';
 export const FRAME = { fps: 60, width: 1920, height: 1080, theme: 'light', supersample: 2 };
 // A reveal is a fade only: no rise and no ring, so the frame shows the deck's
 // own layout at every instant.
-export const MOTION = { fade: 0.4, lead: 0.8, tail: 1.2, reveal: { duration: 0.7, anticipation: 0.3 } };
+export const MOTION = {
+  fade: 0.4, lead: 0.8, tail: 1.2, reveal: { duration: 0.7, anticipation: 0.3 }, type: { interval: 0.25 },
+};
 export const ALIGN_FILE = join(VIDEO_DIR, 'align.json');
 // Speech rate of the estimate used while a page has no aligned audio: enough to
 // check and frame the timeline, never to capture it.
@@ -37,19 +39,22 @@ function wordAnchor(say, word) {
   return null;
 }
 
-// A sentence's cues in the order they fire: its own show and chip at its start,
-// then its word cues, which must be listed in the order their words are said.
+const cueAction = c => (c.show ? { reveal: c.show } : c.chip !== undefined ? { chip: c.chip } : { type: c.type });
+
+// A sentence's cues in the order they fire: its own show, chip and typing at its
+// start, then its word cues, which must be listed in the order their words are said.
 function sentenceCues(s, at, errors) {
   const fires = [];
   if (s.show && s.show.length) fires.push({ reveal: s.show });
   if (s.chip !== undefined) fires.push({ chip: s.chip });
+  if (s.type !== undefined) fires.push({ type: s.type });
   let said = -1;
   for (const cue of s.cues || []) {
     const anchor = wordAnchor(s.say, cue.at);
     if (!anchor) { errors.push(`${at}: cue at "${cue.at}" is not a word of the sentence`); continue; }
     if (anchor.char < said) errors.push(`${at}: cue at "${cue.at}" is listed after a later word; list cues in the order they are said`);
     said = Math.max(said, anchor.char);
-    fires.push({ word: cue.at, ...anchor, ...(cue.show ? { reveal: cue.show } : { chip: cue.chip }) });
+    fires.push({ word: cue.at, ...anchor, ...cueAction(cue) });
   }
   return fires;
 }
@@ -73,11 +78,12 @@ function derivePage(page, sp, errors) {
       if (cue.chip !== undefined && cue.chip !== 'all' && !chips.includes(cue.chip)) {
         errors.push(`${at}: chip "${cue.chip}" is not a chip of the page (${chips.join(', ') || 'none'})`);
       }
+      if (cue.type !== undefined && !order.includes(cue.type)) errors.push(`${at}: types into "${cue.type}", which is not on the page`);
       cues.push({ s: k + 1, ...cue });
     }
   });
   const base = (page.sections || []).map(n => n.id).filter(id => id && !shown.has(id));
-  return { page: sp.page, audio: sp.audio, sentences: sp.sentences.map(s => s.say), base, cues };
+  return { page: sp.page, audio: sp.audio, duration: sp.duration, sentences: sp.sentences.map(s => s.say), base, cues };
 }
 
 /** Derives the timeline of the script's pages from the deck, or fails naming every mismatch. */
@@ -97,13 +103,17 @@ export function loadTimeline(doc, script) {
   return { pages };
 }
 
+/** The pages that declare narration audio; a silent page has a fixed duration instead. */
+export const voicedPages = timeline => timeline.pages.filter(p => p.audio !== undefined);
+
 /** Returns video/align.json, or an alignment with no pages when none was made. */
 export function readAlign() {
   return existsSync(ALIGN_FILE) ? JSON.parse(readFileSync(ALIGN_FILE, 'utf8')) : { pages: [] };
 }
 
 // Sentence times inside a page's audio: from align.json when it was made for
-// these sentences, else an estimate by length. A stale alignment fails.
+// these sentences, else an estimate by length. A stale alignment fails. A silent
+// page spreads the estimate over its declared duration, which capture accepts.
 function sentenceTimes(page, align) {
   const a = align.pages.find(x => x.page === page.page);
   if (a) {
@@ -118,7 +128,9 @@ function sentenceTimes(page, align) {
     t += text.length / CHARS_PER_SECOND;
     return { text, start, end: t };
   });
-  return { method: 'estimate', duration: t, sentences };
+  if (page.duration === undefined) return { method: 'estimate', duration: t, sentences };
+  const k = page.duration / t;
+  return { method: 'fixed', duration: page.duration, sentences: sentences.map(s => ({ ...s, start: s.start * k, end: s.end * k })) };
 }
 
 // The start of the timed word that holds the letter at `offset` of its sentence;
@@ -166,7 +178,7 @@ export function buildPlan(timeline, align, pageIds = timeline.pages.map(p => p.p
     return { page: p.page, audio: p.audio, method: times.method, start, voiceAt, end, base: p.base, cues,
       sentences: times.sentences };
   });
-  return { fade: MOTION.fade, reveal: MOTION.reveal, duration: clock, pages };
+  return { fade: MOTION.fade, reveal: MOTION.reveal, type: MOTION.type, duration: clock, pages };
 }
 
 /** `--pages id,id` as page ids in the deck's order; an id outside the timeline fails. */

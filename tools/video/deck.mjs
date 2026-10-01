@@ -20,9 +20,9 @@ const PLAYWRIGHT = join(HERE, 'node_modules', 'playwright');
 // The script holds what is said and what it shows, nothing else: a voice, a
 // speed or any markup belongs to the voice step, so an unknown key is refused.
 const SCRIPT_KEYS = new Set(['pages']);
-const PAGE_KEYS = new Set(['page', 'audio', 'sentences']);
-const SENTENCE_KEYS = new Set(['say', 'show', 'chip', 'cues']);
-const CUE_KEYS = new Set(['at', 'show', 'chip']);
+const PAGE_KEYS = new Set(['page', 'audio', 'duration', 'sentences']);
+const SENTENCE_KEYS = new Set(['say', 'show', 'chip', 'type', 'cues']);
+const CUE_KEYS = new Set(['at', 'show', 'chip', 'type']);
 
 /** Prints one `[video]` message and ends the process with exit 1. */
 export function fail(message) {
@@ -72,7 +72,11 @@ export function readScript() {
     const where = `page ${p.page ?? i + 1}`;
     refuseUnknown(p, PAGE_KEYS, where);
     if (typeof p.page !== 'string') errors.push(`${where}: "page" must name a page id of the deck`);
-    if (typeof p.audio !== 'string') errors.push(`${where}: "audio" must declare the narration file, relative to ${VIDEO_DIR}`);
+    if ((p.audio === undefined) === (p.duration === undefined)) {
+      errors.push(`${where}: give exactly one of "audio" (the narration file, relative to ${VIDEO_DIR}) or "duration" (seconds of a silent slot)`);
+    }
+    if (p.audio !== undefined && typeof p.audio !== 'string') errors.push(`${where}: "audio" must declare the narration file, relative to ${VIDEO_DIR}`);
+    if (p.duration !== undefined && !(typeof p.duration === 'number' && p.duration > 0)) errors.push(`${where}: "duration" must be a positive number of seconds`);
     if (!Array.isArray(p.sentences) || !p.sentences.length) errors.push(`${where}: "sentences" must list what is said`);
     for (const [k, s] of (p.sentences || []).entries()) {
       const at = `${where} sentence ${k + 1}`;
@@ -82,14 +86,16 @@ export function readScript() {
         errors.push(`${at}: "show" must list ids of the page`);
       }
       if (s.chip !== undefined && typeof s.chip !== 'string') errors.push(`${at}: "chip" must be one chip key`);
+      if (s.type !== undefined && typeof s.type !== 'string') errors.push(`${at}: "type" must be the id of one box to type`);
       if (s.cues !== undefined && !(Array.isArray(s.cues) && s.cues.length)) {
-        errors.push(`${at}: "cues" must list word cues ({ "at": <word>, "show" or "chip" })`);
+        errors.push(`${at}: "cues" must list word cues ({ "at": <word>, "show", "chip" or "type" })`);
       }
       for (const [c, cue] of (Array.isArray(s.cues) ? s.cues : []).entries()) {
         const where = `${at} cue ${c + 1}`;
         refuseUnknown(cue, CUE_KEYS, where);
         if (typeof cue.at !== 'string' || !cue.at.trim()) errors.push(`${where}: "at" must name a word of the sentence`);
-        if ((cue.show === undefined) === (cue.chip === undefined)) errors.push(`${where}: give exactly one of "show" or "chip"`);
+        if ([cue.show, cue.chip, cue.type].filter(v => v !== undefined).length !== 1) errors.push(`${where}: give exactly one of "show", "chip" or "type"`);
+        if (cue.type !== undefined && typeof cue.type !== 'string') errors.push(`${where}: "type" must be the id of one box to type`);
         if (cue.show !== undefined && !(Array.isArray(cue.show) && cue.show.length && cue.show.every(id => typeof id === 'string'))) {
           errors.push(`${where}: "show" must list ids of the page`);
         }

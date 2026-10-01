@@ -15,7 +15,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { DECK, HERE, argValue, audioPath, fail, readScript, requireDeck, scriptTextPath, wordsPath } from './deck.mjs';
-import { loadTimeline } from './timeline.mjs';
+import { loadTimeline, voicedPages } from './timeline.mjs';
 
 const PROVIDERS = ['kokoro', 'manual'];
 const KOKORO_HOME = join(homedir(), '.local', 'share', 'gaia-tts', 'kokoro');
@@ -58,7 +58,7 @@ const speed = argValue('--speed', KOKORO_SPEED);
 if (!(Number(speed) > 0)) fail(`--speed: "${speed}" is not a positive number`);
 const doc = requireDeck();
 const timeline = loadTimeline(doc, readScript());
-const jobs = timeline.pages.map((p, i) => ({
+const jobs = voicedPages(timeline).map((p, i) => ({
   page: p.page, text: scriptTextPath(p, i), audio: audioPath(p), words: wordsPath(p), said: p.sentences.join('\n') + '\n',
 }));
 const stale = jobs.filter(j => !existsSync(j.text) || readFileSync(j.text, 'utf8') !== j.said).map(j => j.text);

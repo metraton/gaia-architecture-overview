@@ -91,15 +91,18 @@ function concatList(runs) {
 // per frame it lasts. The audio is padded to the video's exact length rather
 // than endlessly with -shortest: once -frames:v stops the video, -shortest
 // never fires and ffmpeg keeps padding audio forever (measured on ffmpeg 6.1).
+// A silent page adds no input; when no page is voiced, a null source is padded.
 function encode(plan, list, frames, out) {
   const args = ['-hide_banner', '-nostats', '-loglevel', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', list];
-  plan.pages.forEach(p => args.push('-i', audioPath(p)));
+  const voiced = plan.pages.filter(p => p.audio !== undefined);
+  voiced.forEach(p => args.push('-i', audioPath(p)));
+  if (!voiced.length) args.push('-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=stereo');
   const video = `[0:v]scale=${FRAME.width}:${FRAME.height}:flags=lanczos,fps=${FRAME.fps}[vout]`;
-  const delayed = plan.pages.map((p, i) => `[${i + 1}:a]adelay=${Math.round(p.voiceAt * 1000)}:all=1[a${i}]`);
+  const delayed = voiced.map((p, i) => `[${i + 1}:a]adelay=${Math.round(p.voiceAt * 1000)}:all=1[a${i}]`);
   const pad = `apad=whole_dur=${(frames / FRAME.fps).toFixed(6)}[aout]`;
-  const mix = plan.pages.length === 1
-    ? `[a0]${pad}`
-    : plan.pages.map((_, i) => `[a${i}]`).join('') + `amix=inputs=${plan.pages.length}:normalize=0,${pad}`;
+  const mix = voiced.length === 0 ? `[1:a]${pad}`
+    : voiced.length === 1 ? `[a0]${pad}`
+      : voiced.map((_, i) => `[a${i}]`).join('') + `amix=inputs=${voiced.length}:normalize=0,${pad}`;
   args.push('-filter_complex', [video, ...delayed, mix].join(';'), '-map', '[vout]', '-map', '[aout]', '-frames:v', String(frames),
     '-c:v', 'libx264', '-preset', 'slow', '-tune', 'animation', '-crf', '10', '-pix_fmt', 'yuv420p', '-r', String(FRAME.fps),
     '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2', '-movflags', '+faststart', out);

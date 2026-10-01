@@ -65,10 +65,28 @@
       `transform-origin:0 0;transform:translate(${x}px,${y}px) scale(${scale})`;
   }
 
-  // plan: { fade, reveal:{duration,anticipation},
-  //         pages:[{ page, start, voiceAt, end, base:[id], cues:[{ t, reveal?:[id], chip? }] }] }
-  // A reveal or a lit chip fires reveal.anticipation seconds before its anchor,
-  // never before the page's fade-in ends; a clear (chip "all") fires on it.
+  const el = (tag, text) => Object.assign(document.createElement(tag), { textContent: text });
+
+  // Splits a title into one span per word, so typing hides words without
+  // reflowing the ones already shown.
+  function wordSpans(title) {
+    const parts = title.textContent.split(/(\s+)/).filter(Boolean);
+    title.textContent = '';
+    const words = [];
+    for (const part of parts) {
+      if (/^\s+$/.test(part)) { title.appendChild(document.createTextNode(part)); continue; }
+      const w = el('span', part);
+      title.appendChild(w);
+      words.push(w);
+    }
+    return words;
+  }
+
+  // plan: { fade, reveal:{duration,anticipation}, type:{interval},
+  //         pages:[{ page, start, voiceAt, end, base:[id], cues:[{ t, reveal?:[id], chip?, type?:id }] }] }
+  // A reveal, a lit chip or a typing fires reveal.anticipation seconds before its
+  // anchor, never before the page's fade-in ends; a clear (chip "all") fires on it.
+  // A typing shows a box's title one word per type.interval.
   // Returns the problems found against the rendered deck; empty means it fits.
   function load(plan) {
     const errors = [];
@@ -83,6 +101,7 @@
       const at = new Map();
       const reveals = [];
       const chips = [];
+      const typings = [];
       const find = (id, where) => {
         const n = act.querySelector(ID_SELECTOR(id));
         if (!n) errors.push(`${p.page}: ${where} names "${id}", which is not on the rendered page`);
@@ -99,6 +118,12 @@
         if (cue.chip !== undefined) {
           if (cue.chip !== 'all' && !filters.includes(cue.chip)) errors.push(`${p.page}: chip "${cue.chip}" is not rendered on the page`);
           chips.push({ anchor: cue.t, t: cue.chip === 'all' ? cue.t : fire, key: cue.chip });
+        }
+        if (cue.type !== undefined) {
+          const n = find(cue.type, 'type');
+          const title = n && n.querySelector(':scope > .t');
+          if (n && !(title && title.textContent.trim())) errors.push(`${p.page}: type names "${cue.type}", which has no title to type`);
+          else if (n) typings.push({ el: n, t: fire, words: wordSpans(title) });
         }
       }
       for (const id of p.base) find(id, 'base');
@@ -119,6 +144,9 @@
         const first = Math.min(...members.map(visibleAt));
         if (!(first <= c.t)) errors.push(`${p.page}: chip "${c.key}" fires at ${secs(c.t)} s but no member is revealed before ${secs(first)} s`);
       }
+      for (const ty of typings) {
+        if (!(visibleAt(ty.el) <= ty.t)) errors.push(`${p.page}: typing into "${idOf(ty.el)}" starts at ${secs(ty.t)} s, before it is revealed at ${secs(visibleAt(ty.el))} s`);
+      }
       const roots = [...act.querySelectorAll(ID_ATTRS)].filter(n => !n.parentElement.closest(ID_ATTRS));
       for (const r of roots) {
         if (!p.base.includes(idOf(r)) && !at.has(r)) errors.push(`${p.page}: top-level "${idOf(r)}" is neither shown from the start nor revealed`);
@@ -129,7 +157,7 @@
         }
       }
       chips.sort((a, b) => a.anchor - b.anchor);
-      return { ...p, index, act, reveals, chips };
+      return { ...p, index, act, reveals, chips, typings };
     }).filter(Boolean);
     video = { ...plan, pages };
     shownIndex = -1;
@@ -148,21 +176,24 @@
     });
     let key = 'all';
     for (const c of pg.chips) if (c.t <= t) key = c.key;
-    return { pg, opacity, filters, key };
+    const typed = pg.typings.map(ty => Math.max(0, Math.min(ty.words.length, Math.floor((t - ty.t) / video.type.interval) + 1)));
+    return { pg, opacity, filters, key, typed };
   }
 
   /** One string per frame naming its state; equal strings are equal frames. */
   function frameStates(count, fps) {
     const states = [];
     for (let f = 0; f < count; f++) {
-      const { pg, opacity, filters, key } = stateAt(f / fps);
-      states.push(JSON.stringify([pg.page, opacity, pg.reveals.map((r, i) => [idOf(r.el), filters[i]]), key]));
+      const { pg, opacity, filters, key, typed } = stateAt(f / fps);
+      states.push(JSON.stringify([pg.page, opacity, pg.reveals.map((r, i) => [idOf(r.el), filters[i]]), key,
+        pg.typings.map((ty, i) => [idOf(ty.el), typed[i]])]));
     }
     return states;
   }
 
   function seek(t) {
-    const { pg, opacity, filters, key } = stateAt(t);
+    const { pg, opacity, filters, key, typed } = stateAt(t);
+    pg.typings.forEach((ty, i) => ty.words.forEach((w, k) => { w.style.visibility = k < typed[i] ? '' : 'hidden'; }));
     if (pg.index !== shownIndex) {
       if (shownIndex >= 0 && appliedChip !== 'all') deck.setFlow(shownIndex, 'all');
       deck.show(pg.index);

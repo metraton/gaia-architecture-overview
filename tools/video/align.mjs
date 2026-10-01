@@ -18,7 +18,7 @@
 import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { audioPath, fail, readScript, requireDeck, wordsPath } from './deck.mjs';
-import { ALIGN_FILE, letters, loadTimeline } from './timeline.mjs';
+import { ALIGN_FILE, letters, loadTimeline, voicedPages } from './timeline.mjs';
 
 const SILENCE_FILTER = 'silencedetect=noise=-35dB:d=0.15';
 const TOLERANCE_S = 2.0;
@@ -170,7 +170,7 @@ function alignBySilence(page, wav, duration) {
 
 const doc = requireDeck();
 const timeline = loadTimeline(doc, readScript());
-const wavs = timeline.pages.map(p => [p, audioPath(p)]);
+const wavs = voicedPages(timeline).map(p => [p, audioPath(p)]);
 const missing = wavs.filter(([, wav]) => !existsSync(wav)).map(([p, wav]) => `${p.page} (${wav})`);
 if (missing.length) fail(`no narration audio for ${missing.join(', ')}: voice the exported script (npm run video:voice) to those paths`);
 const pages = wavs.map(([p, wav]) => alignPage(p, wav));

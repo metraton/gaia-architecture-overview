@@ -124,6 +124,19 @@
         { "say": "So: what is Gaia, and what can you do for me?", "chip": "all",
           "cues": [{ "at": "can", "show": ["p9-close"] }] }
       ]
+    },
+    {
+      "page": "p-pilot-your-yes",
+      "duration": 24,
+      "sentences": [
+        { "say": "Your specialists have read what they needed, and one of them is ready to change something real.", "show": ["s7-says"],
+          "cues": [{ "at": "specialists", "chip": "at-work" }] },
+        { "say": "That change waits here, with the exact command in front of you.", "show": ["s7-card", "s7-approve", "s7-reject", "s7-details"], "chip": "the-human" },
+        { "say": "Before any command runs, a fixed rule sorts it, and forty-one of them only read, so they ran.", "show": ["s7-ran"], "chip": "deterministic" },
+        { "say": "This one waits for your yes.", "show": ["s7-waits"], "chip": "one-command" },
+        { "say": "And one tried to open a credentials file, so it never ran, and no yes can change that.", "show": ["s7-never"] },
+        { "say": "You read the card, and you answer.", "chip": "all", "type": "s7-input" }
+      ]
     }
   ]
 }

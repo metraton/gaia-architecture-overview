@@ -1,0 +1,215 @@
+# Pilot of the console story, scene 7: the page is Gaia's chat console at the
+# moment a change waits for your yes. Every console string is provisional until
+# it is confirmed against the running Gaia build.
+id: p-pilot-your-yes
+form: dashboard
+columns: 1
+
+filters:
+  - key: the-human
+    label: "who decides?"
+    steps:
+      - "You do: the change waits on the card until you approve or reject it, and the reply you type is your answer."
+  - key: memory
+    label: "what do we remember?"
+    steps:
+      - "Your answer, approve or reject, is kept in the approval chain."
+  - key: deterministic
+    label: "what does a rule decide?"
+    steps:
+      - "A fixed rule sorts every command before it runs: reads run, changes wait for your yes, and a few never run. No model is consulted."
+  - key: semantic
+    label: "what does a model follow?"
+    steps:
+      - "Gaia and every specialist on the team are models following instructions."
+  - key: one-command
+    label: "what happens to one command?"
+    steps:
+      - "Each command meets the rule once and lands in one of three places: it ran, it waits for your yes, or it never runs."
+  - key: at-work
+    label: "who is working now?"
+    steps:
+      - "Three specialists work on this request: platform-architect, gitops-operator and developer."
+
+sections:
+  - id: s7-caption
+    treatment: [plain]
+    order: 1
+    span: 1
+    columns: 1
+    children:
+      - id: s7-cap
+        order: 1
+        kicker: "YOUR YES"
+        title: "Nothing real changes without your yes, and a fixed rule decides which commands need it."
+        treatment: [centered]
+
+  - id: s7-gaia
+    title: "GAIA"
+    treatment: [envelope]
+    order: 2
+    span: 1
+    columns: 3
+    children:
+      - id: s7-notify
+        treatment: [plain]
+        order: 1
+        span: 3
+        columns: 1
+        children:
+          - id: s7-notice
+            type: rail
+            order: 1
+            span: 1
+            title: "Signature 1/1 · platform-architect waits for your yes on store-api"
+            filters: [the-human]
+
+      - id: s7-chat
+        treatment: [plain]
+        order: 2
+        span: 2
+        columns: 6
+        children:
+          - id: s7-you
+            order: 1
+            span: 6
+            kicker: "YOU"
+            title: "Go."
+            filters: [the-human]
+          - id: s7-says
+            order: 2
+            span: 6
+            kicker: "GAIA"
+            title: "One change needs your yes"
+            description: ["platform-architect is ready to create the staging environment for store-api"]
+            detail: "The orchestrator brings you the approval because a specialist has no channel to you: its turn goes up as <code>APPROVAL_REQUEST</code> and the orchestrator shows the card below, the same shape every time."
+            filters: [the-human, semantic]
+          - id: s7-card
+            order: 3
+            span: 4
+            kicker: "SIGNATURE 1/1"
+            title: "terraform apply · creates 6, changes 0, destroys 0"
+            description: ["[ GAIA-SECURITY ] [ AGENT-REQUEST ] [ platform-architect ] [ COMMAND ] [ terraform apply ]"]
+            detail: "A <b>T3</b> command, one that changes something, is held by the <b>PreToolUse</b> hook with an <code>approval_id</code> before it runs. The card names the agent and the exact command. An approval is single-use, must match the approved command byte for byte, and lasts 30 minutes; every step is kept in the approval chain."
+            filters: [the-human, deterministic, one-command]
+          - id: s7-approve
+            order: 4
+            span: 1
+            title: "Approve"
+            variant: good
+            treatment: [half]
+            detail: "Authorizes exactly this command. The specialist retries it byte for byte, and the single-use approval is spent."
+            filters: [the-human, memory]
+          - id: s7-reject
+            order: 5
+            span: 1
+            title: "Reject"
+            variant: bad
+            treatment: [half]
+            detail: "Rejects the signature; nothing runs."
+            filters: [the-human, memory]
+          - id: s7-details
+            order: 6
+            span: 1
+            title: "Details"
+            description: ["does · impact · undo"]
+            detail: "<code>[ GAIA-SECURITY ] [ DETAILS ] [ platform-architect ] [ COMMAND: terraform apply ] [ DOES: creates the 6 resources of the store-api staging environment ] [ IMPACT: new resources in staging only; production is not touched ] [ VERIFICATION: terraform plan shows no changes and the staging endpoint answers ] [ SHARED-STATE: writes the staging Terraform state, nothing else ] [ ROLLBACK: terraform destroy on the staging workspace removes the 6 resources ]</code>"
+            filters: [the-human]
+          - id: s7-ran
+            order: 7
+            span: 2
+            kicker: "RAN"
+            title: "41"
+            description: ["they only read, so nobody was asked"]
+            detail: "Tiers <b>T0</b> read, <b>T1</b> validate and <b>T2</b> dry run change nothing, so the rule lets them run."
+            filters: [deterministic, one-command]
+          - id: s7-waits
+            order: 8
+            span: 2
+            kicker: "WAITS"
+            title: "1"
+            description: ["the apply on the card, until you answer"]
+            detail: "The one <b>T3</b> command of this turn: <code>terraform apply</code>, held until you approve or reject it."
+            filters: [deterministic, one-command, the-human]
+          - id: s7-never
+            order: 9
+            span: 2
+            kicker: "NEVER"
+            title: "1"
+            description: ["it tried to read a credentials file"]
+            detail: "<code>[SENSITIVE_PATH] Reading or listing '.env' is refused (environment secrets file): its contents are credentials or account access. This block is not approvable and no signature lifts it.</code>"
+            variant: bad
+            filters: [deterministic, one-command]
+
+      - id: s7-team
+        title: "Team"
+        treatment: [envelope]
+        order: 3
+        span: 1
+        columns: 1
+        children:
+          - id: s7-at-work
+            type: separator
+            order: 1
+            span: 1
+            text: "at work"
+          - id: s7-platform-architect
+            type: rail
+            order: 2
+            span: 1
+            title: "platform-architect"
+            filters: [semantic, at-work]
+          - id: s7-gitops-operator
+            type: rail
+            order: 3
+            span: 1
+            title: "gitops-operator"
+            filters: [semantic, at-work]
+          - id: s7-developer
+            type: rail
+            order: 4
+            span: 1
+            title: "developer"
+            filters: [semantic, at-work]
+          - id: s7-standing-by
+            type: separator
+            order: 5
+            span: 1
+            text: "also in this session"
+          - id: s7-orchestrator
+            type: rail
+            order: 6
+            span: 1
+            title: "orchestrator"
+            filters: [semantic]
+          - id: s7-gaia-planner
+            type: rail
+            order: 7
+            span: 1
+            title: "gaia-planner"
+            filters: [semantic]
+          - id: s7-gaia-verifier
+            type: rail
+            order: 8
+            span: 1
+            title: "gaia-verifier"
+            filters: [semantic]
+
+      - id: s7-reply
+        treatment: [plain]
+        order: 4
+        span: 3
+        columns: 1
+        children:
+          - id: s7-turn
+            type: separator
+            order: 1
+            span: 1
+            text: "your turn"
+          - id: s7-input
+            order: 2
+            span: 1
+            variant: accent
+            kicker: "REPLY"
+            title: "Approve. Show me the evidence when it's done."
+            filters: [the-human]

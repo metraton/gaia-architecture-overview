@@ -13,7 +13,7 @@ for (const p of plan.pages) {
     `shown from the start: ${p.base.join(', ') || 'nothing'}`);
   for (const c of p.cues) {
     const word = c.word === undefined ? '' : ` at "${c.word}"${c.estimated ? ' (estimated)' : ''}`;
-    console.log(`  ${c.t.toFixed(2)} s  sentence ${c.s}${word}  ${c.reveal ? 'show ' + c.reveal.join(', ') : 'chip ' + c.chip}`);
+    console.log(`  ${c.t.toFixed(2)} s  sentence ${c.s}${word}  ${c.reveal ? 'show ' + c.reveal.join(', ') : c.type !== undefined ? 'type ' + c.type : 'chip ' + c.chip}`);
   }
 }
 console.log(`total ${plan.duration.toFixed(2)} s`);

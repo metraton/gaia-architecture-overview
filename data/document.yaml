@@ -44,3 +44,8 @@ pages:
     order: 6
     visible: true
     file: pages/backup-code.yaml
+  - id: p-pilot-your-yes
+    name: "Pilot · 7 · Your yes"
+    order: 7
+    visible: true
+    file: pages/p-pilot-your-yes.yaml
