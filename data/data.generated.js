@@ -3850,38 +3850,38 @@ window.__DOC__ = {
       "columns": 1,
       "filters": [
         {
+          "key": "follow-command",
+          "label": "follow the command",
+          "steps": [
+            "The specialist asks to run git push and pauses; the engine stops it and keeps the request; the orchestrator asks you with the question Gaia wrote, checked word for word; you see who asks, the exact command and how to undo it."
+          ]
+        },
+        {
+          "key": "follow-answer",
+          "label": "follow your answer",
+          "steps": [
+            "You decide; the engine records the answer as a one-time pass; the orchestrator resumes the same specialist, which runs the command once, matched byte for byte, and reports; the orchestrator tells you the result from the checked report."
+          ]
+        },
+        {
           "key": "the-model",
           "label": "what does the model do?",
           "steps": [
-            "The specialist is a model working in one field: it gets its goal, reads and plans, asks for the change, runs it once approved, and reports in its contract."
+            "The orchestrator and the specialist are models: one talks to you and hands out the work, the other does it in its field."
           ]
         },
         {
           "key": "deterministic",
           "label": "what does a rule decide?",
           "steps": [
-            "Gaia's engine is code: it hands the specialist what it needs, sorts every command, stops a change, records each step and checks the contract, all by rule."
+            "Gaia's engine is code: it prepares the specialist, checks every action, stops the command, checks the question, records your answer and validates the result, all by rule."
           ]
         },
         {
           "key": "you-come-in",
           "label": "where do you come in?",
           "steps": [
-            "Only when a command would change something real: you see who asks, what runs and how to undo it, and you answer in the prompt."
-          ]
-        },
-        {
-          "key": "only-reads",
-          "label": "what if it only reads?",
-          "steps": [
-            "The specialist reads and plans, the rule lets reads pass, and nothing reaches you."
-          ]
-        },
-        {
-          "key": "changes",
-          "label": "what if it changes something?",
-          "steps": [
-            "The rule stops the change and asks you; once you approve, the specialist runs it once and the engine records every step."
+            "You ask, you see the execution details of a command that changes something, and you decide in the prompt."
           ]
         }
       ],
@@ -3919,16 +3919,58 @@ window.__DOC__ = {
           "title": "GAIA",
           "tokens": {
             "row": {
-              "cell_h": 86
+              "cell_h": 76
             }
           },
           "order": 2,
           "span": 1,
-          "columns": 3,
+          "columns": 4,
           "children": [
             {
-              "id": "s7-h-spec",
+              "id": "s7-h-you",
               "order": 1,
+              "title": "You",
+              "description": [
+                "the one who approves"
+              ],
+              "treatment": [
+                "centered"
+              ],
+              "filters": [
+                "you-come-in"
+              ]
+            },
+            {
+              "id": "s7-h-orch",
+              "order": 2,
+              "title": "The orchestrator",
+              "description": [
+                "the model you talk to"
+              ],
+              "treatment": [
+                "centered"
+              ],
+              "filters": [
+                "the-model"
+              ]
+            },
+            {
+              "id": "s7-h-engine",
+              "order": 3,
+              "title": "Gaia's engine",
+              "description": [
+                "code, a rule, no model"
+              ],
+              "treatment": [
+                "centered"
+              ],
+              "filters": [
+                "deterministic"
+              ]
+            },
+            {
+              "id": "s7-h-spec",
+              "order": 4,
               "title": "The specialist",
               "description": [
                 "a model, one field"
@@ -3941,224 +3983,282 @@ window.__DOC__ = {
               ]
             },
             {
-              "id": "s7-h-engine",
-              "order": 2,
-              "title": "Gaia's engine",
+              "id": "s7-y1",
+              "order": 5,
+              "title": "Asks for something",
               "description": [
-                "code: a rule, no model"
+                "add a health check to store-api"
               ],
-              "treatment": [
-                "centered"
-              ],
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "s7-h-you",
-              "order": 3,
-              "title": "You",
-              "description": [
-                "the one who decides"
-              ],
-              "treatment": [
-                "centered"
-              ],
+              "detail": "You ask in your own words. The orchestrator works out what you want and which specialist owns it.",
               "filters": [
                 "you-come-in"
               ]
             },
             {
-              "id": "s7-s1",
-              "order": 4,
-              "kicker": "STARTS ►",
-              "title": "Gets its goal, loads its skills",
+              "id": "s7-o1",
+              "order": 6,
+              "title": "Sends the goal",
               "description": [
-                "create staging for store-api"
+                "to the specialist for that field"
               ],
-              "detail": "The orchestrator, the agent you talk to, gives it the goal. Skills are written instructions for its field; it loads the ones the task needs.",
+              "detail": "The orchestrator never edits files or runs changes itself. It hands the work to a specialist.",
               "filters": [
                 "the-model"
               ]
             },
             {
               "id": "s7-e1",
-              "order": 5,
-              "kicker": "AT THE START",
-              "title": "Hands it what it needs",
+              "order": 7,
+              "kicker": "CONTEXT INJECTION",
+              "title": "Prepares the specialist",
               "description": [
-                "the project, your rules, its contract"
+                "its goal, its contract, your rules"
               ],
-              "detail": "When a specialist starts, a hook (SubagentStart, code that runs at a fixed moment) hands it which parts of the project it may read and write, your standing rules, and its contract: the form it fills in as it works.",
+              "detail": "When a specialist starts, a hook (SubagentStart) injects its contract (the goal and the form it fills in), what it may read and write in the project, your standing rules and the commands it can use. Project details are read on demand.",
               "filters": [
                 "deterministic"
               ]
             },
             {
-              "id": "s7-y1",
-              "type": "spacer",
-              "order": 6
-            },
-            {
-              "id": "s7-s2",
-              "order": 7,
-              "kicker": "WORKS ►",
-              "title": "Reads and plans",
-              "description": [
-                "the code, the current state, terragrunt plan"
-              ],
-              "detail": "Most of the work is reading: the code, the current state, and a plan of what would change.",
-              "filters": [
-                "the-model",
-                "only-reads"
-              ]
-            },
-            {
-              "id": "s7-e2",
+              "id": "s7-s1",
               "order": 8,
-              "kicker": "BEFORE EACH COMMAND",
-              "title": "Only reads? It passes.",
+              "title": "Subagent born",
               "description": [
-                "forbidden? it never runs"
+                "its identity · its skills · its tools"
               ],
-              "detail": "Before every command, a hook (PreToolUse) sorts it by rule. Commands that only read pass. Some are refused every time, like reading a credentials file, and nothing can approve them.",
-              "filters": [
-                "deterministic",
-                "only-reads"
-              ]
-            },
-            {
-              "id": "s7-y2",
-              "order": 9,
-              "title": "Reads never reach you",
-              "description": [
-                "nobody asks you"
-              ],
-              "detail": "Reading is safe, so Gaia never asks you about it.",
-              "filters": [
-                "you-come-in",
-                "only-reads"
-              ]
-            },
-            {
-              "id": "s7-s3",
-              "order": 10,
-              "kicker": "WANTS A CHANGE ►",
-              "title": "terragrunt apply",
-              "description": [
-                "creates 6 · changes 0 · destroys 0"
-              ],
-              "detail": "Terragrunt runs Terraform across the project's modules. This apply would create 6 resources in staging and touch nothing in production.",
-              "filters": [
-                "the-model",
-                "changes"
-              ]
-            },
-            {
-              "id": "s7-e3",
-              "order": 11,
-              "kicker": "A CHANGE ►",
-              "title": "Stops it and asks you",
-              "description": [
-                "the specialist pauses its turn"
-              ],
-              "detail": "A command that changes something real is held. The specialist ends its turn with an approval request in its contract. Gaia writes the question word for word; the orchestrator only opens it for you.",
-              "variant": "warn",
-              "filters": [
-                "deterministic",
-                "changes"
-              ]
-            },
-            {
-              "id": "s7-y3",
-              "order": 12,
-              "kicker": "YOU SEE",
-              "title": "Who, what, and how to undo it",
-              "description": [
-                "platform-architect · terragrunt apply"
-              ],
-              "detail": "The question names the agent and the exact command. Details adds what it does, its impact, how it is checked and how to roll it back. If the command changes by one character, your approval no longer covers it.",
-              "filters": [
-                "you-come-in",
-                "changes"
-              ]
-            },
-            {
-              "id": "s7-s4",
-              "order": 13,
-              "kicker": "◄ RUNS IT",
-              "title": "Once, exactly as approved",
-              "description": [
-                "within 30 minutes"
-              ],
-              "detail": "The same specialist picks up where it stopped and runs the approved command.",
-              "filters": [
-                "the-model",
-                "changes"
-              ]
-            },
-            {
-              "id": "s7-e4",
-              "order": 14,
-              "kicker": "◄ AFTER EACH COMMAND",
-              "title": "Records it",
-              "description": [
-                "asked · shown · approved · ran"
-              ],
-              "detail": "Each step is stamped with its time and linked to the one before, so a changed record shows. After the command runs, a hook (PostToolUse) marks it executed or failed. You can see it all with <code>gaia approvals show</code>.",
-              "filters": [
-                "deterministic",
-                "changes"
-              ]
-            },
-            {
-              "id": "s7-y4",
-              "order": 15,
-              "kicker": "◄ YOU ANSWER",
-              "title": "In the prompt below",
-              "description": [
-                "approve, reject, or let it expire"
-              ],
-              "detail": "Approve covers this one command, once, for 30 minutes. Reject means nothing runs. A request nobody answers expires.",
-              "filters": [
-                "you-come-in",
-                "changes"
-              ]
-            },
-            {
-              "id": "s7-s5",
-              "order": 16,
-              "kicker": "◄ FINISHES",
-              "title": "Reports what it did",
-              "description": [
-                "in its contract"
-              ],
-              "detail": "It closes its contract: its status, the commands it ran, what they printed, and what is still open.",
+              "detail": "Each agent is one file that names it and lists its tools and the skills it needs. Claude Code loads those skills when the agent starts.",
               "filters": [
                 "the-model"
               ]
             },
             {
-              "id": "s7-e5",
-              "order": 17,
-              "kicker": "◄ AT THE END",
-              "title": "Checks the contract by rule",
+              "id": "s7-y2",
+              "order": 9,
+              "title": "Nothing reaches you",
               "description": [
-                "not by what the specialist says"
+                "safe actions never ask"
               ],
-              "detail": "When the turn ends, a hook (SubagentStop) reads the stored contract, never the reply text. A missing or unfinished contract sends the specialist back to finish it.",
+              "detail": "Reading is safe, so Gaia never asks you about it.",
+              "filters": [
+                "you-come-in"
+              ]
+            },
+            {
+              "id": "s7-o2",
+              "type": "spacer",
+              "order": 10
+            },
+            {
+              "id": "s7-e2",
+              "order": 11,
+              "kicker": "SCAN",
+              "title": "Checks every action",
+              "description": [
+                "reads pass · risky actions stop"
+              ],
+              "detail": "Before each action, a hook (PreToolUse) checks it by rule: commands, file reads and edits, dispatches and questions. Reading a credentials file is refused, and nothing can approve it.",
               "filters": [
                 "deterministic"
               ]
             },
             {
-              "id": "s7-y5",
+              "id": "s7-s2",
+              "order": 12,
+              "title": "Does the work",
+              "description": [
+                "reads files · edits code · runs tests"
+              ],
+              "detail": "Most of the work is reading and editing files and running checks.",
+              "filters": [
+                "the-model"
+              ]
+            },
+            {
+              "id": "s7-y3",
               "type": "spacer",
-              "order": 18
+              "order": 13
+            },
+            {
+              "id": "s7-o3",
+              "order": 14,
+              "title": "Gets the request",
+              "description": [
+                "from the specialist's report"
+              ],
+              "detail": "The specialist's turn ends with an approval request in its contract. The orchestrator reads it from there.",
+              "filters": [
+                "the-model",
+                "follow-command"
+              ]
+            },
+            {
+              "id": "s7-e3",
+              "order": 15,
+              "kicker": "HOOK",
+              "title": "Stops the command",
+              "description": [
+                "holds it and keeps the request"
+              ],
+              "detail": "A command that changes something is held and a pending request is stored. When the specialist's turn ends, a hook (SubagentStop) checks its contract and keeps the request alive.",
+              "variant": "warn",
+              "filters": [
+                "deterministic",
+                "follow-command"
+              ]
+            },
+            {
+              "id": "s7-s3",
+              "order": 16,
+              "title": "git push",
+              "description": [
+                "asks for approval and pauses"
+              ],
+              "detail": "git push sends commits to the shared repository, so it changes something other people use.",
+              "filters": [
+                "the-model",
+                "follow-command"
+              ]
+            },
+            {
+              "id": "s7-y4",
+              "order": 17,
+              "title": "Sees the execution details",
+              "description": [
+                "who asks · what runs · how to undo"
+              ],
+              "detail": "The question names the agent and the exact command. Details adds what it does, its impact, how it is checked and how to roll it back.",
+              "filters": [
+                "you-come-in",
+                "follow-command"
+              ]
+            },
+            {
+              "id": "s7-o4",
+              "order": 18,
+              "kicker": "ASK TOOL",
+              "title": "Asks you",
+              "description": [
+                "with the question Gaia wrote"
+              ],
+              "detail": "The orchestrator asks Gaia for the question and opens it without changing a word.",
+              "filters": [
+                "the-model",
+                "follow-command"
+              ]
+            },
+            {
+              "id": "s7-e4",
+              "order": 19,
+              "kicker": "ASK CHECK",
+              "title": "Checks the question",
+              "description": [
+                "word for word, or it is refused"
+              ],
+              "detail": "A hook checks the question before it opens. If it differs by one character from what Gaia wrote, it is refused. Each question shown is recorded.",
+              "filters": [
+                "deterministic",
+                "follow-command"
+              ]
+            },
+            {
+              "id": "s7-s4",
+              "type": "spacer",
+              "order": 20
+            },
+            {
+              "id": "s7-y5",
+              "order": 21,
+              "title": "Decides",
+              "description": [
+                "approve · reject · or let it expire"
+              ],
+              "detail": "Approve covers this one command, once. Reject means nothing runs. A request nobody answers expires.",
+              "filters": [
+                "you-come-in",
+                "follow-answer"
+              ]
+            },
+            {
+              "id": "s7-o5",
+              "order": 22,
+              "title": "Resumes the specialist",
+              "description": [
+                "the same one, where it stopped"
+              ],
+              "detail": "The orchestrator resumes the same specialist. Its context is not injected again.",
+              "filters": [
+                "the-model",
+                "follow-answer"
+              ]
+            },
+            {
+              "id": "s7-e5",
+              "order": 23,
+              "kicker": "AUDIT TRAIL",
+              "title": "Records your answer",
+              "description": [
+                "a one-time pass for this specialist"
+              ],
+              "detail": "Each answer is stamped and linked to the step before, so a changed record shows. An approval becomes a one-time pass bound to this session and this specialist.",
+              "filters": [
+                "deterministic",
+                "follow-answer"
+              ]
+            },
+            {
+              "id": "s7-s5",
+              "type": "spacer",
+              "order": 24
+            },
+            {
+              "id": "s7-y6",
+              "type": "spacer",
+              "order": 25
+            },
+            {
+              "id": "s7-o6",
+              "order": 26,
+              "title": "Tells you the result",
+              "description": [
+                "from the checked report"
+              ],
+              "detail": "The orchestrator reports from the checked contract and from what it opens itself, not from the specialist's message.",
+              "filters": [
+                "the-model",
+                "follow-answer"
+              ]
+            },
+            {
+              "id": "s7-e6",
+              "order": 27,
+              "kicker": "VALIDATION",
+              "title": "Matches and validates",
+              "description": [
+                "exact command, report by rule"
+              ],
+              "detail": "The retried command must match the approved one byte for byte. After it runs, a hook (PostToolUse) records executed or failed. At the end, SubagentStop checks the contract; a missing or unfinished one sends the specialist back.",
+              "filters": [
+                "deterministic",
+                "follow-answer"
+              ]
+            },
+            {
+              "id": "s7-s6",
+              "order": 28,
+              "kicker": "EXECUTION",
+              "title": "Runs it once, then reports",
+              "description": [
+                "only the approved command"
+              ],
+              "detail": "The same specialist runs the approved command once, then closes its contract: what changed, the commands, their output and what is still open.",
+              "filters": [
+                "the-model",
+                "follow-answer"
+              ]
             }
           ],
           "css_vars": {
-            "--cell-h": "86px"
+            "--cell-h": "76px"
           }
         },
         {
@@ -4189,16 +4289,17 @@ window.__DOC__ = {
                 }
               },
               "description": [
-                "[ GAIA-SECURITY ] [ AGENT-REQUEST ] [ platform-architect ] [ COMMAND ] [ terragrunt apply ]",
+                "[ GAIA-SECURITY ] [ AGENT-REQUEST ] [ developer ] [ COMMAND ] [ git push origin feature/health-check ]",
                 "› 1. Approve · authorizes exactly this command",
                 "  2. Reject · nothing runs",
                 "  3. Details · what it does, impact, verification, how to undo it",
                 "  4. Type something"
               ],
-              "detail": "<code>[ GAIA-SECURITY ] [ DETAILS ] [ platform-architect ] [ COMMAND: terragrunt apply ] [ DOES: creates the 6 resources of the store-api staging environment ] [ IMPACT: new resources in staging only; production is not touched ] [ VERIFICATION: terragrunt plan shows no changes and the staging endpoint answers ] [ SHARED-STATE: writes the staging Terraform state, nothing else ] [ ROLLBACK: terragrunt destroy on the staging environment removes the 6 resources ]</code>",
+              "detail": "<code>[ GAIA-SECURITY ] [ DETAILS ] [ developer ] [ COMMAND: git push origin feature/health-check ] [ DOES: pushes the health-check commits to the shared repository ] [ IMPACT: updates the feature/health-check branch; main is not touched ] [ VERIFICATION: CI runs on the branch and must pass ] [ SHARED-STATE: the remote branch feature/health-check ] [ ROLLBACK: push the previous commit back to the branch ]</code>",
               "filters": [
                 "you-come-in",
-                "changes"
+                "follow-command",
+                "follow-answer"
               ],
               "css_vars": {
                 "--desc-lines": "5"
