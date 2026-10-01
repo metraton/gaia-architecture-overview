@@ -13,6 +13,8 @@ export const FRAME = { fps: 60, width: 1920, height: 1080, theme: 'light', super
 export const MOTION = {
   fade: 0.4, lead: 0.8, tail: 1.2, reveal: { duration: 0.7, anticipation: 0.3 }, type: { interval: 0.25 },
 };
+// What the deck's prompt box says before an `ask` cue puts the question in it.
+export const PROMPT = { placeholder: 'Type a message…' };
 export const ALIGN_FILE = join(VIDEO_DIR, 'align.json');
 // Speech rate of the estimate used while a page has no aligned audio: enough to
 // check and frame the timeline, never to capture it.
@@ -39,7 +41,11 @@ function wordAnchor(say, word) {
   return null;
 }
 
-const cueAction = c => (c.show ? { reveal: c.show } : c.chip !== undefined ? { chip: c.chip } : { type: c.type });
+function cueAction(c) {
+  if (c.show) return { reveal: c.show };
+  if (c.chip !== undefined) return { chip: c.chip };
+  return c.type !== undefined ? { type: c.type } : { ask: c.ask };
+}
 
 // A sentence's cues in the order they fire: its own show, chip and typing at its
 // start, then its word cues, which must be listed in the order their words are said.
@@ -48,6 +54,7 @@ function sentenceCues(s, at, errors) {
   if (s.show && s.show.length) fires.push({ reveal: s.show });
   if (s.chip !== undefined) fires.push({ chip: s.chip });
   if (s.type !== undefined) fires.push({ type: s.type });
+  if (s.ask !== undefined) fires.push({ ask: s.ask });
   let said = -1;
   for (const cue of s.cues || []) {
     const anchor = wordAnchor(s.say, cue.at);
@@ -79,6 +86,7 @@ function derivePage(page, sp, errors) {
         errors.push(`${at}: chip "${cue.chip}" is not a chip of the page (${chips.join(', ') || 'none'})`);
       }
       if (cue.type !== undefined && !order.includes(cue.type)) errors.push(`${at}: types into "${cue.type}", which is not on the page`);
+      if (cue.ask !== undefined && !order.includes(cue.ask)) errors.push(`${at}: asks in "${cue.ask}", which is not on the page`);
       cues.push({ s: k + 1, ...cue });
     }
   });
@@ -178,7 +186,7 @@ export function buildPlan(timeline, align, pageIds = timeline.pages.map(p => p.p
     return { page: p.page, audio: p.audio, method: times.method, start, voiceAt, end, base: p.base, cues,
       sentences: times.sentences };
   });
-  return { fade: MOTION.fade, reveal: MOTION.reveal, type: MOTION.type, duration: clock, pages };
+  return { fade: MOTION.fade, reveal: MOTION.reveal, type: MOTION.type, prompt: PROMPT, duration: clock, pages };
 }
 
 /** `--pages id,id` as page ids in the deck's order; an id outside the timeline fails. */

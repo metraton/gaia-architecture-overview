@@ -82,11 +82,12 @@
     return words;
   }
 
-  // plan: { fade, reveal:{duration,anticipation}, type:{interval},
-  //         pages:[{ page, start, voiceAt, end, base:[id], cues:[{ t, reveal?:[id], chip?, type?:id }] }] }
-  // A reveal, a lit chip or a typing fires reveal.anticipation seconds before its
-  // anchor, never before the page's fade-in ends; a clear (chip "all") fires on it.
-  // A typing shows a box's title one word per type.interval.
+  // plan: { fade, reveal:{duration,anticipation}, type:{interval}, prompt:{placeholder},
+  //         pages:[{ page, start, voiceAt, end, base:[id], cues:[{ t, reveal?:[id], chip?, type?:id, ask?:id }] }] }
+  // A reveal, a lit chip, a typing or an ask fires reveal.anticipation seconds
+  // before its anchor, never before the page's fade-in ends; a clear (chip "all")
+  // fires on it. A typing shows a box's title one word per type.interval. Until
+  // its ask fires, a box shows prompt.placeholder as its title and no description.
   // Returns the problems found against the rendered deck; empty means it fits.
   function load(plan) {
     const errors = [];
@@ -102,6 +103,7 @@
       const reveals = [];
       const chips = [];
       const typings = [];
+      const asks = [];
       const find = (id, where) => {
         const n = act.querySelector(ID_SELECTOR(id));
         if (!n) errors.push(`${p.page}: ${where} names "${id}", which is not on the rendered page`);
@@ -124,6 +126,12 @@
           const title = n && n.querySelector(':scope > .t');
           if (n && !(title && title.textContent.trim())) errors.push(`${p.page}: type names "${cue.type}", which has no title to type`);
           else if (n) typings.push({ el: n, t: fire, words: wordSpans(title) });
+        }
+        if (cue.ask !== undefined) {
+          const n = find(cue.ask, 'ask');
+          const title = n && n.querySelector(':scope > .t');
+          if (n && !title) errors.push(`${p.page}: ask names "${cue.ask}", which has no title to replace with the placeholder`);
+          else if (n) asks.push({ el: n, t: fire, title, text: title.textContent, rest: [...n.querySelectorAll(':scope > .desc')] });
         }
       }
       for (const id of p.base) find(id, 'base');
@@ -157,7 +165,7 @@
         }
       }
       chips.sort((a, b) => a.anchor - b.anchor);
-      return { ...p, index, act, reveals, chips, typings };
+      return { ...p, index, act, reveals, chips, typings, asks };
     }).filter(Boolean);
     video = { ...plan, pages };
     shownIndex = -1;
@@ -177,23 +185,29 @@
     let key = 'all';
     for (const c of pg.chips) if (c.t <= t) key = c.key;
     const typed = pg.typings.map(ty => Math.max(0, Math.min(ty.words.length, Math.floor((t - ty.t) / video.type.interval) + 1)));
-    return { pg, opacity, filters, key, typed };
+    const asked = pg.asks.map(a => a.t <= t);
+    return { pg, opacity, filters, key, typed, asked };
   }
 
   /** One string per frame naming its state; equal strings are equal frames. */
   function frameStates(count, fps) {
     const states = [];
     for (let f = 0; f < count; f++) {
-      const { pg, opacity, filters, key, typed } = stateAt(f / fps);
+      const { pg, opacity, filters, key, typed, asked } = stateAt(f / fps);
       states.push(JSON.stringify([pg.page, opacity, pg.reveals.map((r, i) => [idOf(r.el), filters[i]]), key,
-        pg.typings.map((ty, i) => [idOf(ty.el), typed[i]])]));
+        pg.typings.map((ty, i) => [idOf(ty.el), typed[i]]), pg.asks.map((a, i) => [idOf(a.el), asked[i]])]));
     }
     return states;
   }
 
   function seek(t) {
-    const { pg, opacity, filters, key, typed } = stateAt(t);
+    const { pg, opacity, filters, key, typed, asked } = stateAt(t);
     pg.typings.forEach((ty, i) => ty.words.forEach((w, k) => { w.style.visibility = k < typed[i] ? '' : 'hidden'; }));
+    pg.asks.forEach((a, i) => {
+      a.title.textContent = asked[i] ? a.text : video.prompt.placeholder;
+      a.title.style.fontWeight = asked[i] ? '' : 'normal';
+      a.rest.forEach(n => { n.style.visibility = asked[i] ? '' : 'hidden'; });
+    });
     if (pg.index !== shownIndex) {
       if (shownIndex >= 0 && appliedChip !== 'all') deck.setFlow(shownIndex, 'all');
       deck.show(pg.index);

@@ -21,8 +21,8 @@ const PLAYWRIGHT = join(HERE, 'node_modules', 'playwright');
 // speed or any markup belongs to the voice step, so an unknown key is refused.
 const SCRIPT_KEYS = new Set(['pages']);
 const PAGE_KEYS = new Set(['page', 'audio', 'duration', 'sentences']);
-const SENTENCE_KEYS = new Set(['say', 'show', 'chip', 'type', 'cues']);
-const CUE_KEYS = new Set(['at', 'show', 'chip', 'type']);
+const SENTENCE_KEYS = new Set(['say', 'show', 'chip', 'type', 'ask', 'cues']);
+const CUE_KEYS = new Set(['at', 'show', 'chip', 'type', 'ask']);
 
 /** Prints one `[video]` message and ends the process with exit 1. */
 export function fail(message) {
@@ -87,15 +87,19 @@ export function readScript() {
       }
       if (s.chip !== undefined && typeof s.chip !== 'string') errors.push(`${at}: "chip" must be one chip key`);
       if (s.type !== undefined && typeof s.type !== 'string') errors.push(`${at}: "type" must be the id of one box to type`);
+      if (s.ask !== undefined && typeof s.ask !== 'string') errors.push(`${at}: "ask" must be the id of one prompt box`);
       if (s.cues !== undefined && !(Array.isArray(s.cues) && s.cues.length)) {
-        errors.push(`${at}: "cues" must list word cues ({ "at": <word>, "show", "chip" or "type" })`);
+        errors.push(`${at}: "cues" must list word cues ({ "at": <word>, "show", "chip", "type" or "ask" })`);
       }
       for (const [c, cue] of (Array.isArray(s.cues) ? s.cues : []).entries()) {
         const where = `${at} cue ${c + 1}`;
         refuseUnknown(cue, CUE_KEYS, where);
         if (typeof cue.at !== 'string' || !cue.at.trim()) errors.push(`${where}: "at" must name a word of the sentence`);
-        if ([cue.show, cue.chip, cue.type].filter(v => v !== undefined).length !== 1) errors.push(`${where}: give exactly one of "show", "chip" or "type"`);
+        if ([cue.show, cue.chip, cue.type, cue.ask].filter(v => v !== undefined).length !== 1) {
+          errors.push(`${where}: give exactly one of "show", "chip", "type" or "ask"`);
+        }
         if (cue.type !== undefined && typeof cue.type !== 'string') errors.push(`${where}: "type" must be the id of one box to type`);
+        if (cue.ask !== undefined && typeof cue.ask !== 'string') errors.push(`${where}: "ask" must be the id of one prompt box`);
         if (cue.show !== undefined && !(Array.isArray(cue.show) && cue.show.length && cue.show.every(id => typeof id === 'string'))) {
           errors.push(`${where}: "show" must list ids of the page`);
         }

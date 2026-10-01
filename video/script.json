@@ -129,13 +129,21 @@
       "page": "p-pilot-your-yes",
       "duration": 24,
       "sentences": [
-        { "say": "Your specialists have read what they needed, and one of them is ready to change something real.", "show": ["s7-says"],
-          "cues": [{ "at": "specialists", "chip": "at-work" }] },
-        { "say": "That change waits here, with the exact command in front of you.", "show": ["s7-card", "s7-approve", "s7-reject", "s7-details"], "chip": "the-human" },
-        { "say": "Before any command runs, a fixed rule sorts it, and forty-one of them only read, so they ran.", "show": ["s7-ran"], "chip": "deterministic" },
-        { "say": "This one waits for your yes.", "show": ["s7-waits"], "chip": "one-command" },
-        { "say": "And one tried to open a credentials file, so it never ran, and no yes can change that.", "show": ["s7-never"] },
-        { "say": "You read the card, and you answer.", "chip": "all", "type": "s7-input" }
+        { "say": "A specialist wants to change something real: it asks to run terraform apply.", "show": ["s7-asks"],
+          "cues": [{ "at": "terraform", "type": "s7-command" }] },
+        { "say": "Before it runs, a rule in code sorts every command, with no model involved.", "show": ["s7-before"], "chip": "deterministic" },
+        { "say": "A change waits, and Gaia keeps the request: who asks, the exact command, and how to undo it.", "show": ["s7-waits"], "chip": "memory" },
+        { "say": "Then the question comes to you.", "show": ["s7-decide"], "chip": "all",
+          "cues": [{ "at": "question", "ask": "s7-question" }] },
+        { "say": "You approve, and it runs once, exactly this command.", "chip": "if-approved" },
+        { "say": "Every step is sealed into a chain: requested, shown, approved, executed.", "show": ["s7-sealed"],
+          "cues": [
+            { "at": "requested", "show": ["s7-requested"] },
+            { "at": "shown", "show": ["s7-shown"] },
+            { "at": "approved", "show": ["s7-approved"] },
+            { "at": "executed", "show": ["s7-executed"] }
+          ] },
+        { "say": "Had you rejected it, nothing would run, and that is sealed too.", "show": ["s7-rejected"], "chip": "if-rejected" }
       ]
     }
   ]
