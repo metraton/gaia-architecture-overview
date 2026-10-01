@@ -2,7 +2,7 @@
 // inside its page's audio. Cues name sentences, never seconds, so this file is
 // the only timing source and can be replaced without touching the script.
 //
-//   npm run video:align
+//   npm run video:align [-- --pages id,id]
 //
 // A page whose voice left word timings (method=words) takes each sentence from
 // its first to its last word. They are used only when the words file is at
@@ -18,7 +18,7 @@
 import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { audioPath, fail, readScript, requireDeck, wordsPath } from './deck.mjs';
-import { ALIGN_FILE, letters, loadTimeline, voicedPages } from './timeline.mjs';
+import { ALIGN_FILE, letters, loadTimeline, readAlign, selectedPages, voicedPages } from './timeline.mjs';
 
 const SILENCE_FILTER = 'silencedetect=noise=-35dB:d=0.15';
 const TOLERANCE_S = 2.0;
@@ -168,14 +168,22 @@ function alignBySilence(page, wav, duration) {
   };
 }
 
+// `--pages id,id` aligns only those pages; every other page keeps the entry
+// align.json already holds, so one page can be re-aligned without the audio of
+// the rest.
 const doc = requireDeck();
 const timeline = loadTimeline(doc, readScript());
-const wavs = voicedPages(timeline).map(p => [p, audioPath(p)]);
+const chosen = selectedPages(timeline);
+const wavs = voicedPages(timeline).filter(p => chosen.includes(p.page)).map(p => [p, audioPath(p)]);
 const missing = wavs.filter(([, wav]) => !existsSync(wav)).map(([p, wav]) => `${p.page} (${wav})`);
 if (missing.length) fail(`no narration audio for ${missing.join(', ')}: voice the exported script (npm run video:voice) to those paths`);
-const pages = wavs.map(([p, wav]) => alignPage(p, wav));
+const fresh = wavs.map(([p, wav]) => alignPage(p, wav));
+const kept = readAlign().pages;
+const pages = voicedPages(timeline)
+  .map(p => fresh.find(a => a.page === p.page) || kept.find(a => a.page === p.page))
+  .filter(Boolean);
 writeFileSync(ALIGN_FILE, JSON.stringify({ pages }, null, 2) + '\n');
-for (const p of pages) {
+for (const p of fresh) {
   const evidence = p.method === 'words' ? `words=${p.words}` : `pauses=${p.pauses}`;
   console.log(`[video] ${p.page}: method=${p.method} duration=${p.duration}s speech=${p.speech.join('-')}s ` +
     `sentences=${p.sentences.length} ${evidence}`);

@@ -21,7 +21,7 @@ const PROVIDERS = ['kokoro', 'manual'];
 const KOKORO_HOME = join(homedir(), '.local', 'share', 'gaia-tts', 'kokoro');
 const KOKORO_SAY = join(HERE, 'kokoro_say.py');
 const KOKORO_VOICE = 'am_michael';
-const KOKORO_SPEED = '1.0';
+const KOKORO_SPEED = '1.10';
 
 function manual(jobs) {
   for (const j of jobs) {
