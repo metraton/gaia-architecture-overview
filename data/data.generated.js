@@ -2672,45 +2672,38 @@ window.__DOC__ = {
       "columns": 1,
       "filters": [
         {
-          "key": "the-human",
-          "label": "who decides?",
+          "key": "install",
+          "label": "1 · install",
           "steps": [
-            "You sign what changes something: on one machine you said yes 583 times and no 52 times, and every change waited for that answer."
+            "Install Gaia in Claude Code with one plugin, or with npm for Claude Code or OpenCode."
           ]
         },
         {
-          "key": "nothing-self-declared",
-          "label": "is it really done?",
+          "key": "first-question",
+          "label": "2 · first question",
           "steps": [
-            "The numbers on this page are counted by Gaia's own records on one machine, not claimed by an agent."
+            "Then ask it what it is and what it can do for you."
           ]
         },
         {
-          "key": "memory",
-          "label": "what do we remember?",
+          "key": "it-grows",
+          "label": "3 · it grows",
           "steps": [
-            "Everything Gaia learns lives in one local database, the same for every install and every project, and uninstalling never deletes it."
+            "It maps your repos, and grows with the work you bring it."
           ]
         },
         {
-          "key": "deterministic",
-          "label": "what does a rule decide?",
+          "key": "it-is-yours",
+          "label": "4 · it is yours",
           "steps": [
-            "A rule, not a model, sorts every command and maps your repos: 94% of commands only read, and the scan infers nothing."
+            "Your data stays on your machine, and the code is open."
           ]
         },
         {
-          "key": "semantic",
-          "label": "what does a model follow?",
+          "key": "people-ask",
+          "label": "5 · what people ask",
           "steps": [
-            "Gaia is a model following written instructions, which is why you ask it instead of learning it, and why you can write your own agents and skills."
-          ]
-        },
-        {
-          "key": "yours",
-          "label": "what is really yours?",
-          "steps": [
-            "The database with everything it learned, the open-source code with your own agents and skills, the projects it reaches at the scope you pick, and your way of working. Removing Gaia removes the plugin or the package, never the database."
+            "And the questions people ask first have short answers."
           ]
         }
       ],
@@ -2718,7 +2711,7 @@ window.__DOC__ = {
         {
           "id": "p9-start",
           "title": "Start here",
-          "subtitle": "two routes · pick one per Claude Code workspace: both together register every hook twice",
+          "subtitle": "two ways to install · use one per workspace",
           "treatment": [
             "envelope"
           ],
@@ -2744,7 +2737,7 @@ window.__DOC__ = {
                   "title": "/plugin marketplace add metraton/gaia",
                   "copy": true,
                   "filters": [
-                    "the-human"
+                    "install"
                   ],
                   "detail": "The recommended route, in Claude Code. <code>/plugin marketplace add metraton/gaia</code> adds the gaia-marketplace; the host clones the repository at the tag of the current release. Source: the Gaia README, <i>How it is used</i>."
                 },
@@ -2755,8 +2748,7 @@ window.__DOC__ = {
                   "title": "/plugin install gaia@gaia-marketplace",
                   "copy": true,
                   "filters": [
-                    "the-human",
-                    "yours"
+                    "install"
                   ],
                   "detail": "<code>/plugin install gaia@gaia-marketplace</code>, or from a terminal <code>claude plugin install gaia@gaia-marketplace</code>. The README: <i>For Claude Code that is the whole install; no npm step is needed.</i> Claude Code asks for a scope: for you in every project, for everyone in this repository, or for you in this repository only."
                 },
@@ -2770,7 +2762,7 @@ window.__DOC__ = {
                   "title": "/reload-plugins",
                   "copy": true,
                   "filters": [
-                    "the-human"
+                    "install"
                   ],
                   "detail": "On the first session Gaia merges its permission set into <code>.claude/settings.local.json</code> and asks you to run <code>/reload-plugins</code>, or restart, to activate it. Source: the Gaia README."
                 },
@@ -2784,7 +2776,7 @@ window.__DOC__ = {
                   "title": "/plugin uninstall",
                   "copy": true,
                   "filters": [
-                    "yours"
+                    "install"
                   ],
                   "detail": "Claude Code's own command: <code>/plugin uninstall</code> opens the plugin panel on the uninstall action; from a shell, <code>claude plugin uninstall gaia@gaia-marketplace</code> with <code>--scope</code> for the scope you installed at. Source: Claude Code's plugin documentation. Gaia's database lives outside the plugin, in <code>~/.gaia/</code>, so removing the plugin does not remove it.",
                   "variant": "muted"
@@ -2793,8 +2785,8 @@ window.__DOC__ = {
             },
             {
               "id": "p9-route-npm",
-              "title": "Gaia agnostic installation",
-              "subtitle": "installs Gaia as a plugin in Claude Code and OpenCode (beta)",
+              "title": "With npm",
+              "subtitle": "for Claude Code or OpenCode",
               "treatment": [
                 "envelope"
               ],
@@ -2812,7 +2804,7 @@ window.__DOC__ = {
                   "title": "npm install @jaguilar87/gaia",
                   "copy": true,
                   "filters": [
-                    "the-human"
+                    "install"
                   ],
                   "detail": "The npm route: the one for OpenCode, and the alternative for Claude Code when you want <code>gaia</code> on your own terminal. <code>npm install @jaguilar87/gaia</code>, or <code>pnpm add @jaguilar87/gaia</code>. Source: the Gaia README."
                 },
@@ -2823,13 +2815,12 @@ window.__DOC__ = {
                     "half"
                   ],
                   "kicker": "WIRES THE WORKSPACE",
-                  "title": "gaia install",
+                  "title": "gaia install --channel npm",
                   "copy": true,
                   "filters": [
-                    "the-human",
-                    "yours"
+                    "install"
                   ],
-                  "detail": "<code>gaia install</code> for Claude Code, or <code>--host opencode</code> / <code>--host all</code>. It bootstraps <code>~/.gaia/gaia.db</code> and wires the workspace; <code>gaia doctor</code> checks it. Pick one route per Claude Code workspace: the plugin and <code>gaia install</code> together register every hook twice."
+                  "detail": "<code>gaia install --channel npm</code> wires Claude Code; <code>--channel opencode</code> wires OpenCode. Use one route per Claude Code workspace: the plugin and the package both register Gaia's hooks. <code>gaia doctor</code> checks the result."
                 },
                 {
                   "id": "p9-npm-remove",
@@ -2841,7 +2832,7 @@ window.__DOC__ = {
                   "title": "gaia uninstall",
                   "copy": true,
                   "filters": [
-                    "yours"
+                    "install"
                   ],
                   "detail": "<code>gaia uninstall</code> disconnects Gaia from the workspace. Its own help: <i>Disconnect Gaia from this workspace (cleanup; DB is never deleted)</i>. It writes a gzip snapshot of <code>~/.gaia/gaia.db</code> first, by default, and no flag removes the database.",
                   "variant": "muted"
@@ -2856,7 +2847,7 @@ window.__DOC__ = {
                   "title": "npm uninstall @jaguilar87/gaia",
                   "copy": true,
                   "filters": [
-                    "yours"
+                    "install"
                   ],
                   "detail": "Then remove the package: <code>npm uninstall @jaguilar87/gaia</code>, as INSTALL.md's manual uninstall step says. Memory, episodes and every persisted state survive <code>npm uninstall</code>.",
                   "variant": "muted"
@@ -2876,10 +2867,10 @@ window.__DOC__ = {
                   "id": "p9-first-prompt",
                   "order": 1,
                   "rowspan": 2,
-                  "kicker": "THEN ASK",
-                  "title": "what is Gaia, and what can you do for me?",
+                  "kicker": "YOUR FIRST QUESTION",
+                  "title": "What is Gaia, and what can you do for me?",
                   "description": [
-                    "Gaia explains itself, live"
+                    "it answers with everything you just saw"
                   ],
                   "detail": "The first thing to ask, on either route: <i>what is Gaia, and what can you do for me?</i> Gaia explains itself live, and its answer is the map this deck opened with.",
                   "variant": "accent",
@@ -2887,7 +2878,7 @@ window.__DOC__ = {
                     "centered"
                   ],
                   "filters": [
-                    "semantic"
+                    "first-question"
                   ]
                 }
               ]
@@ -2915,17 +2906,15 @@ window.__DOC__ = {
                 {
                   "id": "p9-db",
                   "order": 1,
-                  "kicker": "ONE DATABASE · ALL IT KNOWS · YOURS",
-                  "title": "~/.gaia/gaia.db",
+                  "title": "Your data stays yours",
                   "description": [
-                    "every install, every project, the same knowledge",
+                    "one database on your machine: ~/.gaia/gaia.db",
                     "uninstalling never deletes it"
                   ],
                   "detail": "Plugin or npm, one project or many, Gaia reads and writes one local database: <code>~/.gaia/gaia.db</code>, the default of <code>data_dir()</code> in <code>gaia/paths/resolver.py</code> (moved only if you set <code>GAIA_DATA_DIR</code> or <code>GAIA_DB</code>). Memory, contracts, plans and approvals all live there, on your machine. <code>gaia uninstall</code> never deletes it: <i>there is no flag that removes it</i>.",
                   "variant": "good",
                   "filters": [
-                    "memory",
-                    "yours"
+                    "it-is-yours"
                   ]
                 },
                 {
@@ -2938,14 +2927,13 @@ window.__DOC__ = {
                   ],
                   "detail": "Gaia is MIT-licensed (<code>LICENSE</code>, <code>package.json</code>) at <code>github.com/metraton/gaia</code>. Agents and skills are written instructions, and Gaia ships a skill for writing each: <code>agent-creation</code> for a new specialist agent, <code>skill-creation</code> for a new skill.",
                   "filters": [
-                    "semantic",
-                    "yours"
+                    "it-is-yours"
                   ]
                 }
               ]
             },
             {
-              "id": "p9-numbers",
+              "id": "p9-everywhere",
               "treatment": [
                 "plain"
               ],
@@ -2954,31 +2942,27 @@ window.__DOC__ = {
               "columns": 2,
               "children": [
                 {
-                  "id": "p9-approvals",
+                  "id": "p9-hosts",
                   "order": 1,
-                  "kicker": "ON MY MACHINE · APPROVALS",
-                  "title": "583 yes · 52 no · 218 expired",
+                  "title": "Two hosts, one Gaia",
                   "description": [
-                    "you said yes or no"
+                    "Claude Code and OpenCode"
                   ],
-                  "detail": "From <code>gaia approvals stats</code> on one machine: 583 approvals granted, 52 rejected, 218 left to expire unanswered. Turn counts are left out: before rc.3 the hooks were registered twice, which inflated them.",
+                  "detail": "Gaia runs as a plugin in Claude Code and as a package in OpenCode. The agents, the skills and the database are the same.",
                   "filters": [
-                    "the-human",
-                    "nothing-self-declared"
+                    "it-is-yours"
                   ]
                 },
                 {
-                  "id": "p9-readonly",
+                  "id": "p9-reach",
                   "order": 2,
-                  "kicker": "ON MY MACHINE · COMMANDS",
-                  "title": "94% only read",
+                  "title": "Every project you open",
                   "description": [
-                    "most commands never ask"
+                    "one install reaches them all"
                   ],
-                  "detail": "From <code>gaia metrics</code> on one machine: 423 of 450 commands were T0, read-only, 94.0%. A fixed rule classified each one; only changes asked for your approval.",
+                  "detail": "All your projects share one database. The first session maps the repositories in the folder, and more folders can be added with <code>gaia scan</code>.",
                   "filters": [
-                    "nothing-self-declared",
-                    "deterministic"
+                    "it-is-yours"
                   ]
                 }
               ]
@@ -3038,8 +3022,7 @@ window.__DOC__ = {
                   "detail": "For larger work the orchestrator writes a brief and a plan of tasks, hands each task to the specialist that owns it, and has the result checked by someone who did not do the work. Anything that changes something real waits until you approve the exact command, and every approval is kept.",
                   "variant": "accent",
                   "filters": [
-                    "semantic",
-                    "the-human"
+                    "it-grows"
                   ]
                 },
                 {
@@ -3068,7 +3051,7 @@ window.__DOC__ = {
                   ],
                   "detail": "You describe the problem in your own words. The orchestrator finds the project in the one database and routes the work to the specialist that owns that surface; it never edits files itself.",
                   "filters": [
-                    "semantic"
+                    "it-grows"
                   ]
                 },
                 {
@@ -3085,15 +3068,14 @@ window.__DOC__ = {
                   "id": "p9-step-scan",
                   "order": 12,
                   "rowspan": 3,
-                  "kicker": "YOU",
-                  "title": "scan your repos",
+                  "kicker": "GAIA",
+                  "title": "it maps your repos",
                   "description": [
-                    "one scan, from wherever you are"
+                    "on the first session, by itself"
                   ],
-                  "detail": "<code>gaia scan --workspace &lt;name&gt;</code> walks a folder for git repos and records each as a (workspace, project) row in the one database, <code>~/.gaia/gaia.db</code>, promoting the facts it can read into the project's identity. Its help says it: <i>Deterministic: no inference</i>. From then on every session opens with a <i>Projects I can reach</i> block: the projects the database knows, grouped by workspace, each with its path.",
+                  "detail": "On the first session Gaia scans the folder's git repositories in the background and records each one, reading only what it can, with no guessing. More folders can be added with <code>gaia scan</code>.",
                   "filters": [
-                    "deterministic",
-                    "yours"
+                    "it-grows"
                   ]
                 },
                 {
@@ -3112,8 +3094,7 @@ window.__DOC__ = {
                   ],
                   "detail": "Then you ask, in plain words. The one you talk to is Gaia's orchestrator, and it answers with the map this deck opened with.",
                   "filters": [
-                    "the-human",
-                    "semantic"
+                    "first-question"
                   ]
                 },
                 {
@@ -3126,7 +3107,7 @@ window.__DOC__ = {
                   ],
                   "detail": "One plugin install in Claude Code, or one npm package plus <code>gaia install</code>.",
                   "filters": [
-                    "the-human"
+                    "install"
                   ]
                 }
               ],
@@ -3159,7 +3140,8 @@ window.__DOC__ = {
                   "title": "You don't learn it. You ask it.",
                   "detail": "You don't study Gaia before using it: you ask it what it is and what it can do, and it answers. The one who answers is a model following written instructions.",
                   "filters": [
-                    "semantic"
+                    "first-question",
+                    "people-ask"
                   ]
                 },
                 {
@@ -3171,7 +3153,8 @@ window.__DOC__ = {
                   "kicker": "“Do I have to change how I work?”",
                   "title": "No. You keep talking to Claude Code.",
                   "filters": [
-                    "yours"
+                    "it-grows",
+                    "people-ask"
                   ],
                   "detail": "Gaia's <code>settings.json</code> sets <code>\"agent\": \"gaia-orchestrator\"</code>: the orchestrator is the identity of your own Claude Code session, so the conversation stays where it was."
                 },
@@ -3184,7 +3167,8 @@ window.__DOC__ = {
                   "kicker": "“Only one project?”",
                   "title": "One or many: it reaches all you scan.",
                   "filters": [
-                    "yours"
+                    "it-grows",
+                    "people-ask"
                   ],
                   "detail": "Every session opens with a <i>Projects I can reach</i> block: the projects the database knows, grouped by workspace, each with its path, and a pointer to <code>gaia context project &lt;name&gt;</code>."
                 },
@@ -3198,7 +3182,8 @@ window.__DOC__ = {
                   "title": "One scan maps them, in broad strokes.",
                   "detail": "<code>gaia scan</code> records each git repo as a (workspace, project) row and promotes what it can read into the project's identity. By rule, with no inference: it does not read your code to understand it.",
                   "filters": [
-                    "deterministic"
+                    "it-grows",
+                    "people-ask"
                   ]
                 },
                 {
@@ -3208,11 +3193,10 @@ window.__DOC__ = {
                     "half"
                   ],
                   "kicker": "“Is it safe?”",
-                  "title": "Reads run. Changes wait for your yes.",
+                  "title": "Reads run. Changes wait for you.",
                   "detail": "A rule sorts every command before it runs: reads, checks and dry-runs go ahead; a change stops until you approve that exact command; a few commands never run at all.",
                   "filters": [
-                    "the-human",
-                    "deterministic"
+                    "people-ask"
                   ]
                 },
                 {
@@ -3225,530 +3209,17 @@ window.__DOC__ = {
                   "title": "Nothing. It stays in your database.",
                   "detail": "What Gaia learns is in <code>~/.gaia/gaia.db</code>. <code>gaia uninstall</code> never deletes it and snapshots it first; the plugin lives in Claude Code's plugin folder, apart from <code>~/.gaia/</code>.",
                   "filters": [
-                    "memory",
-                    "yours"
+                    "it-is-yours",
+                    "people-ask"
                   ]
                 }
               ]
-            }
-          ]
-        },
-        {
-          "id": "p9-close",
-          "treatment": [
-            "plain"
-          ],
-          "order": 4,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "p9-halves",
-              "type": "separator",
-              "text": "hooks decide by rule · skills and agents follow · the CLI joins"
             }
           ]
         }
       ],
       "name": "6 · Install it, ask it",
       "order": 5
-    },
-    {
-      "id": "backup-code",
-      "layout": "grid",
-      "form": "dashboard",
-      "columns": 6,
-      "filters": [
-        {
-          "key": "deterministic",
-          "label": "what does a rule decide?",
-          "steps": [
-            "Every box on this page is ordinary code: the same input gets the same answer, and no model is consulted."
-          ]
-        },
-        {
-          "key": "sesion-abre",
-          "label": "the session opens",
-          "steps": [
-            "SessionStart runs once, before anyone asks for anything: eight calls in fixed order build what the session starts knowing."
-          ]
-        },
-        {
-          "key": "ruteo",
-          "label": "where does this belong?",
-          "steps": [
-            "Two rules answer it: may the orchestrator hold this tool itself, and which surface the dispatched specialist declares as its own. No prompt scoring runs in a hook."
-          ]
-        },
-        {
-          "key": "porton",
-          "label": "the checkpoint",
-          "steps": [
-            "Before any tool runs, PreToolUse asks in order: may the orchestrator hold this tool, which tier is this command, and which skill governs this file."
-          ]
-        },
-        {
-          "key": "despacho",
-          "label": "the dispatch",
-          "steps": [
-            "When the tool is a dispatch, PreToolUse derives the specialist's kernel, caches the recent events and gives birth to its contract."
-          ]
-        },
-        {
-          "key": "entrega",
-          "label": "the handover",
-          "steps": [
-            "SubagentStart is the first instant the specialist exists: it picks up what PreToolUse cached and claims the contract born for it."
-          ]
-        },
-        {
-          "key": "contabilidad",
-          "label": "the bookkeeping",
-          "steps": [
-            "Four independent writers note what ran; Stop sweeps up the failed commands PostToolUse never saw."
-          ]
-        },
-        {
-          "key": "the-judge",
-          "label": "the judge",
-          "steps": [
-            "SubagentStop reads the stored contract, never the reply text, judges it, measures the turn and writes the episode."
-          ]
-        }
-      ],
-      "sections": [
-        {
-          "id": "col-cli",
-          "title": "ON DEMAND",
-          "subtitle": "the CLI",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 1,
-          "span": 6,
-          "columns": 7,
-          "children": [
-            {
-              "id": "cli-memory",
-              "order": 1,
-              "kicker": "gaia memory",
-              "title": "Curated memory",
-              "description": "written on purpose, read back later",
-              "detail": "Read verbs (<code>search</code>, <code>show</code>, <code>list</code>, <code>stats</code>, <code>get-relevant</code>, <code>conflicts</code>, <code>story</code>, <code>episode-show</code>) and write verbs (<code>add</code>, <code>append</code>, <code>reclassify</code>, <code>link</code>, <code>checkpoint</code>). Only the orchestrator and gaia-operator write curated memory (<code>subagent_memory_write_guard.py:60-67</code>).",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "cli-contract",
-              "order": 2,
-              "kicker": "gaia contract",
-              "title": "Contracts",
-              "description": "the stored contract outranks the message",
-              "detail": "The orchestrator reads with <code>contract view | list | validate</code>; <code>gaia contract list --cut</code> names the turns cut before they finalized. The verbs that change a contract (<code>set | add | fill | finalize</code>) belong to the specialist whose turn it is.",
-              "filters": [
-                "deterministic",
-                "the-judge"
-              ]
-            },
-            {
-              "id": "cli-brief",
-              "order": 3,
-              "kicker": "gaia brief",
-              "title": "Briefs",
-              "description": "what you asked for, with its criteria",
-              "detail": "<code>brief new | edit | set-status</code> and the brief's own acceptance criteria, <code>brief ac add | edit | remove</code>.",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "cli-plan",
-              "order": 4,
-              "kicker": "gaia plan · task",
-              "title": "Plans and tasks",
-              "description": "moves status, never promotes its own task",
-              "detail": "The orchestrator moves status with <code>plan set-status</code> and <code>task set-status</code>. Splitting a plan into tasks is gaia-planner's job; promoting a task after verification is gaia-verifier's. Planning objects live in <code>schema.sql:442-700</code>.",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "cli-approvals",
-              "order": 5,
-              "kicker": "gaia approvals",
-              "title": "Approvals",
-              "description": "sees every approval, gives none",
-              "detail": "Read-only for the orchestrator: <code>approvals list | pending | show | history | stats</code>. Approving is yours, not a CLI call. The approval hash chain lives in <code>schema.sql:1578-1600</code>.",
-              "filters": [
-                "deterministic",
-                "porton"
-              ]
-            },
-            {
-              "id": "cli-schedule",
-              "order": 6,
-              "kicker": "gaia schedule",
-              "title": "Schedules",
-              "description": "sees the drift, cannot fix it",
-              "detail": "<code>schedule list | show | status</code> and <code>notifications ack</code>. <code>schedule register | remove | sync</code> belong to gaia-operator, and <code>sync</code> needs your approval.",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "cli-context",
-              "order": 7,
-              "span": 1,
-              "kicker": "gaia context · scan",
-              "title": "Project context",
-              "description": "reads it, re-scans repos",
-              "detail": "<code>context show | get | project</code> read the workspace; <code>context get-contract --section &lt;s&gt;</code> reads one project-context section by name; <code>scan</code> and <code>context scan</code> re-index it.",
-              "filters": [
-                "deterministic"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "col-session",
-          "title": "SESSION START",
-          "subtitle": "SessionStart",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 2,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "ss-build",
-              "order": 1,
-              "kicker": "session_context (short)",
-              "title": "Eight calls, in order",
-              "description": "what the session starts knowing",
-              "detail": "<code>build_session_context</code> in <code>hooks/modules/session/session_manifest.py:1218</code>, called from <code>hooks/session_start.py:307</code>. Eight builder calls in a fixed order; the three boxes below are its parts.",
-              "filters": [
-                "deterministic",
-                "sesion-abre"
-              ]
-            },
-            {
-              "id": "ss-where",
-              "order": 2,
-              "kicker": "calls 1–3",
-              "title": "Where you are",
-              "description": "environment, projects, contracts index",
-              "detail": "Environment first (workspace, machine, version, cwd, plugin root), then the project index by name only, then which project-context sections each specialist surface is handed at dispatch.",
-              "filters": [
-                "deterministic",
-                "sesion-abre"
-              ]
-            },
-            {
-              "id": "ss-open",
-              "order": 3,
-              "kicker": "calls 4–7",
-              "title": "What is open",
-              "description": "open threads, and what ran without you",
-              "detail": "The live worklist of open threads, then three blocks that stay silent unless something ran without you: unread headless reports, schedule drift, and scheduler suspensions.",
-              "filters": [
-                "deterministic",
-                "sesion-abre"
-              ]
-            },
-            {
-              "id": "ss-anchors",
-              "order": 4,
-              "kicker": "call 8, last",
-              "title": "What I know about you",
-              "description": "curated memory, injected last",
-              "detail": "The standing orders about how to work with you. They come last on purpose, after the operational state they should anchor against.",
-              "filters": [
-                "deterministic",
-                "sesion-abre"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "col-born",
-          "title": "BORN",
-          "subtitle": "PreToolUse",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 3,
-          "span": 2,
-          "columns": 2,
-          "children": [
-            {
-              "id": "bn-delegate",
-              "order": 1,
-              "kicker": "check_delegate_mode",
-              "title": "Use it or delegate",
-              "description": "may the orchestrator hold this tool?",
-              "detail": "<code>check_delegate_mode</code> in <code>hooks/modules/orchestrator/delegate_mode.py:367</code>, the first check PreToolUse runs (<code>hooks/adapters/tool_policy.py:267</code>). Outside the orchestrator's allowed set, the work goes to a specialist.",
-              "filters": [
-                "deterministic",
-                "porton",
-                "ruteo"
-              ]
-            },
-            {
-              "id": "bn-tier",
-              "order": 2,
-              "kicker": "classify_tier (short)",
-              "title": "Tier T0 to T3",
-              "description": "a rule, not a model, picks the tier",
-              "detail": "<code>_classify_command_tier_cached</code> (<code>hooks/modules/security/tiers.py:78</code>) gives every command one tier of <code>SecurityTier</code> (<code>:29-35</code>): T0 read, T1 validate, T2 dry run, T3 change. The never list is a separate check, <code>is_blocked_command</code> (<code>blocked_commands.py:678</code>), with nothing to approve. A T3 approval is single-use, must match the command byte for byte, and lasts 30 minutes (<code>approval_grants.py:193</code>, <code>:523</code>; <code>writer.py:86</code>).",
-              "filters": [
-                "deterministic",
-                "porton"
-              ]
-            },
-            {
-              "id": "bn-skill",
-              "order": 3,
-              "kicker": "expected_skill (short)",
-              "title": "File to skill",
-              "description": "one reminder on a Write or an Edit",
-              "detail": "<code>expected_skill_for_path</code> in <code>hooks/modules/agents/artifact_skill_map.py:64</code>, called from <code>tool_policy.py:785</code>. It names the skill that governs the file being written; a reminder, never a block.",
-              "filters": [
-                "deterministic",
-                "porton"
-              ]
-            },
-            {
-              "id": "bn-routing",
-              "order": 4,
-              "kicker": "kernel_sections (short)",
-              "title": "Routing",
-              "description": "the specialist's own surface, no scoring",
-              "detail": "<code>build_kernel_sections</code> (<code>tools/context/context_provider.py</code>), called by <code>_kernel_dispatch_facts</code> in <code>tool_policy.py:554</code>. The code's own words: \"no routing\". It reads the specialist's own <code>surface_routing</code> row and its <code>can_read</code> / <code>can_write</code> from <code>agent_contract_permissions</code>. The prompt-scoring router (<code>classify_surfaces</code>) is not called by any hook.",
-              "filters": [
-                "deterministic",
-                "ruteo",
-                "despacho"
-              ]
-            },
-            {
-              "id": "bn-birth",
-              "order": 5,
-              "span": 2,
-              "kicker": "birth_dispatched_row",
-              "title": "The contract is born",
-              "description": "before the specialist exists",
-              "detail": "<code>birth_dispatched_row</code> in <code>hooks/modules/agents/dispatch_binding.py:338</code>, called from <code>tool_policy.py:675</code>. The contract carries the task id of a plan task, which later stops the specialist from closing its own work. Contract kinds: <code>verifier</code>, <code>task_execution</code>, <code>investigation</code>, <code>memory</code> (<code>dispatch_binding.py:96</code>).",
-              "filters": [
-                "deterministic",
-                "despacho"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "col-receives",
-          "title": "RECEIVES",
-          "subtitle": "SubagentStart",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 4,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "rc-cached",
-              "order": 1,
-              "kicker": "read_cached (short)",
-              "title": "Recent events",
-              "description": "what PreToolUse cached for it",
-              "detail": "<code>_read_cached_context</code> in <code>hooks/adapters/claude_code.py</code> (<code>adapt_subagent_start</code>, line 3985) forwards the recent-events digest that <code>build_session_events</code> built at the dispatch (<code>tool_policy.py:472</code>).",
-              "filters": [
-                "deterministic",
-                "entrega",
-                "despacho"
-              ]
-            },
-            {
-              "id": "rc-claim",
-              "order": 2,
-              "kicker": "claim_kernel (short)",
-              "title": "Claims its contract",
-              "description": "adopts the born contract",
-              "detail": "<code>_maybe_claim_dispatch_kernel</code> (<code>claude_code.py:3950</code>) claims the contract born at PreToolUse and injects the kernel: Your Contract, Your CLI, how you work. If the claim fails, the specialist starts with no contract block and opens its own.",
-              "filters": [
-                "deterministic",
-                "entrega"
-              ]
-            },
-            {
-              "id": "rc-none",
-              "order": 3,
-              "type": "separator",
-              "style": "dotted",
-              "text": "context pulled on demand"
-            }
-          ]
-        },
-        {
-          "id": "col-works",
-          "title": "WORKS",
-          "subtitle": "PostToolUse",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 5,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "wk-log",
-              "order": 1,
-              "kicker": "log_execution",
-              "title": "One line per run",
-              "description": "every tool call, appended",
-              "detail": "<code>log_execution</code> in <code>hooks/modules/audit/logger.py:221</code>, called from <code>tool_policy.py:922</code>. One JSON line per run; nothing coordinates it with the writers in the audit band. It runs on every tool call; a failed Bash call returns through PostToolUseFailure instead.",
-              "filters": [
-                "deterministic",
-                "contabilidad"
-              ]
-            },
-            {
-              "id": "wk-repeat",
-              "order": 2,
-              "type": "separator",
-              "style": "dotted",
-              "text": "↻ each tool call"
-            }
-          ]
-        },
-        {
-          "id": "col-contract",
-          "title": "CONTRACT",
-          "subtitle": "SubagentStop",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 6,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "ct-gate",
-              "order": 1,
-              "kicker": "contract_gate (short)",
-              "title": "Reads the contract",
-              "description": "stored, never the reply",
-              "detail": "<code>evaluate_contract_gate</code> in <code>hooks/adapters/claude_code.py:648</code>. It reads only the turn's stored contract; a missing or unfinalized one sends the turn back (exit 2, <code>claude_code.py:905-907</code>). Six closing states, only COMPLETE is final (<code>validator.py:908</code>). A plan-task contract cannot close itself COMPLETE.",
-              "filters": [
-                "deterministic",
-                "the-judge"
-              ]
-            },
-            {
-              "id": "ct-perm",
-              "order": 2,
-              "kicker": "validate_permission",
-              "title": "May it write here?",
-              "description": "project context, section by section",
-              "detail": "<code>validate_permission</code> in <code>hooks/modules/context/context_writer.py:127</code>, reached through <code>process_update_contracts</code> from <code>hooks/subagent_stop.py:176</code>. A write outside the specialist's <code>can_write</code> is refused and counted as an anomaly.",
-              "filters": [
-                "deterministic",
-                "the-judge"
-              ]
-            },
-            {
-              "id": "ct-score",
-              "order": 3,
-              "kicker": "compliance_score (short)",
-              "title": "Six factors, a grade",
-              "description": "nobody grades their own turn",
-              "detail": "<code>compute_compliance_score</code> in <code>hooks/modules/agents/transcript_analyzer.py:439</code>, six factors (<code>:471-531</code>) over the real transcript and the auditor's anomalies, giving a score and a letter.",
-              "filters": [
-                "deterministic",
-                "the-judge"
-              ]
-            },
-            {
-              "id": "ct-episode",
-              "order": 4,
-              "kicker": "episode_writer (short)",
-              "title": "Writes the episode",
-              "description": "the automatic trace of the turn",
-              "detail": "<code>episode_writer.write</code> in <code>hooks/modules/memory/episode_writer.py:125</code>: what was asked, what came out, what it cost, what looked odd (<code>subagent_stop.py:263</code>).",
-              "filters": [
-                "deterministic",
-                "the-judge"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "audit",
-          "title": "AUDIT",
-          "subtitle": "runs at every moment above, which is why it is the base and not a column",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 7,
-          "span": 6,
-          "columns": 4,
-          "children": [
-            {
-              "id": "au-chain",
-              "order": 1,
-              "kicker": "record_event",
-              "title": "The hashed chain",
-              "description": "each approval step hashed onto the last",
-              "detail": "Appends SHOWN, EXECUTED, FAILED to the approval chain (<code>gaia/approvals/store.py</code>; tables in <code>schema.sql:1578-1600</code>). Change one step and the chain breaks.",
-              "filters": [
-                "deterministic",
-                "contabilidad"
-              ]
-            },
-            {
-              "id": "au-events",
-              "order": 2,
-              "kicker": "write_event",
-              "title": "The event stream",
-              "description": "one table every hook writes into",
-              "detail": "<code>EventWriter().write_event</code> writes into <code>harness_events</code> (<code>hooks/modules/events/event_writer.py</code>), from PreToolUse, PostToolUse and SubagentStop alike.",
-              "filters": [
-                "deterministic",
-                "contabilidad"
-              ]
-            },
-            {
-              "id": "au-auditor",
-              "order": 3,
-              "kicker": "workflow_auditor",
-              "title": "About twenty checks",
-              "description": "the anomalies of one turn, in order",
-              "detail": "<code>workflow_auditor.audit</code> (<code>hooks/modules/audit/workflow_auditor.py:445-661</code>): about twenty checks in strict order, such as skipped investigation, missing evidence, a skill loaded out of order, a write outside scope. Its list feeds the six-factor grade.",
-              "filters": [
-                "deterministic",
-                "the-judge"
-              ]
-            },
-            {
-              "id": "au-stop",
-              "order": 4,
-              "kicker": "Stop",
-              "title": "The closing sweeper",
-              "description": "closes what PostToolUse never saw",
-              "detail": "A non-zero Bash exit does not reach PostToolUse, so an approved command that failed never gets its closing event there. Stop is where the turn is fully done; anything still open is reconciled.",
-              "filters": [
-                "deterministic",
-                "contabilidad"
-              ]
-            }
-          ]
-        }
-      ],
-      "name": "Backup · Down to the code",
-      "order": 6
     }
   ]
 };

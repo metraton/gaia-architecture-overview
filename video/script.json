@@ -138,11 +138,9 @@
         { "say": "You describe the problem." },
         { "say": "And then, you work agentically." },
         { "say": "It plans, delegates, and asks before it changes anything.", "show": ["p9-objections"],
-          "cues": [{ "at": "asks", "chip": "the-human" }] },
-        { "say": "Everything it learns stays in one database, on your machine.", "chip": "memory",
-          "cues": [{ "at": "machine", "chip": "yours" }] },
-        { "say": "So: what is Gaia, and what can you do for me?", "chip": "all",
-          "cues": [{ "at": "can", "show": ["p9-close"] }] }
+          "cues": [{ "at": "asks", "chip": "people-ask" }] },
+        { "say": "Everything it learns stays in one database, on your machine.", "chip": "it-is-yours" },
+        { "say": "So: what is Gaia, and what can you do for me?", "chip": "all" }
       ]
     }
   ]

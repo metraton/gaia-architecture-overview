@@ -37,8 +37,3 @@ pages:
     order: 5
     visible: true
     file: pages/p9-back-to-the-map.yaml
-  - id: backup-code
-    name: "Backup · Down to the code"
-    order: 6
-    visible: true
-    file: pages/backup-code.yaml

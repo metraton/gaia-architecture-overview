@@ -16,7 +16,7 @@ skill's `video.md`; this file only records what is specific to this deck.
 
 `N.wav` is the page whose visible name starts with `N ·`; the page files do
 not match those numbers (page 3 is `p4-…yaml`, page 4 is `p6-…yaml`, page 6 is
-`p9-…yaml`). `backup-code` is not in the video.
+`p9-…yaml`).
 
 ## Measured with the old pipeline
 
