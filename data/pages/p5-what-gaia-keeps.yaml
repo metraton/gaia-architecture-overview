@@ -19,23 +19,23 @@ filters:
   - key: p5-knows
     label: "1 · what it knows"
     steps:
-      - "Gaia scans your projects and keeps what it learns about them, and about you: your decisions and your preferences."
+      - "Gaia scans the workspace and its repositories and writes down what it finds, section by section, and keeps your rules, your preferences and your decisions."
   - key: p5-open
     label: "2 · what is open"
     steps:
-      - "It keeps the work in progress: the idea, the plan, the tasks, and whatever is still open."
+      - "Bigger work starts as a brief, becomes one plan split into tasks with their own gates, and whatever is still open carries forward."
   - key: p5-done
     label: "3 · what was done"
     steps:
-      - "It keeps what was done: each report, each approval, and the checks that closed the work."
+      - "Every turn ends with its contract and its evidence, every change you approved is kept with your answer, and every check leaves its verdict."
   - key: p5-happened
     label: "4 · what happened"
     steps:
-      - "And it records what happened, session by session, without anyone writing it by hand."
+      - "Gaia's engine records events, turns and sessions on its own, puts them in a timeline, and flags anything unusual."
   - key: p5-one-task
     label: "5 · one task, four traces"
     steps:
-      - "One task leaves a trace in all four: the project it touched, the task itself, its report, and the record of its turn."
+      - "A single task leaves a trace in all four: in the project it touched, in the plan it belongs to, in its contract, and in the record of its turn."
 
 sections:
   - id: gaia

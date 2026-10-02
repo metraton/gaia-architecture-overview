@@ -905,35 +905,35 @@ window.__DOC__ = {
           "key": "p5-knows",
           "label": "1 · what it knows",
           "steps": [
-            "Gaia scans your projects and keeps what it learns about them, and about you: your decisions and your preferences."
+            "Gaia scans the workspace and its repositories and writes down what it finds, section by section, and keeps your rules, your preferences and your decisions."
           ]
         },
         {
           "key": "p5-open",
           "label": "2 · what is open",
           "steps": [
-            "It keeps the work in progress: the idea, the plan, the tasks, and whatever is still open."
+            "Bigger work starts as a brief, becomes one plan split into tasks with their own gates, and whatever is still open carries forward."
           ]
         },
         {
           "key": "p5-done",
           "label": "3 · what was done",
           "steps": [
-            "It keeps what was done: each report, each approval, and the checks that closed the work."
+            "Every turn ends with its contract and its evidence, every change you approved is kept with your answer, and every check leaves its verdict."
           ]
         },
         {
           "key": "p5-happened",
           "label": "4 · what happened",
           "steps": [
-            "And it records what happened, session by session, without anyone writing it by hand."
+            "Gaia's engine records events, turns and sessions on its own, puts them in a timeline, and flags anything unusual."
           ]
         },
         {
           "key": "p5-one-task",
           "label": "5 · one task, four traces",
           "steps": [
-            "One task leaves a trace in all four: the project it touched, the task itself, its report, and the record of its turn."
+            "A single task leaves a trace in all four: in the project it touched, in the plan it belongs to, in its contract, and in the record of its turn."
           ]
         }
       ],
@@ -2132,35 +2132,35 @@ window.__DOC__ = {
           "key": "c-reports",
           "label": "1 · it reports",
           "steps": [
-            "Every agent ends its turn with a report in the same form, starting with how it ended."
+            "Each turn ends with a contract, the same form for every agent, and it starts with how the turn ended."
           ]
         },
         {
           "key": "c-evidence",
           "label": "2 · with evidence",
           "steps": [
-            "The report carries the evidence: what it read, what it ran and what it found."
+            "Then comes the evidence: the files it read, what it searched, the commands it ran, what it found and the exact output."
           ]
         },
         {
           "key": "c-checked",
           "label": "3 · checked by rule",
           "steps": [
-            "Gaia checks the report by rule before anyone relies on it."
+            "The form says how the work was checked and what is still open; Gaia's engine checks it by rule, the orchestrator reads it, and a verifier tests it from the evidence alone."
           ]
         },
         {
           "key": "c-updates",
           "label": "4 · it updates the project",
           "steps": [
-            "A report can update what Gaia knows about the project, but only the parts that agent may write."
+            "A report can update the project contract, organized in sections, and each agent may only write the sections of its field."
           ]
         },
         {
           "key": "c-kept",
           "label": "5 · kept for audit",
           "steps": [
-            "And every report is kept, so the work can be audited later."
+            "And every contract is kept, so months later you can still see who did what, how it was checked, and what it was based on."
           ]
         }
       ],
@@ -2273,7 +2273,8 @@ window.__DOC__ = {
                       "indent": 1,
                       "title": "evidence",
                       "filters": [
-                        "c-evidence"
+                        "c-evidence",
+                        "c-kept"
                       ]
                     },
                     {
@@ -2333,7 +2334,8 @@ window.__DOC__ = {
                       "indent": 1,
                       "title": "how it was checked",
                       "filters": [
-                        "c-checked"
+                        "c-checked",
+                        "c-kept"
                       ]
                     },
                     {
@@ -2343,7 +2345,7 @@ window.__DOC__ = {
                       "indent": 1,
                       "title": "what is still open",
                       "filters": [
-                        "c-kept"
+                        "c-checked"
                       ]
                     },
                     {
@@ -2353,7 +2355,7 @@ window.__DOC__ = {
                       "indent": 1,
                       "title": "what else it touched",
                       "filters": [
-                        "c-kept"
+                        "c-checked"
                       ]
                     },
                     {
@@ -2363,7 +2365,7 @@ window.__DOC__ = {
                       "indent": 1,
                       "title": "the command to approve",
                       "filters": [
-                        "c-kept"
+                        "c-checked"
                       ]
                     },
                     {
@@ -2596,7 +2598,8 @@ window.__DOC__ = {
                       ],
                       "detail": "It reads the stored contract, not the message, checks what it claims against what it can open itself, and takes the next step from the status: tell you, send a verifier, show you a command, ask you, or resume the turn.",
                       "filters": [
-                        "c-reports"
+                        "c-reports",
+                        "c-checked"
                       ]
                     },
                     {
@@ -2608,7 +2611,8 @@ window.__DOC__ = {
                       ],
                       "detail": "A separate agent re-runs the checks from the evidence, without the context of the agent that did the work.",
                       "filters": [
-                        "c-evidence"
+                        "c-evidence",
+                        "c-checked"
                       ]
                     },
                     {
@@ -2683,21 +2687,21 @@ window.__DOC__ = {
           "key": "first-question",
           "label": "2 · first question",
           "steps": [
-            "Then ask it what it is and what it can do for you."
+            "Then you just ask, in your own words: what is Gaia? It explains itself, with everything you just saw."
           ]
         },
         {
           "key": "it-grows",
           "label": "3 · it grows",
           "steps": [
-            "It maps your repos, and grows with the work you bring it."
+            "From there it grows with you: it maps your repositories, finds the project and the right specialist, and plans and delegates bigger work."
           ]
         },
         {
           "key": "it-is-yours",
           "label": "4 · it is yours",
           "steps": [
-            "Your data stays on your machine, and the code is open."
+            "Everything Gaia learns lives in one database on your machine, the code is open source, and one install reaches all your projects in Claude Code and OpenCode."
           ]
         },
         {
@@ -2868,12 +2872,12 @@ window.__DOC__ = {
                   "id": "p9-first-prompt",
                   "order": 1,
                   "rowspan": 2,
-                  "kicker": "YOUR FIRST QUESTION",
-                  "title": "What is Gaia, and what can you do for me?",
+                  "kicker": "YOUR TURN",
+                  "title": "So, what could Gaia do for you?",
                   "description": [
-                    "it answers with everything you just saw"
+                    "ask it — it will tell you"
                   ],
-                  "detail": "The first thing to ask, on either route: <i>what is Gaia, and what can you do for me?</i> Gaia explains itself live, and its answer is the map this deck opened with.",
+                  "detail": "Ask Gaia in plain words, on either route. It explains itself, and what it can do in your projects.",
                   "variant": "accent",
                   "treatment": [
                     "centered"
@@ -2957,7 +2961,7 @@ window.__DOC__ = {
                 {
                   "id": "p9-reach",
                   "order": 2,
-                  "title": "Every project you open",
+                  "title": "All your projects",
                   "description": [
                     "one install reaches them all"
                   ],

@@ -20,23 +20,23 @@ filters:
   - key: c-reports
     label: "1 · it reports"
     steps:
-      - "Every agent ends its turn with a report in the same form, starting with how it ended."
+      - "Each turn ends with a contract, the same form for every agent, and it starts with how the turn ended."
   - key: c-evidence
     label: "2 · with evidence"
     steps:
-      - "The report carries the evidence: what it read, what it ran and what it found."
+      - "Then comes the evidence: the files it read, what it searched, the commands it ran, what it found and the exact output."
   - key: c-checked
     label: "3 · checked by rule"
     steps:
-      - "Gaia checks the report by rule before anyone relies on it."
+      - "The form says how the work was checked and what is still open; Gaia's engine checks it by rule, the orchestrator reads it, and a verifier tests it from the evidence alone."
   - key: c-updates
     label: "4 · it updates the project"
     steps:
-      - "A report can update what Gaia knows about the project, but only the parts that agent may write."
+      - "A report can update the project contract, organized in sections, and each agent may only write the sections of its field."
   - key: c-kept
     label: "5 · kept for audit"
     steps:
-      - "And every report is kept, so the work can be audited later."
+      - "And every contract is kept, so months later you can still see who did what, how it was checked, and what it was based on."
 
 sections:
   - id: gaia
@@ -67,16 +67,16 @@ sections:
               - {id: ac-needs-input, type: rail, order: 5, indent: 2, title: "needs an answer", filters: [c-reports]}
               - {id: ac-blocked, type: rail, order: 6, indent: 2, title: "blocked", filters: [c-reports]}
               - {id: ac-in-progress, type: rail, order: 7, indent: 2, title: "still working", filters: [c-reports]}
-              - {id: ac-evidence, type: rail, order: 8, indent: 1, title: "evidence", filters: [c-evidence]}
+              - {id: ac-evidence, type: rail, order: 8, indent: 1, title: "evidence", filters: [c-evidence, c-kept]}
               - {id: ac-files, type: rail, order: 9, indent: 2, title: "files it read", filters: [c-evidence]}
               - {id: ac-patterns, type: rail, order: 10, indent: 2, title: "what it searched", filters: [c-evidence]}
               - {id: ac-commands, type: rail, order: 11, indent: 2, title: "commands it ran", filters: [c-evidence]}
               - {id: ac-key-outputs, type: rail, order: 12, indent: 2, title: "what it found", filters: [c-evidence]}
               - {id: ac-verbatim, type: rail, order: 13, indent: 2, title: "exact output", filters: [c-evidence]}
-              - {id: ac-verification, type: rail, order: 14, indent: 1, title: "how it was checked", filters: [c-checked]}
-              - {id: ac-gaps, type: rail, order: 15, indent: 1, title: "what is still open", filters: [c-kept]}
-              - {id: ac-reach, type: rail, order: 16, indent: 1, title: "what else it touched", filters: [c-kept]}
-              - {id: ac-approval, type: rail, order: 17, indent: 1, title: "the command to approve", filters: [c-kept]}
+              - {id: ac-verification, type: rail, order: 14, indent: 1, title: "how it was checked", filters: [c-checked, c-kept]}
+              - {id: ac-gaps, type: rail, order: 15, indent: 1, title: "what is still open", filters: [c-checked]}
+              - {id: ac-reach, type: rail, order: 16, indent: 1, title: "what else it touched", filters: [c-checked]}
+              - {id: ac-approval, type: rail, order: 17, indent: 1, title: "the command to approve", filters: [c-checked]}
               - {id: ac-updates, type: rail, order: 18, indent: 1, title: "updates to the project", filters: [c-updates]}
 
           - id: p6-project
@@ -126,13 +126,13 @@ sections:
                 title: "2 · The orchestrator reads it"
                 description: ["and decides the next step"]
                 detail: "It reads the stored contract, not the message, checks what it claims against what it can open itself, and takes the next step from the status: tell you, send a verifier, show you a command, ask you, or resume the turn."
-                filters: [c-reports]
+                filters: [c-reports, c-checked]
               - id: p6-verifier
                 order: 3
                 title: "3 · The verifier tests it"
                 description: ["from the evidence alone"]
                 detail: "A separate agent re-runs the checks from the evidence, without the context of the agent that did the work."
-                filters: [c-evidence]
+                filters: [c-evidence, c-checked]
               - id: p6-kept
                 order: 4
                 title: "4 · It is kept"

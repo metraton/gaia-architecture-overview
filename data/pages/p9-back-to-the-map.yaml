@@ -14,15 +14,15 @@ filters:
   - key: first-question
     label: "2 · first question"
     steps:
-      - "Then ask it what it is and what it can do for you."
+      - "Then you just ask, in your own words: what is Gaia? It explains itself, with everything you just saw."
   - key: it-grows
     label: "3 · it grows"
     steps:
-      - "It maps your repos, and grows with the work you bring it."
+      - "From there it grows with you: it maps your repositories, finds the project and the right specialist, and plans and delegates bigger work."
   - key: it-is-yours
     label: "4 · it is yours"
     steps:
-      - "Your data stays on your machine, and the code is open."
+      - "Everything Gaia learns lives in one database on your machine, the code is open source, and one install reaches all your projects in Claude Code and OpenCode."
   - key: people-ask
     label: "5 · what people ask"
     steps:
@@ -129,10 +129,10 @@ sections:
           - id: p9-first-prompt
             order: 1
             rowspan: 2
-            kicker: "YOUR FIRST QUESTION"
-            title: "What is Gaia, and what can you do for me?"
-            description: ["it answers with everything you just saw"]
-            detail: "The first thing to ask, on either route: <i>what is Gaia, and what can you do for me?</i> Gaia explains itself live, and its answer is the map this deck opened with."
+            kicker: "YOUR TURN"
+            title: "So, what could Gaia do for you?"
+            description: ["ask it — it will tell you"]
+            detail: "Ask Gaia in plain words, on either route. It explains itself, and what it can do in your projects."
             variant: accent
             treatment: [centered]
             filters: [first-question]
@@ -177,7 +177,7 @@ sections:
             filters: [it-is-yours]
           - id: p9-reach
             order: 2
-            title: "Every project you open"
+            title: "All your projects"
             description: ["one install reaches them all"]
             detail: "All your projects share one database. The first session maps the repositories in the folder, and more folders can be added with <code>gaia scan</code>."
             filters: [it-is-yours]
