@@ -332,396 +332,147 @@
     {
       "page": "p5-what-gaia-keeps",
       "audio": "audio/5.wav",
-      "duration": 33.125,
-      "method": "words",
+      "duration": 158.1,
+      "method": "sentences",
       "speech": [
-        0.325,
-        32.85
+        0.212,
+        157.645
       ],
-      "words": 102,
       "sentences": [
         {
-          "text": "And Gaia remembers, in four memories, each answering one question.",
-          "start": 0.325,
-          "end": 4.45,
-          "words": [
-            {
-              "word": "And",
-              "start": 0.325
-            },
-            {
-              "word": "Gaia",
-              "start": 0.475
-            },
-            {
-              "word": "remembers",
-              "start": 0.8
-            },
-            {
-              "word": "in",
-              "start": 1.4
-            },
-            {
-              "word": "four",
-              "start": 1.562
-            },
-            {
-              "word": "memories",
-              "start": 1.85
-            },
-            {
-              "word": "each",
-              "start": 2.675
-            },
-            {
-              "word": "answering",
-              "start": 2.938
-            },
-            {
-              "word": "one",
-              "start": 3.45
-            },
-            {
-              "word": "question",
-              "start": 3.675
-            }
-          ]
+          "text": "What do you know about my work?",
+          "start": 0.212,
+          "end": 1.726
         },
         {
-          "text": "Project memory: what do we know about the project, and about you?",
-          "start": 5,
-          "end": 8.625,
-          "words": [
-            {
-              "word": "Project",
-              "start": 5
-            },
-            {
-              "word": "memory",
-              "start": 5.5
-            },
-            {
-              "word": "what",
-              "start": 6.25
-            },
-            {
-              "word": "do",
-              "start": 6.388
-            },
-            {
-              "word": "we",
-              "start": 6.488
-            },
-            {
-              "word": "know",
-              "start": 6.6
-            },
-            {
-              "word": "about",
-              "start": 6.8
-            },
-            {
-              "word": "the",
-              "start": 7.062
-            },
-            {
-              "word": "project",
-              "start": 7.15
-            },
-            {
-              "word": "and",
-              "start": 7.713
-            },
-            {
-              "word": "about",
-              "start": 7.812
-            },
-            {
-              "word": "you",
-              "start": 8.137
-            }
-          ]
+          "text": "Gaia starts with nothing. Everything it knows, it learned while working with you.",
+          "start": 2.868,
+          "end": 7.693
         },
         {
-          "text": "Operational memory: what are we doing, and what is still open?",
-          "start": 9.25,
-          "end": 12.825,
-          "words": [
-            {
-              "word": "Operational",
-              "start": 9.25
-            },
-            {
-              "word": "memory",
-              "start": 9.875
-            },
-            {
-              "word": "what",
-              "start": 10.625
-            },
-            {
-              "word": "are",
-              "start": 10.763
-            },
-            {
-              "word": "we",
-              "start": 10.85
-            },
-            {
-              "word": "doing",
-              "start": 11.038
-            },
-            {
-              "word": "and",
-              "start": 11.488
-            },
-            {
-              "word": "what",
-              "start": 11.6
-            },
-            {
-              "word": "is",
-              "start": 11.738
-            },
-            {
-              "word": "still",
-              "start": 11.825
-            },
-            {
-              "word": "open",
-              "start": 12.113
-            }
-          ]
+          "text": "It keeps that in four memories, and each one answers a simple question.",
+          "start": 9.048,
+          "end": 12.854
         },
         {
-          "text": "From a brief, to a plan, to tasks and their gates.",
-          "start": 13.4,
-          "end": 16.275,
-          "words": [
-            {
-              "word": "From",
-              "start": 13.4
-            },
-            {
-              "word": "a",
-              "start": 13.538
-            },
-            {
-              "word": "brief",
-              "start": 13.6
-            },
-            {
-              "word": "to",
-              "start": 13.925
-            },
-            {
-              "word": "a",
-              "start": 14.013
-            },
-            {
-              "word": "plan",
-              "start": 14.075
-            },
-            {
-              "word": "to",
-              "start": 14.65
-            },
-            {
-              "word": "tasks",
-              "start": 14.788
-            },
-            {
-              "word": "and",
-              "start": 15.3
-            },
-            {
-              "word": "their",
-              "start": 15.413
-            },
-            {
-              "word": "gates",
-              "start": 15.575
-            }
-          ]
+          "text": "The first one asks: what do we know about the project, and about you?",
+          "start": 14.909,
+          "end": 18.797
         },
         {
-          "text": "Execution memory: what did we execute, and what did it produce?",
-          "start": 16.85,
-          "end": 20.825,
-          "words": [
-            {
-              "word": "Execution",
-              "start": 16.85
-            },
-            {
-              "word": "memory",
-              "start": 17.55
-            },
-            {
-              "word": "what",
-              "start": 18.35
-            },
-            {
-              "word": "did",
-              "start": 18.513
-            },
-            {
-              "word": "we",
-              "start": 18.638
-            },
-            {
-              "word": "execute",
-              "start": 18.788
-            },
-            {
-              "word": "and",
-              "start": 19.475
-            },
-            {
-              "word": "what",
-              "start": 19.6
-            },
-            {
-              "word": "did",
-              "start": 19.775
-            },
-            {
-              "word": "it",
-              "start": 19.913
-            },
-            {
-              "word": "produce",
-              "start": 20
-            }
-          ]
+          "text": "When you open a project, Gaia scans the workspace and its repositories, and writes down what it finds, section by section.",
+          "start": 20.257,
+          "end": 27.123
         },
         {
-          "text": "Episodic memory: what happened, and when?",
-          "start": 21.425,
-          "end": 24.05,
-          "words": [
-            {
-              "word": "Episodic",
-              "start": 21.425
-            },
-            {
-              "word": "memory",
-              "start": 22.025
-            },
-            {
-              "word": "what",
-              "start": 22.725
-            },
-            {
-              "word": "happened",
-              "start": 22.875
-            },
-            {
-              "word": "and",
-              "start": 23.338
-            },
-            {
-              "word": "when",
-              "start": 23.45
-            }
-          ]
+          "text": "Each specialist is told which of those sections it may read, and which it may write.",
+          "start": 28.411,
+          "end": 33.08
         },
         {
-          "text": "Recorded by the engine, not narrated by the agent.",
-          "start": 24.65,
-          "end": 28.05,
-          "words": [
-            {
-              "word": "Recorded",
-              "start": 24.65
-            },
-            {
-              "word": "by",
-              "start": 25.1
-            },
-            {
-              "word": "the",
-              "start": 25.263
-            },
-            {
-              "word": "engine",
-              "start": 25.413
-            },
-            {
-              "word": "not",
-              "start": 26.175
-            },
-            {
-              "word": "narrated",
-              "start": 26.438
-            },
-            {
-              "word": "by",
-              "start": 27
-            },
-            {
-              "word": "the",
-              "start": 27.163
-            },
-            {
-              "word": "agent",
-              "start": 27.313
-            }
-          ]
+          "text": "It also keeps what is yours: your rules, your preferences, and the decisions you made, with the reason behind them.",
+          "start": 34.304,
+          "end": 41.053
         },
         {
-          "text": "You decide what is curated.",
-          "start": 28.65,
-          "end": 30.475,
-          "words": [
-            {
-              "word": "You",
-              "start": 28.65
-            },
-            {
-              "word": "decide",
-              "start": 28.775
-            },
-            {
-              "word": "what",
-              "start": 29.35
-            },
-            {
-              "word": "is",
-              "start": 29.488
-            },
-            {
-              "word": "curated",
-              "start": 29.638
-            }
-          ]
+          "text": "The second asks: what are we doing, and what is still open?",
+          "start": 43.282,
+          "end": 46.681
         },
         {
-          "text": "The engine records the rest.",
-          "start": 31.05,
-          "end": 32.85,
-          "words": [
-            {
-              "word": "The",
-              "start": 31.05
-            },
-            {
-              "word": "engine",
-              "start": 31.188
-            },
-            {
-              "word": "records",
-              "start": 31.625
-            },
-            {
-              "word": "the",
-              "start": 32.088
-            },
-            {
-              "word": "rest",
-              "start": 32.2
-            }
-          ]
+          "text": "Bigger work starts as a brief: a short page that says what you want, and how you will know it is done.",
+          "start": 48.011,
+          "end": 55.087
+        },
+        {
+          "text": "The brief becomes one plan,",
+          "start": 56.609,
+          "end": 58.199
+        },
+        {
+          "text": "and the plan is split into tasks. Each task carries its own checks, called gates.",
+          "start": 59.057,
+          "end": 64.218
+        },
+        {
+          "text": "If the plan has to change, the change is recorded, and the earlier version is kept.",
+          "start": 65.506,
+          "end": 70.085
+        },
+        {
+          "text": "And whatever is paused, blocked or pending carries forward to the next session.",
+          "start": 71.213,
+          "end": 75.479
+        },
+        {
+          "text": "The third asks: what did we do, and what came out of it?",
+          "start": 77.714,
+          "end": 81.622
+        },
+        {
+          "text": "Every turn ends with its contract: how it ended, and the evidence behind it.",
+          "start": 83.116,
+          "end": 87.761
+        },
+        {
+          "text": "Every change you approved is kept, with your answer.",
+          "start": 88.933,
+          "end": 91.712
+        },
+        {
+          "text": "And every check leaves its verdict: pass or fail, and what is still open.",
+          "start": 93.067,
+          "end": 97.383
+        },
+        {
+          "text": "Together, they form an audit trail you can follow later.",
+          "start": 98.685,
+          "end": 101.434
+        },
+        {
+          "text": "The fourth asks: what happened, and when?",
+          "start": 103.463,
+          "end": 106.051
+        },
+        {
+          "text": "This one nobody writes. Gaia's engine records it on its own, as events, turns and sessions.",
+          "start": 107.476,
+          "end": 113.863
+        },
+        {
+          "text": "Put in order, they become a timeline.",
+          "start": 115.055,
+          "end": 117.074
+        },
+        {
+          "text": "Anything unusual is flagged, and a turn that was cut short is marked, so nothing disappears quietly.",
+          "start": 118.442,
+          "end": 124.355
+        },
+        {
+          "text": "And each new session starts with the last twenty-four hours.",
+          "start": 125.712,
+          "end": 129.613
+        },
+        {
+          "text": "These four memories are not separate boxes.",
+          "start": 131.743,
+          "end": 133.951
+        },
+        {
+          "text": "A single task leaves a trace in all four: in the project it touched, in the plan it belongs to, in its contract, and in the record of its turn.",
+          "start": 135.211,
+          "end": 144.942
+        },
+        {
+          "text": "You decide what is worth keeping. The engine records the rest.",
+          "start": 147.634,
+          "end": 151.733
+        },
+        {
+          "text": "But knowing is not enough. What happens when the work needs to change something?",
+          "start": 152.906,
+          "end": 157.645
         }
       ]
     },
