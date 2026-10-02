@@ -3,1095 +3,1745 @@
     {
       "page": "s-shared-semantics",
       "audio": "audio/1.wav",
-      "duration": 101.15,
+      "duration": 160.2,
       "method": "words",
       "speech": [
-        0.35,
-        100.6
+        0.325,
+        159.65
       ],
-      "words": 273,
+      "words": 438,
       "sentences": [
         {
-          "text": "Many of us already work with AI, each on our own.",
-          "start": 0.35,
-          "end": 3.525,
+          "text": "These days, almost everyone works with an AI assistant.",
+          "start": 0.325,
+          "end": 3.85,
           "words": [
             {
-              "word": "Many",
-              "start": 0.35
+              "word": "These",
+              "start": 0.325
             },
             {
-              "word": "of",
-              "start": 0.537
+              "word": "days",
+              "start": 0.55
             },
             {
-              "word": "us",
-              "start": 0.613
+              "word": "almost",
+              "start": 1.125
             },
             {
-              "word": "already",
-              "start": 0.775
-            },
-            {
-              "word": "work",
-              "start": 1.15
-            },
-            {
-              "word": "with",
-              "start": 1.387
-            },
-            {
-              "word": "AI",
-              "start": 1.562
-            },
-            {
-              "word": "each",
-              "start": 2.275
-            },
-            {
-              "word": "on",
-              "start": 2.55
-            },
-            {
-              "word": "our",
-              "start": 2.688
-            },
-            {
-              "word": "own",
-              "start": 2.862
-            }
-          ]
-        },
-        {
-          "text": "To work with AI as a team, a few things have to be shared.",
-          "start": 4.575,
-          "end": 8.425,
-          "words": [
-            {
-              "word": "To",
-              "start": 4.575
-            },
-            {
-              "word": "work",
-              "start": 4.675
-            },
-            {
-              "word": "with",
-              "start": 4.913
-            },
-            {
-              "word": "AI",
-              "start": 5.1
-            },
-            {
-              "word": "as",
-              "start": 5.6
-            },
-            {
-              "word": "a",
-              "start": 5.713
-            },
-            {
-              "word": "team",
-              "start": 5.812
-            },
-            {
-              "word": "a",
-              "start": 6.525
-            },
-            {
-              "word": "few",
-              "start": 6.638
-            },
-            {
-              "word": "things",
-              "start": 6.888
-            },
-            {
-              "word": "have",
-              "start": 7.225
-            },
-            {
-              "word": "to",
-              "start": 7.45
-            },
-            {
-              "word": "be",
-              "start": 7.538
-            },
-            {
-              "word": "shared",
-              "start": 7.7
-            }
-          ]
-        },
-        {
-          "text": "First, a workflow. You talk to one agent, the orchestrator, in your own words,",
-          "start": 10.25,
-          "end": 15.05,
-          "words": [
-            {
-              "word": "First",
-              "start": 10.25
-            },
-            {
-              "word": "a",
-              "start": 10.675
-            },
-            {
-              "word": "workflow",
-              "start": 10.787
-            },
-            {
-              "word": "You",
-              "start": 11.75
-            },
-            {
-              "word": "talk",
-              "start": 11.875
-            },
-            {
-              "word": "to",
-              "start": 12.15
-            },
-            {
-              "word": "one",
-              "start": 12.275
-            },
-            {
-              "word": "agent",
-              "start": 12.5
-            },
-            {
-              "word": "the",
-              "start": 12.962
-            },
-            {
-              "word": "orchestrator",
-              "start": 13.112
-            },
-            {
-              "word": "in",
-              "start": 13.862
-            },
-            {
-              "word": "your",
-              "start": 13.937
-            },
-            {
-              "word": "own",
-              "start": 14.075
-            },
-            {
-              "word": "words",
-              "start": 14.325
-            }
-          ]
-        },
-        {
-          "text": "and it turns what you ask into clear steps, each one sent to the agent that owns it.",
-          "start": 15.9,
-          "end": 20.8,
-          "words": [
-            {
-              "word": "and",
-              "start": 15.9
-            },
-            {
-              "word": "it",
-              "start": 15.987
-            },
-            {
-              "word": "turns",
-              "start": 16.087
-            },
-            {
-              "word": "what",
-              "start": 16.5
-            },
-            {
-              "word": "you",
-              "start": 16.65
-            },
-            {
-              "word": "ask",
-              "start": 16.812
-            },
-            {
-              "word": "into",
-              "start": 17.087
-            },
-            {
-              "word": "clear",
-              "start": 17.3
-            },
-            {
-              "word": "steps",
-              "start": 17.637
-            },
-            {
-              "word": "each",
-              "start": 18.45
-            },
-            {
-              "word": "one",
-              "start": 18.7
-            },
-            {
-              "word": "sent",
-              "start": 18.938
-            },
-            {
-              "word": "to",
-              "start": 19.175
-            },
-            {
-              "word": "the",
-              "start": 19.262
-            },
-            {
-              "word": "agent",
-              "start": 19.412
-            },
-            {
-              "word": "that",
-              "start": 19.8
-            },
-            {
-              "word": "owns",
-              "start": 19.987
-            },
-            {
-              "word": "it",
-              "start": 20.35
-            }
-          ]
-        },
-        {
-          "text": "Every agent is built the same way,",
-          "start": 21.875,
-          "end": 24.05,
-          "words": [
-            {
-              "word": "Every",
-              "start": 21.875
-            },
-            {
-              "word": "agent",
-              "start": 22.225
-            },
-            {
-              "word": "is",
-              "start": 22.65
-            },
-            {
-              "word": "built",
-              "start": 22.8
-            },
-            {
-              "word": "the",
-              "start": 23.037
-            },
-            {
-              "word": "same",
-              "start": 23.137
-            },
-            {
-              "word": "way",
-              "start": 23.475
-            }
-          ]
-        },
-        {
-          "text": "and answers in the same form, so what comes back is organized and checked.",
-          "start": 24.925,
-          "end": 29.475,
-          "words": [
-            {
-              "word": "and",
-              "start": 24.925
-            },
-            {
-              "word": "answers",
-              "start": 25.037
-            },
-            {
-              "word": "in",
-              "start": 25.512
-            },
-            {
-              "word": "the",
-              "start": 25.587
-            },
-            {
-              "word": "same",
-              "start": 25.687
-            },
-            {
-              "word": "form",
-              "start": 26.037
-            },
-            {
-              "word": "so",
-              "start": 26.75
-            },
-            {
-              "word": "what",
-              "start": 27.087
-            },
-            {
-              "word": "comes",
-              "start": 27.25
-            },
-            {
-              "word": "back",
-              "start": 27.525
-            },
-            {
-              "word": "is",
-              "start": 27.812
-            },
-            {
-              "word": "organized",
-              "start": 27.962
-            },
-            {
-              "word": "and",
-              "start": 28.65
-            },
-            {
-              "word": "checked",
-              "start": 28.787
-            }
-          ]
-        },
-        {
-          "text": "Fixed rules in code keep it all on course.",
-          "start": 30.575,
-          "end": 33,
-          "words": [
-            {
-              "word": "Fixed",
-              "start": 30.575
-            },
-            {
-              "word": "rules",
-              "start": 30.85
-            },
-            {
-              "word": "in",
-              "start": 31.137
-            },
-            {
-              "word": "code",
-              "start": 31.287
-            },
-            {
-              "word": "keep",
-              "start": 31.675
-            },
-            {
-              "word": "it",
-              "start": 31.887
-            },
-            {
-              "word": "all",
-              "start": 31.962
-            },
-            {
-              "word": "on",
-              "start": 32.112
-            },
-            {
-              "word": "course",
-              "start": 32.3
-            }
-          ]
-        },
-        {
-          "text": "Second, standards. Every agent follows the same written patterns,",
-          "start": 34.8,
-          "end": 38.8,
-          "words": [
-            {
-              "word": "Second",
-              "start": 34.8
-            },
-            {
-              "word": "standards",
-              "start": 35.175
-            },
-            {
-              "word": "Every",
-              "start": 36.112
-            },
-            {
-              "word": "agent",
-              "start": 36.437
-            },
-            {
-              "word": "follows",
-              "start": 36.787
-            },
-            {
-              "word": "the",
-              "start": 37.187
-            },
-            {
-              "word": "same",
-              "start": 37.312
-            },
-            {
-              "word": "written",
-              "start": 37.65
-            },
-            {
-              "word": "patterns",
-              "start": 37.937
-            }
-          ]
-        },
-        {
-          "text": "its output is structured, so the next agent can use it right away,",
-          "start": 39.675,
-          "end": 43.875,
-          "words": [
-            {
-              "word": "its",
-              "start": 39.675
-            },
-            {
-              "word": "output",
-              "start": 39.862
-            },
-            {
-              "word": "is",
-              "start": 40.35
-            },
-            {
-              "word": "structured",
-              "start": 40.475
-            },
-            {
-              "word": "so",
-              "start": 41.425
-            },
-            {
-              "word": "the",
-              "start": 41.562
-            },
-            {
-              "word": "next",
-              "start": 41.65
-            },
-            {
-              "word": "agent",
-              "start": 41.987
-            },
-            {
-              "word": "can",
-              "start": 42.325
-            },
-            {
-              "word": "use",
-              "start": 42.537
-            },
-            {
-              "word": "it",
-              "start": 42.775
-            },
-            {
-              "word": "right",
-              "start": 42.925
-            },
-            {
-              "word": "away",
-              "start": 43.175
-            }
-          ]
-        },
-        {
-          "text": "and commits, pull requests and docs read the same, so anyone can follow what happened.",
-          "start": 44.75,
-          "end": 49.95,
-          "words": [
-            {
-              "word": "and",
-              "start": 44.75
-            },
-            {
-              "word": "commits",
-              "start": 44.85
-            },
-            {
-              "word": "pull",
-              "start": 45.4
-            },
-            {
-              "word": "requests",
-              "start": 45.65
-            },
-            {
-              "word": "and",
-              "start": 46.25
-            },
-            {
-              "word": "docs",
-              "start": 46.375
-            },
-            {
-              "word": "read",
-              "start": 46.75
-            },
-            {
-              "word": "the",
-              "start": 46.938
-            },
-            {
-              "word": "same",
-              "start": 47.062
-            },
-            {
-              "word": "so",
-              "start": 47.788
-            },
-            {
-              "word": "anyone",
-              "start": 47.987
-            },
-            {
-              "word": "can",
-              "start": 48.45
-            },
-            {
-              "word": "follow",
-              "start": 48.637
-            },
-            {
-              "word": "what",
-              "start": 49.025
-            },
-            {
-              "word": "happened",
-              "start": 49.175
-            }
-          ]
-        },
-        {
-          "text": "The team also shares its tools.",
-          "start": 51.025,
-          "end": 53.05,
-          "words": [
-            {
-              "word": "The",
-              "start": 51.025
-            },
-            {
-              "word": "team",
-              "start": 51.137
-            },
-            {
-              "word": "also",
-              "start": 51.487
-            },
-            {
-              "word": "shares",
-              "start": 51.862
-            },
-            {
-              "word": "its",
-              "start": 52.137
-            },
-            {
-              "word": "tools",
-              "start": 52.325
-            }
-          ]
-        },
-        {
-          "text": "Third, knowledge that grows as you work. Gaia scans each project,",
-          "start": 54.875,
-          "end": 59.025,
-          "words": [
-            {
-              "word": "Third",
-              "start": 54.875
-            },
-            {
-              "word": "knowledge",
-              "start": 55.275
-            },
-            {
-              "word": "that",
-              "start": 55.65
-            },
-            {
-              "word": "grows",
-              "start": 55.825
-            },
-            {
-              "word": "as",
-              "start": 56.163
-            },
-            {
-              "word": "you",
-              "start": 56.275
-            },
-            {
-              "word": "work",
-              "start": 56.4
-            },
-            {
-              "word": "Gaia",
-              "start": 57.087
-            },
-            {
-              "word": "scans",
-              "start": 57.413
-            },
-            {
-              "word": "each",
-              "start": 57.925
-            },
-            {
-              "word": "project",
-              "start": 58.163
-            }
-          ]
-        },
-        {
-          "text": "keeps the decisions you made,",
-          "start": 59.825,
-          "end": 61.475,
-          "words": [
-            {
-              "word": "keeps",
-              "start": 59.825
-            },
-            {
-              "word": "the",
-              "start": 60.1
-            },
-            {
-              "word": "decisions",
-              "start": 60.2
-            },
-            {
-              "word": "you",
-              "start": 60.725
-            },
-            {
-              "word": "made",
-              "start": 60.875
-            }
-          ]
-        },
-        {
-          "text": "brings back the work left open,",
-          "start": 62.325,
-          "end": 64.25,
-          "words": [
-            {
-              "word": "brings",
-              "start": 62.325
-            },
-            {
-              "word": "back",
-              "start": 62.65
-            },
-            {
-              "word": "the",
-              "start": 62.925
-            },
-            {
-              "word": "work",
-              "start": 63.025
-            },
-            {
-              "word": "left",
-              "start": 63.3
-            },
-            {
-              "word": "open",
-              "start": 63.575
-            }
-          ]
-        },
-        {
-          "text": "and stores every turn as a filled-in form.",
-          "start": 65.075,
-          "end": 67.725,
-          "words": [
-            {
-              "word": "and",
-              "start": 65.075
-            },
-            {
-              "word": "stores",
-              "start": 65.175
-            },
-            {
-              "word": "every",
-              "start": 65.638
-            },
-            {
-              "word": "turn",
-              "start": 65.963
-            },
-            {
-              "word": "as",
-              "start": 66.35
-            },
-            {
-              "word": "a",
-              "start": 66.463
-            },
-            {
-              "word": "filled-in",
-              "start": 66.537
-            },
-            {
-              "word": "form",
-              "start": 67.037
-            }
-          ]
-        },
-        {
-          "text": "Fourth, you can see where the work stands. Every idea is written down,",
-          "start": 69.525,
-          "end": 73.625,
-          "words": [
-            {
-              "word": "Fourth",
-              "start": 69.525
-            },
-            {
-              "word": "you",
-              "start": 69.9
-            },
-            {
-              "word": "can",
-              "start": 70
-            },
-            {
-              "word": "see",
-              "start": 70.15
-            },
-            {
-              "word": "where",
-              "start": 70.35
-            },
-            {
-              "word": "the",
-              "start": 70.487
-            },
-            {
-              "word": "work",
-              "start": 70.575
-            },
-            {
-              "word": "stands",
-              "start": 70.8
-            },
-            {
-              "word": "Every",
-              "start": 71.638
-            },
-            {
-              "word": "idea",
-              "start": 72
-            },
-            {
-              "word": "is",
-              "start": 72.45
-            },
-            {
-              "word": "written",
-              "start": 72.612
-            },
-            {
-              "word": "down",
-              "start": 72.925
-            }
-          ]
-        },
-        {
-          "text": "turned into a plan,",
-          "start": 74.45,
-          "end": 75.75,
-          "words": [
-            {
-              "word": "turned",
-              "start": 74.45
-            },
-            {
-              "word": "into",
-              "start": 74.737
-            },
-            {
-              "word": "a",
-              "start": 74.962
-            },
-            {
-              "word": "plan",
-              "start": 75.025
-            }
-          ]
-        },
-        {
-          "text": "split into small tasks with their tests,",
-          "start": 76.6,
-          "end": 78.975,
-          "words": [
-            {
-              "word": "split",
-              "start": 76.6
-            },
-            {
-              "word": "into",
-              "start": 76.837
-            },
-            {
-              "word": "small",
-              "start": 77.087
-            },
-            {
-              "word": "tasks",
-              "start": 77.462
-            },
-            {
-              "word": "with",
-              "start": 77.937
-            },
-            {
-              "word": "their",
-              "start": 78.037
-            },
-            {
-              "word": "tests",
-              "start": 78.212
-            }
-          ]
-        },
-        {
-          "text": "and checked by a separate agent.",
-          "start": 79.8,
-          "end": 81.575,
-          "words": [
-            {
-              "word": "and",
-              "start": 79.8
-            },
-            {
-              "word": "checked",
-              "start": 79.912
-            },
-            {
-              "word": "by",
-              "start": 80.25
-            },
-            {
-              "word": "a",
-              "start": 80.387
-            },
-            {
-              "word": "separate",
-              "start": 80.487
-            },
-            {
-              "word": "agent",
-              "start": 80.85
-            }
-          ]
-        },
-        {
-          "text": "And fifth, audit. A person is in charge of every change that matters,",
-          "start": 83.35,
-          "end": 87.9,
-          "words": [
-            {
-              "word": "And",
-              "start": 83.35
-            },
-            {
-              "word": "fifth",
-              "start": 83.525
-            },
-            {
-              "word": "audit",
-              "start": 83.925
-            },
-            {
-              "word": "A",
-              "start": 84.662
-            },
-            {
-              "word": "person",
-              "start": 84.787
-            },
-            {
-              "word": "is",
-              "start": 85.25
-            },
-            {
-              "word": "in",
-              "start": 85.375
-            },
-            {
-              "word": "charge",
-              "start": 85.537
-            },
-            {
-              "word": "of",
-              "start": 85.962
-            },
-            {
-              "word": "every",
-              "start": 86.087
-            },
-            {
-              "word": "change",
-              "start": 86.437
-            },
-            {
-              "word": "that",
-              "start": 86.875
-            },
-            {
-              "word": "matters",
-              "start": 87.075
-            }
-          ]
-        },
-        {
-          "text": "every step leaves a trail,",
-          "start": 88.725,
-          "end": 90.4,
-          "words": [
-            {
-              "word": "every",
-              "start": 88.725
-            },
-            {
-              "word": "step",
-              "start": 89.025
-            },
-            {
-              "word": "leaves",
-              "start": 89.325
-            },
-            {
-              "word": "a",
-              "start": 89.562
-            },
-            {
-              "word": "trail",
-              "start": 89.637
-            }
-          ]
-        },
-        {
-          "text": "every turn is graded,",
-          "start": 91.225,
-          "end": 92.75,
-          "words": [
-            {
-              "word": "every",
-              "start": 91.225
-            },
-            {
-              "word": "turn",
-              "start": 91.537
-            },
-            {
-              "word": "is",
-              "start": 91.875
-            },
-            {
-              "word": "graded",
-              "start": 92.037
-            }
-          ]
-        },
-        {
-          "text": "and bad habits are flagged.",
-          "start": 93.6,
-          "end": 95.225,
-          "words": [
-            {
-              "word": "and",
-              "start": 93.6
-            },
-            {
-              "word": "bad",
-              "start": 93.7
-            },
-            {
-              "word": "habits",
-              "start": 93.975
-            },
-            {
-              "word": "are",
-              "start": 94.362
-            },
-            {
-              "word": "flagged",
-              "start": 94.487
-            }
-          ]
-        },
-        {
-          "text": "That is what Gaia gives a team. Let's see how it works.",
-          "start": 97.35,
-          "end": 100.6,
-          "words": [
-            {
-              "word": "That",
-              "start": 97.35
-            },
-            {
-              "word": "is",
-              "start": 97.537
-            },
-            {
-              "word": "what",
-              "start": 97.675
-            },
-            {
-              "word": "Gaia",
-              "start": 97.912
-            },
-            {
-              "word": "gives",
-              "start": 98.275
-            },
-            {
-              "word": "a",
-              "start": 98.487
-            },
-            {
-              "word": "team",
-              "start": 98.587
-            },
-            {
-              "word": "Let's",
-              "start": 99.3
-            },
-            {
-              "word": "see",
-              "start": 99.475
-            },
-            {
-              "word": "how",
-              "start": 99.675
-            },
-            {
-              "word": "it",
-              "start": 99.837
+              "word": "everyone",
+              "start": 1.538
             },
             {
               "word": "works",
-              "start": 99.95
+              "start": 2.025
+            },
+            {
+              "word": "with",
+              "start": 2.337
+            },
+            {
+              "word": "an",
+              "start": 2.462
+            },
+            {
+              "word": "AI",
+              "start": 2.587
+            },
+            {
+              "word": "assistant",
+              "start": 3
+            }
+          ]
+        },
+        {
+          "text": "It helps us write code and find answers faster.",
+          "start": 5.1,
+          "end": 8.075,
+          "words": [
+            {
+              "word": "It",
+              "start": 5.1
+            },
+            {
+              "word": "helps",
+              "start": 5.212
+            },
+            {
+              "word": "us",
+              "start": 5.462
+            },
+            {
+              "word": "write",
+              "start": 5.688
+            },
+            {
+              "word": "code",
+              "start": 5.987
+            },
+            {
+              "word": "and",
+              "start": 6.362
+            },
+            {
+              "word": "find",
+              "start": 6.487
+            },
+            {
+              "word": "answers",
+              "start": 6.812
+            },
+            {
+              "word": "faster",
+              "start": 7.275
+            }
+          ]
+        },
+        {
+          "text": "But each of us uses it in our own way, and what one person learns stays with that person.",
+          "start": 9.35,
+          "end": 14.875,
+          "words": [
+            {
+              "word": "But",
+              "start": 9.35
+            },
+            {
+              "word": "each",
+              "start": 9.487
+            },
+            {
+              "word": "of",
+              "start": 9.712
+            },
+            {
+              "word": "us",
+              "start": 9.787
+            },
+            {
+              "word": "uses",
+              "start": 10.012
+            },
+            {
+              "word": "it",
+              "start": 10.45
+            },
+            {
+              "word": "in",
+              "start": 10.575
+            },
+            {
+              "word": "our",
+              "start": 10.662
+            },
+            {
+              "word": "own",
+              "start": 10.837
+            },
+            {
+              "word": "way",
+              "start": 11.1
+            },
+            {
+              "word": "and",
+              "start": 11.825
+            },
+            {
+              "word": "what",
+              "start": 11.95
+            },
+            {
+              "word": "one",
+              "start": 12.137
+            },
+            {
+              "word": "person",
+              "start": 12.387
+            },
+            {
+              "word": "learns",
+              "start": 12.862
+            },
+            {
+              "word": "stays",
+              "start": 13.237
+            },
+            {
+              "word": "with",
+              "start": 13.712
+            },
+            {
+              "word": "that",
+              "start": 13.85
+            },
+            {
+              "word": "person",
+              "start": 14.075
+            }
+          ]
+        },
+        {
+          "text": "So working as a team takes more care than before.",
+          "start": 16.175,
+          "end": 19.175,
+          "words": [
+            {
+              "word": "So",
+              "start": 16.175
+            },
+            {
+              "word": "working",
+              "start": 16.325
+            },
+            {
+              "word": "as",
+              "start": 16.675
+            },
+            {
+              "word": "a",
+              "start": 16.787
+            },
+            {
+              "word": "team",
+              "start": 16.887
+            },
+            {
+              "word": "takes",
+              "start": 17.425
+            },
+            {
+              "word": "more",
+              "start": 17.725
+            },
+            {
+              "word": "care",
+              "start": 17.962
+            },
+            {
+              "word": "than",
+              "start": 18.262
+            },
+            {
+              "word": "before",
+              "start": 18.363
+            }
+          ]
+        },
+        {
+          "text": "If a team wants to work with AI together, there are five things worth sharing.",
+          "start": 20.45,
+          "end": 25.1,
+          "words": [
+            {
+              "word": "If",
+              "start": 20.45
+            },
+            {
+              "word": "a",
+              "start": 20.587
+            },
+            {
+              "word": "team",
+              "start": 20.688
+            },
+            {
+              "word": "wants",
+              "start": 21.025
+            },
+            {
+              "word": "to",
+              "start": 21.25
+            },
+            {
+              "word": "work",
+              "start": 21.375
+            },
+            {
+              "word": "with",
+              "start": 21.637
+            },
+            {
+              "word": "AI",
+              "start": 21.812
+            },
+            {
+              "word": "together",
+              "start": 22.2
+            },
+            {
+              "word": "there",
+              "start": 22.95
+            },
+            {
+              "word": "are",
+              "start": 23.125
+            },
+            {
+              "word": "five",
+              "start": 23.3
+            },
+            {
+              "word": "things",
+              "start": 23.688
+            },
+            {
+              "word": "worth",
+              "start": 24.025
+            },
+            {
+              "word": "sharing",
+              "start": 24.3
+            }
+          ]
+        },
+        {
+          "text": "The first one is the workflow: the way the work moves.",
+          "start": 27.275,
+          "end": 30.525,
+          "words": [
+            {
+              "word": "The",
+              "start": 27.275
+            },
+            {
+              "word": "first",
+              "start": 27.388
+            },
+            {
+              "word": "one",
+              "start": 27.713
+            },
+            {
+              "word": "is",
+              "start": 27.925
+            },
+            {
+              "word": "the",
+              "start": 28.063
+            },
+            {
+              "word": "workflow",
+              "start": 28.175
+            },
+            {
+              "word": "the",
+              "start": 29.025
+            },
+            {
+              "word": "way",
+              "start": 29.125
+            },
+            {
+              "word": "the",
+              "start": 29.35
+            },
+            {
+              "word": "work",
+              "start": 29.475
+            },
+            {
+              "word": "moves",
+              "start": 29.763
+            }
+          ]
+        },
+        {
+          "text": "You say what you need, in your own words, to one agent: the orchestrator.",
+          "start": 31.8,
+          "end": 36,
+          "words": [
+            {
+              "word": "You",
+              "start": 31.8
+            },
+            {
+              "word": "say",
+              "start": 31.938
+            },
+            {
+              "word": "what",
+              "start": 32.175
+            },
+            {
+              "word": "you",
+              "start": 32.325
+            },
+            {
+              "word": "need",
+              "start": 32.488
+            },
+            {
+              "word": "in",
+              "start": 32.825
+            },
+            {
+              "word": "your",
+              "start": 32.913
+            },
+            {
+              "word": "own",
+              "start": 33.087
+            },
+            {
+              "word": "words",
+              "start": 33.35
+            },
+            {
+              "word": "to",
+              "start": 33.712
+            },
+            {
+              "word": "one",
+              "start": 33.825
+            },
+            {
+              "word": "agent",
+              "start": 34.05
+            },
+            {
+              "word": "the",
+              "start": 34.775
+            },
+            {
+              "word": "orchestrator",
+              "start": 34.925
+            }
+          ]
+        },
+        {
+          "text": "It turns that into clear steps, and hands each step to the agent that knows that area best.",
+          "start": 37.275,
+          "end": 42.725,
+          "words": [
+            {
+              "word": "It",
+              "start": 37.275
+            },
+            {
+              "word": "turns",
+              "start": 37.4
+            },
+            {
+              "word": "that",
+              "start": 37.75
+            },
+            {
+              "word": "into",
+              "start": 37.913
+            },
+            {
+              "word": "clear",
+              "start": 38.138
+            },
+            {
+              "word": "steps",
+              "start": 38.462
+            },
+            {
+              "word": "and",
+              "start": 39.25
+            },
+            {
+              "word": "hands",
+              "start": 39.375
+            },
+            {
+              "word": "each",
+              "start": 39.738
+            },
+            {
+              "word": "step",
+              "start": 39.988
+            },
+            {
+              "word": "to",
+              "start": 40.3
+            },
+            {
+              "word": "the",
+              "start": 40.388
+            },
+            {
+              "word": "agent",
+              "start": 40.538
+            },
+            {
+              "word": "that",
+              "start": 40.95
+            },
+            {
+              "word": "knows",
+              "start": 41.125
+            },
+            {
+              "word": "that",
+              "start": 41.5
+            },
+            {
+              "word": "area",
+              "start": 41.725
+            },
+            {
+              "word": "best",
+              "start": 42.05
+            }
+          ]
+        },
+        {
+          "text": "Every one of those agents is built in the same way,",
+          "start": 44.025,
+          "end": 47.05,
+          "words": [
+            {
+              "word": "Every",
+              "start": 44.025
+            },
+            {
+              "word": "one",
+              "start": 44.325
+            },
+            {
+              "word": "of",
+              "start": 44.463
+            },
+            {
+              "word": "those",
+              "start": 44.55
+            },
+            {
+              "word": "agents",
+              "start": 44.812
+            },
+            {
+              "word": "is",
+              "start": 45.438
+            },
+            {
+              "word": "built",
+              "start": 45.613
+            },
+            {
+              "word": "in",
+              "start": 45.938
+            },
+            {
+              "word": "the",
+              "start": 46.013
+            },
+            {
+              "word": "same",
+              "start": 46.113
+            },
+            {
+              "word": "way",
+              "start": 46.45
+            }
+          ]
+        },
+        {
+          "text": "and they all report back in the same form.",
+          "start": 47.925,
+          "end": 50.25,
+          "words": [
+            {
+              "word": "and",
+              "start": 47.925
+            },
+            {
+              "word": "they",
+              "start": 48.013
+            },
+            {
+              "word": "all",
+              "start": 48.163
+            },
+            {
+              "word": "report",
+              "start": 48.425
+            },
+            {
+              "word": "back",
+              "start": 48.85
+            },
+            {
+              "word": "in",
+              "start": 49.087
+            },
+            {
+              "word": "the",
+              "start": 49.163
+            },
+            {
+              "word": "same",
+              "start": 49.263
+            },
+            {
+              "word": "form",
+              "start": 49.562
+            }
+          ]
+        },
+        {
+          "text": "Around them, a few fixed rules in code make sure nothing goes off course.",
+          "start": 51.55,
+          "end": 56,
+          "words": [
+            {
+              "word": "Around",
+              "start": 51.55
+            },
+            {
+              "word": "them",
+              "start": 51.925
+            },
+            {
+              "word": "a",
+              "start": 52.4
+            },
+            {
+              "word": "few",
+              "start": 52.513
+            },
+            {
+              "word": "fixed",
+              "start": 52.763
+            },
+            {
+              "word": "rules",
+              "start": 53.1
+            },
+            {
+              "word": "in",
+              "start": 53.463
+            },
+            {
+              "word": "code",
+              "start": 53.613
+            },
+            {
+              "word": "make",
+              "start": 53.975
+            },
+            {
+              "word": "sure",
+              "start": 54.2
+            },
+            {
+              "word": "nothing",
+              "start": 54.375
+            },
+            {
+              "word": "goes",
+              "start": 54.725
+            },
+            {
+              "word": "off",
+              "start": 55.05
+            },
+            {
+              "word": "course",
+              "start": 55.275
+            }
+          ]
+        },
+        {
+          "text": "The second thing to share is standards.",
+          "start": 58.15,
+          "end": 60.35,
+          "words": [
+            {
+              "word": "The",
+              "start": 58.15
+            },
+            {
+              "word": "second",
+              "start": 58.263
+            },
+            {
+              "word": "thing",
+              "start": 58.6
+            },
+            {
+              "word": "to",
+              "start": 58.788
+            },
+            {
+              "word": "share",
+              "start": 58.913
+            },
+            {
+              "word": "is",
+              "start": 59.275
+            },
+            {
+              "word": "standards",
+              "start": 59.4
+            }
+          ]
+        },
+        {
+          "text": "When everyone follows the same patterns, the work comes out the same, no matter who asked for it.",
+          "start": 61.625,
+          "end": 67.525,
+          "words": [
+            {
+              "word": "When",
+              "start": 61.625
+            },
+            {
+              "word": "everyone",
+              "start": 61.788
+            },
+            {
+              "word": "follows",
+              "start": 62.288
+            },
+            {
+              "word": "the",
+              "start": 62.713
+            },
+            {
+              "word": "same",
+              "start": 62.838
+            },
+            {
+              "word": "patterns",
+              "start": 63.15
+            },
+            {
+              "word": "the",
+              "start": 64.025
+            },
+            {
+              "word": "work",
+              "start": 64.15
+            },
+            {
+              "word": "comes",
+              "start": 64.425
+            },
+            {
+              "word": "out",
+              "start": 64.688
+            },
+            {
+              "word": "the",
+              "start": 64.875
+            },
+            {
+              "word": "same",
+              "start": 65.013
+            },
+            {
+              "word": "no",
+              "start": 65.788
+            },
+            {
+              "word": "matter",
+              "start": 65.975
+            },
+            {
+              "word": "who",
+              "start": 66.35
+            },
+            {
+              "word": "asked",
+              "start": 66.525
+            },
+            {
+              "word": "for",
+              "start": 66.875
+            },
+            {
+              "word": "it",
+              "start": 67.075
+            }
+          ]
+        },
+        {
+          "text": "The results are structured, so the next agent can pick them up right away,",
+          "start": 68.8,
+          "end": 72.975,
+          "words": [
+            {
+              "word": "The",
+              "start": 68.8
+            },
+            {
+              "word": "results",
+              "start": 68.875
+            },
+            {
+              "word": "are",
+              "start": 69.35
+            },
+            {
+              "word": "structured",
+              "start": 69.45
+            },
+            {
+              "word": "so",
+              "start": 70.363
+            },
+            {
+              "word": "the",
+              "start": 70.538
+            },
+            {
+              "word": "next",
+              "start": 70.625
+            },
+            {
+              "word": "agent",
+              "start": 70.963
+            },
+            {
+              "word": "can",
+              "start": 71.3
+            },
+            {
+              "word": "pick",
+              "start": 71.475
+            },
+            {
+              "word": "them",
+              "start": 71.688
+            },
+            {
+              "word": "up",
+              "start": 71.813
+            },
+            {
+              "word": "right",
+              "start": 72.013
+            },
+            {
+              "word": "away",
+              "start": 72.275
+            }
+          ]
+        },
+        {
+          "text": "and they are also easy for people to read: commits, pull requests, docs.",
+          "start": 73.9,
+          "end": 78.425,
+          "words": [
+            {
+              "word": "and",
+              "start": 73.9
+            },
+            {
+              "word": "they",
+              "start": 73.988
+            },
+            {
+              "word": "are",
+              "start": 74.125
+            },
+            {
+              "word": "also",
+              "start": 74.25
+            },
+            {
+              "word": "easy",
+              "start": 74.638
+            },
+            {
+              "word": "for",
+              "start": 75
+            },
+            {
+              "word": "people",
+              "start": 75.125
+            },
+            {
+              "word": "to",
+              "start": 75.475
+            },
+            {
+              "word": "read",
+              "start": 75.6
+            },
+            {
+              "word": "commits",
+              "start": 76.338
+            },
+            {
+              "word": "pull",
+              "start": 76.875
+            },
+            {
+              "word": "requests",
+              "start": 77.125
+            },
+            {
+              "word": "docs",
+              "start": 77.7
+            }
+          ]
+        },
+        {
+          "text": "The team even shares the same tools.",
+          "start": 79.675,
+          "end": 81.875,
+          "words": [
+            {
+              "word": "The",
+              "start": 79.675
+            },
+            {
+              "word": "team",
+              "start": 79.788
+            },
+            {
+              "word": "even",
+              "start": 80.125
+            },
+            {
+              "word": "shares",
+              "start": 80.438
+            },
+            {
+              "word": "the",
+              "start": 80.738
+            },
+            {
+              "word": "same",
+              "start": 80.863
+            },
+            {
+              "word": "tools",
+              "start": 81.15
+            }
+          ]
+        },
+        {
+          "text": "Third, knowledge.",
+          "start": 84.1,
+          "end": 85.1,
+          "words": [
+            {
+              "word": "Third",
+              "start": 84.1
+            },
+            {
+              "word": "knowledge",
+              "start": 84.4
+            }
+          ]
+        },
+        {
+          "text": "Gaia starts out knowing nothing about your work. It learns as you go.",
+          "start": 86.425,
+          "end": 90.65,
+          "words": [
+            {
+              "word": "Gaia",
+              "start": 86.425
+            },
+            {
+              "word": "starts",
+              "start": 86.725
+            },
+            {
+              "word": "out",
+              "start": 87.05
+            },
+            {
+              "word": "knowing",
+              "start": 87.275
+            },
+            {
+              "word": "nothing",
+              "start": 87.638
+            },
+            {
+              "word": "about",
+              "start": 87.988
+            },
+            {
+              "word": "your",
+              "start": 88.25
+            },
+            {
+              "word": "work",
+              "start": 88.4
+            },
+            {
+              "word": "It",
+              "start": 89.05
+            },
+            {
+              "word": "learns",
+              "start": 89.263
+            },
+            {
+              "word": "as",
+              "start": 89.725
+            },
+            {
+              "word": "you",
+              "start": 89.875
+            },
+            {
+              "word": "go",
+              "start": 90.038
+            }
+          ]
+        },
+        {
+          "text": "It scans each project to understand how it is built,",
+          "start": 91.925,
+          "end": 94.85,
+          "words": [
+            {
+              "word": "It",
+              "start": 91.925
+            },
+            {
+              "word": "scans",
+              "start": 92.05
+            },
+            {
+              "word": "each",
+              "start": 92.513
+            },
+            {
+              "word": "project",
+              "start": 92.75
+            },
+            {
+              "word": "to",
+              "start": 93.188
+            },
+            {
+              "word": "understand",
+              "start": 93.275
+            },
+            {
+              "word": "how",
+              "start": 93.825
+            },
+            {
+              "word": "it",
+              "start": 93.988
+            },
+            {
+              "word": "is",
+              "start": 94.063
+            },
+            {
+              "word": "built",
+              "start": 94.213
+            }
+          ]
+        },
+        {
+          "text": "it keeps the decisions you have made,",
+          "start": 95.75,
+          "end": 97.625,
+          "words": [
+            {
+              "word": "it",
+              "start": 95.75
+            },
+            {
+              "word": "keeps",
+              "start": 95.85
+            },
+            {
+              "word": "the",
+              "start": 96.15
+            },
+            {
+              "word": "decisions",
+              "start": 96.25
+            },
+            {
+              "word": "you",
+              "start": 96.763
+            },
+            {
+              "word": "have",
+              "start": 96.838
+            },
+            {
+              "word": "made",
+              "start": 97
+            }
+          ]
+        },
+        {
+          "text": "it remembers what was left open,",
+          "start": 98.55,
+          "end": 100.55,
+          "words": [
+            {
+              "word": "it",
+              "start": 98.55
+            },
+            {
+              "word": "remembers",
+              "start": 98.65
+            },
+            {
+              "word": "what",
+              "start": 99.25
+            },
+            {
+              "word": "was",
+              "start": 99.388
+            },
+            {
+              "word": "left",
+              "start": 99.55
+            },
+            {
+              "word": "open",
+              "start": 99.862
+            }
+          ]
+        },
+        {
+          "text": "and it saves every piece of work in a clear, structured way, so it can be found later.",
+          "start": 101.45,
+          "end": 106.45,
+          "words": [
+            {
+              "word": "and",
+              "start": 101.45
+            },
+            {
+              "word": "it",
+              "start": 101.537
+            },
+            {
+              "word": "saves",
+              "start": 101.637
+            },
+            {
+              "word": "every",
+              "start": 102.037
+            },
+            {
+              "word": "piece",
+              "start": 102.375
+            },
+            {
+              "word": "of",
+              "start": 102.637
+            },
+            {
+              "word": "work",
+              "start": 102.75
+            },
+            {
+              "word": "in",
+              "start": 103.012
+            },
+            {
+              "word": "a",
+              "start": 103.087
+            },
+            {
+              "word": "clear",
+              "start": 103.188
+            },
+            {
+              "word": "structured",
+              "start": 103.625
+            },
+            {
+              "word": "way",
+              "start": 104.15
+            },
+            {
+              "word": "so",
+              "start": 104.837
+            },
+            {
+              "word": "it",
+              "start": 104.987
+            },
+            {
+              "word": "can",
+              "start": 105.075
+            },
+            {
+              "word": "be",
+              "start": 105.188
+            },
+            {
+              "word": "found",
+              "start": 105.337
+            },
+            {
+              "word": "later",
+              "start": 105.75
+            }
+          ]
+        },
+        {
+          "text": "Fourth, being able to see where things stand.",
+          "start": 108.675,
+          "end": 111.075,
+          "words": [
+            {
+              "word": "Fourth",
+              "start": 108.675
+            },
+            {
+              "word": "being",
+              "start": 109.075
+            },
+            {
+              "word": "able",
+              "start": 109.3
+            },
+            {
+              "word": "to",
+              "start": 109.512
+            },
+            {
+              "word": "see",
+              "start": 109.625
+            },
+            {
+              "word": "where",
+              "start": 109.812
+            },
+            {
+              "word": "things",
+              "start": 109.987
+            },
+            {
+              "word": "stand",
+              "start": 110.262
+            }
+          ]
+        },
+        {
+          "text": "Every idea is written down, so it does not get lost in a chat.",
+          "start": 112.375,
+          "end": 116.375,
+          "words": [
+            {
+              "word": "Every",
+              "start": 112.375
+            },
+            {
+              "word": "idea",
+              "start": 112.7
+            },
+            {
+              "word": "is",
+              "start": 113.125
+            },
+            {
+              "word": "written",
+              "start": 113.287
+            },
+            {
+              "word": "down",
+              "start": 113.6
+            },
+            {
+              "word": "so",
+              "start": 114.325
+            },
+            {
+              "word": "it",
+              "start": 114.462
+            },
+            {
+              "word": "does",
+              "start": 114.537
+            },
+            {
+              "word": "not",
+              "start": 114.725
+            },
+            {
+              "word": "get",
+              "start": 114.95
+            },
+            {
+              "word": "lost",
+              "start": 115.15
+            },
+            {
+              "word": "in",
+              "start": 115.537
+            },
+            {
+              "word": "a",
+              "start": 115.612
+            },
+            {
+              "word": "chat",
+              "start": 115.712
+            }
+          ]
+        },
+        {
+          "text": "It becomes a plan,",
+          "start": 117.625,
+          "end": 118.975,
+          "words": [
+            {
+              "word": "It",
+              "start": 117.625
+            },
+            {
+              "word": "becomes",
+              "start": 117.75
+            },
+            {
+              "word": "a",
+              "start": 118.138
+            },
+            {
+              "word": "plan",
+              "start": 118.237
+            }
+          ]
+        },
+        {
+          "text": "the plan becomes small tasks, and each task comes with its own test.",
+          "start": 119.85,
+          "end": 124.225,
+          "words": [
+            {
+              "word": "the",
+              "start": 119.85
+            },
+            {
+              "word": "plan",
+              "start": 119.925
+            },
+            {
+              "word": "becomes",
+              "start": 120.263
+            },
+            {
+              "word": "small",
+              "start": 120.638
+            },
+            {
+              "word": "tasks",
+              "start": 121.037
+            },
+            {
+              "word": "and",
+              "start": 121.875
+            },
+            {
+              "word": "each",
+              "start": 122
+            },
+            {
+              "word": "task",
+              "start": 122.237
+            },
+            {
+              "word": "comes",
+              "start": 122.65
+            },
+            {
+              "word": "with",
+              "start": 122.962
+            },
+            {
+              "word": "its",
+              "start": 123.087
+            },
+            {
+              "word": "own",
+              "start": 123.25
+            },
+            {
+              "word": "test",
+              "start": 123.537
+            }
+          ]
+        },
+        {
+          "text": "At the end, a different agent checks the result, one that did not do the work.",
+          "start": 125.525,
+          "end": 130.25,
+          "words": [
+            {
+              "word": "At",
+              "start": 125.525
+            },
+            {
+              "word": "the",
+              "start": 125.65
+            },
+            {
+              "word": "end",
+              "start": 125.812
+            },
+            {
+              "word": "a",
+              "start": 126.25
+            },
+            {
+              "word": "different",
+              "start": 126.362
+            },
+            {
+              "word": "agent",
+              "start": 126.737
+            },
+            {
+              "word": "checks",
+              "start": 127.163
+            },
+            {
+              "word": "the",
+              "start": 127.475
+            },
+            {
+              "word": "result",
+              "start": 127.575
+            },
+            {
+              "word": "one",
+              "start": 128.463
+            },
+            {
+              "word": "that",
+              "start": 128.725
+            },
+            {
+              "word": "did",
+              "start": 128.9
+            },
+            {
+              "word": "not",
+              "start": 129.05
+            },
+            {
+              "word": "do",
+              "start": 129.312
+            },
+            {
+              "word": "the",
+              "start": 129.5
+            },
+            {
+              "word": "work",
+              "start": 129.625
+            }
+          ]
+        },
+        {
+          "text": "And fifth, audit: knowing who answers for what.",
+          "start": 132.45,
+          "end": 135.275,
+          "words": [
+            {
+              "word": "And",
+              "start": 132.45
+            },
+            {
+              "word": "fifth",
+              "start": 132.637
+            },
+            {
+              "word": "audit",
+              "start": 133
+            },
+            {
+              "word": "knowing",
+              "start": 133.613
+            },
+            {
+              "word": "who",
+              "start": 133.95
+            },
+            {
+              "word": "answers",
+              "start": 134.113
+            },
+            {
+              "word": "for",
+              "start": 134.575
+            },
+            {
+              "word": "what",
+              "start": 134.725
+            }
+          ]
+        },
+        {
+          "text": "When a change really matters, a person is in charge, and has to approve it.",
+          "start": 136.55,
+          "end": 141.125,
+          "words": [
+            {
+              "word": "When",
+              "start": 136.55
+            },
+            {
+              "word": "a",
+              "start": 136.662
+            },
+            {
+              "word": "change",
+              "start": 136.762
+            },
+            {
+              "word": "really",
+              "start": 137.2
+            },
+            {
+              "word": "matters",
+              "start": 137.5
+            },
+            {
+              "word": "a",
+              "start": 138.275
+            },
+            {
+              "word": "person",
+              "start": 138.387
+            },
+            {
+              "word": "is",
+              "start": 138.85
+            },
+            {
+              "word": "in",
+              "start": 139
+            },
+            {
+              "word": "charge",
+              "start": 139.162
+            },
+            {
+              "word": "and",
+              "start": 139.737
+            },
+            {
+              "word": "has",
+              "start": 139.85
+            },
+            {
+              "word": "to",
+              "start": 140.1
+            },
+            {
+              "word": "approve",
+              "start": 140.25
+            },
+            {
+              "word": "it",
+              "start": 140.675
+            }
+          ]
+        },
+        {
+          "text": "Every step leaves a trail you can follow,",
+          "start": 142.4,
+          "end": 144.675,
+          "words": [
+            {
+              "word": "Every",
+              "start": 142.4
+            },
+            {
+              "word": "step",
+              "start": 142.675
+            },
+            {
+              "word": "leaves",
+              "start": 142.975
+            },
+            {
+              "word": "a",
+              "start": 143.212
+            },
+            {
+              "word": "trail",
+              "start": 143.287
+            },
+            {
+              "word": "you",
+              "start": 143.7
+            },
+            {
+              "word": "can",
+              "start": 143.8
+            },
+            {
+              "word": "follow",
+              "start": 143.987
+            }
+          ]
+        },
+        {
+          "text": "every piece of work gets a grade,",
+          "start": 145.6,
+          "end": 147.625,
+          "words": [
+            {
+              "word": "every",
+              "start": 145.6
+            },
+            {
+              "word": "piece",
+              "start": 145.912
+            },
+            {
+              "word": "of",
+              "start": 146.188
+            },
+            {
+              "word": "work",
+              "start": 146.3
+            },
+            {
+              "word": "gets",
+              "start": 146.575
+            },
+            {
+              "word": "a",
+              "start": 146.787
+            },
+            {
+              "word": "grade",
+              "start": 146.888
+            }
+          ]
+        },
+        {
+          "text": "and bad habits are flagged, so they can be fixed.",
+          "start": 148.525,
+          "end": 151.35,
+          "words": [
+            {
+              "word": "and",
+              "start": 148.525
+            },
+            {
+              "word": "bad",
+              "start": 148.625
+            },
+            {
+              "word": "habits",
+              "start": 148.875
+            },
+            {
+              "word": "are",
+              "start": 149.263
+            },
+            {
+              "word": "flagged",
+              "start": 149.388
+            },
+            {
+              "word": "so",
+              "start": 150.075
+            },
+            {
+              "word": "they",
+              "start": 150.213
+            },
+            {
+              "word": "can",
+              "start": 150.35
+            },
+            {
+              "word": "be",
+              "start": 150.488
+            },
+            {
+              "word": "fixed",
+              "start": 150.65
+            }
+          ]
+        },
+        {
+          "text": "Those five things are what Gaia brings to a team.",
+          "start": 153.95,
+          "end": 156.8,
+          "words": [
+            {
+              "word": "Those",
+              "start": 153.95
+            },
+            {
+              "word": "five",
+              "start": 154.175
+            },
+            {
+              "word": "things",
+              "start": 154.5
+            },
+            {
+              "word": "are",
+              "start": 154.85
+            },
+            {
+              "word": "what",
+              "start": 154.95
+            },
+            {
+              "word": "Gaia",
+              "start": 155.138
+            },
+            {
+              "word": "brings",
+              "start": 155.5
+            },
+            {
+              "word": "to",
+              "start": 155.85
+            },
+            {
+              "word": "a",
+              "start": 155.975
+            },
+            {
+              "word": "team",
+              "start": 156.088
+            }
+          ]
+        },
+        {
+          "text": "Now, let's see how it does it.",
+          "start": 158.1,
+          "end": 159.65,
+          "words": [
+            {
+              "word": "Now",
+              "start": 158.1
+            },
+            {
+              "word": "let's",
+              "start": 158.375
+            },
+            {
+              "word": "see",
+              "start": 158.575
+            },
+            {
+              "word": "how",
+              "start": 158.775
+            },
+            {
+              "word": "it",
+              "start": 158.913
+            },
+            {
+              "word": "does",
+              "start": 159
+            },
+            {
+              "word": "it",
+              "start": 159.225
             }
           ]
         }

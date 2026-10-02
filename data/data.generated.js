@@ -158,35 +158,35 @@ window.__DOC__ = {
           "key": "pillar-workflows",
           "label": "1 · workflows",
           "steps": [
-            "First, a workflow. You talk to one agent, the orchestrator, in your own words, and it turns what you ask into clear steps, each one sent to the agent that owns it. Every agent is built the same way, and answers in the same form, so what comes back is organized and checked. Fixed rules in code keep it all on course."
+            "The first one is the workflow: the way the work moves. You say what you need, in your own words, to one agent: the orchestrator. It turns that into clear steps, and hands each step to the agent that knows that area best. Every one of those agents is built in the same way, and they all report back in the same form. Around them, a few fixed rules in code make sure nothing goes off course."
           ]
         },
         {
           "key": "pillar-standards",
           "label": "2 · standards",
           "steps": [
-            "Second, standards. Every agent follows the same written patterns, its output is structured, so the next agent can use it right away, and commits, pull requests and docs read the same, so anyone can follow what happened. The team also shares its tools."
+            "The second thing to share is standards. When everyone follows the same patterns, the work comes out the same, no matter who asked for it. The results are structured, so the next agent can pick them up right away, and they are also easy for people to read: commits, pull requests, docs. The team even shares the same tools."
           ]
         },
         {
           "key": "pillar-knowledge",
           "label": "3 · knowledge",
           "steps": [
-            "Third, knowledge that grows as you work. Gaia scans each project, keeps the decisions you made, brings back the work left open, and stores every turn as a filled-in form."
+            "Third, knowledge. Gaia starts out knowing nothing about your work. It learns as you go. It scans each project to understand how it is built, it keeps the decisions you have made, it remembers what was left open, and it saves every piece of work in a clear, structured way, so it can be found later."
           ]
         },
         {
           "key": "pillar-observability",
           "label": "4 · observability",
           "steps": [
-            "Fourth, you can see where the work stands. Every idea is written down, turned into a plan, split into small tasks with their tests, and checked by a separate agent."
+            "Fourth, being able to see where things stand. Every idea is written down, so it does not get lost in a chat. It becomes a plan, the plan becomes small tasks, and each task comes with its own test. At the end, a different agent checks the result, one that did not do the work."
           ]
         },
         {
           "key": "pillar-audit",
           "label": "5 · audit",
           "steps": [
-            "And fifth, audit. A person is in charge of every change that matters, every step leaves a trail, every turn is graded, and bad habits are flagged."
+            "And fifth, audit: knowing who answers for what. When a change really matters, a person is in charge, and has to approve it. Every step leaves a trail you can follow, every piece of work gets a grade, and bad habits are flagged, so they can be fixed."
           ]
         }
       ],
