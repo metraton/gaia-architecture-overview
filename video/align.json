@@ -1750,422 +1750,1664 @@
     {
       "page": "p2-the-map",
       "audio": "audio/2.wav",
-      "duration": 36.95,
+      "duration": 153.925,
       "method": "words",
       "speech": [
         0.35,
-        36.7
+        153.375
       ],
-      "words": 109,
+      "words": 433,
       "sentences": [
         {
-          "text": "This is Gaia.",
+          "text": "Let's start with the question itself: what is Gaia?",
           "start": 0.35,
-          "end": 1.55,
+          "end": 3.3,
           "words": [
             {
-              "word": "This",
+              "word": "Let's",
               "start": 0.35
             },
             {
-              "word": "is",
-              "start": 0.613
-            },
-            {
-              "word": "Gaia",
-              "start": 0.838
-            }
-          ]
-        },
-        {
-          "text": "You talk to one agent: the orchestrator.",
-          "start": 2.15,
-          "end": 4.725,
-          "words": [
-            {
-              "word": "You",
-              "start": 2.15
-            },
-            {
-              "word": "talk",
-              "start": 2.25
-            },
-            {
-              "word": "to",
-              "start": 2.525
-            },
-            {
-              "word": "one",
-              "start": 2.65
-            },
-            {
-              "word": "agent",
-              "start": 2.875
-            },
-            {
-              "word": "the",
-              "start": 3.475
-            },
-            {
-              "word": "orchestrator",
-              "start": 3.638
-            }
-          ]
-        },
-        {
-          "text": "It holds the conversation, decides what needs to happen, and never makes the change itself.",
-          "start": 5.325,
-          "end": 11.05,
-          "words": [
-            {
-              "word": "It",
-              "start": 5.325
-            },
-            {
-              "word": "holds",
-              "start": 5.45
-            },
-            {
-              "word": "the",
-              "start": 5.8
-            },
-            {
-              "word": "conversation",
-              "start": 5.9
-            },
-            {
-              "word": "decides",
-              "start": 7.05
-            },
-            {
-              "word": "what",
-              "start": 7.6
-            },
-            {
-              "word": "needs",
-              "start": 7.825
-            },
-            {
-              "word": "to",
-              "start": 8.15
-            },
-            {
-              "word": "happen",
-              "start": 8.275
-            },
-            {
-              "word": "and",
-              "start": 8.95
-            },
-            {
-              "word": "never",
-              "start": 9.088
-            },
-            {
-              "word": "makes",
-              "start": 9.4
-            },
-            {
-              "word": "the",
-              "start": 9.675
-            },
-            {
-              "word": "change",
-              "start": 9.787
-            },
-            {
-              "word": "itself",
-              "start": 10.175
-            }
-          ]
-        },
-        {
-          "text": "It hands the work to a specialist, each one born clean for a single piece of work, and each returning a contract: what was done, and with what evidence.",
-          "start": 11.625,
-          "end": 21.125,
-          "words": [
-            {
-              "word": "It",
-              "start": 11.625
-            },
-            {
-              "word": "hands",
-              "start": 11.75
-            },
-            {
-              "word": "the",
-              "start": 12.125
-            },
-            {
-              "word": "work",
-              "start": 12.225
-            },
-            {
-              "word": "to",
-              "start": 12.5
-            },
-            {
-              "word": "a",
-              "start": 12.625
-            },
-            {
-              "word": "specialist",
-              "start": 12.738
-            },
-            {
-              "word": "each",
-              "start": 13.838
-            },
-            {
-              "word": "one",
-              "start": 14.1
-            },
-            {
-              "word": "born",
-              "start": 14.338
-            },
-            {
-              "word": "clean",
-              "start": 14.738
-            },
-            {
-              "word": "for",
-              "start": 15.2
-            },
-            {
-              "word": "a",
-              "start": 15.325
-            },
-            {
-              "word": "single",
-              "start": 15.45
-            },
-            {
-              "word": "piece",
-              "start": 15.85
-            },
-            {
-              "word": "of",
-              "start": 16.113
-            },
-            {
-              "word": "work",
-              "start": 16.238
-            },
-            {
-              "word": "and",
-              "start": 16.875
-            },
-            {
-              "word": "each",
-              "start": 17.038
-            },
-            {
-              "word": "returning",
-              "start": 17.35
-            },
-            {
-              "word": "a",
-              "start": 17.837
-            },
-            {
-              "word": "contract",
-              "start": 17.9
-            },
-            {
-              "word": "what",
-              "start": 19.025
-            },
-            {
-              "word": "was",
-              "start": 19.188
-            },
-            {
-              "word": "done",
-              "start": 19.363
-            },
-            {
-              "word": "and",
-              "start": 19.825
+              "word": "start",
+              "start": 0.6
             },
             {
               "word": "with",
-              "start": 19.938
+              "start": 0.887
+            },
+            {
+              "word": "the",
+              "start": 0.988
+            },
+            {
+              "word": "question",
+              "start": 1.075
+            },
+            {
+              "word": "itself",
+              "start": 1.475
             },
             {
               "word": "what",
-              "start": 20.1
+              "start": 2.275
             },
             {
-              "word": "evidence",
-              "start": 20.275
-            }
-          ]
-        },
-        {
-          "text": "Around them, Gaia keeps approvals, contracts, memory, and plans.",
-          "start": 21.725,
-          "end": 25.725,
-          "words": [
-            {
-              "word": "Around",
-              "start": 21.725
-            },
-            {
-              "word": "them",
-              "start": 22.1
+              "word": "is",
+              "start": 2.45
             },
             {
               "word": "Gaia",
-              "start": 22.4
-            },
-            {
-              "word": "keeps",
-              "start": 22.675
-            },
-            {
-              "word": "approvals",
-              "start": 22.913
-            },
-            {
-              "word": "contracts",
-              "start": 23.675
-            },
-            {
-              "word": "memory",
-              "start": 24.375
-            },
-            {
-              "word": "and",
-              "start": 24.812
-            },
-            {
-              "word": "plans",
-              "start": 24.925
+              "start": 2.612
             }
           ]
         },
         {
-          "text": "And it's built from two halves.",
-          "start": 26.3,
-          "end": 28,
+          "text": "Gaia is a layer that sits between you and your AI agents.",
+          "start": 4.625,
+          "end": 8.225,
           "words": [
             {
-              "word": "And",
-              "start": 26.3
+              "word": "Gaia",
+              "start": 4.625
             },
             {
-              "word": "it's",
-              "start": 26.438
-            },
-            {
-              "word": "built",
-              "start": 26.6
-            },
-            {
-              "word": "from",
-              "start": 26.85
-            },
-            {
-              "word": "two",
-              "start": 27.062
-            },
-            {
-              "word": "halves",
-              "start": 27.275
-            }
-          ]
-        },
-        {
-          "text": "Hooks, where a rule decides.",
-          "start": 28.6,
-          "end": 30.275,
-          "words": [
-            {
-              "word": "Hooks",
-              "start": 28.6
-            },
-            {
-              "word": "where",
-              "start": 28.888
+              "word": "is",
+              "start": 4.9
             },
             {
               "word": "a",
-              "start": 29.013
+              "start": 5.025
             },
             {
-              "word": "rule",
-              "start": 29.113
+              "word": "layer",
+              "start": 5.138
             },
             {
-              "word": "decides",
-              "start": 29.4
-            }
-          ]
-        },
-        {
-          "text": "And skills and agents, where a model follows instructions.",
-          "start": 30.825,
-          "end": 34.55,
-          "words": [
-            {
-              "word": "And",
-              "start": 30.825
+              "word": "that",
+              "start": 5.513
             },
             {
-              "word": "skills",
-              "start": 30.988
+              "word": "sits",
+              "start": 5.65
+            },
+            {
+              "word": "between",
+              "start": 5.9
+            },
+            {
+              "word": "you",
+              "start": 6.288
             },
             {
               "word": "and",
-              "start": 31.475
+              "start": 6.65
+            },
+            {
+              "word": "your",
+              "start": 6.788
+            },
+            {
+              "word": "AI",
+              "start": 6.963
             },
             {
               "word": "agents",
-              "start": 31.613
-            },
-            {
-              "word": "where",
-              "start": 32.4
-            },
-            {
-              "word": "a",
-              "start": 32.538
-            },
-            {
-              "word": "model",
-              "start": 32.638
-            },
-            {
-              "word": "follows",
-              "start": 33.038
-            },
-            {
-              "word": "instructions",
-              "start": 33.475
+              "start": 7.413
             }
           ]
         },
         {
-          "text": "The CLI joins them.",
-          "start": 35.125,
-          "end": 36.7,
+          "text": "It talks with you and coordinates the work, but it never makes the changes itself.",
+          "start": 9.475,
+          "end": 14.35,
+          "words": [
+            {
+              "word": "It",
+              "start": 9.475
+            },
+            {
+              "word": "talks",
+              "start": 9.6
+            },
+            {
+              "word": "with",
+              "start": 9.925
+            },
+            {
+              "word": "you",
+              "start": 10.113
+            },
+            {
+              "word": "and",
+              "start": 10.438
+            },
+            {
+              "word": "coordinates",
+              "start": 10.588
+            },
+            {
+              "word": "the",
+              "start": 11.3
+            },
+            {
+              "word": "work",
+              "start": 11.4
+            },
+            {
+              "word": "but",
+              "start": 12.05
+            },
+            {
+              "word": "it",
+              "start": 12.188
+            },
+            {
+              "word": "never",
+              "start": 12.288
+            },
+            {
+              "word": "makes",
+              "start": 12.6
+            },
+            {
+              "word": "the",
+              "start": 12.875
+            },
+            {
+              "word": "changes",
+              "start": 12.988
+            },
+            {
+              "word": "itself",
+              "start": 13.475
+            }
+          ]
+        },
+        {
+          "text": "You only talk to one agent: the orchestrator. There is one per session.",
+          "start": 15.625,
+          "end": 19.975,
+          "words": [
+            {
+              "word": "You",
+              "start": 15.625
+            },
+            {
+              "word": "only",
+              "start": 15.725
+            },
+            {
+              "word": "talk",
+              "start": 16.038
+            },
+            {
+              "word": "to",
+              "start": 16.325
+            },
+            {
+              "word": "one",
+              "start": 16.45
+            },
+            {
+              "word": "agent",
+              "start": 16.688
+            },
+            {
+              "word": "the",
+              "start": 17.2
+            },
+            {
+              "word": "orchestrator",
+              "start": 17.363
+            },
+            {
+              "word": "There",
+              "start": 18.425
+            },
+            {
+              "word": "is",
+              "start": 18.575
+            },
+            {
+              "word": "one",
+              "start": 18.738
+            },
+            {
+              "word": "per",
+              "start": 19
+            },
+            {
+              "word": "session",
+              "start": 19.213
+            }
+          ]
+        },
+        {
+          "text": "It listens to what you want, in your own words, and decides what has to happen.",
+          "start": 21.25,
+          "end": 26.05,
+          "words": [
+            {
+              "word": "It",
+              "start": 21.25
+            },
+            {
+              "word": "listens",
+              "start": 21.375
+            },
+            {
+              "word": "to",
+              "start": 21.8
+            },
+            {
+              "word": "what",
+              "start": 21.925
+            },
+            {
+              "word": "you",
+              "start": 22.1
+            },
+            {
+              "word": "want",
+              "start": 22.262
+            },
+            {
+              "word": "in",
+              "start": 22.875
+            },
+            {
+              "word": "your",
+              "start": 22.988
+            },
+            {
+              "word": "own",
+              "start": 23.163
+            },
+            {
+              "word": "words",
+              "start": 23.425
+            },
+            {
+              "word": "and",
+              "start": 24.125
+            },
+            {
+              "word": "decides",
+              "start": 24.238
+            },
+            {
+              "word": "what",
+              "start": 24.775
+            },
+            {
+              "word": "has",
+              "start": 24.925
+            },
+            {
+              "word": "to",
+              "start": 25.175
+            },
+            {
+              "word": "happen",
+              "start": 25.3
+            }
+          ]
+        },
+        {
+          "text": "Before it starts, it shows you the route, so you can change it on the way.",
+          "start": 27.3,
+          "end": 31.35,
+          "words": [
+            {
+              "word": "Before",
+              "start": 27.3
+            },
+            {
+              "word": "it",
+              "start": 27.587
+            },
+            {
+              "word": "starts",
+              "start": 27.675
+            },
+            {
+              "word": "it",
+              "start": 28.175
+            },
+            {
+              "word": "shows",
+              "start": 28.337
+            },
+            {
+              "word": "you",
+              "start": 28.675
+            },
+            {
+              "word": "the",
+              "start": 28.8
+            },
+            {
+              "word": "route",
+              "start": 28.938
+            },
+            {
+              "word": "so",
+              "start": 29.55
+            },
+            {
+              "word": "you",
+              "start": 29.7
+            },
+            {
+              "word": "can",
+              "start": 29.8
+            },
+            {
+              "word": "change",
+              "start": 30.012
+            },
+            {
+              "word": "it",
+              "start": 30.413
+            },
+            {
+              "word": "on",
+              "start": 30.488
+            },
+            {
+              "word": "the",
+              "start": 30.613
+            },
+            {
+              "word": "way",
+              "start": 30.7
+            }
+          ]
+        },
+        {
+          "text": "But the orchestrator never edits a file.",
+          "start": 33.5,
+          "end": 36.25,
+          "words": [
+            {
+              "word": "But",
+              "start": 33.5
+            },
+            {
+              "word": "the",
+              "start": 33.613
+            },
+            {
+              "word": "orchestrator",
+              "start": 33.763
+            },
+            {
+              "word": "never",
+              "start": 34.688
+            },
+            {
+              "word": "edits",
+              "start": 35.088
+            },
+            {
+              "word": "a",
+              "start": 35.413
+            },
+            {
+              "word": "file",
+              "start": 35.525
+            }
+          ]
+        },
+        {
+          "text": "It hands the work to a specialist, the agent that knows that field best.",
+          "start": 37.5,
+          "end": 41.8,
+          "words": [
+            {
+              "word": "It",
+              "start": 37.5
+            },
+            {
+              "word": "hands",
+              "start": 37.625
+            },
+            {
+              "word": "the",
+              "start": 37.963
+            },
+            {
+              "word": "work",
+              "start": 38.05
+            },
+            {
+              "word": "to",
+              "start": 38.3
+            },
+            {
+              "word": "a",
+              "start": 38.388
+            },
+            {
+              "word": "specialist",
+              "start": 38.463
+            },
+            {
+              "word": "the",
+              "start": 39.45
+            },
+            {
+              "word": "agent",
+              "start": 39.613
+            },
+            {
+              "word": "that",
+              "start": 39.95
+            },
+            {
+              "word": "knows",
+              "start": 40.175
+            },
+            {
+              "word": "that",
+              "start": 40.6
+            },
+            {
+              "word": "field",
+              "start": 40.812
+            },
+            {
+              "word": "best",
+              "start": 41.125
+            }
+          ]
+        },
+        {
+          "text": "There are eight today: one for code, one for infrastructure, one for live systems, and more. You can add your own.",
+          "start": 43.1,
+          "end": 49.875,
+          "words": [
+            {
+              "word": "There",
+              "start": 43.1
+            },
+            {
+              "word": "are",
+              "start": 43.213
+            },
+            {
+              "word": "eight",
+              "start": 43.3
+            },
+            {
+              "word": "today",
+              "start": 43.525
+            },
+            {
+              "word": "one",
+              "start": 44.225
+            },
+            {
+              "word": "for",
+              "start": 44.45
+            },
+            {
+              "word": "code",
+              "start": 44.613
+            },
+            {
+              "word": "one",
+              "start": 45.1
+            },
+            {
+              "word": "for",
+              "start": 45.325
+            },
+            {
+              "word": "infrastructure",
+              "start": 45.475
+            },
+            {
+              "word": "one",
+              "start": 46.275
+            },
+            {
+              "word": "for",
+              "start": 46.5
+            },
+            {
+              "word": "live",
+              "start": 46.65
+            },
+            {
+              "word": "systems",
+              "start": 46.988
+            },
+            {
+              "word": "and",
+              "start": 47.538
+            },
+            {
+              "word": "more",
+              "start": 47.663
+            },
+            {
+              "word": "You",
+              "start": 48.438
+            },
+            {
+              "word": "can",
+              "start": 48.575
+            },
+            {
+              "word": "add",
+              "start": 48.775
+            },
+            {
+              "word": "your",
+              "start": 49.05
+            },
+            {
+              "word": "own",
+              "start": 49.225
+            }
+          ]
+        },
+        {
+          "text": "Each one starts clean, for one piece of work. When it is done, it sends back a contract: a report in a fixed form.",
+          "start": 51.15,
+          "end": 58.525,
+          "words": [
+            {
+              "word": "Each",
+              "start": 51.15
+            },
+            {
+              "word": "one",
+              "start": 51.35
+            },
+            {
+              "word": "starts",
+              "start": 51.575
+            },
+            {
+              "word": "clean",
+              "start": 51.963
+            },
+            {
+              "word": "for",
+              "start": 52.45
+            },
+            {
+              "word": "one",
+              "start": 52.613
+            },
+            {
+              "word": "piece",
+              "start": 52.85
+            },
+            {
+              "word": "of",
+              "start": 53.113
+            },
+            {
+              "word": "work",
+              "start": 53.225
+            },
+            {
+              "word": "When",
+              "start": 53.95
+            },
+            {
+              "word": "it",
+              "start": 54.088
+            },
+            {
+              "word": "is",
+              "start": 54.175
+            },
+            {
+              "word": "done",
+              "start": 54.338
+            },
+            {
+              "word": "it",
+              "start": 54.8
+            },
+            {
+              "word": "sends",
+              "start": 54.963
+            },
+            {
+              "word": "back",
+              "start": 55.3
+            },
+            {
+              "word": "a",
+              "start": 55.563
+            },
+            {
+              "word": "contract",
+              "start": 55.625
+            },
+            {
+              "word": "a",
+              "start": 56.613
+            },
+            {
+              "word": "report",
+              "start": 56.725
+            },
+            {
+              "word": "in",
+              "start": 57.225
+            },
+            {
+              "word": "a",
+              "start": 57.313
+            },
+            {
+              "word": "fixed",
+              "start": 57.413
+            },
+            {
+              "word": "form",
+              "start": 57.763
+            }
+          ]
+        },
+        {
+          "text": "Starting clean does not mean starting empty.",
+          "start": 60.7,
+          "end": 63.45,
+          "words": [
+            {
+              "word": "Starting",
+              "start": 60.7
+            },
+            {
+              "word": "clean",
+              "start": 61.138
+            },
+            {
+              "word": "does",
+              "start": 61.6
+            },
+            {
+              "word": "not",
+              "start": 61.8
+            },
+            {
+              "word": "mean",
+              "start": 62.025
+            },
+            {
+              "word": "starting",
+              "start": 62.275
+            },
+            {
+              "word": "empty",
+              "start": 62.688
+            }
+          ]
+        },
+        {
+          "text": "The moment a specialist starts, Gaia hands it five things.",
+          "start": 64.75,
+          "end": 68.25,
           "words": [
             {
               "word": "The",
-              "start": 35.125
+              "start": 64.75
             },
             {
-              "word": "CLI",
-              "start": 35.238
+              "word": "moment",
+              "start": 64.825
             },
             {
-              "word": "joins",
-              "start": 35.763
+              "word": "a",
+              "start": 65.113
             },
             {
-              "word": "them",
-              "start": 36.175
+              "word": "specialist",
+              "start": 65.175
+            },
+            {
+              "word": "starts",
+              "start": 65.7
+            },
+            {
+              "word": "Gaia",
+              "start": 66.438
+            },
+            {
+              "word": "hands",
+              "start": 66.75
+            },
+            {
+              "word": "it",
+              "start": 67.013
+            },
+            {
+              "word": "five",
+              "start": 67.163
+            },
+            {
+              "word": "things",
+              "start": 67.525
+            }
+          ]
+        },
+        {
+          "text": "Its identity: what it is for, and what it may touch.",
+          "start": 69.525,
+          "end": 72.6,
+          "words": [
+            {
+              "word": "Its",
+              "start": 69.525
+            },
+            {
+              "word": "identity",
+              "start": 69.763
+            },
+            {
+              "word": "what",
+              "start": 70.65
+            },
+            {
+              "word": "it",
+              "start": 70.788
+            },
+            {
+              "word": "is",
+              "start": 70.875
+            },
+            {
+              "word": "for",
+              "start": 71.088
+            },
+            {
+              "word": "and",
+              "start": 71.388
+            },
+            {
+              "word": "what",
+              "start": 71.5
+            },
+            {
+              "word": "it",
+              "start": 71.638
+            },
+            {
+              "word": "may",
+              "start": 71.713
+            },
+            {
+              "word": "touch",
+              "start": 71.888
+            }
+          ]
+        },
+        {
+          "text": "Its skills: the team's way of doing that kind of work.",
+          "start": 73.475,
+          "end": 76.725,
+          "words": [
+            {
+              "word": "Its",
+              "start": 73.475
+            },
+            {
+              "word": "skills",
+              "start": 73.675
+            },
+            {
+              "word": "the",
+              "start": 74.5
+            },
+            {
+              "word": "team's",
+              "start": 74.638
+            },
+            {
+              "word": "way",
+              "start": 75.05
+            },
+            {
+              "word": "of",
+              "start": 75.238
+            },
+            {
+              "word": "doing",
+              "start": 75.35
+            },
+            {
+              "word": "that",
+              "start": 75.65
+            },
+            {
+              "word": "kind",
+              "start": 75.9
+            },
+            {
+              "word": "of",
+              "start": 76.088
+            },
+            {
+              "word": "work",
+              "start": 76.175
+            }
+          ]
+        },
+        {
+          "text": "The project context: what Gaia knows about the project, and which parts it may read or write.",
+          "start": 77.6,
+          "end": 83.225,
+          "words": [
+            {
+              "word": "The",
+              "start": 77.6
+            },
+            {
+              "word": "project",
+              "start": 77.675
+            },
+            {
+              "word": "context",
+              "start": 78.125
+            },
+            {
+              "word": "what",
+              "start": 79.188
+            },
+            {
+              "word": "Gaia",
+              "start": 79.425
+            },
+            {
+              "word": "knows",
+              "start": 79.75
+            },
+            {
+              "word": "about",
+              "start": 80.063
+            },
+            {
+              "word": "the",
+              "start": 80.288
+            },
+            {
+              "word": "project",
+              "start": 80.375
+            },
+            {
+              "word": "and",
+              "start": 81.125
+            },
+            {
+              "word": "which",
+              "start": 81.238
+            },
+            {
+              "word": "parts",
+              "start": 81.425
+            },
+            {
+              "word": "it",
+              "start": 81.738
+            },
+            {
+              "word": "may",
+              "start": 81.825
+            },
+            {
+              "word": "read",
+              "start": 82.038
+            },
+            {
+              "word": "or",
+              "start": 82.425
+            },
+            {
+              "word": "write",
+              "start": 82.588
+            }
+          ]
+        },
+        {
+          "text": "What Gaia knows about you: your rules and preferences, so it does not ask you again.",
+          "start": 84.125,
+          "end": 89.3,
+          "words": [
+            {
+              "word": "What",
+              "start": 84.125
+            },
+            {
+              "word": "Gaia",
+              "start": 84.338
+            },
+            {
+              "word": "knows",
+              "start": 84.675
+            },
+            {
+              "word": "about",
+              "start": 84.938
+            },
+            {
+              "word": "you",
+              "start": 85.263
+            },
+            {
+              "word": "your",
+              "start": 85.863
+            },
+            {
+              "word": "rules",
+              "start": 86.088
+            },
+            {
+              "word": "and",
+              "start": 86.513
+            },
+            {
+              "word": "preferences",
+              "start": 86.625
+            },
+            {
+              "word": "so",
+              "start": 87.425
+            },
+            {
+              "word": "it",
+              "start": 87.6
+            },
+            {
+              "word": "does",
+              "start": 87.7
+            },
+            {
+              "word": "not",
+              "start": 87.925
+            },
+            {
+              "word": "ask",
+              "start": 88.138
+            },
+            {
+              "word": "you",
+              "start": 88.45
+            },
+            {
+              "word": "again",
+              "start": 88.6
+            }
+          ]
+        },
+        {
+          "text": "And its contract, open from the start: the goal, and the form it has to fill in.",
+          "start": 90.175,
+          "end": 94.975,
+          "words": [
+            {
+              "word": "And",
+              "start": 90.175
+            },
+            {
+              "word": "its",
+              "start": 90.313
+            },
+            {
+              "word": "contract",
+              "start": 90.475
+            },
+            {
+              "word": "open",
+              "start": 91.2
+            },
+            {
+              "word": "from",
+              "start": 91.525
+            },
+            {
+              "word": "the",
+              "start": 91.663
+            },
+            {
+              "word": "start",
+              "start": 91.763
+            },
+            {
+              "word": "the",
+              "start": 92.525
+            },
+            {
+              "word": "goal",
+              "start": 92.663
+            },
+            {
+              "word": "and",
+              "start": 93.175
+            },
+            {
+              "word": "the",
+              "start": 93.288
+            },
+            {
+              "word": "form",
+              "start": 93.4
+            },
+            {
+              "word": "it",
+              "start": 93.713
+            },
+            {
+              "word": "has",
+              "start": 93.8
+            },
+            {
+              "word": "to",
+              "start": 94.025
+            },
+            {
+              "word": "fill",
+              "start": 94.163
+            },
+            {
+              "word": "in",
+              "start": 94.425
+            }
+          ]
+        },
+        {
+          "text": "While the work runs, rules in code keep watch.",
+          "start": 97.15,
+          "end": 100.05,
+          "words": [
+            {
+              "word": "While",
+              "start": 97.15
+            },
+            {
+              "word": "the",
+              "start": 97.288
+            },
+            {
+              "word": "work",
+              "start": 97.375
+            },
+            {
+              "word": "runs",
+              "start": 97.625
+            },
+            {
+              "word": "rules",
+              "start": 98.312
+            },
+            {
+              "word": "in",
+              "start": 98.713
+            },
+            {
+              "word": "code",
+              "start": 98.85
+            },
+            {
+              "word": "keep",
+              "start": 99.175
+            },
+            {
+              "word": "watch",
+              "start": 99.425
+            }
+          ]
+        },
+        {
+          "text": "If a specialist needs to change something that matters, Gaia stops it and shows you the exact command, what it changes, and how to undo it.",
+          "start": 101.35,
+          "end": 110.025,
+          "words": [
+            {
+              "word": "If",
+              "start": 101.35
+            },
+            {
+              "word": "a",
+              "start": 101.488
+            },
+            {
+              "word": "specialist",
+              "start": 101.562
+            },
+            {
+              "word": "needs",
+              "start": 102.2
+            },
+            {
+              "word": "to",
+              "start": 102.475
+            },
+            {
+              "word": "change",
+              "start": 102.613
+            },
+            {
+              "word": "something",
+              "start": 102.975
+            },
+            {
+              "word": "that",
+              "start": 103.275
+            },
+            {
+              "word": "matters",
+              "start": 103.475
+            },
+            {
+              "word": "Gaia",
+              "start": 104.363
+            },
+            {
+              "word": "stops",
+              "start": 104.713
+            },
+            {
+              "word": "it",
+              "start": 105.15
+            },
+            {
+              "word": "and",
+              "start": 105.3
+            },
+            {
+              "word": "shows",
+              "start": 105.45
+            },
+            {
+              "word": "you",
+              "start": 105.825
+            },
+            {
+              "word": "the",
+              "start": 105.975
+            },
+            {
+              "word": "exact",
+              "start": 106.125
+            },
+            {
+              "word": "command",
+              "start": 106.625
+            },
+            {
+              "word": "what",
+              "start": 107.575
+            },
+            {
+              "word": "it",
+              "start": 107.713
+            },
+            {
+              "word": "changes",
+              "start": 107.812
+            },
+            {
+              "word": "and",
+              "start": 108.625
+            },
+            {
+              "word": "how",
+              "start": 108.763
+            },
+            {
+              "word": "to",
+              "start": 109
+            },
+            {
+              "word": "undo",
+              "start": 109.125
+            },
+            {
+              "word": "it",
+              "start": 109.562
+            }
+          ]
+        },
+        {
+          "text": "Nothing runs until you answer.",
+          "start": 111.35,
+          "end": 113.4,
+          "words": [
+            {
+              "word": "Nothing",
+              "start": 111.35
+            },
+            {
+              "word": "runs",
+              "start": 111.738
+            },
+            {
+              "word": "until",
+              "start": 112.188
+            },
+            {
+              "word": "you",
+              "start": 112.475
+            },
+            {
+              "word": "answer",
+              "start": 112.638
+            }
+          ]
+        },
+        {
+          "text": "And when the specialist reports back, its contract is checked before the orchestrator uses it for the next step.",
+          "start": 114.7,
+          "end": 121.05,
+          "words": [
+            {
+              "word": "And",
+              "start": 114.7
+            },
+            {
+              "word": "when",
+              "start": 114.838
+            },
+            {
+              "word": "the",
+              "start": 114.963
+            },
+            {
+              "word": "specialist",
+              "start": 115.063
+            },
+            {
+              "word": "reports",
+              "start": 115.725
+            },
+            {
+              "word": "back",
+              "start": 116.2
+            },
+            {
+              "word": "its",
+              "start": 116.938
+            },
+            {
+              "word": "contract",
+              "start": 117.163
+            },
+            {
+              "word": "is",
+              "start": 117.775
+            },
+            {
+              "word": "checked",
+              "start": 117.95
+            },
+            {
+              "word": "before",
+              "start": 118.3
+            },
+            {
+              "word": "the",
+              "start": 118.588
+            },
+            {
+              "word": "orchestrator",
+              "start": 118.7
+            },
+            {
+              "word": "uses",
+              "start": 119.388
+            },
+            {
+              "word": "it",
+              "start": 119.8
+            },
+            {
+              "word": "for",
+              "start": 119.95
+            },
+            {
+              "word": "the",
+              "start": 120.063
+            },
+            {
+              "word": "next",
+              "start": 120.15
+            },
+            {
+              "word": "step",
+              "start": 120.425
+            }
+          ]
+        },
+        {
+          "text": "Then Gaia keeps what should outlive the session.",
+          "start": 123.25,
+          "end": 125.675,
+          "words": [
+            {
+              "word": "Then",
+              "start": 123.25
+            },
+            {
+              "word": "Gaia",
+              "start": 123.438
+            },
+            {
+              "word": "keeps",
+              "start": 123.775
+            },
+            {
+              "word": "what",
+              "start": 124.075
+            },
+            {
+              "word": "should",
+              "start": 124.225
+            },
+            {
+              "word": "outlive",
+              "start": 124.4
+            },
+            {
+              "word": "the",
+              "start": 124.838
+            },
+            {
+              "word": "session",
+              "start": 124.963
+            }
+          ]
+        },
+        {
+          "text": "The decisions you made and why, what was learned, the work still open, and how you like to work.",
+          "start": 126.95,
+          "end": 132.45,
+          "words": [
+            {
+              "word": "The",
+              "start": 126.95
+            },
+            {
+              "word": "decisions",
+              "start": 127.025
+            },
+            {
+              "word": "you",
+              "start": 127.55
+            },
+            {
+              "word": "made",
+              "start": 127.713
+            },
+            {
+              "word": "and",
+              "start": 128.1
+            },
+            {
+              "word": "why",
+              "start": 128.238
+            },
+            {
+              "word": "what",
+              "start": 128.975
+            },
+            {
+              "word": "was",
+              "start": 129.113
+            },
+            {
+              "word": "learned",
+              "start": 129.288
+            },
+            {
+              "word": "the",
+              "start": 129.738
+            },
+            {
+              "word": "work",
+              "start": 129.825
+            },
+            {
+              "word": "still",
+              "start": 130.075
+            },
+            {
+              "word": "open",
+              "start": 130.363
+            },
+            {
+              "word": "and",
+              "start": 131.05
+            },
+            {
+              "word": "how",
+              "start": 131.175
+            },
+            {
+              "word": "you",
+              "start": 131.35
+            },
+            {
+              "word": "like",
+              "start": 131.475
+            },
+            {
+              "word": "to",
+              "start": 131.7
+            },
+            {
+              "word": "work",
+              "start": 131.825
+            }
+          ]
+        },
+        {
+          "text": "Ideas become plans, and plans become tasks that another agent checks before they count as done.",
+          "start": 133.8,
+          "end": 139.9,
+          "words": [
+            {
+              "word": "Ideas",
+              "start": 133.8
+            },
+            {
+              "word": "become",
+              "start": 134.25
+            },
+            {
+              "word": "plans",
+              "start": 134.625
+            },
+            {
+              "word": "and",
+              "start": 135.5
+            },
+            {
+              "word": "plans",
+              "start": 135.625
+            },
+            {
+              "word": "become",
+              "start": 136.025
+            },
+            {
+              "word": "tasks",
+              "start": 136.413
+            },
+            {
+              "word": "that",
+              "start": 136.9
+            },
+            {
+              "word": "another",
+              "start": 137.05
+            },
+            {
+              "word": "agent",
+              "start": 137.488
+            },
+            {
+              "word": "checks",
+              "start": 137.888
+            },
+            {
+              "word": "before",
+              "start": 138.225
+            },
+            {
+              "word": "they",
+              "start": 138.55
+            },
+            {
+              "word": "count",
+              "start": 138.713
+            },
+            {
+              "word": "as",
+              "start": 139.075
+            },
+            {
+              "word": "done",
+              "start": 139.238
+            }
+          ]
+        },
+        {
+          "text": "So the next session starts where this one ended.",
+          "start": 141.2,
+          "end": 143.675,
+          "words": [
+            {
+              "word": "So",
+              "start": 141.2
+            },
+            {
+              "word": "the",
+              "start": 141.312
+            },
+            {
+              "word": "next",
+              "start": 141.4
+            },
+            {
+              "word": "session",
+              "start": 141.675
+            },
+            {
+              "word": "starts",
+              "start": 142.075
+            },
+            {
+              "word": "where",
+              "start": 142.463
+            },
+            {
+              "word": "this",
+              "start": 142.6
+            },
+            {
+              "word": "one",
+              "start": 142.8
+            },
+            {
+              "word": "ended",
+              "start": 142.987
+            }
+          ]
+        },
+        {
+          "text": "All of this runs through one tool: Gaia's own command line.",
+          "start": 145.9,
+          "end": 149.6,
+          "words": [
+            {
+              "word": "All",
+              "start": 145.9
+            },
+            {
+              "word": "of",
+              "start": 146.062
+            },
+            {
+              "word": "this",
+              "start": 146.137
+            },
+            {
+              "word": "runs",
+              "start": 146.362
+            },
+            {
+              "word": "through",
+              "start": 146.675
+            },
+            {
+              "word": "one",
+              "start": 146.887
+            },
+            {
+              "word": "tool",
+              "start": 147.162
+            },
+            {
+              "word": "Gaia's",
+              "start": 147.862
+            },
+            {
+              "word": "own",
+              "start": 148.3
+            },
+            {
+              "word": "command",
+              "start": 148.5
+            },
+            {
+              "word": "line",
+              "start": 148.95
+            }
+          ]
+        },
+        {
+          "text": "Next, let's look closer at what Gaia knows.",
+          "start": 150.925,
+          "end": 153.375,
+          "words": [
+            {
+              "word": "Next",
+              "start": 150.925
+            },
+            {
+              "word": "let's",
+              "start": 151.3
+            },
+            {
+              "word": "look",
+              "start": 151.512
+            },
+            {
+              "word": "closer",
+              "start": 151.7
+            },
+            {
+              "word": "at",
+              "start": 152.112
+            },
+            {
+              "word": "what",
+              "start": 152.187
+            },
+            {
+              "word": "Gaia",
+              "start": 152.35
+            },
+            {
+              "word": "knows",
+              "start": 152.675
             }
           ]
         }

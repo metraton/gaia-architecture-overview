@@ -24,8 +24,17 @@ const WORD = /[\p{L}\p{N}][\p{L}\p{N}'’-]*/gu;
 /** The letters and digits of a text, lower-cased: what a said word and a timed word share. */
 export const letters = s => s.toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');
 
+// Siblings are visited in the order the engine draws them (orderedChildren in
+// engine/engine.js): by `order`, else list position, ties by list position.
+// Keep the two rules identical, or a reveal the screen shows in order is refused.
+function byRenderOrder(nodes) {
+  return (nodes || []).map((c, i) => ({ c, i, o: c.order ?? (i + 1) }))
+    .sort((a, b) => (a.o === b.o ? a.i - b.i : a.o - b.o))
+    .map(x => x.c);
+}
+
 function preorder(nodes, out = [], parentOf = {}, parent = null) {
-  for (const n of nodes || []) {
+  for (const n of byRenderOrder(nodes)) {
     if (n.id) { out.push(n.id); parentOf[n.id] = parent; }
     preorder(n.children, out, parentOf, n.id ?? parent);
   }
