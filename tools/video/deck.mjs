@@ -145,6 +145,15 @@ export function wordsPath(page) {
   return audioPath(page).replace(/\.[^./]+$/, '') + '.words.json';
 }
 
+/**
+ * Returns where a voice provider without word timings leaves the page's exact
+ * sentence spans, beside its audio: `<audio without extension>.sentences.json`,
+ * a list of {text, start, end} in seconds inside that audio, one per sentence.
+ */
+export function sentencesPath(page) {
+  return audioPath(page).replace(/\.[^./]+$/, '') + '.sentences.json';
+}
+
 /** Returns the value after `flag` on the command line, or `fallback`. */
 export function argValue(flag, fallback) {
   const i = process.argv.indexOf(flag);

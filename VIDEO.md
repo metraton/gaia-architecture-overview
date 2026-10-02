@@ -11,8 +11,17 @@ skill's `video.md`; this file only records what is specific to this deck.
   They are kept out of git (`.gitignore`), so a fresh clone cannot align or
   capture until they are put back.
 - **Timing:** `video/align.json`, written by `npm run video:align`.
-- **Voice:** the next voicing of this deck uses Kokoro `am_michael` at speed
-  1.10 (decision D110). The WAVs currently in `video/audio/` predate it.
+- **Voice:** Chatterbox (`ResembleAI/chatterbox`, English), the default
+  provider of `npm run video:voice`, with exaggeration 0.5, cfg_weight 0.5
+  and torch seed 42 + sentence number, cloning
+  `~/.local/share/gaia-tts/chatterbox/reference.wav` (sha256 `d15d9b74…5438`).
+  That clip is Kokoro `am_michael` at speed 1.10 saying "Gaia is a layer that
+  sits between you and your AI agents. It talks with you and coordinates the
+  work, but it never makes the changes itself." Kokoro renders it slightly
+  differently each run, so keep the file rather than re-rendering it: a new
+  clip changes the voice and invalidates every cached sentence in
+  `~/.local/share/gaia-tts/chatterbox/cache/`. `--provider kokoro` still voices
+  with Kokoro `am_michael` at 1.10 (decision D110).
 
 `N.wav` is the page whose visible name starts with `N ·`; the page files do
 not match those numbers (page 3 is `p4-…yaml`, page 4 is `p6-…yaml`, page 6 is
