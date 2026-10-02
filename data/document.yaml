@@ -1,7 +1,7 @@
 # Document manifest — GAIA architecture overview deck.
 # name / order / visible live ONLY here; each page file owns id + content.
 # Page files keep their original names, so only `name` carries the number the
-# audience sees; 4 is reserved for a page not written yet.
+# audience sees.
 title: "GAIA"
 subtitle: "Generative AI Interface for Agents"
 version: "0.1.0"
@@ -23,17 +23,17 @@ pages:
     visible: true
     file: pages/p5-what-gaia-keeps.yaml
   - id: p-pilot-your-yes
-    name: "5 · Nothing that matters runs without you seeing it"
+    name: "4 · Nothing that matters runs without you seeing it"
     order: 3
     visible: true
     file: pages/p-pilot-your-yes.yaml
   - id: p6-contracts
-    name: "6 · Contracts"
+    name: "5 · Contracts"
     order: 4
     visible: true
     file: pages/p6-contracts.yaml
   - id: p9-back-to-the-map
-    name: "7 · Install it, ask it"
+    name: "6 · Install it, ask it"
     order: 5
     visible: true
     file: pages/p9-back-to-the-map.yaml

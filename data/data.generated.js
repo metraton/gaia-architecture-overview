@@ -2118,7 +2118,7 @@ window.__DOC__ = {
           }
         }
       ],
-      "name": "5 · Nothing that matters runs without you seeing it",
+      "name": "4 · Nothing that matters runs without you seeing it",
       "order": 3
     },
     {
@@ -2128,621 +2128,521 @@ window.__DOC__ = {
       "columns": 1,
       "filters": [
         {
-          "key": "the-human",
-          "label": "who decides?",
+          "key": "c-reports",
+          "label": "1 · it reports",
           "steps": [
-            "An answer can be an approval request: the orchestrator brings the exact command to you."
+            "Every agent ends its turn with a report in the same form, starting with how it ended."
           ]
         },
         {
-          "key": "nothing-self-declared",
-          "label": "is it really done?",
+          "key": "c-evidence",
+          "label": "2 · with evidence",
           "steps": [
-            "Nothing is taken on the agent's word: the contract is validated by rule, its verification says how the result was checked, and the orchestrator checks it before telling you."
+            "The report carries the evidence: what it read, what it ran and what it found."
           ]
         },
         {
-          "key": "memory",
-          "label": "what do we remember?",
+          "key": "c-checked",
+          "label": "3 · checked by rule",
           "steps": [
-            "The project contract: what Gaia knows about each project, kept section by section across every session and every agent."
+            "Gaia checks the report by rule before anyone relies on it."
           ]
         },
         {
-          "key": "deterministic",
-          "label": "what does a rule decide?",
+          "key": "c-updates",
+          "label": "4 · it updates the project",
           "steps": [
-            "The engine decides by rule: what each agent may read and write, whether the answer is valid, and whether an update may be saved."
+            "A report can update what Gaia knows about the project, but only the parts that agent may write."
           ]
         },
         {
-          "key": "semantic",
-          "label": "what does a model follow?",
+          "key": "c-kept",
+          "label": "5 · kept for audit",
           "steps": [
-            "The orchestrator and the agent are models working from their instructions; the engine between them is not."
-          ]
-        },
-        {
-          "key": "project-contract",
-          "label": "what may it read and write?",
-          "steps": [
-            "Each agent may read some sections of the project contract and write others; its updates are checked against that before they are saved."
-          ]
-        },
-        {
-          "key": "next-move",
-          "label": "what happens next?",
-          "steps": [
-            "The state the agent answers with decides the orchestrator's next move."
-          ]
-        },
-        {
-          "key": "the-contract",
-          "label": "what travels in a contract?",
-          "steps": [
-            "The engine injects the agent contract, the agent fills it and answers in it, the engine validates it, and the orchestrator reads it: its status, its evidence, its verification, its open gaps, its reach, an approval request and its project updates."
+            "And every report is kept, so the work can be audited later."
           ]
         }
       ],
       "sections": [
         {
-          "id": "p6-head",
+          "id": "gaia",
+          "title": "GAIA",
           "treatment": [
-            "plain"
+            "envelope"
           ],
           "order": 1,
           "span": 1,
           "columns": 1,
           "children": [
             {
-              "id": "p6-title",
-              "order": 1,
-              "kicker": "CONTRACTS",
-              "title": "Everything travels as a contract",
-              "description": [
-                "the orchestrator and the agents talk only through contracts"
-              ],
-              "detail": "The orchestrator sends the work; Gaia's engine injects an agent contract with this agent's own permissions; the agent does the work and answers in it; the engine validates it by rule, never the prose; the orchestrator keeps going from it.",
+              "id": "p6-kinds",
               "treatment": [
-                "centered"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "p6-flow",
-          "treatment": [
-            "plain"
-          ],
-          "order": 2,
-          "span": 1,
-          "columns": 3,
-          "children": [
-            {
-              "id": "p6-orch",
-              "title": "The orchestrator",
-              "subtitle": "a model · holds the conversation",
-              "treatment": [
-                "envelope"
+                "plain"
               ],
               "order": 1,
               "span": 1,
-              "columns": 1,
+              "columns": 3,
               "children": [
                 {
-                  "id": "p6-sends",
-                  "order": 1,
-                  "kicker": "SENDS",
-                  "title": "The work",
-                  "description": [
-                    "one goal, to one specialist"
-                  ],
-                  "detail": "The orchestrator dispatches one specialist for one turn, with one goal. It does not write the specialist's contract; the engine does.",
-                  "filters": [
-                    "semantic"
-                  ]
-                },
-                {
-                  "id": "p6-reads",
-                  "order": 2,
-                  "kicker": "READS",
-                  "title": "Keeps orchestrating",
-                  "description": [
-                    "reads it, checks it, decides what next"
-                  ],
-                  "detail": "The orchestrator reads the stored agent contract, not the reply text, checks what it claims against what it can open itself, and takes its next move from the state: answer you, send a verifier, show you a command, ask you, route an obstacle, or resume the turn.",
-                  "filters": [
-                    "the-contract",
-                    "semantic",
-                    "nothing-self-declared",
-                    "next-move",
-                    "the-human"
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "p6-engine",
-              "title": "Gaia's engine",
-              "subtitle": "code · decides by rule",
-              "treatment": [
-                "envelope"
-              ],
-              "order": 2,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "p6-injects",
-                  "order": 1,
-                  "kicker": "INJECTS ►",
-                  "title": "A contract for this agent",
-                  "description": [
-                    "its surface, role, what it may read and write"
-                  ],
-                  "detail": "At dispatch the engine opens the agent contract and injects it as <code># Your Contract</code>. What is adapted to the agent is its own data, not the form: its <b>surface</b>, its <b>role</b> (<code>primary</code> or <code>verifier</code>), and the project-contract sections it may read (<code>can_read</code>) and write (<code>can_write</code>), taken from its own permission rows. The form it must answer in is the same for every agent.<br><br>How the two kinds meet, in the order of one turn:<br><b>At dispatch</b> — the agent contract names the sections this agent may read and write, declared in its definition (<code>project_context_contracts</code>). It hands over the names, not the contents: the agent reads a section on demand with <code>gaia context get-contract --section</code>.<br><b>In its answer</b> — the agent contract can carry <code>update_contracts</code>, each a change to one section. An agent proposes them; it cannot write the project contract directly.<br><b>At the close</b> — SubagentStop checks each update against the agent's write permission, one by one, before it is saved; a rejected one is named, and the rest still apply.<br><br>What each project-contract section holds:<br><b>project_identity</b> — the project's name, path, remote and type.<br><b>stack</b> — its languages and tools.<br><b>environment</b> — where it runs.<br><b>git</b> — its repository conventions.<br><b>architecture_overview</b> — how its parts fit.<br><b>application_services</b> — its services (developer writes it).<br><b>infrastructure</b>, <b>infrastructure_topology</b> — its cloud (platform-architect writes them).<br><b>gitops_configuration</b> — its desired cluster state (gitops-operator).<br><b>cluster_details</b> — the live cluster (cloud-troubleshooter).<br><b>workspace_repos</b> — the repositories of the workspace.<br><b>operational_guidelines</b>, <b>releases</b> — read for planning.<br><br>Sources: <code>tools/context/context_provider.py:191</code> (<code>build_kernel_sections</code>), <code>:244-249</code>; <code>hooks/modules/context/kernel_builder.py:193</code> (<code>build_dispatch_kernel</code>), <code>:214-215</code>, <code>:243-244</code>; <code>agents/*.md</code> (<code>project_context_contracts</code>); <code>bin/cli/context.py:366</code>; <code>hooks/subagent_stop.py:176</code>, <code>hooks/modules/context/context_writer.py:376</code> (<code>process_update_contracts</code>), <code>:127</code> (<code>validate_permission</code>).",
-                  "filters": [
-                    "the-contract",
-                    "deterministic",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "p6-validates",
-                  "order": 2,
-                  "kicker": "◄ VALIDATES",
-                  "title": "By rule, not the prose",
-                  "description": [
-                    "the reply text is never read"
-                  ],
-                  "detail": "At the close, <b>SubagentStop</b> finds the turn's stored agent contract and validates it by rule; nothing in the reply text is read. A missing or unfinalized contract sends the turn back (<code>exit 2</code>). Only COMPLETE is final.<br><br>What each key of the agent contract holds:<br><b>status</b> — how the turn ended, one of six states.<br><b>evidence</b> — what it saw (files, searches) and what it did (commands, outputs).<br><b>verification</b> — how the result was checked, and whether it passed.<br><b>open gaps</b> — what it could not do or check.<br><b>reach</b> — what it touched beyond the files it was sent to.<br><b>approval</b> — the exact command it asks you to approve.<br><b>project updates</b> — changes it proposes to the project contract.<br><br>Sources: <code>hooks/adapters/claude_code.py:905-907</code>; <code>validator.py:908</code>.",
-                  "filters": [
-                    "the-contract",
-                    "deterministic",
-                    "nothing-self-declared"
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "p6-agent",
-              "title": "The agent",
-              "subtitle": "a model · one specialist",
-              "treatment": [
-                "envelope"
-              ],
-              "order": 3,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "p6-receives",
-                  "order": 1,
-                  "kicker": "RECEIVES",
-                  "title": "Does the work",
-                  "description": [
-                    "its contract open from birth"
-                  ],
-                  "detail": "The specialist is born with its agent contract already open, named <code>&lt;agent_id&gt;.&lt;token&gt;</code>, and adopts it with <code>gaia contract set/add/fill --draft-id</code>. It pulls the project-contract sections it needs, on demand, and writes its evidence as it works.",
-                  "filters": [
-                    "the-contract",
-                    "semantic"
-                  ]
-                },
-                {
-                  "id": "p6-answers",
-                  "order": 2,
-                  "kicker": "◄ ANSWERS",
-                  "title": "In a structured form",
-                  "description": [
-                    "the agent contract, filled as it goes"
-                  ],
-                  "detail": "The answer is the stored agent contract, closed with <code>gaia contract finalize</code>; the final message only signals that the turn ended. Its state decides what the orchestrator does next, and an <code>APPROVAL_REQUEST</code> carries the exact command for you.",
-                  "filters": [
-                    "the-contract",
-                    "semantic",
-                    "next-move",
-                    "the-human"
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "p6-kinds",
-          "title": "The contracts",
-          "subtitle": "one for each turn · one for each project",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 3,
-          "span": 1,
-          "columns": 2,
-          "children": [
-            {
-              "id": "p6-agent-contract",
-              "title": "Agent contract",
-              "treatment": [
-                "envelope"
-              ],
-              "order": 1,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "ac-status",
-                  "type": "rail",
-                  "order": 2,
-                  "indent": 1,
-                  "title": "status",
-                  "filters": [
-                    "the-contract",
-                    "next-move"
-                  ]
-                },
-                {
-                  "id": "ac-states",
+                  "id": "p6-agent-contract",
+                  "title": "Agent contract",
+                  "subtitle": "one per turn",
                   "treatment": [
-                    "plain"
+                    "envelope",
+                    "compact"
                   ],
-                  "order": 3,
+                  "order": 1,
                   "span": 1,
                   "columns": 1,
                   "children": [
                     {
-                      "id": "ac-complete",
+                      "id": "ac-status",
                       "type": "rail",
                       "order": 1,
-                      "indent": 2,
-                      "title": "COMPLETE",
+                      "indent": 1,
+                      "title": "how it ended",
                       "filters": [
-                        "the-contract",
-                        "next-move"
+                        "c-reports"
+                      ]
+                    },
+                    {
+                      "id": "ac-complete",
+                      "type": "rail",
+                      "order": 2,
+                      "indent": 2,
+                      "title": "done",
+                      "filters": [
+                        "c-reports"
                       ]
                     },
                     {
                       "id": "ac-needs-verification",
                       "type": "rail",
-                      "order": 2,
+                      "order": 3,
                       "indent": 2,
-                      "title": "NEEDS_VERIFICATION",
+                      "title": "needs a check",
                       "filters": [
-                        "the-contract",
-                        "next-move"
+                        "c-reports"
                       ]
                     },
                     {
                       "id": "ac-approval-request",
                       "type": "rail",
-                      "order": 3,
+                      "order": 4,
                       "indent": 2,
-                      "title": "APPROVAL_REQUEST",
+                      "title": "needs your approval",
                       "filters": [
-                        "the-contract",
-                        "next-move"
+                        "c-reports"
                       ]
                     },
                     {
                       "id": "ac-needs-input",
                       "type": "rail",
-                      "order": 4,
+                      "order": 5,
                       "indent": 2,
-                      "title": "NEEDS_INPUT",
+                      "title": "needs an answer",
                       "filters": [
-                        "the-contract",
-                        "next-move"
+                        "c-reports"
                       ]
                     },
                     {
                       "id": "ac-blocked",
                       "type": "rail",
-                      "order": 5,
+                      "order": 6,
                       "indent": 2,
-                      "title": "BLOCKED",
+                      "title": "blocked",
                       "filters": [
-                        "the-contract",
-                        "next-move"
+                        "c-reports"
                       ]
                     },
                     {
                       "id": "ac-in-progress",
                       "type": "rail",
-                      "order": 6,
+                      "order": 7,
                       "indent": 2,
-                      "title": "IN_PROGRESS",
+                      "title": "still working",
                       "filters": [
-                        "the-contract",
-                        "next-move"
+                        "c-reports"
                       ]
-                    }
-                  ]
-                },
-                {
-                  "id": "ac-evidence",
-                  "type": "rail",
-                  "order": 4,
-                  "indent": 1,
-                  "title": "evidence",
-                  "filters": [
-                    "the-contract"
-                  ]
-                },
-                {
-                  "id": "ac-parts",
-                  "treatment": [
-                    "plain"
-                  ],
-                  "order": 5,
-                  "span": 1,
-                  "columns": 1,
-                  "children": [
+                    },
+                    {
+                      "id": "ac-evidence",
+                      "type": "rail",
+                      "order": 8,
+                      "indent": 1,
+                      "title": "evidence",
+                      "filters": [
+                        "c-evidence"
+                      ]
+                    },
                     {
                       "id": "ac-files",
                       "type": "rail",
-                      "order": 1,
+                      "order": 9,
                       "indent": 2,
-                      "title": "files_checked",
+                      "title": "files it read",
                       "filters": [
-                        "the-contract"
+                        "c-evidence"
                       ]
                     },
                     {
                       "id": "ac-patterns",
                       "type": "rail",
-                      "order": 2,
+                      "order": 10,
                       "indent": 2,
-                      "title": "patterns_checked",
+                      "title": "what it searched",
                       "filters": [
-                        "the-contract"
+                        "c-evidence"
                       ]
                     },
                     {
                       "id": "ac-commands",
                       "type": "rail",
-                      "order": 3,
+                      "order": 11,
                       "indent": 2,
-                      "title": "commands_run",
+                      "title": "commands it ran",
                       "filters": [
-                        "the-contract"
+                        "c-evidence"
                       ]
                     },
                     {
                       "id": "ac-key-outputs",
                       "type": "rail",
-                      "order": 4,
+                      "order": 12,
                       "indent": 2,
-                      "title": "key_outputs",
+                      "title": "what it found",
                       "filters": [
-                        "the-contract"
+                        "c-evidence"
                       ]
                     },
                     {
                       "id": "ac-verbatim",
                       "type": "rail",
-                      "order": 5,
+                      "order": 13,
                       "indent": 2,
-                      "title": "verbatim_outputs",
+                      "title": "exact output",
                       "filters": [
-                        "the-contract"
+                        "c-evidence"
+                      ]
+                    },
+                    {
+                      "id": "ac-verification",
+                      "type": "rail",
+                      "order": 14,
+                      "indent": 1,
+                      "title": "how it was checked",
+                      "filters": [
+                        "c-checked"
+                      ]
+                    },
+                    {
+                      "id": "ac-gaps",
+                      "type": "rail",
+                      "order": 15,
+                      "indent": 1,
+                      "title": "what is still open",
+                      "filters": [
+                        "c-kept"
+                      ]
+                    },
+                    {
+                      "id": "ac-reach",
+                      "type": "rail",
+                      "order": 16,
+                      "indent": 1,
+                      "title": "what else it touched",
+                      "filters": [
+                        "c-kept"
+                      ]
+                    },
+                    {
+                      "id": "ac-approval",
+                      "type": "rail",
+                      "order": 17,
+                      "indent": 1,
+                      "title": "the command to approve",
+                      "filters": [
+                        "c-kept"
+                      ]
+                    },
+                    {
+                      "id": "ac-updates",
+                      "type": "rail",
+                      "order": 18,
+                      "indent": 1,
+                      "title": "updates to the project",
+                      "filters": [
+                        "c-updates"
                       ]
                     }
-                  ]
+                  ],
+                  "tokens": {
+                    "row": {
+                      "cell_h": 74
+                    }
+                  },
+                  "css_vars": {
+                    "--cell-h": "74px"
+                  }
                 },
                 {
-                  "id": "ac-verification",
-                  "type": "rail",
-                  "order": 6,
-                  "indent": 1,
-                  "title": "verification",
-                  "filters": [
-                    "the-contract",
-                    "nothing-self-declared"
-                  ]
+                  "id": "p6-project",
+                  "title": "Project contract",
+                  "subtitle": "one per project",
+                  "treatment": [
+                    "envelope",
+                    "compact"
+                  ],
+                  "order": 2,
+                  "span": 1,
+                  "columns": 1,
+                  "children": [
+                    {
+                      "id": "pc-identity",
+                      "type": "rail",
+                      "order": 2,
+                      "indent": 1,
+                      "title": "name and place",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-stack",
+                      "type": "rail",
+                      "order": 3,
+                      "indent": 1,
+                      "title": "languages and tools",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-env",
+                      "type": "rail",
+                      "order": 4,
+                      "indent": 1,
+                      "title": "where it runs",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-git",
+                      "type": "rail",
+                      "order": 5,
+                      "indent": 1,
+                      "title": "git conventions",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-arch",
+                      "type": "rail",
+                      "order": 6,
+                      "indent": 1,
+                      "title": "how it fits together",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-workspace",
+                      "type": "rail",
+                      "order": 7,
+                      "indent": 1,
+                      "title": "its repositories",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-services",
+                      "type": "rail",
+                      "order": 8,
+                      "indent": 1,
+                      "title": "its services",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-infra",
+                      "type": "rail",
+                      "order": 9,
+                      "indent": 1,
+                      "title": "its cloud",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-topology",
+                      "type": "rail",
+                      "order": 10,
+                      "indent": 1,
+                      "title": "network and layout",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-gitops",
+                      "type": "rail",
+                      "order": 11,
+                      "indent": 1,
+                      "title": "what the cluster should run",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-cluster",
+                      "type": "rail",
+                      "order": 12,
+                      "indent": 1,
+                      "title": "the live cluster",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-guidelines",
+                      "type": "rail",
+                      "order": 13,
+                      "indent": 1,
+                      "title": "how to operate it",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-releases",
+                      "type": "rail",
+                      "order": 14,
+                      "indent": 1,
+                      "title": "its releases",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    }
+                  ],
+                  "tokens": {
+                    "row": {
+                      "cell_h": 74
+                    }
+                  },
+                  "css_vars": {
+                    "--cell-h": "74px"
+                  }
                 },
                 {
-                  "id": "ac-gaps",
-                  "type": "rail",
-                  "order": 7,
-                  "indent": 1,
-                  "title": "open gaps",
-                  "filters": [
-                    "the-contract"
-                  ]
-                },
-                {
-                  "id": "ac-reach",
-                  "type": "rail",
-                  "order": 8,
-                  "indent": 1,
-                  "title": "reach",
-                  "filters": [
-                    "the-contract"
-                  ]
-                },
-                {
-                  "id": "ac-approval",
-                  "type": "rail",
-                  "order": 9,
-                  "indent": 1,
-                  "title": "approval",
-                  "filters": [
-                    "the-contract",
-                    "the-human"
-                  ]
-                },
-                {
-                  "id": "ac-updates",
-                  "type": "rail",
-                  "order": 10,
-                  "indent": 1,
-                  "title": "project updates",
-                  "filters": [
-                    "the-contract",
-                    "project-contract"
-                  ]
+                  "id": "p6-users",
+                  "title": "Who uses it",
+                  "subtitle": "four readers, in order",
+                  "treatment": [
+                    "envelope"
+                  ],
+                  "tokens": {
+                    "row": {
+                      "cell_h": 160
+                    }
+                  },
+                  "order": 3,
+                  "span": 1,
+                  "columns": 1,
+                  "children": [
+                    {
+                      "id": "p6-validates",
+                      "order": 1,
+                      "kicker": "VALIDATION",
+                      "title": "1 · The engine checks it",
+                      "description": [
+                        "by rule, never the reply text"
+                      ],
+                      "detail": "When the turn ends, a hook (SubagentStop) reads the stored contract and checks it by rule. A missing or unfinished one sends the specialist back, and only 'done' is final. Real field names: status, evidence (files_checked, patterns_checked, commands_run, key_outputs, verbatim_outputs), verification, open gaps, reach (cross_layer_impacts), approval, update_contracts.",
+                      "filters": [
+                        "c-checked"
+                      ]
+                    },
+                    {
+                      "id": "p6-reads",
+                      "order": 2,
+                      "title": "2 · The orchestrator reads it",
+                      "description": [
+                        "and decides the next step"
+                      ],
+                      "detail": "It reads the stored contract, not the message, checks what it claims against what it can open itself, and takes the next step from the status: tell you, send a verifier, show you a command, ask you, or resume the turn.",
+                      "filters": [
+                        "c-reports"
+                      ]
+                    },
+                    {
+                      "id": "p6-verifier",
+                      "order": 3,
+                      "title": "3 · The verifier tests it",
+                      "description": [
+                        "from the evidence alone"
+                      ],
+                      "detail": "A separate agent re-runs the checks from the evidence, without the context of the agent that did the work.",
+                      "filters": [
+                        "c-evidence"
+                      ]
+                    },
+                    {
+                      "id": "p6-kept",
+                      "order": 4,
+                      "title": "4 · It is kept",
+                      "description": [
+                        "for the audit trail"
+                      ],
+                      "detail": "Every contract is stored and can be searched later. Each update to the project was checked against what that agent may write before it was saved. Real section names: project_identity, stack, environment, git, architecture_overview, workspace_repos, application_services, infrastructure, infrastructure_topology, gitops_configuration, cluster_details, operational_guidelines, releases.",
+                      "filters": [
+                        "c-kept"
+                      ]
+                    }
+                  ],
+                  "css_vars": {
+                    "--cell-h": "160px"
+                  }
                 }
               ]
             },
             {
-              "id": "p6-project",
-              "title": "Project contract",
+              "id": "prompt",
               "treatment": [
-                "envelope"
+                "plain",
+                "compact"
               ],
+              "tokens": {
+                "row": {
+                  "cell_h": 60
+                }
+              },
               "order": 2,
               "span": 1,
               "columns": 1,
               "children": [
                 {
-                  "id": "pc-identity",
-                  "type": "rail",
-                  "order": 2,
-                  "indent": 1,
-                  "title": "project_identity",
+                  "id": "p6-prompt",
+                  "order": 1,
+                  "variant": "accent",
+                  "kicker": "PROMPT",
+                  "title": "How do your agents report back?",
                   "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-stack",
-                  "type": "rail",
-                  "order": 3,
-                  "indent": 1,
-                  "title": "stack",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-env",
-                  "type": "rail",
-                  "order": 4,
-                  "indent": 1,
-                  "title": "environment",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-git",
-                  "type": "rail",
-                  "order": 5,
-                  "indent": 1,
-                  "title": "git",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-arch",
-                  "type": "rail",
-                  "order": 6,
-                  "indent": 1,
-                  "title": "architecture_overview",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-workspace",
-                  "type": "rail",
-                  "order": 7,
-                  "indent": 1,
-                  "title": "workspace_repos",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-services",
-                  "type": "rail",
-                  "order": 8,
-                  "indent": 1,
-                  "title": "application_services",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-infra",
-                  "type": "rail",
-                  "order": 9,
-                  "indent": 1,
-                  "title": "infrastructure",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-topology",
-                  "type": "rail",
-                  "order": 10,
-                  "indent": 1,
-                  "title": "infrastructure_topology",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-gitops",
-                  "type": "rail",
-                  "order": 11,
-                  "indent": 1,
-                  "title": "gitops_configuration",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-cluster",
-                  "type": "rail",
-                  "order": 12,
-                  "indent": 1,
-                  "title": "cluster_details",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-guidelines",
-                  "type": "rail",
-                  "order": 13,
-                  "indent": 1,
-                  "title": "operational_guidelines",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-releases",
-                  "type": "rail",
-                  "order": 14,
-                  "indent": 1,
-                  "title": "releases",
-                  "filters": [
-                    "memory",
-                    "project-contract"
+                    "c-reports"
                   ]
                 }
-              ]
+              ],
+              "css_vars": {
+                "--cell-h": "60px"
+              }
             }
           ]
         }
       ],
-      "name": "6 · Contracts",
+      "name": "5 · Contracts",
       "order": 4
     },
     {
@@ -3330,7 +3230,7 @@ window.__DOC__ = {
           ]
         }
       ],
-      "name": "7 · Install it, ask it",
+      "name": "6 · Install it, ask it",
       "order": 5
     },
     {

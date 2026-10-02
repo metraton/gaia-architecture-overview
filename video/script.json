@@ -114,26 +114,16 @@
       "page": "p6-contracts",
       "audio": "audio/4.wav",
       "sentences": [
-        { "say": "Everything travels as a contract.", "show": ["p6-head"] },
-        { "say": "The orchestrator sends the work.", "show": ["p6-flow", "p6-orch", "p6-sends"] },
-        { "say": "Gaia's engine hands the specialist a contract made for it: what it's for, and which parts of the project it may read and write.",
-          "show": ["p6-engine", "p6-injects"],
-          "cues": [
-            { "at": "specialist", "show": ["p6-agent", "p6-receives"] },
-            { "at": "contract", "chip": "the-contract" },
-            { "at": "which", "chip": "project-contract" },
-            { "at": "write", "chip": "all" }
-          ] },
-        { "say": "The specialist answers in that same form: its status, its evidence, what's still open.", "show": ["p6-answers"] },
-        { "say": "The engine checks it by rule, and only then does the orchestrator read it and decide what's next.", "chip": "deterministic",
-          "cues": [{ "at": "next", "chip": "next-move" }] },
+        { "say": "Everything travels as a contract." },
+        { "say": "The orchestrator sends the work." },
+        { "say": "Gaia's engine hands the specialist a contract made for it: what it's for, and which parts of the project it may read and write." },
+        { "say": "The specialist answers in that same form: its status, its evidence, what's still open." },
+        { "say": "The engine checks it by rule, and only then does the orchestrator read it and decide what's next." },
         { "say": "There are two kinds: the agent contract, one per turn, and the project contract, one per project.",
           "show": ["p6-kinds"], "chip": "all",
           "cues": [
             { "at": "agent", "show": ["p6-agent-contract"] },
-            { "at": "agent", "chip": "the-contract" },
-            { "at": "project", "show": ["p6-project"] },
-            { "at": "project", "chip": "project-contract" }
+            { "at": "project", "show": ["p6-project"] }
           ] }
       ]
     },
