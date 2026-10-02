@@ -601,699 +601,269 @@
     {
       "page": "p6-contracts",
       "audio": "audio/4.wav",
-      "duration": 32,
-      "method": "words",
+      "duration": 125.46,
+      "method": "sentences",
       "speech": [
-        0.325,
-        31.75
+        0.217,
+        124.935
       ],
-      "words": 99,
       "sentences": [
         {
-          "text": "Everything travels as a contract.",
-          "start": 0.325,
-          "end": 2.45,
-          "words": [
-            {
-              "word": "Everything",
-              "start": 0.325
-            },
-            {
-              "word": "travels",
-              "start": 0.787
-            },
-            {
-              "word": "as",
-              "start": 1.35
-            },
-            {
-              "word": "a",
-              "start": 1.462
-            },
-            {
-              "word": "contract",
-              "start": 1.525
-            }
-          ]
+          "text": "How do your agents report back?",
+          "start": 0.217,
+          "end": 1.949
         },
         {
-          "text": "The orchestrator sends the work.",
-          "start": 3,
-          "end": 4.925,
-          "words": [
-            {
-              "word": "The",
-              "start": 3
-            },
-            {
-              "word": "orchestrator",
-              "start": 3.138
-            },
-            {
-              "word": "sends",
-              "start": 3.913
-            },
-            {
-              "word": "the",
-              "start": 4.263
-            },
-            {
-              "word": "work",
-              "start": 4.35
-            }
-          ]
+          "text": "You have seen it on every page: each turn ends with a report. Gaia calls it a contract.",
+          "start": 3.141,
+          "end": 9.448
         },
         {
-          "text": "Gaia's engine hands the specialist a contract made for it: what it's for, and which parts of the project it may read and write.",
-          "start": 5.575,
-          "end": 12.975,
-          "words": [
-            {
-              "word": "Gaia's",
-              "start": 5.575
-            },
-            {
-              "word": "engine",
-              "start": 5.963
-            },
-            {
-              "word": "hands",
-              "start": 6.375
-            },
-            {
-              "word": "the",
-              "start": 6.688
-            },
-            {
-              "word": "specialist",
-              "start": 6.787
-            },
-            {
-              "word": "a",
-              "start": 7.412
-            },
-            {
-              "word": "contract",
-              "start": 7.5
-            },
-            {
-              "word": "made",
-              "start": 8.05
-            },
-            {
-              "word": "for",
-              "start": 8.3
-            },
-            {
-              "word": "it",
-              "start": 8.525
-            },
-            {
-              "word": "what",
-              "start": 9.05
-            },
-            {
-              "word": "it's",
-              "start": 9.213
-            },
-            {
-              "word": "for",
-              "start": 9.413
-            },
-            {
-              "word": "and",
-              "start": 10.1
-            },
-            {
-              "word": "which",
-              "start": 10.213
-            },
-            {
-              "word": "parts",
-              "start": 10.413
-            },
-            {
-              "word": "of",
-              "start": 10.738
-            },
-            {
-              "word": "the",
-              "start": 10.812
-            },
-            {
-              "word": "project",
-              "start": 10.913
-            },
-            {
-              "word": "it",
-              "start": 11.413
-            },
-            {
-              "word": "may",
-              "start": 11.525
-            },
-            {
-              "word": "read",
-              "start": 11.775
-            },
-            {
-              "word": "and",
-              "start": 12.2
-            },
-            {
-              "word": "write",
-              "start": 12.338
-            }
-          ]
+          "text": "It is a form, the same for every agent, so the next one can read it without guessing.",
+          "start": 10.672,
+          "end": 15.46
         },
         {
-          "text": "The specialist answers in that same form: its status, its evidence, what's still open.",
-          "start": 13.55,
-          "end": 18.8,
-          "words": [
-            {
-              "word": "The",
-              "start": 13.55
-            },
-            {
-              "word": "specialist",
-              "start": 13.663
-            },
-            {
-              "word": "answers",
-              "start": 14.288
-            },
-            {
-              "word": "in",
-              "start": 14.713
-            },
-            {
-              "word": "that",
-              "start": 14.788
-            },
-            {
-              "word": "same",
-              "start": 15.025
-            },
-            {
-              "word": "form",
-              "start": 15.313
-            },
-            {
-              "word": "its",
-              "start": 16.088
-            },
-            {
-              "word": "status",
-              "start": 16.288
-            },
-            {
-              "word": "its",
-              "start": 16.9
-            },
-            {
-              "word": "evidence",
-              "start": 17.113
-            },
-            {
-              "word": "what's",
-              "start": 17.638
-            },
-            {
-              "word": "still",
-              "start": 17.8
-            },
-            {
-              "word": "open",
-              "start": 18.075
-            }
-          ]
+          "text": "The first thing the form says is how the turn ended:",
+          "start": 17.636,
+          "end": 20.545
         },
         {
-          "text": "The engine checks it by rule, and only then does the orchestrator read it and decide what's next.",
-          "start": 19.35,
-          "end": 25,
-          "words": [
-            {
-              "word": "The",
-              "start": 19.35
-            },
-            {
-              "word": "engine",
-              "start": 19.488
-            },
-            {
-              "word": "checks",
-              "start": 19.913
-            },
-            {
-              "word": "it",
-              "start": 20.225
-            },
-            {
-              "word": "by",
-              "start": 20.35
-            },
-            {
-              "word": "rule",
-              "start": 20.562
-            },
-            {
-              "word": "and",
-              "start": 21.325
-            },
-            {
-              "word": "only",
-              "start": 21.45
-            },
-            {
-              "word": "then",
-              "start": 21.75
-            },
-            {
-              "word": "does",
-              "start": 22
-            },
-            {
-              "word": "the",
-              "start": 22.188
-            },
-            {
-              "word": "orchestrator",
-              "start": 22.312
-            },
-            {
-              "word": "read",
-              "start": 23.012
-            },
-            {
-              "word": "it",
-              "start": 23.275
-            },
-            {
-              "word": "and",
-              "start": 23.5
-            },
-            {
-              "word": "decide",
-              "start": 23.613
-            },
-            {
-              "word": "what's",
-              "start": 24.075
-            },
-            {
-              "word": "next",
-              "start": 24.3
-            }
-          ]
+          "text": "done, needs a check, needs your approval, needs an answer, blocked, or still working.",
+          "start": 21.394,
+          "end": 27.215
         },
         {
-          "text": "There are two kinds: the agent contract, one per turn, and the project contract, one per project.",
-          "start": 25.6,
-          "end": 31.75,
-          "words": [
-            {
-              "word": "There",
-              "start": 25.6
-            },
-            {
-              "word": "are",
-              "start": 25.712
-            },
-            {
-              "word": "two",
-              "start": 25.837
-            },
-            {
-              "word": "kinds",
-              "start": 26.062
-            },
-            {
-              "word": "the",
-              "start": 26.95
-            },
-            {
-              "word": "agent",
-              "start": 27.112
-            },
-            {
-              "word": "contract",
-              "start": 27.45
-            },
-            {
-              "word": "one",
-              "start": 28.125
-            },
-            {
-              "word": "per",
-              "start": 28.35
-            },
-            {
-              "word": "turn",
-              "start": 28.562
-            },
-            {
-              "word": "and",
-              "start": 28.962
-            },
-            {
-              "word": "the",
-              "start": 29.062
-            },
-            {
-              "word": "project",
-              "start": 29.15
-            },
-            {
-              "word": "contract",
-              "start": 29.575
-            },
-            {
-              "word": "one",
-              "start": 30.462
-            },
-            {
-              "word": "per",
-              "start": 30.7
-            },
-            {
-              "word": "project",
-              "start": 30.85
-            }
-          ]
+          "text": "That one word tells the orchestrator what to do next.",
+          "start": 28.766,
+          "end": 31.81
+        },
+        {
+          "text": "Then comes the evidence.",
+          "start": 33.894,
+          "end": 35.159
+        },
+        {
+          "text": "The files it read, what it searched, the commands it ran,",
+          "start": 36.441,
+          "end": 40.434
+        },
+        {
+          "text": "what it found, and the exact output, word for word.",
+          "start": 41.219,
+          "end": 44.287
+        },
+        {
+          "text": "So every claim comes with its proof.",
+          "start": 45.449,
+          "end": 47.524
+        },
+        {
+          "text": "The form also says how the work was checked,",
+          "start": 49.784,
+          "end": 52.078
+        },
+        {
+          "text": "what is still open, what else it touched, and the exact command, if it needs your approval.",
+          "start": 52.858,
+          "end": 58.139
+        },
+        {
+          "text": "Before anyone relies on it, Gaia's engine checks the form by rule. A missing or unfinished one sends the agent back.",
+          "start": 59.551,
+          "end": 66.934
+        },
+        {
+          "text": "Then the orchestrator reads it, and decides the next step.",
+          "start": 68.03,
+          "end": 71.292
+        },
+        {
+          "text": "And when the work needs proof, a verifier, a different agent, tests it from the evidence alone.",
+          "start": 72.505,
+          "end": 78.349
+        },
+        {
+          "text": "A report can also update what Gaia knows about the project.",
+          "start": 80.558,
+          "end": 83.759
+        },
+        {
+          "text": "That lives in a second contract: one per workspace, organized in sections.",
+          "start": 84.833,
+          "end": 89.35
+        },
+        {
+          "text": "Its identity: the name, the path, the repository, the language.",
+          "start": 90.434,
+          "end": 95.276
+        },
+        {
+          "text": "Its stack: the languages, the frameworks, the build tools.",
+          "start": 96.023,
+          "end": 99.416
+        },
+        {
+          "text": "Its git setup, and ten more sections like these.",
+          "start": 100.267,
+          "end": 103.59
+        },
+        {
+          "text": "Each agent may only write the sections that belong to its field.",
+          "start": 104.856,
+          "end": 108.248
+        },
+        {
+          "text": "And every contract is kept.",
+          "start": 110.338,
+          "end": 111.706
+        },
+        {
+          "text": "Months later, you can still see who did what, how it was checked, and what it was based on.",
+          "start": 112.873,
+          "end": 117.804
+        },
+        {
+          "text": "That is how Gaia works inside.",
+          "start": 120.241,
+          "end": 122.319
+        },
+        {
+          "text": "So, how do you start?",
+          "start": 123.429,
+          "end": 124.935
         }
       ]
     },
     {
       "page": "p9-back-to-the-map",
       "audio": "audio/6.wav",
-      "duration": 25.3,
-      "method": "words",
+      "duration": 114.9,
+      "method": "sentences",
       "speech": [
-        0.35,
-        25.05
+        0.217,
+        114.38
       ],
-      "words": 75,
       "sentences": [
         {
           "text": "Starting is simple.",
-          "start": 0.35,
-          "end": 1.625,
-          "words": [
-            {
-              "word": "Starting",
-              "start": 0.35
-            },
-            {
-              "word": "is",
-              "start": 0.775
-            },
-            {
-              "word": "simple",
-              "start": 0.912
-            }
-          ]
+          "start": 0.217,
+          "end": 1.823
         },
         {
-          "text": "You install it: one command.",
-          "start": 2.225,
-          "end": 4.125,
-          "words": [
-            {
-              "word": "You",
-              "start": 2.225
-            },
-            {
-              "word": "install",
-              "start": 2.375
-            },
-            {
-              "word": "it",
-              "start": 2.875
-            },
-            {
-              "word": "one",
-              "start": 3.1
-            },
-            {
-              "word": "command",
-              "start": 3.35
-            }
-          ]
+          "text": "In Claude Code, Gaia is one plugin: you add the marketplace, and you install it.",
+          "start": 3.638,
+          "end": 8.941
         },
         {
-          "text": "You ask it what it is.",
-          "start": 4.75,
-          "end": 6.225,
-          "words": [
-            {
-              "word": "You",
-              "start": 4.75
-            },
-            {
-              "word": "ask",
-              "start": 4.938
-            },
-            {
-              "word": "it",
-              "start": 5.275
-            },
-            {
-              "word": "what",
-              "start": 5.425
-            },
-            {
-              "word": "it",
-              "start": 5.562
-            },
-            {
-              "word": "is",
-              "start": 5.663
-            }
-          ]
+          "text": "The first time, you reload the plugins, and that's it.",
+          "start": 10.325,
+          "end": 13.189
         },
         {
-          "text": "You point it at your repos.",
-          "start": 6.825,
-          "end": 8.625,
-          "words": [
-            {
-              "word": "You",
-              "start": 6.825
-            },
-            {
-              "word": "point",
-              "start": 6.963
-            },
-            {
-              "word": "it",
-              "start": 7.3
-            },
-            {
-              "word": "at",
-              "start": 7.45
-            },
-            {
-              "word": "your",
-              "start": 7.575
-            },
-            {
-              "word": "repos",
-              "start": 7.75
-            }
-          ]
+          "text": "If you prefer npm, or you use OpenCode, you install the package and connect it to your workspace.",
+          "start": 14.351,
+          "end": 20.298
         },
         {
-          "text": "You describe the problem.",
-          "start": 9.25,
-          "end": 10.8,
-          "words": [
-            {
-              "word": "You",
-              "start": 9.25
-            },
-            {
-              "word": "describe",
-              "start": 9.375
-            },
-            {
-              "word": "the",
-              "start": 9.888
-            },
-            {
-              "word": "problem",
-              "start": 9.975
-            }
-          ]
+          "text": "And if you ever want to remove it, there is one command for that too.",
+          "start": 21.517,
+          "end": 25.31
         },
         {
-          "text": "And then, you work agentically.",
-          "start": 11.35,
-          "end": 13.25,
-          "words": [
-            {
-              "word": "And",
-              "start": 11.35
-            },
-            {
-              "word": "then",
-              "start": 11.5
-            },
-            {
-              "word": "you",
-              "start": 11.85
-            },
-            {
-              "word": "work",
-              "start": 12
-            },
-            {
-              "word": "agentically",
-              "start": 12.263
-            }
-          ]
+          "text": "Then you just ask, in your own words: what is Gaia?",
+          "start": 27.342,
+          "end": 30.466
         },
         {
-          "text": "It plans, delegates, and asks before it changes anything.",
-          "start": 13.825,
-          "end": 17.6,
-          "words": [
-            {
-              "word": "It",
-              "start": 13.825
-            },
-            {
-              "word": "plans",
-              "start": 13.95
-            },
-            {
-              "word": "delegates",
-              "start": 14.475
-            },
-            {
-              "word": "and",
-              "start": 15.3
-            },
-            {
-              "word": "asks",
-              "start": 15.475
-            },
-            {
-              "word": "before",
-              "start": 15.875
-            },
-            {
-              "word": "it",
-              "start": 16.212
-            },
-            {
-              "word": "changes",
-              "start": 16.312
-            },
-            {
-              "word": "anything",
-              "start": 16.762
-            }
-          ]
+          "text": "It explains itself, with everything you just saw.",
+          "start": 31.639,
+          "end": 34.665
         },
         {
-          "text": "Everything it learns stays in one database, on your machine.",
-          "start": 18.175,
-          "end": 21.85,
-          "words": [
-            {
-              "word": "Everything",
-              "start": 18.175
-            },
-            {
-              "word": "it",
-              "start": 18.588
-            },
-            {
-              "word": "learns",
-              "start": 18.675
-            },
-            {
-              "word": "stays",
-              "start": 19.025
-            },
-            {
-              "word": "in",
-              "start": 19.413
-            },
-            {
-              "word": "one",
-              "start": 19.55
-            },
-            {
-              "word": "database",
-              "start": 19.775
-            },
-            {
-              "word": "on",
-              "start": 20.7
-            },
-            {
-              "word": "your",
-              "start": 20.888
-            },
-            {
-              "word": "machine",
-              "start": 20.988
-            }
-          ]
+          "text": "You don't have to study it first. You ask it.",
+          "start": 35.842,
+          "end": 39.187
         },
         {
-          "text": "So: what is Gaia, and what can you do for me?",
-          "start": 22.475,
-          "end": 25.05,
-          "words": [
-            {
-              "word": "So",
-              "start": 22.475
-            },
-            {
-              "word": "what",
-              "start": 22.725
-            },
-            {
-              "word": "is",
-              "start": 22.875
-            },
-            {
-              "word": "Gaia",
-              "start": 23.038
-            },
-            {
-              "word": "and",
-              "start": 23.675
-            },
-            {
-              "word": "what",
-              "start": 23.8
-            },
-            {
-              "word": "can",
-              "start": 23.95
-            },
-            {
-              "word": "you",
-              "start": 24.075
-            },
-            {
-              "word": "do",
-              "start": 24.2
-            },
-            {
-              "word": "for",
-              "start": 24.388
-            },
-            {
-              "word": "me",
-              "start": 24.525
-            }
-          ]
+          "text": "From there, it grows with you.",
+          "start": 41.147,
+          "end": 42.9
+        },
+        {
+          "text": "On the first session, it maps your repositories by itself.",
+          "start": 44.118,
+          "end": 47.207
+        },
+        {
+          "text": "Then you state a problem, and it finds the project and the right specialist.",
+          "start": 48.539,
+          "end": 52.415
+        },
+        {
+          "text": "And for bigger work, it plans, delegates, and asks before it changes anything.",
+          "start": 53.872,
+          "end": 59.054
+        },
+        {
+          "text": "And you keep talking to Claude Code, the way you already do.",
+          "start": 60.573,
+          "end": 63.296
+        },
+        {
+          "text": "And all of it stays yours.",
+          "start": 65.657,
+          "end": 67.446
+        },
+        {
+          "text": "Everything Gaia learns lives in one database, on your machine, and uninstalling never deletes it.",
+          "start": 68.899,
+          "end": 74.852
+        },
+        {
+          "text": "The code is open source, so your agents and your skills are yours too.",
+          "start": 76.213,
+          "end": 80.379
+        },
+        {
+          "text": "It runs in Claude Code and OpenCode, and one install reaches all your projects.",
+          "start": 81.803,
+          "end": 86.806
+        },
+        {
+          "text": "And the questions people ask first have short answers.",
+          "start": 88.912,
+          "end": 91.55
+        },
+        {
+          "text": "Only one project? One or many.",
+          "start": 92.617,
+          "end": 95.406
+        },
+        {
+          "text": "How does it know my repos? One scan maps them.",
+          "start": 96.23,
+          "end": 99.477
+        },
+        {
+          "text": "Is it safe? Reads run, and changes wait for you.",
+          "start": 100.171,
+          "end": 103.737
+        },
+        {
+          "text": "And if I uninstall? What it learned stays in your database.",
+          "start": 104.579,
+          "end": 108.629
+        },
+        {
+          "text": "So, what could Gaia do for you?",
+          "start": 110.997,
+          "end": 112.892
+        },
+        {
+          "text": "Ask it.",
+          "start": 113.984,
+          "end": 114.38
         }
       ]
     }
