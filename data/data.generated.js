@@ -554,7 +554,7 @@ window.__DOC__ = {
           ]
         }
       ],
-      "name": "1 · Why",
+      "name": "1 · Becoming AI-first",
       "order": 0
     },
     {
@@ -652,7 +652,6 @@ window.__DOC__ = {
                 {
                   "id": "gaia-manages",
                   "title": "What Gaia manages",
-                  "subtitle": "through its own command line",
                   "treatment": [
                     "envelope"
                   ],
@@ -711,6 +710,13 @@ window.__DOC__ = {
                       "filters": [
                         "p2-rules"
                       ]
+                    },
+                    {
+                      "id": "mg-cli",
+                      "type": "separator",
+                      "order": 5,
+                      "span": 4,
+                      "text": "all of this runs through Gaia's own CLI"
                     }
                   ]
                 }
@@ -729,7 +735,7 @@ window.__DOC__ = {
                   "id": "mp-gaia-rel",
                   "type": "separator",
                   "order": 1,
-                  "text": "hands out the work · gets back a contract"
+                  "text": "▼ delegates · ▲ returns a contract"
                 }
               ]
             },
@@ -853,29 +859,6 @@ window.__DOC__ = {
               ]
             },
             {
-              "id": "halves",
-              "treatment": [
-                "plain"
-              ],
-              "order": 4,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "halves-line",
-                  "type": "separator",
-                  "order": 1,
-                  "text": "hooks decide by rule · agents follow written skills · the CLI keeps the records"
-                },
-                {
-                  "id": "you-line",
-                  "type": "separator",
-                  "order": 2,
-                  "text": "you ask in your own words · you approve what changes"
-                }
-              ]
-            },
-            {
               "id": "prompt",
               "treatment": [
                 "plain",
@@ -908,1093 +891,8 @@ window.__DOC__ = {
           ]
         }
       ],
-      "name": "2 · What Gaia is",
+      "name": "2 · What is Gaia",
       "order": 1
-    },
-    {
-      "id": "p4-life-of-a-request",
-      "layout": "grid",
-      "form": "dashboard",
-      "columns": 1,
-      "filters": [
-        {
-          "key": "the-human",
-          "label": "who decides?",
-          "steps": [
-            "You do: your prompt starts the request, and a command that changes something waits before it executes, until you have seen the exact command and said yes."
-          ]
-        },
-        {
-          "key": "nothing-self-declared",
-          "label": "is it really done?",
-          "steps": [
-            "The turn can stop at two events: before any execution, and at contract validation, when the contract comes back and is judged."
-          ]
-        },
-        {
-          "key": "memory",
-          "label": "what do we remember?",
-          "steps": [
-            "The session opens with the projects map, the memory about you and the open threads; the orchestration tools read and write what Gaia keeps; the specialist is handed memory with its context, the close writes the episode of its turn, and your yes or no is kept in the approval chain."
-          ]
-        },
-        {
-          "key": "deterministic",
-          "label": "what does a rule decide?",
-          "steps": [
-            "Every event is a hook: code the host runs at a fixed moment, deciding by a rule, with no model involved. So is the session's opening context, and so is the rule that sorts every command into runs, waits for your yes, or never runs."
-          ]
-        },
-        {
-          "key": "one-command",
-          "label": "what happens to one command?",
-          "steps": [
-            "Before any execution, one command meets one rule, and one of three things happens: it runs, it waits for your yes, or it never runs."
-          ]
-        },
-        {
-          "key": "one-turn",
-          "label": "what happens in one turn?",
-          "steps": [
-            "One specialist's life, from dispatch to close: four events, the same every time."
-          ]
-        }
-      ],
-      "sections": [
-        {
-          "id": "p4-head",
-          "treatment": [
-            "plain"
-          ],
-          "order": 1,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "p4-title",
-              "order": 1,
-              "kicker": "THE ORCHESTRATOR",
-              "title": "The life of a request",
-              "description": [
-                "one turn, four events, the same every time"
-              ],
-              "detail": "One turn has four events, the same every time. The left column is Gaia's own layer: what it pushes when the session opens and what it answers on demand. From the user prompt on, someone is in the loop.",
-              "treatment": [
-                "centered"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "turn",
-          "treatment": [
-            "plain"
-          ],
-          "order": 2,
-          "span": 1,
-          "columns": 10,
-          "children": [
-            {
-              "id": "s-open",
-              "treatment": [
-                "plain"
-              ],
-              "order": 2,
-              "span": 3,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "ss-push",
-                  "title": "SessionStart",
-                  "subtitle": "Deterministic context injection",
-                  "treatment": [
-                    "envelope"
-                  ],
-                  "order": 1,
-                  "span": 1,
-                  "columns": 2,
-                  "children": [
-                    {
-                      "id": "sp-env",
-                      "type": "rail",
-                      "order": 1,
-                      "span": 2,
-                      "title": "System context",
-                      "filters": [
-                        "deterministic"
-                      ]
-                    },
-                    {
-                      "id": "sp-contracts",
-                      "type": "rail",
-                      "order": 2,
-                      "span": 2,
-                      "title": "Projects map",
-                      "filters": [
-                        "memory",
-                        "deterministic"
-                      ]
-                    },
-                    {
-                      "id": "sp-anchors",
-                      "type": "rail",
-                      "order": 3,
-                      "span": 2,
-                      "title": "Memory about you",
-                      "filters": [
-                        "memory",
-                        "deterministic"
-                      ]
-                    },
-                    {
-                      "id": "sp-worklist",
-                      "type": "rail",
-                      "order": 4,
-                      "span": 2,
-                      "title": "Open threads",
-                      "filters": [
-                        "memory",
-                        "deterministic"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "id": "ss-pull",
-                  "title": "Orchestration tools",
-                  "subtitle": "gaia CLI · the orchestrator's only commands",
-                  "treatment": [
-                    "envelope"
-                  ],
-                  "order": 2,
-                  "span": 1,
-                  "columns": 1,
-                  "children": [
-                    {
-                      "id": "pl-memory",
-                      "type": "rail",
-                      "order": 1,
-                      "span": 1,
-                      "title": "Memory management",
-                      "filters": [
-                        "memory"
-                      ]
-                    },
-                    {
-                      "id": "pl-context",
-                      "type": "rail",
-                      "order": 2,
-                      "span": 1,
-                      "title": "Project context",
-                      "filters": [
-                        "memory"
-                      ]
-                    },
-                    {
-                      "id": "pl-plan",
-                      "type": "rail",
-                      "order": 3,
-                      "span": 1,
-                      "title": "Briefs and plans",
-                      "filters": [
-                        "memory"
-                      ]
-                    },
-                    {
-                      "id": "pl-contract",
-                      "type": "rail",
-                      "order": 4,
-                      "span": 1,
-                      "title": "Contracts",
-                      "filters": [
-                        "memory"
-                      ]
-                    },
-                    {
-                      "id": "pl-approvals",
-                      "type": "rail",
-                      "order": 5,
-                      "span": 1,
-                      "title": "Approvals",
-                      "filters": [
-                        "memory",
-                        "the-human"
-                      ]
-                    },
-                    {
-                      "id": "pl-schedule",
-                      "type": "rail",
-                      "order": 6,
-                      "span": 1,
-                      "title": "Schedules",
-                      "filters": [
-                        "memory"
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "human-side",
-              "treatment": [
-                "plain"
-              ],
-              "order": 3,
-              "span": 7,
-              "columns": 7,
-              "children": [
-                {
-                  "id": "s-prompt",
-                  "treatment": [
-                    "plain"
-                  ],
-                  "order": 1,
-                  "span": 1,
-                  "columns": 1,
-                  "children": [
-                    {
-                      "id": "op-prompt",
-                      "type": "rail",
-                      "order": 1,
-                      "rowspan": 2,
-                      "treatment": [
-                        "vertical"
-                      ],
-                      "title": "USER PROMPT",
-                      "filters": [
-                        "the-human"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "id": "lifetime",
-                  "title": "The events of one turn",
-                  "subtitle": "from dispatch to close · at each one the host runs a hook",
-                  "treatment": [
-                    "envelope"
-                  ],
-                  "order": 2,
-                  "span": 6,
-                  "columns": 4,
-                  "children": [
-                    {
-                      "id": "lf-receives",
-                      "order": 1,
-                      "kicker": "SubagentStart",
-                      "title": "Injected context",
-                      "description": [
-                        "contract · context · memory"
-                      ],
-                      "detail": "<b>SubagentStart</b> — the first instant the specialist exists. It is handed three blocks: its contract, opened for it, naming the project context it may read and write, its surface and role; the CLI it may use; and the memory about you. The context was built and cached when the orchestrator dispatched it. Its ANCHORS — the identifiers it was handed — are written down here, so the close can measure which fraction of that context it actually touched. What it does NOT receive from Gaia is its skills: the host injects those from the agent's own definition.<br><br>Source: <code>hooks/modules/agents/dispatch_lifecycle.py</code> (<code>build_kernel_context</code>); <code>hooks/modules/context/kernel_builder.py:407-427</code>.",
-                      "filters": [
-                        "deterministic",
-                        "one-turn",
-                        "memory"
-                      ]
-                    },
-                    {
-                      "id": "lf-born",
-                      "order": 2,
-                      "kicker": "PreToolUse",
-                      "title": "Before any execution",
-                      "description": [
-                        "checked and sorted by rule · can stop here"
-                      ],
-                      "detail": "<b>PreToolUse</b> — the hook the host runs before every tool call the specialist makes, and one of the two places a turn can stop. On every command it applies the approvals rule below. A block here is <code>exit 2</code> — the command never runs. The same hook also ran at the dispatch, on the orchestrator's call: it decided whether the orchestrator may use the tool at all or must delegate, built the specialist's context, and opened the turn's contract carrying the <code>plan_task_id</code> that will later forbid the specialist from declaring its own work done.",
-                      "variant": "bad",
-                      "filters": [
-                        "deterministic",
-                        "one-turn",
-                        "one-command",
-                        "the-human",
-                        "nothing-self-declared"
-                      ]
-                    },
-                    {
-                      "id": "lf-works",
-                      "order": 3,
-                      "kicker": "PostToolUse",
-                      "title": "Execution validation",
-                      "description": [
-                        "each result recorded"
-                      ],
-                      "detail": "<b>PostToolUse</b> — every tool call the specialist makes is checked before it runs and recorded after, so this event repeats with the one before it, once per tool call. It never stops the turn. It logs the execution, seals EXECUTED or FAILED onto the hashed approval chain and, when you answer an approval question, activates that approval so the byte-identical retry finds it. A failed Bash call comes back through <b>PostToolUseFailure</b> instead.<br><br>Source: <code>hooks/adapters/claude_code.py</code> (<code>adapt_post_tool_use</code>).",
-                      "filters": [
-                        "deterministic",
-                        "one-turn"
-                      ]
-                    },
-                    {
-                      "id": "lf-contract",
-                      "order": 4,
-                      "kicker": "SubagentStop",
-                      "title": "Contract validation",
-                      "description": [
-                        "judged by rule, never the reply"
-                      ],
-                      "detail": "<b>SubagentStop</b> — the judge, and the other place a turn can stop. It reads the turn's stored contract, the one the specialist filled during its turn, and never the reply text. A missing or unfinalized contract sends the turn back (<code>exit 2</code>) and the specialist repairs it. A turn ends in one of six states, and only COMPLETE is final; a turn bound to a plan task cannot declare itself COMPLETE, so a separate verifier has to confirm it. The close also measures the turn from the transcript, computes the compliance score and writes the episode.<br><br>Source: <code>hooks/adapters/claude_code.py:905-907</code>; <code>validator.py:908</code>.",
-                      "variant": "bad",
-                      "filters": [
-                        "deterministic",
-                        "one-turn",
-                        "nothing-self-declared",
-                        "memory"
-                      ]
-                    },
-                    {
-                      "id": "lf-once-start",
-                      "order": 5,
-                      "type": "separator",
-                      "span": 1,
-                      "text": "once only"
-                    },
-                    {
-                      "id": "lf-loop",
-                      "order": 6,
-                      "type": "separator",
-                      "span": 2,
-                      "text": "↻ each tool call"
-                    },
-                    {
-                      "id": "lf-once-end",
-                      "order": 7,
-                      "type": "separator",
-                      "span": 1,
-                      "text": "once only"
-                    }
-                  ]
-                },
-                {
-                  "id": "approvals",
-                  "title": "Approvals · inside “before any execution”",
-                  "subtitle": "what the first event decides, for every command",
-                  "treatment": [
-                    "envelope"
-                  ],
-                  "order": 3,
-                  "span": 7,
-                  "columns": 4,
-                  "children": [
-                    {
-                      "id": "ap-sorts",
-                      "order": 1,
-                      "kicker": "BEFORE ANY EXECUTION",
-                      "title": "Sorts every command",
-                      "description": [
-                        "a rule in code, no model involved"
-                      ],
-                      "detail": "Before any command runs, a fixed classifier gives every command a tier: <b>T0</b> read, <b>T1</b> validate, <b>T2</b> dry run, <b>T3</b> change. It matches patterns and verbs in code; no model is consulted, so the same command gets the same answer every time. Before that, a separate fixed pattern check holds the never list.<br><br>Sources: <code>hooks/modules/security/tiers.py:29-35</code> (<code>SecurityTier</code>), <code>:78</code> (<code>_classify_command_tier_cached</code>); <code>hooks/modules/security/blocked_commands.py:678</code> (<code>is_blocked_command</code>).",
-                      "filters": [
-                        "deterministic",
-                        "one-command"
-                      ]
-                    },
-                    {
-                      "id": "ap-runs",
-                      "order": 2,
-                      "kicker": "READ-ONLY",
-                      "title": "Runs",
-                      "description": [
-                        "nobody is asked"
-                      ],
-                      "detail": "Tiers <b>T0</b> read, <b>T1</b> validate and <b>T2</b> dry run change nothing, so the command runs and nobody is asked.<br><br>Source: <code>hooks/modules/security/tiers.py:29-35</code> (<code>SecurityTier</code>).",
-                      "filters": [
-                        "deterministic",
-                        "one-command"
-                      ]
-                    },
-                    {
-                      "id": "ap-waits",
-                      "order": 3,
-                      "kicker": "CHANGES SOMETHING",
-                      "title": "Waits for your yes",
-                      "description": [
-                        "one standard approval message"
-                      ],
-                      "detail": "A <b>T3</b> command, one that changes something, is held with an <code>approval_id</code>. A specialist has no channel to you, so its turn goes up as <code>APPROVAL_REQUEST</code> and the orchestrator brings you the approval message, the same shape every time: what is about to run, its exact bytes, its scope, its risk and how to undo it. You approve, and the specialist retries the command byte for byte; you reject, and nothing happens.<br><br>An approval is single-use, must match the approved command byte for byte, and lasts 30 minutes. Every step is kept in the approval chain.<br><br>Sources: <code>approval_grants.py:193</code>, <code>:523</code>; <code>writer.py:86</code>; <code>schema.sql:1578-1600</code>.",
-                      "filters": [
-                        "one-command",
-                        "the-human",
-                        "memory",
-                        "deterministic"
-                      ]
-                    },
-                    {
-                      "id": "ap-never",
-                      "order": 4,
-                      "kicker": "NEVER",
-                      "title": "Never runs",
-                      "description": [
-                        "irreversible, nothing to approve"
-                      ],
-                      "detail": "Irreversible commands are on the never list, a separate fixed pattern check. Its refusal has nothing to approve: no approval message, and no approval can let the command through.<br><br>Source: <code>hooks/modules/security/blocked_commands.py:678</code> (<code>is_blocked_command</code>).",
-                      "filters": [
-                        "deterministic",
-                        "one-command"
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "footnotes",
-          "treatment": [
-            "plain"
-          ],
-          "order": 3,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "ch-legend",
-              "type": "separator",
-              "style": "dotted",
-              "order": 1,
-              "span": 1,
-              "text": "red marks the only two events the turn can stop — before any execution and contract validation"
-            },
-            {
-              "id": "hk-count",
-              "type": "separator",
-              "style": "dotted",
-              "order": 2,
-              "span": 1,
-              "text": "12 hook events in total; this page draws 5"
-            }
-          ]
-        }
-      ],
-      "name": "3 · The life of a request",
-      "order": 2
-    },
-    {
-      "id": "p6-contracts",
-      "layout": "grid",
-      "form": "dashboard",
-      "columns": 1,
-      "filters": [
-        {
-          "key": "the-human",
-          "label": "who decides?",
-          "steps": [
-            "An answer can be an approval request: the orchestrator brings the exact command to you."
-          ]
-        },
-        {
-          "key": "nothing-self-declared",
-          "label": "is it really done?",
-          "steps": [
-            "Nothing is taken on the agent's word: the contract is validated by rule, its verification says how the result was checked, and the orchestrator checks it before telling you."
-          ]
-        },
-        {
-          "key": "memory",
-          "label": "what do we remember?",
-          "steps": [
-            "The project contract: what Gaia knows about each project, kept section by section across every session and every agent."
-          ]
-        },
-        {
-          "key": "deterministic",
-          "label": "what does a rule decide?",
-          "steps": [
-            "The engine decides by rule: what each agent may read and write, whether the answer is valid, and whether an update may be saved."
-          ]
-        },
-        {
-          "key": "semantic",
-          "label": "what does a model follow?",
-          "steps": [
-            "The orchestrator and the agent are models working from their instructions; the engine between them is not."
-          ]
-        },
-        {
-          "key": "project-contract",
-          "label": "what may it read and write?",
-          "steps": [
-            "Each agent may read some sections of the project contract and write others; its updates are checked against that before they are saved."
-          ]
-        },
-        {
-          "key": "next-move",
-          "label": "what happens next?",
-          "steps": [
-            "The state the agent answers with decides the orchestrator's next move."
-          ]
-        },
-        {
-          "key": "the-contract",
-          "label": "what travels in a contract?",
-          "steps": [
-            "The engine injects the agent contract, the agent fills it and answers in it, the engine validates it, and the orchestrator reads it: its status, its evidence, its verification, its open gaps, its reach, an approval request and its project updates."
-          ]
-        }
-      ],
-      "sections": [
-        {
-          "id": "p6-head",
-          "treatment": [
-            "plain"
-          ],
-          "order": 1,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "p6-title",
-              "order": 1,
-              "kicker": "CONTRACTS",
-              "title": "Everything travels as a contract",
-              "description": [
-                "the orchestrator and the agents talk only through contracts"
-              ],
-              "detail": "The orchestrator sends the work; Gaia's engine injects an agent contract with this agent's own permissions; the agent does the work and answers in it; the engine validates it by rule, never the prose; the orchestrator keeps going from it.",
-              "treatment": [
-                "centered"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "p6-flow",
-          "treatment": [
-            "plain"
-          ],
-          "order": 2,
-          "span": 1,
-          "columns": 3,
-          "children": [
-            {
-              "id": "p6-orch",
-              "title": "The orchestrator",
-              "subtitle": "a model · holds the conversation",
-              "treatment": [
-                "envelope"
-              ],
-              "order": 1,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "p6-sends",
-                  "order": 1,
-                  "kicker": "SENDS",
-                  "title": "The work",
-                  "description": [
-                    "one goal, to one specialist"
-                  ],
-                  "detail": "The orchestrator dispatches one specialist for one turn, with one goal. It does not write the specialist's contract; the engine does.",
-                  "filters": [
-                    "semantic"
-                  ]
-                },
-                {
-                  "id": "p6-reads",
-                  "order": 2,
-                  "kicker": "READS",
-                  "title": "Keeps orchestrating",
-                  "description": [
-                    "reads it, checks it, decides what next"
-                  ],
-                  "detail": "The orchestrator reads the stored agent contract, not the reply text, checks what it claims against what it can open itself, and takes its next move from the state: answer you, send a verifier, show you a command, ask you, route an obstacle, or resume the turn.",
-                  "filters": [
-                    "the-contract",
-                    "semantic",
-                    "nothing-self-declared",
-                    "next-move",
-                    "the-human"
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "p6-engine",
-              "title": "Gaia's engine",
-              "subtitle": "code · decides by rule",
-              "treatment": [
-                "envelope"
-              ],
-              "order": 2,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "p6-injects",
-                  "order": 1,
-                  "kicker": "INJECTS ►",
-                  "title": "A contract for this agent",
-                  "description": [
-                    "its surface, role, what it may read and write"
-                  ],
-                  "detail": "At dispatch the engine opens the agent contract and injects it as <code># Your Contract</code>. What is adapted to the agent is its own data, not the form: its <b>surface</b>, its <b>role</b> (<code>primary</code> or <code>verifier</code>), and the project-contract sections it may read (<code>can_read</code>) and write (<code>can_write</code>), taken from its own permission rows. The form it must answer in is the same for every agent.<br><br>How the two kinds meet, in the order of one turn:<br><b>At dispatch</b> — the agent contract names the sections this agent may read and write, declared in its definition (<code>project_context_contracts</code>). It hands over the names, not the contents: the agent reads a section on demand with <code>gaia context get-contract --section</code>.<br><b>In its answer</b> — the agent contract can carry <code>update_contracts</code>, each a change to one section. An agent proposes them; it cannot write the project contract directly.<br><b>At the close</b> — SubagentStop checks each update against the agent's write permission, one by one, before it is saved; a rejected one is named, and the rest still apply.<br><br>What each project-contract section holds:<br><b>project_identity</b> — the project's name, path, remote and type.<br><b>stack</b> — its languages and tools.<br><b>environment</b> — where it runs.<br><b>git</b> — its repository conventions.<br><b>architecture_overview</b> — how its parts fit.<br><b>application_services</b> — its services (developer writes it).<br><b>infrastructure</b>, <b>infrastructure_topology</b> — its cloud (platform-architect writes them).<br><b>gitops_configuration</b> — its desired cluster state (gitops-operator).<br><b>cluster_details</b> — the live cluster (cloud-troubleshooter).<br><b>workspace_repos</b> — the repositories of the workspace.<br><b>operational_guidelines</b>, <b>releases</b> — read for planning.<br><br>Sources: <code>tools/context/context_provider.py:191</code> (<code>build_kernel_sections</code>), <code>:244-249</code>; <code>hooks/modules/context/kernel_builder.py:193</code> (<code>build_dispatch_kernel</code>), <code>:214-215</code>, <code>:243-244</code>; <code>agents/*.md</code> (<code>project_context_contracts</code>); <code>bin/cli/context.py:366</code>; <code>hooks/subagent_stop.py:176</code>, <code>hooks/modules/context/context_writer.py:376</code> (<code>process_update_contracts</code>), <code>:127</code> (<code>validate_permission</code>).",
-                  "filters": [
-                    "the-contract",
-                    "deterministic",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "p6-validates",
-                  "order": 2,
-                  "kicker": "◄ VALIDATES",
-                  "title": "By rule, not the prose",
-                  "description": [
-                    "the reply text is never read"
-                  ],
-                  "detail": "At the close, <b>SubagentStop</b> finds the turn's stored agent contract and validates it by rule; nothing in the reply text is read. A missing or unfinalized contract sends the turn back (<code>exit 2</code>). Only COMPLETE is final.<br><br>What each key of the agent contract holds:<br><b>status</b> — how the turn ended, one of six states.<br><b>evidence</b> — what it saw (files, searches) and what it did (commands, outputs).<br><b>verification</b> — how the result was checked, and whether it passed.<br><b>open gaps</b> — what it could not do or check.<br><b>reach</b> — what it touched beyond the files it was sent to.<br><b>approval</b> — the exact command it asks you to approve.<br><b>project updates</b> — changes it proposes to the project contract.<br><br>Sources: <code>hooks/adapters/claude_code.py:905-907</code>; <code>validator.py:908</code>.",
-                  "filters": [
-                    "the-contract",
-                    "deterministic",
-                    "nothing-self-declared"
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "p6-agent",
-              "title": "The agent",
-              "subtitle": "a model · one specialist",
-              "treatment": [
-                "envelope"
-              ],
-              "order": 3,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "p6-receives",
-                  "order": 1,
-                  "kicker": "RECEIVES",
-                  "title": "Does the work",
-                  "description": [
-                    "its contract open from birth"
-                  ],
-                  "detail": "The specialist is born with its agent contract already open, named <code>&lt;agent_id&gt;.&lt;token&gt;</code>, and adopts it with <code>gaia contract set/add/fill --draft-id</code>. It pulls the project-contract sections it needs, on demand, and writes its evidence as it works.",
-                  "filters": [
-                    "the-contract",
-                    "semantic"
-                  ]
-                },
-                {
-                  "id": "p6-answers",
-                  "order": 2,
-                  "kicker": "◄ ANSWERS",
-                  "title": "In a structured form",
-                  "description": [
-                    "the agent contract, filled as it goes"
-                  ],
-                  "detail": "The answer is the stored agent contract, closed with <code>gaia contract finalize</code>; the final message only signals that the turn ended. Its state decides what the orchestrator does next, and an <code>APPROVAL_REQUEST</code> carries the exact command for you.",
-                  "filters": [
-                    "the-contract",
-                    "semantic",
-                    "next-move",
-                    "the-human"
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "p6-kinds",
-          "title": "The contracts",
-          "subtitle": "one for each turn · one for each project",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 3,
-          "span": 1,
-          "columns": 2,
-          "children": [
-            {
-              "id": "p6-agent-contract",
-              "title": "Agent contract",
-              "treatment": [
-                "envelope"
-              ],
-              "order": 1,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "ac-status",
-                  "type": "rail",
-                  "order": 2,
-                  "indent": 1,
-                  "title": "status",
-                  "filters": [
-                    "the-contract",
-                    "next-move"
-                  ]
-                },
-                {
-                  "id": "ac-states",
-                  "treatment": [
-                    "plain"
-                  ],
-                  "order": 3,
-                  "span": 1,
-                  "columns": 1,
-                  "children": [
-                    {
-                      "id": "ac-complete",
-                      "type": "rail",
-                      "order": 1,
-                      "indent": 2,
-                      "title": "COMPLETE",
-                      "filters": [
-                        "the-contract",
-                        "next-move"
-                      ]
-                    },
-                    {
-                      "id": "ac-needs-verification",
-                      "type": "rail",
-                      "order": 2,
-                      "indent": 2,
-                      "title": "NEEDS_VERIFICATION",
-                      "filters": [
-                        "the-contract",
-                        "next-move"
-                      ]
-                    },
-                    {
-                      "id": "ac-approval-request",
-                      "type": "rail",
-                      "order": 3,
-                      "indent": 2,
-                      "title": "APPROVAL_REQUEST",
-                      "filters": [
-                        "the-contract",
-                        "next-move"
-                      ]
-                    },
-                    {
-                      "id": "ac-needs-input",
-                      "type": "rail",
-                      "order": 4,
-                      "indent": 2,
-                      "title": "NEEDS_INPUT",
-                      "filters": [
-                        "the-contract",
-                        "next-move"
-                      ]
-                    },
-                    {
-                      "id": "ac-blocked",
-                      "type": "rail",
-                      "order": 5,
-                      "indent": 2,
-                      "title": "BLOCKED",
-                      "filters": [
-                        "the-contract",
-                        "next-move"
-                      ]
-                    },
-                    {
-                      "id": "ac-in-progress",
-                      "type": "rail",
-                      "order": 6,
-                      "indent": 2,
-                      "title": "IN_PROGRESS",
-                      "filters": [
-                        "the-contract",
-                        "next-move"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "id": "ac-evidence",
-                  "type": "rail",
-                  "order": 4,
-                  "indent": 1,
-                  "title": "evidence",
-                  "filters": [
-                    "the-contract"
-                  ]
-                },
-                {
-                  "id": "ac-parts",
-                  "treatment": [
-                    "plain"
-                  ],
-                  "order": 5,
-                  "span": 1,
-                  "columns": 1,
-                  "children": [
-                    {
-                      "id": "ac-files",
-                      "type": "rail",
-                      "order": 1,
-                      "indent": 2,
-                      "title": "files_checked",
-                      "filters": [
-                        "the-contract"
-                      ]
-                    },
-                    {
-                      "id": "ac-patterns",
-                      "type": "rail",
-                      "order": 2,
-                      "indent": 2,
-                      "title": "patterns_checked",
-                      "filters": [
-                        "the-contract"
-                      ]
-                    },
-                    {
-                      "id": "ac-commands",
-                      "type": "rail",
-                      "order": 3,
-                      "indent": 2,
-                      "title": "commands_run",
-                      "filters": [
-                        "the-contract"
-                      ]
-                    },
-                    {
-                      "id": "ac-key-outputs",
-                      "type": "rail",
-                      "order": 4,
-                      "indent": 2,
-                      "title": "key_outputs",
-                      "filters": [
-                        "the-contract"
-                      ]
-                    },
-                    {
-                      "id": "ac-verbatim",
-                      "type": "rail",
-                      "order": 5,
-                      "indent": 2,
-                      "title": "verbatim_outputs",
-                      "filters": [
-                        "the-contract"
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "id": "ac-verification",
-                  "type": "rail",
-                  "order": 6,
-                  "indent": 1,
-                  "title": "verification",
-                  "filters": [
-                    "the-contract",
-                    "nothing-self-declared"
-                  ]
-                },
-                {
-                  "id": "ac-gaps",
-                  "type": "rail",
-                  "order": 7,
-                  "indent": 1,
-                  "title": "open gaps",
-                  "filters": [
-                    "the-contract"
-                  ]
-                },
-                {
-                  "id": "ac-reach",
-                  "type": "rail",
-                  "order": 8,
-                  "indent": 1,
-                  "title": "reach",
-                  "filters": [
-                    "the-contract"
-                  ]
-                },
-                {
-                  "id": "ac-approval",
-                  "type": "rail",
-                  "order": 9,
-                  "indent": 1,
-                  "title": "approval",
-                  "filters": [
-                    "the-contract",
-                    "the-human"
-                  ]
-                },
-                {
-                  "id": "ac-updates",
-                  "type": "rail",
-                  "order": 10,
-                  "indent": 1,
-                  "title": "project updates",
-                  "filters": [
-                    "the-contract",
-                    "project-contract"
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "p6-project",
-              "title": "Project contract",
-              "treatment": [
-                "envelope"
-              ],
-              "order": 2,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "pc-identity",
-                  "type": "rail",
-                  "order": 2,
-                  "indent": 1,
-                  "title": "project_identity",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-stack",
-                  "type": "rail",
-                  "order": 3,
-                  "indent": 1,
-                  "title": "stack",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-env",
-                  "type": "rail",
-                  "order": 4,
-                  "indent": 1,
-                  "title": "environment",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-git",
-                  "type": "rail",
-                  "order": 5,
-                  "indent": 1,
-                  "title": "git",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-arch",
-                  "type": "rail",
-                  "order": 6,
-                  "indent": 1,
-                  "title": "architecture_overview",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-workspace",
-                  "type": "rail",
-                  "order": 7,
-                  "indent": 1,
-                  "title": "workspace_repos",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-services",
-                  "type": "rail",
-                  "order": 8,
-                  "indent": 1,
-                  "title": "application_services",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-infra",
-                  "type": "rail",
-                  "order": 9,
-                  "indent": 1,
-                  "title": "infrastructure",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-topology",
-                  "type": "rail",
-                  "order": 10,
-                  "indent": 1,
-                  "title": "infrastructure_topology",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-gitops",
-                  "type": "rail",
-                  "order": 11,
-                  "indent": 1,
-                  "title": "gitops_configuration",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-cluster",
-                  "type": "rail",
-                  "order": 12,
-                  "indent": 1,
-                  "title": "cluster_details",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-guidelines",
-                  "type": "rail",
-                  "order": 13,
-                  "indent": 1,
-                  "title": "operational_guidelines",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                },
-                {
-                  "id": "pc-releases",
-                  "type": "rail",
-                  "order": 14,
-                  "indent": 1,
-                  "title": "releases",
-                  "filters": [
-                    "memory",
-                    "project-contract"
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "name": "4 · Contracts",
-      "order": 3
     },
     {
       "id": "p5-what-gaia-keeps",
@@ -2736,23 +1634,6 @@ window.__DOC__ = {
               ]
             },
             {
-              "id": "keeps-close",
-              "treatment": [
-                "plain"
-              ],
-              "order": 3,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "keeps-close-line",
-                  "type": "separator",
-                  "order": 1,
-                  "text": "you decide what is curated · the engine records the rest"
-                }
-              ]
-            },
-            {
               "id": "prompt",
               "treatment": [
                 "plain",
@@ -2785,7 +1666,1083 @@ window.__DOC__ = {
           ]
         }
       ],
-      "name": "5 · What Gaia keeps",
+      "name": "3 · What Gaia knows",
+      "order": 2
+    },
+    {
+      "id": "p-pilot-your-yes",
+      "form": "dashboard",
+      "columns": 1,
+      "filters": [
+        {
+          "key": "moment-ask",
+          "label": "1 · you ask",
+          "steps": [
+            "You ask in your own words. The orchestrator sends the goal, and the engine prepares the specialist before it starts."
+          ]
+        },
+        {
+          "key": "moment-work",
+          "label": "2 · it works",
+          "steps": [
+            "The specialist reads and edits. Every action is checked by rule; safe ones never reach you."
+          ]
+        },
+        {
+          "key": "moment-stop",
+          "label": "3 · a change stops",
+          "steps": [
+            "A command that changes something is stopped. The specialist pauses and its request goes to the orchestrator."
+          ]
+        },
+        {
+          "key": "moment-asked",
+          "label": "4 · you're asked",
+          "steps": [
+            "The orchestrator asks you with the question Gaia wrote, checked word for word."
+          ]
+        },
+        {
+          "key": "moment-decide",
+          "label": "5 · you decide",
+          "steps": [
+            "Your answer is recorded as a one-time pass, and the same specialist picks up where it stopped."
+          ]
+        },
+        {
+          "key": "moment-run",
+          "label": "6 · it runs",
+          "steps": [
+            "The exact command runs once. The report is checked by rule before you hear the result."
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "s7-title",
+          "treatment": [
+            "plain",
+            "compact"
+          ],
+          "tokens": {
+            "row": {
+              "cell_h": 60
+            }
+          },
+          "order": 1,
+          "span": 1,
+          "columns": 1,
+          "children": [
+            {
+              "id": "s7-head",
+              "order": 1,
+              "title": "Nothing that matters runs without you seeing it.",
+              "treatment": [
+                "centered"
+              ]
+            }
+          ],
+          "css_vars": {
+            "--cell-h": "60px"
+          }
+        },
+        {
+          "id": "s7-gaia",
+          "title": "GAIA",
+          "tokens": {
+            "row": {
+              "cell_h": 76
+            }
+          },
+          "order": 2,
+          "span": 1,
+          "columns": 4,
+          "children": [
+            {
+              "id": "s7-you",
+              "title": "You",
+              "subtitle": "the one who approves",
+              "treatment": [
+                "envelope"
+              ],
+              "order": 1,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "s7-y1",
+                  "order": 1,
+                  "title": "Asks for something",
+                  "description": [
+                    "add a health check to store-api"
+                  ],
+                  "detail": "You ask in your own words. The orchestrator works out what you want and which specialist owns it.",
+                  "filters": [
+                    "moment-ask"
+                  ]
+                },
+                {
+                  "id": "s7-y2",
+                  "order": 2,
+                  "rowspan": 2,
+                  "title": "Nothing reaches you",
+                  "description": [
+                    "safe actions never ask"
+                  ],
+                  "detail": "Reading is safe, so Gaia never asks you about it.",
+                  "filters": [
+                    "moment-work"
+                  ]
+                },
+                {
+                  "id": "s7-y4",
+                  "order": 3,
+                  "title": "Sees the details",
+                  "description": [
+                    "who · what runs · how to undo"
+                  ],
+                  "detail": "The question names the agent and the exact command. Details adds what it does, its impact, how it is checked and how to roll it back.",
+                  "filters": [
+                    "moment-asked"
+                  ]
+                },
+                {
+                  "id": "s7-y5",
+                  "order": 4,
+                  "title": "Decides",
+                  "description": [
+                    "approve · reject · let it expire"
+                  ],
+                  "detail": "Approve covers this one command, once. Reject means nothing runs. A request nobody answers expires.",
+                  "filters": [
+                    "moment-decide"
+                  ]
+                },
+                {
+                  "id": "s7-y6",
+                  "order": 5,
+                  "title": "Gets the result",
+                  "description": [
+                    "what changed, and the proof"
+                  ],
+                  "detail": "The orchestrator tells you what changed and what it is based on.",
+                  "filters": [
+                    "moment-run"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "s7-orch",
+              "title": "The orchestrator",
+              "subtitle": "the model you talk to",
+              "treatment": [
+                "envelope"
+              ],
+              "order": 2,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "s7-o1",
+                  "order": 1,
+                  "rowspan": 2,
+                  "title": "Sends the goal",
+                  "description": [
+                    "to the specialist for that field"
+                  ],
+                  "detail": "The orchestrator never edits files or runs changes itself. It hands the work to a specialist.",
+                  "filters": [
+                    "moment-ask"
+                  ]
+                },
+                {
+                  "id": "s7-o3",
+                  "order": 2,
+                  "title": "Gets the request",
+                  "description": [
+                    "from the specialist's report"
+                  ],
+                  "detail": "The specialist's turn ends with an approval request in its contract. The orchestrator reads it from there.",
+                  "filters": [
+                    "moment-stop"
+                  ]
+                },
+                {
+                  "id": "s7-o4",
+                  "order": 3,
+                  "kicker": "ASK TOOL",
+                  "title": "Asks you",
+                  "description": [
+                    "with the question Gaia wrote"
+                  ],
+                  "detail": "The orchestrator asks Gaia for the question and opens it without changing a word.",
+                  "filters": [
+                    "moment-asked"
+                  ]
+                },
+                {
+                  "id": "s7-o5",
+                  "order": 4,
+                  "title": "Resumes the specialist",
+                  "description": [
+                    "the same one, where it stopped"
+                  ],
+                  "detail": "The orchestrator resumes the same specialist. Its context is not injected again.",
+                  "filters": [
+                    "moment-decide"
+                  ]
+                },
+                {
+                  "id": "s7-o6",
+                  "order": 5,
+                  "title": "Tells you the result",
+                  "description": [
+                    "from the checked report"
+                  ],
+                  "detail": "The orchestrator reports from the checked contract and from what it opens itself, not from the specialist's message.",
+                  "filters": [
+                    "moment-run"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "s7-engine",
+              "title": "Gaia's engine",
+              "subtitle": "code, a rule, no model",
+              "treatment": [
+                "envelope"
+              ],
+              "order": 3,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "s7-e1",
+                  "order": 1,
+                  "kicker": "CONTEXT INJECTION",
+                  "title": "Prepares the specialist",
+                  "description": [
+                    "goal, contract, your rules"
+                  ],
+                  "detail": "When a specialist starts, a hook (SubagentStart) injects its contract (the goal and the form it fills in), what it may read and write in the project, your standing rules and the commands it can use. Project details are read on demand.",
+                  "filters": [
+                    "moment-ask"
+                  ]
+                },
+                {
+                  "id": "s7-e2",
+                  "order": 2,
+                  "kicker": "SCAN",
+                  "title": "Checks every action",
+                  "description": [
+                    "reads pass · risky actions stop"
+                  ],
+                  "detail": "Before each action, a hook (PreToolUse) checks it by rule: commands, file reads and edits, dispatches and questions. Reading a credentials file is refused, and nothing can approve it.",
+                  "filters": [
+                    "moment-work"
+                  ]
+                },
+                {
+                  "id": "s7-e3",
+                  "order": 3,
+                  "kicker": "HOOK",
+                  "title": "Stops the command",
+                  "description": [
+                    "holds it and keeps the request"
+                  ],
+                  "detail": "A command that changes something is held and a pending request is stored. When the specialist's turn ends, a hook (SubagentStop) checks its contract and keeps the request alive.",
+                  "variant": "warn",
+                  "filters": [
+                    "moment-stop"
+                  ]
+                },
+                {
+                  "id": "s7-e4",
+                  "order": 4,
+                  "kicker": "ASK CHECK",
+                  "title": "Checks the question",
+                  "description": [
+                    "word for word, or it is refused"
+                  ],
+                  "detail": "A hook checks the question before it opens. If it differs by one character from what Gaia wrote, it is refused. Each question shown is recorded.",
+                  "filters": [
+                    "moment-asked"
+                  ]
+                },
+                {
+                  "id": "s7-e5",
+                  "order": 5,
+                  "kicker": "AUDIT TRAIL",
+                  "title": "Records your answer",
+                  "description": [
+                    "one-time pass, this specialist"
+                  ],
+                  "detail": "Each answer is stamped and linked to the step before, so a changed record shows. An approval becomes a one-time pass bound to this session and this specialist.",
+                  "filters": [
+                    "moment-decide"
+                  ]
+                },
+                {
+                  "id": "s7-e6",
+                  "order": 6,
+                  "kicker": "VALIDATION",
+                  "title": "Matches and validates",
+                  "description": [
+                    "exact command, report by rule"
+                  ],
+                  "detail": "The retried command must match the approved one byte for byte. After it runs, a hook (PostToolUse) records executed or failed. At the end, SubagentStop checks the contract; a missing or unfinished one sends the specialist back.",
+                  "filters": [
+                    "moment-run"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "s7-spec",
+              "title": "The specialist",
+              "subtitle": "a model, one field",
+              "treatment": [
+                "envelope"
+              ],
+              "order": 4,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "s7-s1",
+                  "order": 1,
+                  "title": "Subagent born",
+                  "description": [
+                    "identity · skills · tools"
+                  ],
+                  "detail": "Each agent is one file that names it and lists its tools and the skills it needs. Claude Code loads those skills when the agent starts.",
+                  "filters": [
+                    "moment-ask"
+                  ]
+                },
+                {
+                  "id": "s7-s2",
+                  "order": 2,
+                  "title": "Does the work",
+                  "description": [
+                    "reads · edits · runs tests"
+                  ],
+                  "detail": "Most of the work is reading and editing files and running checks.",
+                  "filters": [
+                    "moment-work"
+                  ]
+                },
+                {
+                  "id": "s7-s3",
+                  "order": 3,
+                  "rowspan": 3,
+                  "title": "git push",
+                  "description": [
+                    "asks for approval and pauses"
+                  ],
+                  "detail": "git push sends commits to the shared repository, so it changes something other people use.",
+                  "filters": [
+                    "moment-stop",
+                    "moment-asked",
+                    "moment-decide"
+                  ]
+                },
+                {
+                  "id": "s7-s6",
+                  "order": 4,
+                  "kicker": "EXECUTION",
+                  "title": "Runs it, then reports",
+                  "description": [
+                    "only the approved command"
+                  ],
+                  "detail": "The same specialist runs the approved command once, then closes its contract: what changed, the commands, their output and what is still open.",
+                  "filters": [
+                    "moment-run"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "s7-prompt",
+              "treatment": [
+                "plain"
+              ],
+              "tokens": {
+                "row": {
+                  "cell_h": 144
+                }
+              },
+              "order": 5,
+              "span": 4,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "s7-question",
+                  "order": 1,
+                  "variant": "accent",
+                  "kicker": "PROMPT",
+                  "title": "SIGNATURE 1/1",
+                  "tokens": {
+                    "type": {
+                      "desc": {
+                        "lines": 5
+                      }
+                    }
+                  },
+                  "description": [
+                    "[ GAIA-SECURITY ] [ AGENT-REQUEST ] [ developer ] [ COMMAND ] [ git push origin feature/health-check ]",
+                    "› 1. Approve · authorizes exactly this command",
+                    "  2. Reject · nothing runs",
+                    "  3. Details · what it does, impact, verification, how to undo it",
+                    "  4. Type something"
+                  ],
+                  "detail": "<code>[ GAIA-SECURITY ] [ DETAILS ] [ developer ] [ COMMAND: git push origin feature/health-check ] [ DOES: pushes the health-check commits to the shared repository ] [ IMPACT: updates the feature/health-check branch; main is not touched ] [ VERIFICATION: CI runs on the branch and must pass ] [ SHARED-STATE: the remote branch feature/health-check ] [ ROLLBACK: push the previous commit back to the branch ]</code>",
+                  "filters": [
+                    "moment-asked",
+                    "moment-decide"
+                  ],
+                  "css_vars": {
+                    "--desc-lines": "5"
+                  }
+                }
+              ],
+              "css_vars": {
+                "--cell-h": "144px"
+              }
+            }
+          ],
+          "css_vars": {
+            "--cell-h": "76px"
+          }
+        }
+      ],
+      "name": "5 · Nothing that matters runs without you seeing it",
+      "order": 3
+    },
+    {
+      "id": "p6-contracts",
+      "layout": "grid",
+      "form": "dashboard",
+      "columns": 1,
+      "filters": [
+        {
+          "key": "the-human",
+          "label": "who decides?",
+          "steps": [
+            "An answer can be an approval request: the orchestrator brings the exact command to you."
+          ]
+        },
+        {
+          "key": "nothing-self-declared",
+          "label": "is it really done?",
+          "steps": [
+            "Nothing is taken on the agent's word: the contract is validated by rule, its verification says how the result was checked, and the orchestrator checks it before telling you."
+          ]
+        },
+        {
+          "key": "memory",
+          "label": "what do we remember?",
+          "steps": [
+            "The project contract: what Gaia knows about each project, kept section by section across every session and every agent."
+          ]
+        },
+        {
+          "key": "deterministic",
+          "label": "what does a rule decide?",
+          "steps": [
+            "The engine decides by rule: what each agent may read and write, whether the answer is valid, and whether an update may be saved."
+          ]
+        },
+        {
+          "key": "semantic",
+          "label": "what does a model follow?",
+          "steps": [
+            "The orchestrator and the agent are models working from their instructions; the engine between them is not."
+          ]
+        },
+        {
+          "key": "project-contract",
+          "label": "what may it read and write?",
+          "steps": [
+            "Each agent may read some sections of the project contract and write others; its updates are checked against that before they are saved."
+          ]
+        },
+        {
+          "key": "next-move",
+          "label": "what happens next?",
+          "steps": [
+            "The state the agent answers with decides the orchestrator's next move."
+          ]
+        },
+        {
+          "key": "the-contract",
+          "label": "what travels in a contract?",
+          "steps": [
+            "The engine injects the agent contract, the agent fills it and answers in it, the engine validates it, and the orchestrator reads it: its status, its evidence, its verification, its open gaps, its reach, an approval request and its project updates."
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "p6-head",
+          "treatment": [
+            "plain"
+          ],
+          "order": 1,
+          "span": 1,
+          "columns": 1,
+          "children": [
+            {
+              "id": "p6-title",
+              "order": 1,
+              "kicker": "CONTRACTS",
+              "title": "Everything travels as a contract",
+              "description": [
+                "the orchestrator and the agents talk only through contracts"
+              ],
+              "detail": "The orchestrator sends the work; Gaia's engine injects an agent contract with this agent's own permissions; the agent does the work and answers in it; the engine validates it by rule, never the prose; the orchestrator keeps going from it.",
+              "treatment": [
+                "centered"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "p6-flow",
+          "treatment": [
+            "plain"
+          ],
+          "order": 2,
+          "span": 1,
+          "columns": 3,
+          "children": [
+            {
+              "id": "p6-orch",
+              "title": "The orchestrator",
+              "subtitle": "a model · holds the conversation",
+              "treatment": [
+                "envelope"
+              ],
+              "order": 1,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "p6-sends",
+                  "order": 1,
+                  "kicker": "SENDS",
+                  "title": "The work",
+                  "description": [
+                    "one goal, to one specialist"
+                  ],
+                  "detail": "The orchestrator dispatches one specialist for one turn, with one goal. It does not write the specialist's contract; the engine does.",
+                  "filters": [
+                    "semantic"
+                  ]
+                },
+                {
+                  "id": "p6-reads",
+                  "order": 2,
+                  "kicker": "READS",
+                  "title": "Keeps orchestrating",
+                  "description": [
+                    "reads it, checks it, decides what next"
+                  ],
+                  "detail": "The orchestrator reads the stored agent contract, not the reply text, checks what it claims against what it can open itself, and takes its next move from the state: answer you, send a verifier, show you a command, ask you, route an obstacle, or resume the turn.",
+                  "filters": [
+                    "the-contract",
+                    "semantic",
+                    "nothing-self-declared",
+                    "next-move",
+                    "the-human"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "p6-engine",
+              "title": "Gaia's engine",
+              "subtitle": "code · decides by rule",
+              "treatment": [
+                "envelope"
+              ],
+              "order": 2,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "p6-injects",
+                  "order": 1,
+                  "kicker": "INJECTS ►",
+                  "title": "A contract for this agent",
+                  "description": [
+                    "its surface, role, what it may read and write"
+                  ],
+                  "detail": "At dispatch the engine opens the agent contract and injects it as <code># Your Contract</code>. What is adapted to the agent is its own data, not the form: its <b>surface</b>, its <b>role</b> (<code>primary</code> or <code>verifier</code>), and the project-contract sections it may read (<code>can_read</code>) and write (<code>can_write</code>), taken from its own permission rows. The form it must answer in is the same for every agent.<br><br>How the two kinds meet, in the order of one turn:<br><b>At dispatch</b> — the agent contract names the sections this agent may read and write, declared in its definition (<code>project_context_contracts</code>). It hands over the names, not the contents: the agent reads a section on demand with <code>gaia context get-contract --section</code>.<br><b>In its answer</b> — the agent contract can carry <code>update_contracts</code>, each a change to one section. An agent proposes them; it cannot write the project contract directly.<br><b>At the close</b> — SubagentStop checks each update against the agent's write permission, one by one, before it is saved; a rejected one is named, and the rest still apply.<br><br>What each project-contract section holds:<br><b>project_identity</b> — the project's name, path, remote and type.<br><b>stack</b> — its languages and tools.<br><b>environment</b> — where it runs.<br><b>git</b> — its repository conventions.<br><b>architecture_overview</b> — how its parts fit.<br><b>application_services</b> — its services (developer writes it).<br><b>infrastructure</b>, <b>infrastructure_topology</b> — its cloud (platform-architect writes them).<br><b>gitops_configuration</b> — its desired cluster state (gitops-operator).<br><b>cluster_details</b> — the live cluster (cloud-troubleshooter).<br><b>workspace_repos</b> — the repositories of the workspace.<br><b>operational_guidelines</b>, <b>releases</b> — read for planning.<br><br>Sources: <code>tools/context/context_provider.py:191</code> (<code>build_kernel_sections</code>), <code>:244-249</code>; <code>hooks/modules/context/kernel_builder.py:193</code> (<code>build_dispatch_kernel</code>), <code>:214-215</code>, <code>:243-244</code>; <code>agents/*.md</code> (<code>project_context_contracts</code>); <code>bin/cli/context.py:366</code>; <code>hooks/subagent_stop.py:176</code>, <code>hooks/modules/context/context_writer.py:376</code> (<code>process_update_contracts</code>), <code>:127</code> (<code>validate_permission</code>).",
+                  "filters": [
+                    "the-contract",
+                    "deterministic",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "p6-validates",
+                  "order": 2,
+                  "kicker": "◄ VALIDATES",
+                  "title": "By rule, not the prose",
+                  "description": [
+                    "the reply text is never read"
+                  ],
+                  "detail": "At the close, <b>SubagentStop</b> finds the turn's stored agent contract and validates it by rule; nothing in the reply text is read. A missing or unfinalized contract sends the turn back (<code>exit 2</code>). Only COMPLETE is final.<br><br>What each key of the agent contract holds:<br><b>status</b> — how the turn ended, one of six states.<br><b>evidence</b> — what it saw (files, searches) and what it did (commands, outputs).<br><b>verification</b> — how the result was checked, and whether it passed.<br><b>open gaps</b> — what it could not do or check.<br><b>reach</b> — what it touched beyond the files it was sent to.<br><b>approval</b> — the exact command it asks you to approve.<br><b>project updates</b> — changes it proposes to the project contract.<br><br>Sources: <code>hooks/adapters/claude_code.py:905-907</code>; <code>validator.py:908</code>.",
+                  "filters": [
+                    "the-contract",
+                    "deterministic",
+                    "nothing-self-declared"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "p6-agent",
+              "title": "The agent",
+              "subtitle": "a model · one specialist",
+              "treatment": [
+                "envelope"
+              ],
+              "order": 3,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "p6-receives",
+                  "order": 1,
+                  "kicker": "RECEIVES",
+                  "title": "Does the work",
+                  "description": [
+                    "its contract open from birth"
+                  ],
+                  "detail": "The specialist is born with its agent contract already open, named <code>&lt;agent_id&gt;.&lt;token&gt;</code>, and adopts it with <code>gaia contract set/add/fill --draft-id</code>. It pulls the project-contract sections it needs, on demand, and writes its evidence as it works.",
+                  "filters": [
+                    "the-contract",
+                    "semantic"
+                  ]
+                },
+                {
+                  "id": "p6-answers",
+                  "order": 2,
+                  "kicker": "◄ ANSWERS",
+                  "title": "In a structured form",
+                  "description": [
+                    "the agent contract, filled as it goes"
+                  ],
+                  "detail": "The answer is the stored agent contract, closed with <code>gaia contract finalize</code>; the final message only signals that the turn ended. Its state decides what the orchestrator does next, and an <code>APPROVAL_REQUEST</code> carries the exact command for you.",
+                  "filters": [
+                    "the-contract",
+                    "semantic",
+                    "next-move",
+                    "the-human"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "p6-kinds",
+          "title": "The contracts",
+          "subtitle": "one for each turn · one for each project",
+          "treatment": [
+            "envelope"
+          ],
+          "order": 3,
+          "span": 1,
+          "columns": 2,
+          "children": [
+            {
+              "id": "p6-agent-contract",
+              "title": "Agent contract",
+              "treatment": [
+                "envelope"
+              ],
+              "order": 1,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "ac-status",
+                  "type": "rail",
+                  "order": 2,
+                  "indent": 1,
+                  "title": "status",
+                  "filters": [
+                    "the-contract",
+                    "next-move"
+                  ]
+                },
+                {
+                  "id": "ac-states",
+                  "treatment": [
+                    "plain"
+                  ],
+                  "order": 3,
+                  "span": 1,
+                  "columns": 1,
+                  "children": [
+                    {
+                      "id": "ac-complete",
+                      "type": "rail",
+                      "order": 1,
+                      "indent": 2,
+                      "title": "COMPLETE",
+                      "filters": [
+                        "the-contract",
+                        "next-move"
+                      ]
+                    },
+                    {
+                      "id": "ac-needs-verification",
+                      "type": "rail",
+                      "order": 2,
+                      "indent": 2,
+                      "title": "NEEDS_VERIFICATION",
+                      "filters": [
+                        "the-contract",
+                        "next-move"
+                      ]
+                    },
+                    {
+                      "id": "ac-approval-request",
+                      "type": "rail",
+                      "order": 3,
+                      "indent": 2,
+                      "title": "APPROVAL_REQUEST",
+                      "filters": [
+                        "the-contract",
+                        "next-move"
+                      ]
+                    },
+                    {
+                      "id": "ac-needs-input",
+                      "type": "rail",
+                      "order": 4,
+                      "indent": 2,
+                      "title": "NEEDS_INPUT",
+                      "filters": [
+                        "the-contract",
+                        "next-move"
+                      ]
+                    },
+                    {
+                      "id": "ac-blocked",
+                      "type": "rail",
+                      "order": 5,
+                      "indent": 2,
+                      "title": "BLOCKED",
+                      "filters": [
+                        "the-contract",
+                        "next-move"
+                      ]
+                    },
+                    {
+                      "id": "ac-in-progress",
+                      "type": "rail",
+                      "order": 6,
+                      "indent": 2,
+                      "title": "IN_PROGRESS",
+                      "filters": [
+                        "the-contract",
+                        "next-move"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "ac-evidence",
+                  "type": "rail",
+                  "order": 4,
+                  "indent": 1,
+                  "title": "evidence",
+                  "filters": [
+                    "the-contract"
+                  ]
+                },
+                {
+                  "id": "ac-parts",
+                  "treatment": [
+                    "plain"
+                  ],
+                  "order": 5,
+                  "span": 1,
+                  "columns": 1,
+                  "children": [
+                    {
+                      "id": "ac-files",
+                      "type": "rail",
+                      "order": 1,
+                      "indent": 2,
+                      "title": "files_checked",
+                      "filters": [
+                        "the-contract"
+                      ]
+                    },
+                    {
+                      "id": "ac-patterns",
+                      "type": "rail",
+                      "order": 2,
+                      "indent": 2,
+                      "title": "patterns_checked",
+                      "filters": [
+                        "the-contract"
+                      ]
+                    },
+                    {
+                      "id": "ac-commands",
+                      "type": "rail",
+                      "order": 3,
+                      "indent": 2,
+                      "title": "commands_run",
+                      "filters": [
+                        "the-contract"
+                      ]
+                    },
+                    {
+                      "id": "ac-key-outputs",
+                      "type": "rail",
+                      "order": 4,
+                      "indent": 2,
+                      "title": "key_outputs",
+                      "filters": [
+                        "the-contract"
+                      ]
+                    },
+                    {
+                      "id": "ac-verbatim",
+                      "type": "rail",
+                      "order": 5,
+                      "indent": 2,
+                      "title": "verbatim_outputs",
+                      "filters": [
+                        "the-contract"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "ac-verification",
+                  "type": "rail",
+                  "order": 6,
+                  "indent": 1,
+                  "title": "verification",
+                  "filters": [
+                    "the-contract",
+                    "nothing-self-declared"
+                  ]
+                },
+                {
+                  "id": "ac-gaps",
+                  "type": "rail",
+                  "order": 7,
+                  "indent": 1,
+                  "title": "open gaps",
+                  "filters": [
+                    "the-contract"
+                  ]
+                },
+                {
+                  "id": "ac-reach",
+                  "type": "rail",
+                  "order": 8,
+                  "indent": 1,
+                  "title": "reach",
+                  "filters": [
+                    "the-contract"
+                  ]
+                },
+                {
+                  "id": "ac-approval",
+                  "type": "rail",
+                  "order": 9,
+                  "indent": 1,
+                  "title": "approval",
+                  "filters": [
+                    "the-contract",
+                    "the-human"
+                  ]
+                },
+                {
+                  "id": "ac-updates",
+                  "type": "rail",
+                  "order": 10,
+                  "indent": 1,
+                  "title": "project updates",
+                  "filters": [
+                    "the-contract",
+                    "project-contract"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "p6-project",
+              "title": "Project contract",
+              "treatment": [
+                "envelope"
+              ],
+              "order": 2,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "pc-identity",
+                  "type": "rail",
+                  "order": 2,
+                  "indent": 1,
+                  "title": "project_identity",
+                  "filters": [
+                    "memory",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "pc-stack",
+                  "type": "rail",
+                  "order": 3,
+                  "indent": 1,
+                  "title": "stack",
+                  "filters": [
+                    "memory",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "pc-env",
+                  "type": "rail",
+                  "order": 4,
+                  "indent": 1,
+                  "title": "environment",
+                  "filters": [
+                    "memory",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "pc-git",
+                  "type": "rail",
+                  "order": 5,
+                  "indent": 1,
+                  "title": "git",
+                  "filters": [
+                    "memory",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "pc-arch",
+                  "type": "rail",
+                  "order": 6,
+                  "indent": 1,
+                  "title": "architecture_overview",
+                  "filters": [
+                    "memory",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "pc-workspace",
+                  "type": "rail",
+                  "order": 7,
+                  "indent": 1,
+                  "title": "workspace_repos",
+                  "filters": [
+                    "memory",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "pc-services",
+                  "type": "rail",
+                  "order": 8,
+                  "indent": 1,
+                  "title": "application_services",
+                  "filters": [
+                    "memory",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "pc-infra",
+                  "type": "rail",
+                  "order": 9,
+                  "indent": 1,
+                  "title": "infrastructure",
+                  "filters": [
+                    "memory",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "pc-topology",
+                  "type": "rail",
+                  "order": 10,
+                  "indent": 1,
+                  "title": "infrastructure_topology",
+                  "filters": [
+                    "memory",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "pc-gitops",
+                  "type": "rail",
+                  "order": 11,
+                  "indent": 1,
+                  "title": "gitops_configuration",
+                  "filters": [
+                    "memory",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "pc-cluster",
+                  "type": "rail",
+                  "order": 12,
+                  "indent": 1,
+                  "title": "cluster_details",
+                  "filters": [
+                    "memory",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "pc-guidelines",
+                  "type": "rail",
+                  "order": 13,
+                  "indent": 1,
+                  "title": "operational_guidelines",
+                  "filters": [
+                    "memory",
+                    "project-contract"
+                  ]
+                },
+                {
+                  "id": "pc-releases",
+                  "type": "rail",
+                  "order": 14,
+                  "indent": 1,
+                  "title": "releases",
+                  "filters": [
+                    "memory",
+                    "project-contract"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "name": "6 · Contracts",
       "order": 4
     },
     {
@@ -3373,7 +3330,7 @@ window.__DOC__ = {
           ]
         }
       ],
-      "name": "6 · Install it, ask it",
+      "name": "7 · Install it, ask it",
       "order": 5
     },
     {
@@ -3872,458 +3829,6 @@ window.__DOC__ = {
       ],
       "name": "Backup · Down to the code",
       "order": 6
-    },
-    {
-      "id": "p-pilot-your-yes",
-      "form": "dashboard",
-      "columns": 1,
-      "filters": [
-        {
-          "key": "moment-ask",
-          "label": "1 · you ask",
-          "steps": [
-            "You ask in your own words. The orchestrator sends the goal, and the engine prepares the specialist before it starts."
-          ]
-        },
-        {
-          "key": "moment-work",
-          "label": "2 · it works",
-          "steps": [
-            "The specialist reads and edits. Every action is checked by rule; safe ones never reach you."
-          ]
-        },
-        {
-          "key": "moment-stop",
-          "label": "3 · a change stops",
-          "steps": [
-            "A command that changes something is stopped. The specialist pauses and its request goes to the orchestrator."
-          ]
-        },
-        {
-          "key": "moment-asked",
-          "label": "4 · you're asked",
-          "steps": [
-            "The orchestrator asks you with the question Gaia wrote, checked word for word."
-          ]
-        },
-        {
-          "key": "moment-decide",
-          "label": "5 · you decide",
-          "steps": [
-            "Your answer is recorded as a one-time pass, and the same specialist picks up where it stopped."
-          ]
-        },
-        {
-          "key": "moment-run",
-          "label": "6 · it runs",
-          "steps": [
-            "The exact command runs once. The report is checked by rule before you hear the result."
-          ]
-        }
-      ],
-      "sections": [
-        {
-          "id": "s7-title",
-          "treatment": [
-            "plain",
-            "compact"
-          ],
-          "tokens": {
-            "row": {
-              "cell_h": 60
-            }
-          },
-          "order": 1,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "s7-head",
-              "order": 1,
-              "title": "Nothing that matters runs without you seeing it.",
-              "treatment": [
-                "centered"
-              ]
-            }
-          ],
-          "css_vars": {
-            "--cell-h": "60px"
-          }
-        },
-        {
-          "id": "s7-gaia",
-          "title": "GAIA",
-          "tokens": {
-            "row": {
-              "cell_h": 76
-            }
-          },
-          "order": 2,
-          "span": 1,
-          "columns": 4,
-          "children": [
-            {
-              "id": "s7-you",
-              "title": "You",
-              "subtitle": "the one who approves",
-              "treatment": [
-                "envelope"
-              ],
-              "order": 1,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "s7-y1",
-                  "order": 1,
-                  "title": "Asks for something",
-                  "description": [
-                    "add a health check to store-api"
-                  ],
-                  "detail": "You ask in your own words. The orchestrator works out what you want and which specialist owns it.",
-                  "filters": [
-                    "moment-ask"
-                  ]
-                },
-                {
-                  "id": "s7-y2",
-                  "order": 2,
-                  "rowspan": 2,
-                  "title": "Nothing reaches you",
-                  "description": [
-                    "safe actions never ask"
-                  ],
-                  "detail": "Reading is safe, so Gaia never asks you about it.",
-                  "filters": [
-                    "moment-work"
-                  ]
-                },
-                {
-                  "id": "s7-y4",
-                  "order": 3,
-                  "title": "Sees the details",
-                  "description": [
-                    "who · what runs · how to undo"
-                  ],
-                  "detail": "The question names the agent and the exact command. Details adds what it does, its impact, how it is checked and how to roll it back.",
-                  "filters": [
-                    "moment-asked"
-                  ]
-                },
-                {
-                  "id": "s7-y5",
-                  "order": 4,
-                  "title": "Decides",
-                  "description": [
-                    "approve · reject · let it expire"
-                  ],
-                  "detail": "Approve covers this one command, once. Reject means nothing runs. A request nobody answers expires.",
-                  "filters": [
-                    "moment-decide"
-                  ]
-                },
-                {
-                  "id": "s7-y6",
-                  "order": 5,
-                  "title": "Gets the result",
-                  "description": [
-                    "what changed, and the proof"
-                  ],
-                  "detail": "The orchestrator tells you what changed and what it is based on.",
-                  "filters": [
-                    "moment-run"
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "s7-orch",
-              "title": "The orchestrator",
-              "subtitle": "the model you talk to",
-              "treatment": [
-                "envelope"
-              ],
-              "order": 2,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "s7-o1",
-                  "order": 1,
-                  "rowspan": 2,
-                  "title": "Sends the goal",
-                  "description": [
-                    "to the specialist for that field"
-                  ],
-                  "detail": "The orchestrator never edits files or runs changes itself. It hands the work to a specialist.",
-                  "filters": [
-                    "moment-ask"
-                  ]
-                },
-                {
-                  "id": "s7-o3",
-                  "order": 2,
-                  "title": "Gets the request",
-                  "description": [
-                    "from the specialist's report"
-                  ],
-                  "detail": "The specialist's turn ends with an approval request in its contract. The orchestrator reads it from there.",
-                  "filters": [
-                    "moment-stop"
-                  ]
-                },
-                {
-                  "id": "s7-o4",
-                  "order": 3,
-                  "kicker": "ASK TOOL",
-                  "title": "Asks you",
-                  "description": [
-                    "with the question Gaia wrote"
-                  ],
-                  "detail": "The orchestrator asks Gaia for the question and opens it without changing a word.",
-                  "filters": [
-                    "moment-asked"
-                  ]
-                },
-                {
-                  "id": "s7-o5",
-                  "order": 4,
-                  "title": "Resumes the specialist",
-                  "description": [
-                    "the same one, where it stopped"
-                  ],
-                  "detail": "The orchestrator resumes the same specialist. Its context is not injected again.",
-                  "filters": [
-                    "moment-decide"
-                  ]
-                },
-                {
-                  "id": "s7-o6",
-                  "order": 5,
-                  "title": "Tells you the result",
-                  "description": [
-                    "from the checked report"
-                  ],
-                  "detail": "The orchestrator reports from the checked contract and from what it opens itself, not from the specialist's message.",
-                  "filters": [
-                    "moment-run"
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "s7-engine",
-              "title": "Gaia's engine",
-              "subtitle": "code, a rule, no model",
-              "treatment": [
-                "envelope"
-              ],
-              "order": 3,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "s7-e1",
-                  "order": 1,
-                  "kicker": "CONTEXT INJECTION",
-                  "title": "Prepares the specialist",
-                  "description": [
-                    "goal, contract, your rules"
-                  ],
-                  "detail": "When a specialist starts, a hook (SubagentStart) injects its contract (the goal and the form it fills in), what it may read and write in the project, your standing rules and the commands it can use. Project details are read on demand.",
-                  "filters": [
-                    "moment-ask"
-                  ]
-                },
-                {
-                  "id": "s7-e2",
-                  "order": 2,
-                  "kicker": "SCAN",
-                  "title": "Checks every action",
-                  "description": [
-                    "reads pass · risky actions stop"
-                  ],
-                  "detail": "Before each action, a hook (PreToolUse) checks it by rule: commands, file reads and edits, dispatches and questions. Reading a credentials file is refused, and nothing can approve it.",
-                  "filters": [
-                    "moment-work"
-                  ]
-                },
-                {
-                  "id": "s7-e3",
-                  "order": 3,
-                  "kicker": "HOOK",
-                  "title": "Stops the command",
-                  "description": [
-                    "holds it and keeps the request"
-                  ],
-                  "detail": "A command that changes something is held and a pending request is stored. When the specialist's turn ends, a hook (SubagentStop) checks its contract and keeps the request alive.",
-                  "variant": "warn",
-                  "filters": [
-                    "moment-stop"
-                  ]
-                },
-                {
-                  "id": "s7-e4",
-                  "order": 4,
-                  "kicker": "ASK CHECK",
-                  "title": "Checks the question",
-                  "description": [
-                    "word for word, or it is refused"
-                  ],
-                  "detail": "A hook checks the question before it opens. If it differs by one character from what Gaia wrote, it is refused. Each question shown is recorded.",
-                  "filters": [
-                    "moment-asked"
-                  ]
-                },
-                {
-                  "id": "s7-e5",
-                  "order": 5,
-                  "kicker": "AUDIT TRAIL",
-                  "title": "Records your answer",
-                  "description": [
-                    "one-time pass, this specialist"
-                  ],
-                  "detail": "Each answer is stamped and linked to the step before, so a changed record shows. An approval becomes a one-time pass bound to this session and this specialist.",
-                  "filters": [
-                    "moment-decide"
-                  ]
-                },
-                {
-                  "id": "s7-e6",
-                  "order": 6,
-                  "kicker": "VALIDATION",
-                  "title": "Matches and validates",
-                  "description": [
-                    "exact command, report by rule"
-                  ],
-                  "detail": "The retried command must match the approved one byte for byte. After it runs, a hook (PostToolUse) records executed or failed. At the end, SubagentStop checks the contract; a missing or unfinished one sends the specialist back.",
-                  "filters": [
-                    "moment-run"
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "s7-spec",
-              "title": "The specialist",
-              "subtitle": "a model, one field",
-              "treatment": [
-                "envelope"
-              ],
-              "order": 4,
-              "span": 1,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "s7-s1",
-                  "order": 1,
-                  "title": "Subagent born",
-                  "description": [
-                    "identity · skills · tools"
-                  ],
-                  "detail": "Each agent is one file that names it and lists its tools and the skills it needs. Claude Code loads those skills when the agent starts.",
-                  "filters": [
-                    "moment-ask"
-                  ]
-                },
-                {
-                  "id": "s7-s2",
-                  "order": 2,
-                  "title": "Does the work",
-                  "description": [
-                    "reads · edits · runs tests"
-                  ],
-                  "detail": "Most of the work is reading and editing files and running checks.",
-                  "filters": [
-                    "moment-work"
-                  ]
-                },
-                {
-                  "id": "s7-s3",
-                  "order": 3,
-                  "rowspan": 3,
-                  "title": "git push",
-                  "description": [
-                    "asks for approval and pauses"
-                  ],
-                  "detail": "git push sends commits to the shared repository, so it changes something other people use.",
-                  "filters": [
-                    "moment-stop",
-                    "moment-asked",
-                    "moment-decide"
-                  ]
-                },
-                {
-                  "id": "s7-s6",
-                  "order": 4,
-                  "kicker": "EXECUTION",
-                  "title": "Runs it, then reports",
-                  "description": [
-                    "only the approved command"
-                  ],
-                  "detail": "The same specialist runs the approved command once, then closes its contract: what changed, the commands, their output and what is still open.",
-                  "filters": [
-                    "moment-run"
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "s7-prompt",
-              "treatment": [
-                "plain"
-              ],
-              "tokens": {
-                "row": {
-                  "cell_h": 144
-                }
-              },
-              "order": 5,
-              "span": 4,
-              "columns": 1,
-              "children": [
-                {
-                  "id": "s7-question",
-                  "order": 1,
-                  "variant": "accent",
-                  "kicker": "PROMPT",
-                  "title": "SIGNATURE 1/1",
-                  "tokens": {
-                    "type": {
-                      "desc": {
-                        "lines": 5
-                      }
-                    }
-                  },
-                  "description": [
-                    "[ GAIA-SECURITY ] [ AGENT-REQUEST ] [ developer ] [ COMMAND ] [ git push origin feature/health-check ]",
-                    "› 1. Approve · authorizes exactly this command",
-                    "  2. Reject · nothing runs",
-                    "  3. Details · what it does, impact, verification, how to undo it",
-                    "  4. Type something"
-                  ],
-                  "detail": "<code>[ GAIA-SECURITY ] [ DETAILS ] [ developer ] [ COMMAND: git push origin feature/health-check ] [ DOES: pushes the health-check commits to the shared repository ] [ IMPACT: updates the feature/health-check branch; main is not touched ] [ VERIFICATION: CI runs on the branch and must pass ] [ SHARED-STATE: the remote branch feature/health-check ] [ ROLLBACK: push the previous commit back to the branch ]</code>",
-                  "filters": [
-                    "moment-asked",
-                    "moment-decide"
-                  ],
-                  "css_vars": {
-                    "--desc-lines": "5"
-                  }
-                }
-              ],
-              "css_vars": {
-                "--cell-h": "144px"
-              }
-            }
-          ],
-          "css_vars": {
-            "--cell-h": "76px"
-          }
-        }
-      ],
-      "name": "Pilot · 7 · Your yes",
-      "order": 7
     }
   ]
 };

@@ -61,7 +61,6 @@ sections:
                 filters: [p2-ask, p2-delegate]
           - id: gaia-manages
             title: "What Gaia manages"
-            subtitle: "through its own command line"
             treatment: [envelope]
             order: 2
             span: 2
@@ -95,6 +94,11 @@ sections:
                 description: ["shows the command and its impact"]
                 detail: "When a specialist needs a change, Gaia shows you the exact command, what it will change and how to undo it, in one clear question. Nothing runs until you answer."
                 filters: [p2-rules]
+              - id: mg-cli
+                type: separator
+                order: 5
+                span: 4
+                text: "all of this runs through Gaia's own CLI"
       - id: gaia-rel
         treatment: [plain]
         order: 2
@@ -104,7 +108,7 @@ sections:
           - id: mp-gaia-rel
             type: separator
             order: 1
-            text: "hands out the work · gets back a contract"
+            text: "▼ delegates · ▲ returns a contract"
       - id: gaia-bottom
         treatment: [plain]
         order: 3
@@ -170,20 +174,6 @@ sections:
                 detail: "It starts with its contract open: the goal, its role, and what it may touch. It fills it in as it works, using Gaia's command line, and its turn cannot close until the form is complete."
                 filters: [p2-delegate, p2-rules]
 
-      - id: halves
-        treatment: [plain]
-        order: 4
-        span: 1
-        columns: 1
-        children:
-          - id: halves-line
-            type: separator
-            order: 1
-            text: "hooks decide by rule · agents follow written skills · the CLI keeps the records"
-          - id: you-line
-            type: separator
-            order: 2
-            text: "you ask in your own words · you approve what changes"
       - id: prompt
         treatment: [plain, compact]
         tokens:

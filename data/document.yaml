@@ -1,41 +1,39 @@
 # Document manifest — GAIA architecture overview deck.
 # name / order / visible live ONLY here; each page file owns id + content.
-# The order is STORYBOARD.md revision 6: Why, the map, one point of the map per
-# page in the order of one turn's life, what Gaia keeps, install, backup.
-# Page files keep their original names (p6-contracts is page 4, and so on);
-# only `name` carries the page number the audience sees.
+# Page files keep their original names, so only `name` carries the number the
+# audience sees; 4 is reserved for a page not written yet.
 title: "GAIA"
 subtitle: "Generative AI Interface for Agents"
 version: "0.1.0"
 
 pages:
   - id: s-shared-semantics
-    name: "1 · Why"
+    name: "1 · Becoming AI-first"
     order: 0
     visible: true
     file: pages/s-shared-semantics.yaml
   - id: p2-the-map
-    name: "2 · What Gaia is"
+    name: "2 · What is Gaia"
     order: 1
     visible: true
     file: pages/p2-the-map.yaml
-  - id: p4-life-of-a-request
-    name: "3 · The life of a request"
+  - id: p5-what-gaia-keeps
+    name: "3 · What Gaia knows"
     order: 2
     visible: true
-    file: pages/p4-life-of-a-request.yaml
-  - id: p6-contracts
-    name: "4 · Contracts"
+    file: pages/p5-what-gaia-keeps.yaml
+  - id: p-pilot-your-yes
+    name: "5 · Nothing that matters runs without you seeing it"
     order: 3
     visible: true
-    file: pages/p6-contracts.yaml
-  - id: p5-what-gaia-keeps
-    name: "5 · What Gaia keeps"
+    file: pages/p-pilot-your-yes.yaml
+  - id: p6-contracts
+    name: "6 · Contracts"
     order: 4
     visible: true
-    file: pages/p5-what-gaia-keeps.yaml
+    file: pages/p6-contracts.yaml
   - id: p9-back-to-the-map
-    name: "6 · Install it, ask it"
+    name: "7 · Install it, ask it"
     order: 5
     visible: true
     file: pages/p9-back-to-the-map.yaml
@@ -44,8 +42,3 @@ pages:
     order: 6
     visible: true
     file: pages/backup-code.yaml
-  - id: p-pilot-your-yes
-    name: "Pilot · 7 · Your yes"
-    order: 7
-    visible: true
-    file: pages/p-pilot-your-yes.yaml

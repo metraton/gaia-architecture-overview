@@ -157,17 +157,6 @@ sections:
               - { id: ep-cut-turns, type: rail, order: 10, variant: violet, treatment: [centered], title: "← cut turns", filters: [p5-happened] }
               - { id: ep-episodes, type: rail, order: 11, variant: violet, treatment: [centered], title: "← episodes", filters: [p5-happened, p5-one-task] }
 
-      - id: keeps-close
-        treatment: [plain]
-        order: 3
-        span: 1
-        columns: 1
-        children:
-          - id: keeps-close-line
-            type: separator
-            order: 1
-            text: "you decide what is curated · the engine records the rest"
-
       - id: prompt
         treatment: [plain, compact]
         tokens:

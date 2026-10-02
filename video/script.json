@@ -56,59 +56,10 @@
           "show": ["gaia-rel", "gaia-specialists"],
           "cues": [{ "at": "born", "show": ["gaia-carries"] }] },
         { "say": "Around them, Gaia keeps approvals, contracts, memory, and plans." },
-        { "say": "And it's built from two halves.", "show": ["halves"] },
+        { "say": "And it's built from two halves." },
         { "say": "Hooks, where a rule decides." },
         { "say": "And skills and agents, where a model follows instructions." },
         { "say": "The CLI joins them.", "chip": "all" }
-      ]
-    },
-    {
-      "page": "p4-life-of-a-request",
-      "audio": "audio/3.wav",
-      "sentences": [
-        { "say": "Every request lives the same life.", "show": ["turn"] },
-        { "say": "When a specialist is born, it's handed its context: its contract, the parts of the project it may touch, and what Gaia remembers about you.",
-          "show": ["lf-receives"],
-          "cues": [{ "at": "remembers", "chip": "memory" }, { "at": "you", "chip": "all" }] },
-        { "say": "Then, before any command runs, a rule, not a model, sorts it.",
-          "show": ["lf-born", "lf-works", "lf-contract", "approvals", "ap-sorts"],
-          "cues": [{ "at": "rule", "chip": "deterministic" }] },
-        { "say": "Reads run.", "show": ["ap-runs"] },
-        { "say": "Changes wait for your yes, with the exact command in front of you.", "show": ["ap-waits"], "chip": "the-human" },
-        { "say": "And a few commands never run at all.", "show": ["ap-never"], "chip": "deterministic" },
-        { "say": "After every command, the result is recorded.", "chip": "one-command",
-          "cues": [{ "at": "recorded", "chip": "all" }] },
-        { "say": "When the specialist finishes, its contract is judged by rule, never by what it says in prose.",
-          "cues": [{ "at": "judged", "chip": "nothing-self-declared" }] },
-        { "say": "Only two moments can stop a turn: before an execution, and at contract validation.", "chip": "one-turn",
-          "cues": [{ "at": "validation", "chip": "all" }, { "at": "validation", "show": ["footnotes"] }] }
-      ]
-    },
-    {
-      "page": "p6-contracts",
-      "audio": "audio/4.wav",
-      "sentences": [
-        { "say": "Everything travels as a contract.", "show": ["p6-head"] },
-        { "say": "The orchestrator sends the work.", "show": ["p6-flow", "p6-orch", "p6-sends"] },
-        { "say": "Gaia's engine hands the specialist a contract made for it: what it's for, and which parts of the project it may read and write.",
-          "show": ["p6-engine", "p6-injects"],
-          "cues": [
-            { "at": "specialist", "show": ["p6-agent", "p6-receives"] },
-            { "at": "contract", "chip": "the-contract" },
-            { "at": "which", "chip": "project-contract" },
-            { "at": "write", "chip": "all" }
-          ] },
-        { "say": "The specialist answers in that same form: its status, its evidence, what's still open.", "show": ["p6-answers"] },
-        { "say": "The engine checks it by rule, and only then does the orchestrator read it and decide what's next.", "chip": "deterministic",
-          "cues": [{ "at": "next", "chip": "next-move" }] },
-        { "say": "There are two kinds: the agent contract, one per turn, and the project contract, one per project.",
-          "show": ["p6-kinds"], "chip": "all",
-          "cues": [
-            { "at": "agent", "show": ["p6-agent-contract"] },
-            { "at": "agent", "chip": "the-contract" },
-            { "at": "project", "show": ["p6-project"] },
-            { "at": "project", "chip": "project-contract" }
-          ] }
       ]
     },
     {
@@ -123,25 +74,7 @@
         { "say": "Episodic memory: what happened, and when?", "show": ["sun-episodic", "ep-core"] },
         { "say": "Recorded by the engine, not narrated by the agent." },
         { "say": "You decide what is curated." },
-        { "say": "The engine records the rest.", "show": ["keeps-close"], "chip": "all" }
-      ]
-    },
-    {
-      "page": "p9-back-to-the-map",
-      "audio": "audio/6.wav",
-      "sentences": [
-        { "say": "Starting is simple.", "show": ["p9-grow-row"] },
-        { "say": "You install it: one command." },
-        { "say": "You ask it what it is." },
-        { "say": "You point it at your repos." },
-        { "say": "You describe the problem." },
-        { "say": "And then, you work agentically." },
-        { "say": "It plans, delegates, and asks before it changes anything.", "show": ["p9-objections"],
-          "cues": [{ "at": "asks", "chip": "the-human" }] },
-        { "say": "Everything it learns stays in one database, on your machine.", "chip": "memory",
-          "cues": [{ "at": "machine", "chip": "yours" }] },
-        { "say": "So: what is Gaia, and what can you do for me?", "chip": "all",
-          "cues": [{ "at": "can", "show": ["p9-close"] }] }
+        { "say": "The engine records the rest.", "chip": "all" }
       ]
     },
     {
@@ -175,6 +108,51 @@
         { "say": "And only then does the orchestrator tell you the result.", "pause": 1.5, "show": ["s7-o6"],
           "cues": [{ "at": "result", "show": ["s7-y6"] }] },
         { "say": "Nothing that matters runs without you seeing it.", "pause": 0.3, "chip": "all" }
+      ]
+    },
+    {
+      "page": "p6-contracts",
+      "audio": "audio/4.wav",
+      "sentences": [
+        { "say": "Everything travels as a contract.", "show": ["p6-head"] },
+        { "say": "The orchestrator sends the work.", "show": ["p6-flow", "p6-orch", "p6-sends"] },
+        { "say": "Gaia's engine hands the specialist a contract made for it: what it's for, and which parts of the project it may read and write.",
+          "show": ["p6-engine", "p6-injects"],
+          "cues": [
+            { "at": "specialist", "show": ["p6-agent", "p6-receives"] },
+            { "at": "contract", "chip": "the-contract" },
+            { "at": "which", "chip": "project-contract" },
+            { "at": "write", "chip": "all" }
+          ] },
+        { "say": "The specialist answers in that same form: its status, its evidence, what's still open.", "show": ["p6-answers"] },
+        { "say": "The engine checks it by rule, and only then does the orchestrator read it and decide what's next.", "chip": "deterministic",
+          "cues": [{ "at": "next", "chip": "next-move" }] },
+        { "say": "There are two kinds: the agent contract, one per turn, and the project contract, one per project.",
+          "show": ["p6-kinds"], "chip": "all",
+          "cues": [
+            { "at": "agent", "show": ["p6-agent-contract"] },
+            { "at": "agent", "chip": "the-contract" },
+            { "at": "project", "show": ["p6-project"] },
+            { "at": "project", "chip": "project-contract" }
+          ] }
+      ]
+    },
+    {
+      "page": "p9-back-to-the-map",
+      "audio": "audio/6.wav",
+      "sentences": [
+        { "say": "Starting is simple.", "show": ["p9-grow-row"] },
+        { "say": "You install it: one command." },
+        { "say": "You ask it what it is." },
+        { "say": "You point it at your repos." },
+        { "say": "You describe the problem." },
+        { "say": "And then, you work agentically." },
+        { "say": "It plans, delegates, and asks before it changes anything.", "show": ["p9-objections"],
+          "cues": [{ "at": "asks", "chip": "the-human" }] },
+        { "say": "Everything it learns stays in one database, on your machine.", "chip": "memory",
+          "cues": [{ "at": "machine", "chip": "yours" }] },
+        { "say": "So: what is Gaia, and what can you do for me?", "chip": "all",
+          "cues": [{ "at": "can", "show": ["p9-close"] }] }
       ]
     }
   ]
