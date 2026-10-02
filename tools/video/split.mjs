@@ -13,8 +13,8 @@ import { OUT_DIR, argValue, fail, readScript, requireDeck } from './deck.mjs';
 import { FRAME, buildPlan, loadTimeline, readAlign, selectedPages } from './timeline.mjs';
 
 const doc = requireDeck();
-const timeline = loadTimeline(doc, readScript());
-const plan = buildPlan(timeline, readAlign(), selectedPages(timeline));
+const script = readScript();
+const plan = buildPlan(loadTimeline(doc, script, selectedPages(script)), readAlign());
 const unvoiced = plan.pages.filter(p => p.method === 'estimate').map(p => p.page);
 if (unvoiced.length) fail(`split needs the aligned narration of ${unvoiced.join(', ')}; its boundaries would not match the capture`);
 const input = resolve(OUT_DIR, argValue('--in', 'deck.mp4'));

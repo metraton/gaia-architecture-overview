@@ -2,8 +2,8 @@
 //
 //   npm run video:capture [-- --pages id,id] [--out name.mp4]
 //
-// The whole timeline is validated against the rendered deck before any frame
-// is taken; only the selected pages are captured, laid end to end from t=0.
+// Only the selected pages are validated against the rendered deck, before any
+// frame is taken, and captured, laid end to end from t=0.
 // A frame is a pure function of the state the driver sets at its instant, so
 // only instants whose state differs from the previous frame's are captured,
 // by several browsers at once, and every other frame holds the last capture.
@@ -112,9 +112,8 @@ function encode(plan, list, frames, out) {
 
 const doc = requireDeck();
 const playwright = loadPlaywright();
-const timeline = loadTimeline(doc, readScript());
-const align = readAlign();
-const plan = buildPlan(timeline, align, selectedPages(timeline));
+const script = readScript();
+const plan = buildPlan(loadTimeline(doc, script, selectedPages(script)), readAlign());
 const unvoiced = plan.pages.filter(p => p.method === 'estimate').map(p => p.page);
 if (unvoiced.length) {
   fail(`capture needs the narration of ${unvoiced.join(', ')}: voice the exported script to its declared audio, then run npm run video:align --prefix ${DECK}`);
@@ -122,12 +121,11 @@ if (unvoiced.length) {
 const out = resolve(OUT_DIR, argValue('--out', 'deck.mp4'));
 
 const { browser, page } = await openDeck(playwright);
-const errors = await loadPlan(page, buildPlan(timeline, align));
+const errors = await loadPlan(page, plan);
 if (errors.length) {
   await browser.close();
   fail(`the timeline does not fit the rendered deck:\n[video]   ${errors.join('\n[video]   ')}`);
 }
-await loadPlan(page, plan);
 const frames = Math.round(plan.duration * FRAME.fps);
 const fingerprint = renderFingerprint(browser.version());
 const runs = holds((await page.evaluate(([n, fps]) => window.__frameStates(n, fps), [frames, FRAME.fps]))

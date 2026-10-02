@@ -1,6 +1,7 @@
 // The video's timeline, derived from the deck: pages in the deck's order, what
-// each sentence shows in the order its section places it, and only the chips the
-// page declares. The script says when; the deck says what and in which order.
+// each sentence shows, and only the chips the page declares. The script says
+// when and in which order; the deck says what, and a box never shows before the
+// section that holds it.
 // The plan turns it into seconds: every page is a slot of lead + speech + tail,
 // laid end to end from t=0, so capture and split cut at the same boundaries.
 import { existsSync, readFileSync } from 'node:fs';
@@ -24,21 +25,13 @@ const WORD = /[\p{L}\p{N}][\p{L}\p{N}'’-]*/gu;
 /** The letters and digits of a text, lower-cased: what a said word and a timed word share. */
 export const letters = s => s.toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');
 
-// Siblings are visited in the order the engine draws them (orderedChildren in
-// engine/engine.js): by `order`, else list position, ties by list position.
-// Keep the two rules identical, or a reveal the screen shows in order is refused.
-function byRenderOrder(nodes) {
-  return (nodes || []).map((c, i) => ({ c, i, o: c.order ?? (i + 1) }))
-    .sort((a, b) => (a.o === b.o ? a.i - b.i : a.o - b.o))
-    .map(x => x.c);
-}
-
-function preorder(nodes, out = [], parentOf = {}, parent = null) {
-  for (const n of byRenderOrder(nodes)) {
-    if (n.id) { out.push(n.id); parentOf[n.id] = parent; }
-    preorder(n.children, out, parentOf, n.id ?? parent);
+// Every id of the page, each with the nearest id that holds it.
+function parents(nodes, parentOf = new Map(), parent = null) {
+  for (const n of nodes || []) {
+    if (n.id) parentOf.set(n.id, parent);
+    parents(n.children, parentOf, n.id ?? parent);
   }
-  return { order: out, parentOf };
+  return parentOf;
 }
 
 // Where a cue's word first occurs in the sentence: its character index, for the
@@ -75,43 +68,53 @@ function sentenceCues(s, at, errors) {
   return fires;
 }
 
+// A page's cues fire in the order they are listed, so the position of a box's
+// first reveal in that list stands for its time when no audio is aligned yet.
 function derivePage(page, sp, errors) {
-  const { order, parentOf } = preorder(page.sections);
+  const parentOf = parents(page.sections);
   const chips = (page.filters || []).map(f => f.key);
   const shown = new Set();
   const cues = [];
-  const reachedIn = new Map();
+  const firstShown = new Map();
   sp.sentences.forEach((s, k) => {
     const at = `${sp.page} sentence ${k + 1}`;
     for (const cue of sentenceCues(s, at, errors)) {
       for (const id of cue.reveal || []) {
-        const i = order.indexOf(id);
-        const reached = reachedIn.get(parentOf[id]) ?? -1;
-        if (i < 0) errors.push(`${at}: shows "${id}", which is not on the page`);
-        else if (i < reached) errors.push(`${at}: shows "${id}" after "${order[reached]}", out of its section's order`);
-        else reachedIn.set(parentOf[id], i);
+        if (!parentOf.has(id)) errors.push(`${at}: shows "${id}", which is not on the page`);
+        else if (!firstShown.has(id)) firstShown.set(id, { position: cues.length, at });
         shown.add(id);
       }
       if (cue.chip !== undefined && cue.chip !== 'all' && !chips.includes(cue.chip)) {
         errors.push(`${at}: chip "${cue.chip}" is not a chip of the page (${chips.join(', ') || 'none'})`);
       }
-      if (cue.type !== undefined && !order.includes(cue.type)) errors.push(`${at}: types into "${cue.type}", which is not on the page`);
-      if (cue.ask !== undefined && !order.includes(cue.ask)) errors.push(`${at}: asks in "${cue.ask}", which is not on the page`);
+      if (cue.type !== undefined && !parentOf.has(cue.type)) errors.push(`${at}: types into "${cue.type}", which is not on the page`);
+      if (cue.ask !== undefined && !parentOf.has(cue.ask)) errors.push(`${at}: asks in "${cue.ask}", which is not on the page`);
       cues.push({ s: k + 1, ...cue });
     }
   });
+  for (const [id, own] of firstShown) {
+    for (let a = parentOf.get(id); a; a = parentOf.get(a)) {
+      const section = firstShown.get(a);
+      if (section && section.position > own.position) {
+        errors.push(`${own.at}: shows "${id}" before its section "${a}", which ${section.at.replace(`${sp.page} `, '')} shows`);
+      }
+    }
+  }
   const base = (page.sections || []).map(n => n.id).filter(id => id && !shown.has(id));
   return { page: sp.page, audio: sp.audio, duration: sp.duration, sentences: sp.sentences.map(s => s.say),
     timing: sp.sentences.map(s => ({ seconds: s.seconds, pause: s.pause ?? 0 })), base, cues };
 }
 
-/** Derives the timeline of the script's pages from the deck, or fails naming every mismatch. */
-export function loadTimeline(doc, script) {
+/**
+ * Derives the timeline of the script's pages named in `pageIds` from the deck, or
+ * fails naming every mismatch; a page left out is neither checked nor derived.
+ */
+export function loadTimeline(doc, script, pageIds = script.pages.map(p => p.page)) {
   const ids = doc.pages.map(p => p.id);
   const errors = [];
   let last = -1;
   const pages = [];
-  for (const sp of script.pages) {
+  for (const sp of script.pages.filter(p => pageIds.includes(p.page))) {
     const index = ids.indexOf(sp.page);
     if (index < 0) { errors.push(`${sp.page}: not a visible page of the deck (${ids.join(', ')})`); continue; }
     if (index < last) errors.push(`${sp.page}: listed after a page the deck places later; follow the deck's order`);
@@ -209,9 +212,12 @@ export function buildPlan(timeline, align, pageIds = timeline.pages.map(p => p.p
   return { fade: MOTION.fade, reveal: MOTION.reveal, type: MOTION.type, prompt: PROMPT, duration: clock, pages };
 }
 
-/** `--pages id,id` as page ids in the deck's order; an id outside the timeline fails. */
-export function selectedPages(timeline) {
-  const all = timeline.pages.map(p => p.page);
+/**
+ * `--pages id,id` as page ids in the order of `source.pages` (the script or a
+ * timeline), every page when the flag is absent; an id outside it fails.
+ */
+export function selectedPages(source) {
+  const all = source.pages.map(p => p.page);
   const asked = argValue('--pages', all.join(',')).split(',').map(s => s.trim()).filter(Boolean);
   const unknown = asked.filter(id => !all.includes(id));
   if (unknown.length) fail(`--pages: not in the script: ${unknown.join(', ')} (known: ${all.join(', ')})`);

@@ -6,8 +6,8 @@ import { readScript, requireDeck } from './deck.mjs';
 import { buildPlan, loadTimeline, readAlign, selectedPages } from './timeline.mjs';
 
 const doc = requireDeck();
-const timeline = loadTimeline(doc, readScript());
-const plan = buildPlan(timeline, readAlign(), selectedPages(timeline));
+const script = readScript();
+const plan = buildPlan(loadTimeline(doc, script, selectedPages(script)), readAlign());
 for (const p of plan.pages) {
   console.log(`${p.page}: ${p.start.toFixed(2)}-${p.end.toFixed(2)} s, timing ${p.method}, ` +
     `shown from the start: ${p.base.join(', ') || 'nothing'}`);

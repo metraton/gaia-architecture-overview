@@ -1528,22 +1528,42 @@ const excerpt = out => JSON.stringify(out.trim().slice(0, 300));
 }
 
 {
-  const name = 'VIDEO: the timeline follows the deck — its order is kept, and a section shown before its parent is refused';
+  const name = 'VIDEO: the script orders the reveals — boxes of a section in any order are accepted, a box shown before its section is refused';
+  const reversed = JSON.parse(JSON.stringify(FIXTURE_SCRIPT));
+  reversed.pages[0].sentences = [
+    { say: 'The section first.', show: ['section-e'] },
+    { say: 'Then its second cell,', show: ['item-2'] },
+    { say: 'and then its first.', show: ['item-1'] }];
   const outOfOrder = JSON.parse(JSON.stringify(FIXTURE_SCRIPT));
   outOfOrder.pages[0].sentences = [
     { say: 'A cell first.', show: ['item-1'] },
     { say: 'Then the section that holds it.', show: ['section-e'] }];
-  const good = mkVideoDeck();
+  const good = mkVideoDeck(ENGINE_SRC, reversed);
   const bad = mkVideoDeck(ENGINE_SRC, outOfOrder);
   try {
     const planned = runVideo(good, 'plan');
     const refused = runVideo(bad, 'plan');
-    report(name, planned.code === 0 && /overview/.test(planned.out)
-      && refused.code !== 0 && /deck's order/.test(refused.out),
+    report(name, planned.code === 0 && /show item-2[\s\S]*show item-1/.test(planned.out)
+      && refused.code !== 0 && /"item-1" before its section "section-e"/.test(refused.out),
     `plan exit ${planned.code} ${excerpt(planned.out)} | out of order: exit ${refused.code} ${excerpt(refused.out)}`);
   } finally {
     rmDeck(good);
     rmDeck(bad);
+  }
+}
+
+{
+  const name = 'VIDEO: --pages derives only the chosen pages; a broken page outside the selection is not checked';
+  const doc = { pages: [{ id: 'kept', sections: [{ id: 'a' }] }, { id: 'broken', sections: [{ id: 'b' }] }] };
+  const script = { pages: [
+    { page: 'kept', duration: 2, sentences: [{ say: 'Only this page.', show: ['a'] }] },
+    { page: 'broken', audio: 'audio/broken.wav', sentences: [{ say: 'Not on the page.', show: ['missing'] }] }] };
+  const stale = { pages: [{ page: 'broken', method: 'silencedetect', duration: 1, sentences: [{ text: 'Said before.', start: 0, end: 1 }] }] };
+  try {
+    const plan = buildPlan(loadTimeline(doc, script, ['kept']), stale);
+    report(name, plan.pages.map(p => p.page).join(',') === 'kept', `planned ${plan.pages.map(p => p.page).join(',')}`);
+  } catch (e) {
+    report(name, false, e.message);
   }
 }
 
