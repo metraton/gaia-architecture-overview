@@ -121,8 +121,8 @@
         { "say": "From a brief, to a plan, to tasks and their gates." },
         { "say": "Execution memory: what did we execute, and what did it produce?", "show": ["sun-execution", "ex-core"] },
         { "say": "Episodic memory: what happened, and when?", "show": ["sun-episodic", "ep-core"] },
-        { "say": "Recorded by the engine, not narrated by the agent.", "chip": "deterministic" },
-        { "say": "You decide what is curated.", "chip": "the-human" },
+        { "say": "Recorded by the engine, not narrated by the agent." },
+        { "say": "You decide what is curated." },
         { "say": "The engine records the rest.", "show": ["keeps-close"], "chip": "all" }
       ]
     },

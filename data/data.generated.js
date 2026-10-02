@@ -2000,698 +2000,787 @@ window.__DOC__ = {
       "id": "p5-what-gaia-keeps",
       "layout": "grid",
       "form": "dashboard",
-      "columns": 2,
+      "columns": 1,
       "filters": [
         {
-          "key": "the-human",
-          "label": "who decides?",
+          "key": "p5-knows",
+          "label": "1 · what it knows",
           "steps": [
-            "You do, and it is kept: the gates a plan must pass, the decisions and rules you set, and every approval a T3 command waited for."
+            "Gaia scans your projects and keeps what it learns about them, and about you: your decisions and your preferences."
           ]
         },
         {
-          "key": "nothing-self-declared",
-          "label": "is it really done?",
+          "key": "p5-open",
+          "label": "2 · what is open",
           "steps": [
-            "Not because a turn says so: a task stays pending until a gate's verdict is pass, and the lineage says where each fact came from."
+            "It keeps the work in progress: the idea, the plan, the tasks, and whatever is still open."
           ]
         },
         {
-          "key": "deterministic",
-          "label": "what does a rule decide?",
+          "key": "p5-done",
+          "label": "3 · what was done",
           "steps": [
-            "What the engine records by itself or decides by rule: every session, turn, hook event, anomaly, episode and cut turn; the scan of your workspace and what each agent may read and write; a command's tier, a contract's verdict and the audit trail; a task's pending or blocked status."
+            "It keeps what was done: each report, each approval, and the checks that closed the work."
           ]
         },
         {
-          "key": "semantic",
-          "label": "what does a model follow?",
+          "key": "p5-happened",
+          "label": "4 · what happened",
           "steps": [
-            "What a model writes on purpose, following its instructions: the brief, its acceptance criteria, the plan, its tasks and changes; the contract, its evidence, open gaps and final state; and the decisions, anchors, rules and preferences the orchestrator curates."
+            "And it records what happened, session by session, without anyone writing it by hand."
           ]
         },
         {
-          "key": "what-comes-back",
-          "label": "what comes back next session?",
+          "key": "p5-one-task",
+          "label": "5 · one task, four traces",
           "steps": [
-            "What the next session starts from: what was carried forward, the anchors of each project, and the events of the last 24 hours."
-          ]
-        },
-        {
-          "key": "one-task",
-          "label": "where does one task leave a trace?",
-          "steps": [
-            "In all four memories: the task itself in operational memory, the contract that answered it in execution memory, the episode of its turn in episodic memory, and the sections of the project it read and wrote in project memory."
+            "One task leaves a trace in all four: the project it touched, the task itself, its report, and the record of its turn."
           ]
         }
       ],
       "sections": [
         {
-          "id": "sun-project",
+          "id": "gaia",
+          "title": "GAIA",
           "treatment": [
             "envelope"
           ],
           "order": 1,
           "span": 1,
-          "columns": 4,
-          "children": [
-            {
-              "id": "pr-scan",
-              "type": "rail",
-              "order": 1,
-              "variant": "blue",
-              "treatment": [
-                "centered"
-              ],
-              "title": "scan →",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "pr-workspace",
-              "type": "rail",
-              "order": 2,
-              "variant": "blue",
-              "treatment": [
-                "centered"
-              ],
-              "title": "workspace →",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "pr-repos",
-              "type": "rail",
-              "order": 3,
-              "variant": "blue",
-              "treatment": [
-                "centered"
-              ],
-              "title": "repos →",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "pr-sections",
-              "type": "rail",
-              "order": 4,
-              "variant": "blue",
-              "treatment": [
-                "centered"
-              ],
-              "title": "sections ↓",
-              "filters": [
-                "one-task"
-              ]
-            },
-            {
-              "id": "pr-preferences",
-              "type": "rail",
-              "order": 5,
-              "variant": "blue",
-              "treatment": [
-                "centered"
-              ],
-              "title": "↑ preferences",
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "pr-core",
-              "order": 6,
-              "span": 2,
-              "variant": "blue",
-              "treatment": [
-                "centered"
-              ],
-              "title": "PROJECT MEMORY",
-              "filters": [
-                "one-task"
-              ],
-              "detail": "<b>What do we know about the project, and about you?</b><br><br>What Gaia knows about the project, and about you. gaia scan maps the workspace and its repos; what it finds is kept in named sections of the project contract: project identity, stack, git, architecture, services, environment, infrastructure. Each agent may read some sections and write others, and its context at dispatch names them. About you: your rules and preferences, handed to every specialist at birth, and the decisions and anchors the orchestrator curated. Also kept here: feedback on how work went, and what did not work, as curated rows of type negative. Commands: gaia scan, gaia context, gaia memory."
-            },
-            {
-              "id": "pr-can-read",
-              "type": "rail",
-              "order": 7,
-              "variant": "blue",
-              "treatment": [
-                "centered"
-              ],
-              "title": "can read ↓",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "pr-your-rules",
-              "type": "rail",
-              "order": 8,
-              "variant": "blue",
-              "treatment": [
-                "centered"
-              ],
-              "title": "↑ your rules",
-              "filters": [
-                "the-human",
-                "semantic"
-              ]
-            },
-            {
-              "id": "pr-anchors",
-              "type": "rail",
-              "order": 9,
-              "variant": "blue",
-              "treatment": [
-                "centered"
-              ],
-              "title": "← anchors",
-              "filters": [
-                "what-comes-back",
-                "semantic"
-              ]
-            },
-            {
-              "id": "pr-decisions",
-              "type": "rail",
-              "order": 10,
-              "variant": "blue",
-              "treatment": [
-                "centered"
-              ],
-              "title": "← decisions",
-              "filters": [
-                "the-human",
-                "semantic"
-              ]
-            },
-            {
-              "id": "pr-can-write",
-              "type": "rail",
-              "order": 11,
-              "variant": "blue",
-              "treatment": [
-                "centered"
-              ],
-              "title": "← can write",
-              "filters": [
-                "deterministic"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sun-operational",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 2,
-          "span": 1,
-          "columns": 4,
-          "children": [
-            {
-              "id": "op-brief",
-              "type": "rail",
-              "order": 1,
-              "variant": "gold",
-              "treatment": [
-                "centered"
-              ],
-              "title": "brief →",
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "op-ac",
-              "type": "rail",
-              "order": 2,
-              "variant": "gold",
-              "treatment": [
-                "centered"
-              ],
-              "title": "acceptance criteria →",
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "op-plan",
-              "type": "rail",
-              "order": 3,
-              "variant": "gold",
-              "treatment": [
-                "centered"
-              ],
-              "title": "plan →",
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "op-tasks",
-              "type": "rail",
-              "order": 4,
-              "variant": "gold",
-              "treatment": [
-                "centered"
-              ],
-              "title": "tasks ↓",
-              "filters": [
-                "one-task",
-                "semantic"
-              ]
-            },
-            {
-              "id": "op-carry-forward",
-              "type": "rail",
-              "order": 5,
-              "variant": "gold",
-              "treatment": [
-                "centered"
-              ],
-              "title": "↑ carry forward",
-              "filters": [
-                "what-comes-back",
-                "semantic"
-              ]
-            },
-            {
-              "id": "op-core",
-              "order": 6,
-              "span": 2,
-              "variant": "gold",
-              "treatment": [
-                "centered"
-              ],
-              "title": "OPERATIONAL MEMORY",
-              "filters": [
-                "one-task"
-              ],
-              "detail": "<b>What are we doing, and what is still open?</b><br><br>What is in flight and what is still open. A brief carries acceptance criteria and milestones; it gets one plan of tasks. Each task can depend on others, says which criteria it covers, and carries gates that someone who did not do the work checks. A plan can be paused, resumed, or changed through a managed plan change that keeps every earlier version. Also kept here: the statuses draft, open and in progress; open threads; schedules for recurring work and the notifications they leave; and each turn's next action. Commands: gaia brief, gaia ac, gaia milestone, gaia plan, gaia task, gaia schedule, gaia notifications."
-            },
-            {
-              "id": "op-gates",
-              "type": "rail",
-              "order": 7,
-              "variant": "gold",
-              "treatment": [
-                "centered"
-              ],
-              "title": "gates ↓",
-              "filters": [
-                "the-human"
-              ]
-            },
-            {
-              "id": "op-plan-change",
-              "type": "rail",
-              "order": 8,
-              "variant": "gold",
-              "treatment": [
-                "centered"
-              ],
-              "title": "↑ plan change",
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "op-pause",
-              "type": "rail",
-              "order": 9,
-              "variant": "gold",
-              "treatment": [
-                "centered"
-              ],
-              "title": "← pause",
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "op-blocked",
-              "type": "rail",
-              "order": 10,
-              "variant": "gold",
-              "treatment": [
-                "centered"
-              ],
-              "title": "← blocked",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "op-pending",
-              "type": "rail",
-              "order": 11,
-              "variant": "gold",
-              "treatment": [
-                "centered"
-              ],
-              "title": "← pending",
-              "filters": [
-                "nothing-self-declared",
-                "deterministic"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sun-execution",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 3,
-          "span": 1,
-          "columns": 4,
-          "children": [
-            {
-              "id": "ex-contracts",
-              "type": "rail",
-              "order": 1,
-              "variant": "clay",
-              "treatment": [
-                "centered"
-              ],
-              "title": "contracts →",
-              "filters": [
-                "one-task",
-                "semantic"
-              ]
-            },
-            {
-              "id": "ex-t3",
-              "type": "rail",
-              "order": 2,
-              "variant": "clay",
-              "treatment": [
-                "centered"
-              ],
-              "title": "T3 →",
-              "filters": [
-                "the-human",
-                "deterministic"
-              ]
-            },
-            {
-              "id": "ex-approvals",
-              "type": "rail",
-              "order": 3,
-              "variant": "clay",
-              "treatment": [
-                "centered"
-              ],
-              "title": "approvals →",
-              "filters": [
-                "the-human"
-              ]
-            },
-            {
-              "id": "ex-evidence",
-              "type": "rail",
-              "order": 4,
-              "variant": "clay",
-              "treatment": [
-                "centered"
-              ],
-              "title": "evidence ↓",
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "ex-audit-trail",
-              "type": "rail",
-              "order": 5,
-              "variant": "clay",
-              "treatment": [
-                "centered"
-              ],
-              "title": "↑ audit trail",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "ex-core",
-              "order": 6,
-              "span": 2,
-              "variant": "clay",
-              "treatment": [
-                "centered"
-              ],
-              "title": "EXECUTION MEMORY",
-              "filters": [
-                "one-task"
-              ],
-              "detail": "<b>What did we execute, and what did it produce?</b><br><br>What was executed, and what it produced. Every turn answers in its agent contract: its state (COMPLETE, BLOCKED, APPROVAL_REQUEST, NEEDS_VERIFICATION, NEEDS_INPUT, IN_PROGRESS), its evidence (commands run, key outputs, open gaps) and its verification, pass or fail. A gate's verdict is kept with its task. Every approval is kept in a hashed approval chain; every command's tier is decided by a rule: T0 read, T1 validate, T2 dry run, T3 change, or never. A compliance score and an audit trail are computed from all of it. Also kept here: metrics, and the worktree of each turn that wrote. Commands: gaia contract, gaia approvals, gaia evidence, gaia metrics."
-            },
-            {
-              "id": "ex-open-gaps",
-              "type": "rail",
-              "order": 7,
-              "variant": "clay",
-              "treatment": [
-                "centered"
-              ],
-              "title": "open gaps ↓",
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "ex-blocked",
-              "type": "rail",
-              "order": 8,
-              "variant": "clay",
-              "treatment": [
-                "centered"
-              ],
-              "title": "↑ BLOCKED",
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "ex-complete",
-              "type": "rail",
-              "order": 9,
-              "variant": "clay",
-              "treatment": [
-                "centered"
-              ],
-              "title": "← COMPLETE",
-              "filters": [
-                "semantic"
-              ]
-            },
-            {
-              "id": "ex-pass",
-              "type": "rail",
-              "order": 10,
-              "variant": "clay",
-              "treatment": [
-                "centered"
-              ],
-              "title": "← pass",
-              "filters": [
-                "nothing-self-declared"
-              ]
-            },
-            {
-              "id": "ex-verdict",
-              "type": "rail",
-              "order": 11,
-              "variant": "clay",
-              "treatment": [
-                "centered"
-              ],
-              "title": "← verdict",
-              "filters": [
-                "nothing-self-declared",
-                "deterministic"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "sun-episodic",
-          "treatment": [
-            "envelope"
-          ],
-          "order": 4,
-          "span": 1,
-          "columns": 4,
-          "children": [
-            {
-              "id": "ep-sessions",
-              "type": "rail",
-              "order": 1,
-              "variant": "violet",
-              "treatment": [
-                "centered"
-              ],
-              "title": "sessions →",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "ep-turns",
-              "type": "rail",
-              "order": 2,
-              "variant": "violet",
-              "treatment": [
-                "centered"
-              ],
-              "title": "turns →",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "ep-hooks",
-              "type": "rail",
-              "order": 3,
-              "variant": "violet",
-              "treatment": [
-                "centered"
-              ],
-              "title": "hooks →",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "ep-events",
-              "type": "rail",
-              "order": 4,
-              "variant": "violet",
-              "treatment": [
-                "centered"
-              ],
-              "title": "events ↓",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "ep-last-24h",
-              "type": "rail",
-              "order": 5,
-              "variant": "violet",
-              "treatment": [
-                "centered"
-              ],
-              "title": "↑ last 24h",
-              "filters": [
-                "what-comes-back",
-                "deterministic"
-              ]
-            },
-            {
-              "id": "ep-core",
-              "order": 6,
-              "span": 2,
-              "variant": "violet",
-              "treatment": [
-                "centered"
-              ],
-              "title": "EPISODIC MEMORY",
-              "filters": [
-                "one-task"
-              ],
-              "detail": "<b>What happened, and when?</b><br><br>What happened and when, recorded by the engine, never written by hand. Every hook that fires leaves an event: SessionStart, SubagentStart, PostToolUse, SubagentStop and the rest. Every turn leaves one episode; sessions group them, and a timeline puts them in order. The next session starts with the last 24 hours. A turn that never closed stays as a cut turn, with its reason; anomalies and defects are listed one by one for triage. Also kept here: the transcript, the history of recent sessions, the backstop that closes a cut turn, the compaction of a long session, and the links between curated rows (supersedes, graduated). Commands: gaia query, gaia history, gaia defects, gaia memory search."
-            },
-            {
-              "id": "ep-anomalies",
-              "type": "rail",
-              "order": 7,
-              "variant": "violet",
-              "treatment": [
-                "centered"
-              ],
-              "title": "anomalies ↓",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "ep-lineage",
-              "type": "rail",
-              "order": 8,
-              "variant": "violet",
-              "treatment": [
-                "centered"
-              ],
-              "title": "↑ lineage",
-              "filters": [
-                "nothing-self-declared",
-                "deterministic"
-              ]
-            },
-            {
-              "id": "ep-timeline",
-              "type": "rail",
-              "order": 9,
-              "variant": "violet",
-              "treatment": [
-                "centered"
-              ],
-              "title": "← timeline",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "ep-cut-turns",
-              "type": "rail",
-              "order": 10,
-              "variant": "violet",
-              "treatment": [
-                "centered"
-              ],
-              "title": "← cut turns",
-              "filters": [
-                "deterministic"
-              ]
-            },
-            {
-              "id": "ep-episodes",
-              "type": "rail",
-              "order": 11,
-              "variant": "violet",
-              "treatment": [
-                "centered"
-              ],
-              "title": "← episodes",
-              "filters": [
-                "one-task",
-                "deterministic"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "keeps-close",
-          "treatment": [
-            "plain"
-          ],
-          "order": 5,
-          "span": 2,
           "columns": 1,
           "children": [
             {
-              "id": "keeps-close-line",
-              "type": "separator",
+              "id": "suns-top",
+              "treatment": [
+                "plain"
+              ],
               "order": 1,
-              "text": "you decide what is curated · the engine records the rest"
+              "span": 1,
+              "columns": 2,
+              "children": [
+                {
+                  "id": "sun-project",
+                  "treatment": [
+                    "envelope",
+                    "compact"
+                  ],
+                  "order": 1,
+                  "span": 1,
+                  "columns": 4,
+                  "children": [
+                    {
+                      "id": "pr-scan",
+                      "type": "rail",
+                      "order": 1,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "scan →",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    },
+                    {
+                      "id": "pr-workspace",
+                      "type": "rail",
+                      "order": 2,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "workspace →",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    },
+                    {
+                      "id": "pr-repos",
+                      "type": "rail",
+                      "order": 3,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "repos →",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    },
+                    {
+                      "id": "pr-sections",
+                      "type": "rail",
+                      "order": 4,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "sections ↓",
+                      "filters": [
+                        "p5-knows",
+                        "p5-one-task"
+                      ]
+                    },
+                    {
+                      "id": "pr-preferences",
+                      "type": "rail",
+                      "order": 5,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "↑ preferences",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    },
+                    {
+                      "id": "pr-core",
+                      "order": 6,
+                      "span": 2,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "PROJECT MEMORY",
+                      "filters": [
+                        "p5-knows",
+                        "p5-one-task"
+                      ],
+                      "detail": "<b>What do we know about the project, and about you?</b><br><br>What Gaia knows about the project, and about you. gaia scan maps the workspace and its repos; what it finds is kept in named sections of the project contract: project identity, stack, git, architecture, services, environment, infrastructure. Each agent may read some sections and write others, and its context at dispatch names them. About you: your rules and preferences, handed to every specialist at birth, and the decisions and anchors the orchestrator curated. Also kept here: feedback on how work went, and what did not work, as curated rows of type negative. Commands: gaia scan, gaia context, gaia memory."
+                    },
+                    {
+                      "id": "pr-can-read",
+                      "type": "rail",
+                      "order": 7,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "may read ↓",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    },
+                    {
+                      "id": "pr-your-rules",
+                      "type": "rail",
+                      "order": 8,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "↑ your rules",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    },
+                    {
+                      "id": "pr-anchors",
+                      "type": "rail",
+                      "order": 9,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "← anchors",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    },
+                    {
+                      "id": "pr-decisions",
+                      "type": "rail",
+                      "order": 10,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "← decisions",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    },
+                    {
+                      "id": "pr-can-write",
+                      "type": "rail",
+                      "order": 11,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "← may write",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    }
+                  ],
+                  "tokens": {
+                    "row": {
+                      "cell_h": 74
+                    }
+                  },
+                  "css_vars": {
+                    "--cell-h": "74px"
+                  }
+                },
+                {
+                  "id": "sun-operational",
+                  "treatment": [
+                    "envelope",
+                    "compact"
+                  ],
+                  "order": 2,
+                  "span": 1,
+                  "columns": 4,
+                  "children": [
+                    {
+                      "id": "op-brief",
+                      "type": "rail",
+                      "order": 1,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "brief →",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    },
+                    {
+                      "id": "op-ac",
+                      "type": "rail",
+                      "order": 2,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "criteria →",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    },
+                    {
+                      "id": "op-plan",
+                      "type": "rail",
+                      "order": 3,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "plan →",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    },
+                    {
+                      "id": "op-tasks",
+                      "type": "rail",
+                      "order": 4,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "tasks ↓",
+                      "filters": [
+                        "p5-open",
+                        "p5-one-task"
+                      ]
+                    },
+                    {
+                      "id": "op-carry-forward",
+                      "type": "rail",
+                      "order": 5,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "↑ carry forward",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    },
+                    {
+                      "id": "op-core",
+                      "order": 6,
+                      "span": 2,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "OPERATIONAL MEMORY",
+                      "filters": [
+                        "p5-open",
+                        "p5-one-task"
+                      ],
+                      "detail": "<b>What are we doing, and what is still open?</b><br><br>What is in flight and what is still open. A brief carries acceptance criteria and milestones; it gets one plan of tasks. Each task can depend on others, says which criteria it covers, and carries gates that someone who did not do the work checks. A plan can be paused, resumed, or changed through a managed plan change that keeps every earlier version. Also kept here: the statuses draft, open and in progress; open threads; schedules for recurring work and the notifications they leave; and each turn's next action. Commands: gaia brief, gaia ac, gaia milestone, gaia plan, gaia task, gaia schedule, gaia notifications."
+                    },
+                    {
+                      "id": "op-gates",
+                      "type": "rail",
+                      "order": 7,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "gates ↓",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    },
+                    {
+                      "id": "op-plan-change",
+                      "type": "rail",
+                      "order": 8,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "↑ plan change",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    },
+                    {
+                      "id": "op-pause",
+                      "type": "rail",
+                      "order": 9,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "← pause",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    },
+                    {
+                      "id": "op-blocked",
+                      "type": "rail",
+                      "order": 10,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "← blocked",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    },
+                    {
+                      "id": "op-pending",
+                      "type": "rail",
+                      "order": 11,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "← pending",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    }
+                  ],
+                  "tokens": {
+                    "row": {
+                      "cell_h": 74
+                    }
+                  },
+                  "css_vars": {
+                    "--cell-h": "74px"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "suns-bottom",
+              "treatment": [
+                "plain"
+              ],
+              "order": 2,
+              "span": 1,
+              "columns": 2,
+              "children": [
+                {
+                  "id": "sun-execution",
+                  "treatment": [
+                    "envelope",
+                    "compact"
+                  ],
+                  "order": 1,
+                  "span": 1,
+                  "columns": 4,
+                  "children": [
+                    {
+                      "id": "ex-contracts",
+                      "type": "rail",
+                      "order": 1,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "contracts →",
+                      "filters": [
+                        "p5-done",
+                        "p5-one-task"
+                      ]
+                    },
+                    {
+                      "id": "ex-t3",
+                      "type": "rail",
+                      "order": 2,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "changes →",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-approvals",
+                      "type": "rail",
+                      "order": 3,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "approvals →",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-evidence",
+                      "type": "rail",
+                      "order": 4,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "evidence ↓",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-audit-trail",
+                      "type": "rail",
+                      "order": 5,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "↑ audit trail",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-core",
+                      "order": 6,
+                      "span": 2,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "EXECUTION MEMORY",
+                      "filters": [
+                        "p5-done",
+                        "p5-one-task"
+                      ],
+                      "detail": "<b>What did we execute, and what did it produce?</b><br><br>What was executed, and what it produced. Every turn answers in its agent contract: its state (COMPLETE, BLOCKED, APPROVAL_REQUEST, NEEDS_VERIFICATION, NEEDS_INPUT, IN_PROGRESS), its evidence (commands run, key outputs, open gaps) and its verification, pass or fail. A gate's verdict is kept with its task. Every approval is kept in a hashed approval chain; every command's tier is decided by a rule: T0 read, T1 validate, T2 dry run, T3 change, or never. A compliance score and an audit trail are computed from all of it. Also kept here: metrics, and the worktree of each turn that wrote. Commands: gaia contract, gaia approvals, gaia evidence, gaia metrics."
+                    },
+                    {
+                      "id": "ex-open-gaps",
+                      "type": "rail",
+                      "order": 7,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "open gaps ↓",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-blocked",
+                      "type": "rail",
+                      "order": 8,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "↑ blocked",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-complete",
+                      "type": "rail",
+                      "order": 9,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "← done",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-pass",
+                      "type": "rail",
+                      "order": 10,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "← pass",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-verdict",
+                      "type": "rail",
+                      "order": 11,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "← verdict",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    }
+                  ],
+                  "tokens": {
+                    "row": {
+                      "cell_h": 74
+                    }
+                  },
+                  "css_vars": {
+                    "--cell-h": "74px"
+                  }
+                },
+                {
+                  "id": "sun-episodic",
+                  "treatment": [
+                    "envelope",
+                    "compact"
+                  ],
+                  "order": 2,
+                  "span": 1,
+                  "columns": 4,
+                  "children": [
+                    {
+                      "id": "ep-sessions",
+                      "type": "rail",
+                      "order": 1,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "sessions →",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-turns",
+                      "type": "rail",
+                      "order": 2,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "turns →",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-hooks",
+                      "type": "rail",
+                      "order": 3,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "hooks →",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-events",
+                      "type": "rail",
+                      "order": 4,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "events ↓",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-last-24h",
+                      "type": "rail",
+                      "order": 5,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "↑ last 24h",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-core",
+                      "order": 6,
+                      "span": 2,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "EPISODIC MEMORY",
+                      "filters": [
+                        "p5-happened",
+                        "p5-one-task"
+                      ],
+                      "detail": "<b>What happened, and when?</b><br><br>What happened and when, recorded by the engine, never written by hand. Every hook that fires leaves an event: SessionStart, SubagentStart, PostToolUse, SubagentStop and the rest. Every turn leaves one episode; sessions group them, and a timeline puts them in order. The next session starts with the last 24 hours. A turn that never closed stays as a cut turn, with its reason; anomalies and defects are listed one by one for triage. Also kept here: the transcript, the history of recent sessions, the backstop that closes a cut turn, the compaction of a long session, and the links between curated rows (supersedes, graduated). Commands: gaia query, gaia history, gaia defects, gaia memory search."
+                    },
+                    {
+                      "id": "ep-anomalies",
+                      "type": "rail",
+                      "order": 7,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "anomalies ↓",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-lineage",
+                      "type": "rail",
+                      "order": 8,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "↑ history",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-timeline",
+                      "type": "rail",
+                      "order": 9,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "← timeline",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-cut-turns",
+                      "type": "rail",
+                      "order": 10,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "← cut turns",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-episodes",
+                      "type": "rail",
+                      "order": 11,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "← episodes",
+                      "filters": [
+                        "p5-happened",
+                        "p5-one-task"
+                      ]
+                    }
+                  ],
+                  "tokens": {
+                    "row": {
+                      "cell_h": 74
+                    }
+                  },
+                  "css_vars": {
+                    "--cell-h": "74px"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "keeps-close",
+              "treatment": [
+                "plain"
+              ],
+              "order": 3,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "keeps-close-line",
+                  "type": "separator",
+                  "order": 1,
+                  "text": "you decide what is curated · the engine records the rest"
+                }
+              ]
+            },
+            {
+              "id": "prompt",
+              "treatment": [
+                "plain",
+                "compact"
+              ],
+              "tokens": {
+                "row": {
+                  "cell_h": 60
+                }
+              },
+              "order": 4,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "p5-prompt",
+                  "order": 1,
+                  "variant": "accent",
+                  "kicker": "PROMPT",
+                  "title": "What do you know about my work?",
+                  "filters": [
+                    "p5-knows"
+                  ]
+                }
+              ],
+              "css_vars": {
+                "--cell-h": "60px"
+              }
             }
           ]
         }
