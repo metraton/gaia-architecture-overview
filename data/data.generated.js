@@ -2388,7 +2388,7 @@ window.__DOC__ = {
                 {
                   "id": "p6-project",
                   "title": "Project contract",
-                  "subtitle": "one per project",
+                  "subtitle": "one per workspace, by sections",
                   "treatment": [
                     "envelope",
                     "compact"
@@ -2400,9 +2400,59 @@ window.__DOC__ = {
                     {
                       "id": "pc-identity",
                       "type": "rail",
-                      "order": 2,
+                      "order": 1,
                       "indent": 1,
-                      "title": "name and place",
+                      "title": "identity",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-name",
+                      "type": "rail",
+                      "order": 2,
+                      "indent": 2,
+                      "title": "name",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-path",
+                      "type": "rail",
+                      "order": 3,
+                      "indent": 2,
+                      "title": "path",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-repository",
+                      "type": "rail",
+                      "order": 4,
+                      "indent": 2,
+                      "title": "repository",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-language",
+                      "type": "rail",
+                      "order": 5,
+                      "indent": 2,
+                      "title": "language",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-type",
+                      "type": "rail",
+                      "order": 6,
+                      "indent": 2,
+                      "title": "type",
                       "filters": [
                         "c-updates"
                       ]
@@ -2410,19 +2460,39 @@ window.__DOC__ = {
                     {
                       "id": "pc-stack",
                       "type": "rail",
-                      "order": 3,
+                      "order": 7,
                       "indent": 1,
-                      "title": "languages and tools",
+                      "title": "stack",
                       "filters": [
                         "c-updates"
                       ]
                     },
                     {
-                      "id": "pc-env",
+                      "id": "pc-languages",
                       "type": "rail",
-                      "order": 4,
-                      "indent": 1,
-                      "title": "where it runs",
+                      "order": 8,
+                      "indent": 2,
+                      "title": "languages",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-frameworks",
+                      "type": "rail",
+                      "order": 9,
+                      "indent": 2,
+                      "title": "frameworks",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-build-tools",
+                      "type": "rail",
+                      "order": 10,
+                      "indent": 2,
+                      "title": "build tools",
                       "filters": [
                         "c-updates"
                       ]
@@ -2430,99 +2500,49 @@ window.__DOC__ = {
                     {
                       "id": "pc-git",
                       "type": "rail",
-                      "order": 5,
-                      "indent": 1,
-                      "title": "git conventions",
-                      "filters": [
-                        "c-updates"
-                      ]
-                    },
-                    {
-                      "id": "pc-arch",
-                      "type": "rail",
-                      "order": 6,
-                      "indent": 1,
-                      "title": "how it fits together",
-                      "filters": [
-                        "c-updates"
-                      ]
-                    },
-                    {
-                      "id": "pc-workspace",
-                      "type": "rail",
-                      "order": 7,
-                      "indent": 1,
-                      "title": "its repositories",
-                      "filters": [
-                        "c-updates"
-                      ]
-                    },
-                    {
-                      "id": "pc-services",
-                      "type": "rail",
-                      "order": 8,
-                      "indent": 1,
-                      "title": "its services",
-                      "filters": [
-                        "c-updates"
-                      ]
-                    },
-                    {
-                      "id": "pc-infra",
-                      "type": "rail",
-                      "order": 9,
-                      "indent": 1,
-                      "title": "its cloud",
-                      "filters": [
-                        "c-updates"
-                      ]
-                    },
-                    {
-                      "id": "pc-topology",
-                      "type": "rail",
-                      "order": 10,
-                      "indent": 1,
-                      "title": "network and layout",
-                      "filters": [
-                        "c-updates"
-                      ]
-                    },
-                    {
-                      "id": "pc-gitops",
-                      "type": "rail",
                       "order": 11,
                       "indent": 1,
-                      "title": "what the cluster should run",
+                      "title": "git",
                       "filters": [
                         "c-updates"
                       ]
                     },
                     {
-                      "id": "pc-cluster",
+                      "id": "pc-remotes",
                       "type": "rail",
                       "order": 12,
-                      "indent": 1,
-                      "title": "the live cluster",
+                      "indent": 2,
+                      "title": "remotes",
                       "filters": [
                         "c-updates"
                       ]
                     },
                     {
-                      "id": "pc-guidelines",
+                      "id": "pc-default-branch",
                       "type": "rail",
                       "order": 13,
-                      "indent": 1,
-                      "title": "how to operate it",
+                      "indent": 2,
+                      "title": "default branch",
                       "filters": [
                         "c-updates"
                       ]
                     },
                     {
-                      "id": "pc-releases",
+                      "id": "pc-branch-strategy",
                       "type": "rail",
                       "order": 14,
+                      "indent": 2,
+                      "title": "branch strategy",
+                      "filters": [
+                        "c-updates"
+                      ]
+                    },
+                    {
+                      "id": "pc-more",
+                      "type": "rail",
+                      "order": 15,
                       "indent": 1,
-                      "title": "its releases",
+                      "title": "… and 10 more sections",
                       "filters": [
                         "c-updates"
                       ]
@@ -2597,7 +2617,7 @@ window.__DOC__ = {
                       "description": [
                         "for the audit trail"
                       ],
-                      "detail": "Every contract is stored and can be searched later. Each update to the project was checked against what that agent may write before it was saved. Real section names: project_identity, stack, environment, git, architecture_overview, workspace_repos, application_services, infrastructure, infrastructure_topology, gitops_configuration, cluster_details, operational_guidelines, releases.",
+                      "detail": "Every contract is stored and can be searched later. Each update to the project was checked against what that agent may write before it was saved. Real section names: project_identity, stack, environment, git, architecture_overview, workspace_repos, application_services, infrastructure, infrastructure_topology, gitops_configuration, cluster_details, operational_guidelines, releases. Each section is a small document of fields: some are filled by the scan, others by the agents allowed to write that section.",
                       "filters": [
                         "c-kept"
                       ]
