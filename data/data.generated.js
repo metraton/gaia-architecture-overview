@@ -581,14 +581,14 @@ window.__DOC__ = {
           "key": "p2-ready",
           "label": "3 · the specialist is ready",
           "steps": [
-            "The specialist starts with what it needs: its identity, its skills, the project context and your preferences."
+            "The specialist starts with five things: its identity, its skills, the project context, your preferences and its contract."
           ]
         },
         {
           "key": "p2-rules",
           "label": "4 · rules check",
           "steps": [
-            "Rules check the work: a change waits for your approval, and every contract is checked before the turn closes."
+            "Rules check the work: a change waits for your approval, and every contract is checked before the orchestrator uses it for the next step."
           ]
         },
         {
@@ -850,6 +850,7 @@ window.__DOC__ = {
                       ],
                       "detail": "It starts with its contract open: the goal, its role, and what it may touch. It fills it in as it works, using Gaia's command line, and its turn cannot close until the form is complete.",
                       "filters": [
+                        "p2-ready",
                         "p2-delegate",
                         "p2-rules"
                       ]
