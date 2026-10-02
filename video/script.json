@@ -48,23 +48,17 @@
       "page": "p2-the-map",
       "audio": "audio/2.wav",
       "sentences": [
-        { "say": "This is Gaia.", "show": ["you", "gaia"] },
+        { "say": "This is Gaia.", "show": ["gaia"] },
         { "say": "You talk to one agent: the orchestrator.",
           "cues": [{ "at": "orchestrator", "show": ["gaia-orch", "gaia-manages"] }] },
-        { "say": "It holds the conversation, decides what needs to happen, and never makes the change itself.",
-          "cues": [{ "at": "never", "chip": "the-human" }] },
+        { "say": "It holds the conversation, decides what needs to happen, and never makes the change itself." },
         { "say": "It hands the work to a specialist, each one born clean for a single piece of work, and each returning a contract: what was done, and with what evidence.",
-          "show": ["gaia-rel", "gaia-specialists"], "chip": "one-turn",
-          "cues": [
-            { "at": "born", "show": ["gaia-carries"] },
-            { "at": "returning", "chip": "the-contract" },
-            { "at": "with", "chip": "nothing-self-declared" },
-            { "at": "evidence", "chip": "all" }
-          ] },
-        { "say": "Around them, Gaia keeps approvals, contracts, memory, and plans.", "chip": "all" },
+          "show": ["gaia-rel", "gaia-specialists"],
+          "cues": [{ "at": "born", "show": ["gaia-carries"] }] },
+        { "say": "Around them, Gaia keeps approvals, contracts, memory, and plans." },
         { "say": "And it's built from two halves.", "show": ["halves"] },
-        { "say": "Hooks, where a rule decides.", "chip": "deterministic" },
-        { "say": "And skills and agents, where a model follows instructions.", "chip": "semantic" },
+        { "say": "Hooks, where a rule decides." },
+        { "say": "And skills and agents, where a model follows instructions." },
         { "say": "The CLI joins them.", "chip": "all" }
       ]
     },

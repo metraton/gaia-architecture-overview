@@ -564,97 +564,50 @@ window.__DOC__ = {
       "columns": 1,
       "filters": [
         {
-          "key": "the-human",
-          "label": "who decides?",
+          "key": "p2-ask",
+          "label": "1 · you ask",
           "steps": [
-            "You do. You talk to the orchestrator, and anything that changes something real waits for your approval."
+            "You ask the orchestrator for something, in your own words."
           ]
         },
         {
-          "key": "nothing-self-declared",
-          "label": "is it really done?",
+          "key": "p2-delegate",
+          "label": "2 · it delegates",
           "steps": [
-            "Not because the specialist says so: its contract is read, and planned tasks are checked, before you are told."
+            "The orchestrator decides what has to happen and hands the work to a specialist, which starts with its contract open."
           ]
         },
         {
-          "key": "memory",
-          "label": "what do we remember?",
+          "key": "p2-ready",
+          "label": "3 · the specialist is ready",
           "steps": [
-            "Your rules, your preferences, what is pending per project and what Gaia knows about each project: the orchestrator reads it and writes it, and it outlives the session."
+            "The specialist starts with what it needs: its identity, its skills, the project context and your preferences."
           ]
         },
         {
-          "key": "deterministic",
-          "label": "what does a rule decide?",
+          "key": "p2-rules",
+          "label": "4 · rules check",
           "steps": [
-            "The hooks decide by a rule in code, the same answer every time, with no model involved: whether a command waits for your approval, and whether a specialist's contract is accepted."
+            "Rules check the work: a change waits for your approval, and every contract is checked before the turn closes."
           ]
         },
         {
-          "key": "semantic",
-          "label": "what does a model follow?",
+          "key": "p2-remember",
+          "label": "5 · it remembers",
           "steps": [
-            "The skills and the agents are written instructions a model follows: the orchestrator decides the what, the specialists do the how."
-          ]
-        },
-        {
-          "key": "one-turn",
-          "label": "what happens in one turn?",
-          "steps": [
-            "The orchestrator hands one piece of work to one specialist, and the specialist comes back with it: one turn."
-          ]
-        },
-        {
-          "key": "the-contract",
-          "label": "what travels in a contract?",
-          "steps": [
-            "Every specialist ends its work with a contract: what was done, and with what evidence."
+            "Gaia remembers decisions, plans and your preferences, so the next session starts where this one ended."
           ]
         }
       ],
       "sections": [
         {
-          "id": "you",
-          "treatment": [
-            "plain"
-          ],
-          "order": 1,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "mp-you",
-              "order": 1,
-              "kicker": "→ PAGE 3",
-              "title": "You",
-              "description": [
-                "ask in your own words, approve what changes"
-              ],
-              "detail": "You talk only to the orchestrator, in your own words. Anything that changes something real — a push, an apply, a delete — waits until you approve it, after you have seen exactly what will happen.",
-              "treatment": [
-                "centered"
-              ],
-              "filters": [
-                "the-human"
-              ]
-            },
-            {
-              "id": "mp-you-rel",
-              "type": "separator",
-              "order": 2,
-              "text": "▼ converse · ▲ sign what changes something"
-            }
-          ]
-        },
-        {
           "id": "gaia",
           "title": "GAIA",
-          "subtitle": "the orchestration layer · it converses with you and coordinates the work, but never makes the changes itself",
+          "subtitle": "the orchestration layer: it talks with you and coordinates the work, but never makes the changes itself",
           "treatment": [
             "envelope"
           ],
-          "order": 2,
+          "order": 1,
           "span": 1,
           "columns": 1,
           "children": [
@@ -670,7 +623,7 @@ window.__DOC__ = {
                 {
                   "id": "gaia-orch",
                   "title": "The orchestrator",
-                  "subtitle": "one per session, you talk only to it",
+                  "subtitle": "one per session, the only one you talk to",
                   "treatment": [
                     "envelope"
                   ],
@@ -681,19 +634,17 @@ window.__DOC__ = {
                     {
                       "id": "mp-orchestrator",
                       "order": 1,
-                      "kicker": "→ PAGE 3",
                       "title": "Decides the WHAT",
                       "description": [
                         "holds the conversation, never edits"
                       ],
-                      "detail": "The orchestrator is the one agent you talk to. It understands what you want, decides the route, shows it to you before starting, and keeps the thread end to end. It reads memory to remember what came before. It does not edit files, by design: it hands the work to a specialist.",
+                      "detail": "It is the one agent you talk to. It works out what you want, shows you the route before starting, and keeps the thread from start to end. It never edits files: every change goes to a specialist.",
                       "treatment": [
                         "centered"
                       ],
                       "filters": [
-                        "one-turn",
-                        "semantic",
-                        "memory"
+                        "p2-ask",
+                        "p2-delegate"
                       ]
                     }
                   ]
@@ -701,7 +652,7 @@ window.__DOC__ = {
                 {
                   "id": "gaia-manages",
                   "title": "What Gaia manages",
-                  "subtitle": "through its own CLI",
+                  "subtitle": "through its own command line",
                   "treatment": [
                     "envelope"
                   ],
@@ -712,56 +663,53 @@ window.__DOC__ = {
                     {
                       "id": "mg-memory",
                       "order": 3,
-                      "kicker": "→ PAGE 5",
+                      "kicker": "KNOWLEDGE",
                       "title": "Memory",
                       "description": [
-                        "rules, preferences, pending"
+                        "decisions, lessons, open work, and how you like to work"
                       ],
-                      "detail": "Memory outlives the session: your rules, your preferences, and what is pending per project. The orchestrator reads it at the start and writes to it on purpose, through Gaia's own command line.",
+                      "detail": "Memory keeps what should outlive a session: the decisions made and why, what was learned about each project (including dead ends not worth repeating), the work still open, and your preferences. Each session's work is also recorded on its own. The orchestrator reads it at the start, curates it on purpose, and brings back what is pending.",
                       "filters": [
-                        "memory"
+                        "p2-remember"
                       ]
                     },
                     {
                       "id": "mg-plans",
                       "order": 4,
-                      "kicker": "→ PAGE 5",
+                      "kicker": "OBSERVABILITY",
                       "title": "Plans & tasks",
                       "description": [
-                        "a brief becomes checked tasks"
+                        "an idea becomes checked tasks"
                       ],
-                      "detail": "A brief becomes a plan of tasks, and each task's work is checked by someone who did not do it. Gaia keeps them and moves them from one status to the next through its own command line.",
+                      "detail": "An idea is written down, turned into a plan and split into tasks, each with its own test. A different agent checks each task before it counts as done.",
                       "filters": [
-                        "nothing-self-declared"
+                        "p2-remember"
                       ]
                     },
                     {
                       "id": "mg-contracts",
                       "order": 2,
-                      "kicker": "→ PAGE 4",
+                      "kicker": "AUDIT",
                       "title": "Contracts",
                       "description": [
-                        "every specialist returns one"
+                        "turns structured reports into next steps"
                       ],
-                      "detail": "A contract says what was asked, what was found, what changed, and with what evidence. Gaia stores it, and a hook judges it by rule before the turn may close. The orchestrator reads it through Gaia's own command line.",
+                      "detail": "Each specialist reports in a structured form. The orchestrator reads that data and turns it into new context for the next step, or into the result it gives you.",
                       "filters": [
-                        "the-contract",
-                        "nothing-self-declared",
-                        "deterministic"
+                        "p2-rules"
                       ]
                     },
                     {
                       "id": "mg-approvals",
                       "order": 1,
-                      "kicker": "→ PAGE 3",
+                      "kicker": "AUDIT",
                       "title": "Approvals",
                       "description": [
-                        "your yes to one exact command"
+                        "shows the command and its impact"
                       ],
-                      "detail": "A hook decides by rule which commands change something real, and holds each one until you approve it. Gaia keeps every approval, and the orchestrator can see the ones waiting for you through its own command line; it can never approve one itself.",
+                      "detail": "When a specialist needs a change, Gaia shows you the exact command, what it will change and how to undo it, in one clear question. Nothing runs until you answer.",
                       "filters": [
-                        "the-human",
-                        "deterministic"
+                        "p2-rules"
                       ]
                     }
                   ]
@@ -781,7 +729,7 @@ window.__DOC__ = {
                   "id": "mp-gaia-rel",
                   "type": "separator",
                   "order": 1,
-                  "text": "▼ delegates · ▲ returns a contract"
+                  "text": "hands out the work · gets back a contract"
                 }
               ]
             },
@@ -797,7 +745,7 @@ window.__DOC__ = {
                 {
                   "id": "gaia-specialists",
                   "title": "The specialist",
-                  "subtitle": "one per piece of work, 8 today",
+                  "subtitle": "one per piece of work, eight today",
                   "treatment": [
                     "envelope"
                   ],
@@ -808,20 +756,16 @@ window.__DOC__ = {
                     {
                       "id": "mp-specialists",
                       "order": 1,
-                      "kicker": "→ PAGE 3",
                       "title": "Does the HOW",
                       "description": [
-                        "born clean for one piece of work"
+                        "starts clean for one piece of work"
                       ],
-                      "detail": "Specialists do the work, each in its field: application code, infrastructure, the cluster, live systems, Gaia itself. Each one is born clean for one piece of work, owns that one task, and ends with a contract: what was done, and with what evidence. 9 agents today: the orchestrator, and 8 specialists: developer · platform-architect · gitops-operator · cloud-troubleshooter · gaia-planner · gaia-verifier · gaia-operator · gaia-system. You can add your own.",
+                      "detail": "Eight specialists today: developer (application code and pipelines), platform-architect (infrastructure as code), gitops-operator (what runs in the cluster), cloud-troubleshooter (live systems), gaia-planner (plans), gaia-verifier (independent checks), gaia-operator and gaia-system (Gaia's own workspace and machinery). You can add your own.",
                       "treatment": [
                         "centered"
                       ],
                       "filters": [
-                        "one-turn",
-                        "semantic",
-                        "the-contract",
-                        "nothing-self-declared"
+                        "p2-delegate"
                       ]
                     }
                   ]
@@ -829,7 +773,7 @@ window.__DOC__ = {
                 {
                   "id": "gaia-carries",
                   "title": "What a specialist carries",
-                  "subtitle": "handed to it the moment it is born",
+                  "subtitle": "given to it the moment it starts",
                   "treatment": [
                     "envelope"
                   ],
@@ -840,65 +784,68 @@ window.__DOC__ = {
                     {
                       "id": "sc-identity",
                       "order": 1,
+                      "kicker": "WORKFLOWS",
                       "title": "Identity",
                       "description": [
-                        "its role and its field"
+                        "its role and its field"
                       ],
-                      "detail": "Each specialist is defined by one file: what it is for, the field it owns, and the tools it may use. The same file decides which part of the project it may read and write.",
+                      "detail": "One file defines each specialist: what it is for, the field it owns, the tools it may use, and the parts of the project it may read and write.",
                       "filters": [
-                        "semantic"
+                        "p2-ready"
                       ]
                     },
                     {
                       "id": "sc-skills",
                       "order": 2,
+                      "kicker": "STANDARDS",
                       "title": "Skills",
                       "description": [
-                        "how its kind of work is done"
+                        "the team's way of working"
                       ],
-                      "detail": "Skills are written instructions: the patterns and procedures for its kind of work. The ones its definition lists are loaded when it is born; others it loads when a task calls for them.",
+                      "detail": "Written patterns for its kind of work. Claude Code loads the ones its file lists when it starts, and it loads others when a task needs them.",
                       "filters": [
-                        "semantic"
+                        "p2-ready"
                       ]
                     },
                     {
                       "id": "sc-context",
                       "order": 3,
-                      "kicker": "→ PAGE 4",
+                      "kicker": "KNOWLEDGE",
                       "title": "Project context",
                       "description": [
                         "what it may read and write"
                       ],
-                      "detail": "What Gaia knows about your workspace, split into sections. The specialist is told which sections it may read and which it may write, and pulls the ones it needs.",
+                      "detail": "What Gaia knows about the project, in sections. The specialist is told which ones it may read and which it may write, and reads the ones it needs.",
                       "filters": [
-                        "memory"
+                        "p2-ready"
                       ]
                     },
                     {
                       "id": "sc-memory",
                       "order": 4,
-                      "kicker": "→ PAGE 5",
-                      "title": "Memory about you",
+                      "kicker": "KNOWLEDGE",
+                      "title": "Memory about you",
                       "description": [
-                        "how you like to work"
+                        "how you like to work"
                       ],
-                      "detail": "The rules and preferences you have given for how work is done are handed in when the specialist is born, so it does not ask again. The rest of memory it can search when it needs it.",
+                      "detail": "Your standing rules and preferences arrive with it, so it does not ask you again.",
                       "filters": [
-                        "memory"
+                        "p2-ready",
+                        "p2-remember"
                       ]
                     },
                     {
                       "id": "sc-contract",
                       "order": 5,
-                      "kicker": "→ PAGE 4",
+                      "kicker": "AUDIT",
                       "title": "Its contract",
                       "description": [
-                        "the blank form it must fill"
+                        "the form it must fill in"
                       ],
-                      "detail": "It is born with its contract already open: who it is, what it was asked, and what it may touch. It fills the form as it works, and its turn cannot close until the form is finished.",
+                      "detail": "It starts with its contract open: the goal, its role, and what it may touch. It fills it in as it works, using Gaia's command line, and its turn cannot close until the form is complete.",
                       "filters": [
-                        "the-contract",
-                        "nothing-self-declared"
+                        "p2-delegate",
+                        "p2-rules"
                       ]
                     }
                   ]
@@ -912,7 +859,7 @@ window.__DOC__ = {
           "treatment": [
             "plain"
           ],
-          "order": 3,
+          "order": 2,
           "span": 1,
           "columns": 1,
           "children": [
@@ -920,9 +867,45 @@ window.__DOC__ = {
               "id": "halves-line",
               "type": "separator",
               "order": 1,
-              "text": "hooks decide by rule · skills and agents follow · the CLI joins"
+              "text": "hooks decide by rule · agents follow written skills · the CLI keeps the records"
+            },
+            {
+              "id": "you-line",
+              "type": "separator",
+              "order": 2,
+              "text": "you ask in your own words · you approve what changes"
             }
           ]
+        },
+        {
+          "id": "prompt",
+          "treatment": [
+            "plain",
+            "compact"
+          ],
+          "tokens": {
+            "row": {
+              "cell_h": 60
+            }
+          },
+          "order": 3,
+          "span": 1,
+          "columns": 1,
+          "children": [
+            {
+              "id": "p2-prompt",
+              "order": 1,
+              "variant": "accent",
+              "kicker": "PROMPT",
+              "title": "What is Gaia?",
+              "filters": [
+                "p2-ask"
+              ]
+            }
+          ],
+          "css_vars": {
+            "--cell-h": "60px"
+          }
         }
       ],
       "name": "2 · What Gaia is",
