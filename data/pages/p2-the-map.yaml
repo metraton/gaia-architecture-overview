@@ -170,33 +170,32 @@ sections:
                 detail: "It starts with its contract open: the goal, its role, and what it may touch. It fills it in as it works, using Gaia's command line, and its turn cannot close until the form is complete."
                 filters: [p2-delegate, p2-rules]
 
-  - id: halves
-    treatment: [plain]
-    order: 2
-    span: 1
-    columns: 1
-    children:
-      - id: halves-line
-        type: separator
-        order: 1
-        text: "hooks decide by rule · agents follow written skills · the CLI keeps the records"
-      - id: you-line
-        type: separator
-        order: 2
-        text: "you ask in your own words · you approve what changes"
-
-  - id: prompt
-    treatment: [plain, compact]
-    tokens:
-      row:
-        cell_h: 60
-    order: 3
-    span: 1
-    columns: 1
-    children:
-      - id: p2-prompt
-        order: 1
-        variant: accent
-        kicker: "PROMPT"
-        title: "What is Gaia?"
-        filters: [p2-ask]
+      - id: halves
+        treatment: [plain]
+        order: 4
+        span: 1
+        columns: 1
+        children:
+          - id: halves-line
+            type: separator
+            order: 1
+            text: "hooks decide by rule · agents follow written skills · the CLI keeps the records"
+          - id: you-line
+            type: separator
+            order: 2
+            text: "you ask in your own words · you approve what changes"
+      - id: prompt
+        treatment: [plain, compact]
+        tokens:
+          row:
+            cell_h: 60
+        order: 5
+        span: 1
+        columns: 1
+        children:
+          - id: p2-prompt
+            order: 1
+            variant: accent
+            kicker: "PROMPT"
+            title: "What is Gaia?"
+            filters: [p2-ask]

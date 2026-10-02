@@ -221,29 +221,29 @@ sections:
             detail: "The same specialist runs the approved command once, then closes its contract: what changed, the commands, their output and what is still open."
             filters: [moment-run]
 
-  - id: s7-prompt
-    treatment: [plain]
-    tokens:
-      row:
-        cell_h: 144
-    order: 3
-    span: 1
-    columns: 1
-    children:
-      - id: s7-question
-        order: 1
-        variant: accent
-        kicker: "PROMPT"
-        title: "SIGNATURE 1/1"
+      - id: s7-prompt
+        treatment: [plain]
         tokens:
-          type:
-            desc:
-              lines: 5
-        description:
-          - "[ GAIA-SECURITY ] [ AGENT-REQUEST ] [ developer ] [ COMMAND ] [ git push origin feature/health-check ]"
-          - "› 1. Approve · authorizes exactly this command"
-          - "  2. Reject · nothing runs"
-          - "  3. Details · what it does, impact, verification, how to undo it"
-          - "  4. Type something"
-        detail: "<code>[ GAIA-SECURITY ] [ DETAILS ] [ developer ] [ COMMAND: git push origin feature/health-check ] [ DOES: pushes the health-check commits to the shared repository ] [ IMPACT: updates the feature/health-check branch; main is not touched ] [ VERIFICATION: CI runs on the branch and must pass ] [ SHARED-STATE: the remote branch feature/health-check ] [ ROLLBACK: push the previous commit back to the branch ]</code>"
-        filters: [moment-asked, moment-decide]
+          row:
+            cell_h: 144
+        order: 5
+        span: 4
+        columns: 1
+        children:
+          - id: s7-question
+            order: 1
+            variant: accent
+            kicker: "PROMPT"
+            title: "SIGNATURE 1/1"
+            tokens:
+              type:
+                desc:
+                  lines: 5
+            description:
+              - "[ GAIA-SECURITY ] [ AGENT-REQUEST ] [ developer ] [ COMMAND ] [ git push origin feature/health-check ]"
+              - "› 1. Approve · authorizes exactly this command"
+              - "  2. Reject · nothing runs"
+              - "  3. Details · what it does, impact, verification, how to undo it"
+              - "  4. Type something"
+            detail: "<code>[ GAIA-SECURITY ] [ DETAILS ] [ developer ] [ COMMAND: git push origin feature/health-check ] [ DOES: pushes the health-check commits to the shared repository ] [ IMPACT: updates the feature/health-check branch; main is not touched ] [ VERIFICATION: CI runs on the branch and must pass ] [ SHARED-STATE: the remote branch feature/health-check ] [ ROLLBACK: push the previous commit back to the branch ]</code>"
+            filters: [moment-asked, moment-decide]

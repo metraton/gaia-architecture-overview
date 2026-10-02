@@ -851,61 +851,61 @@ window.__DOC__ = {
                   ]
                 }
               ]
-            }
-          ]
-        },
-        {
-          "id": "halves",
-          "treatment": [
-            "plain"
-          ],
-          "order": 2,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "halves-line",
-              "type": "separator",
-              "order": 1,
-              "text": "hooks decide by rule · agents follow written skills · the CLI keeps the records"
             },
             {
-              "id": "you-line",
-              "type": "separator",
-              "order": 2,
-              "text": "you ask in your own words · you approve what changes"
+              "id": "halves",
+              "treatment": [
+                "plain"
+              ],
+              "order": 4,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "halves-line",
+                  "type": "separator",
+                  "order": 1,
+                  "text": "hooks decide by rule · agents follow written skills · the CLI keeps the records"
+                },
+                {
+                  "id": "you-line",
+                  "type": "separator",
+                  "order": 2,
+                  "text": "you ask in your own words · you approve what changes"
+                }
+              ]
+            },
+            {
+              "id": "prompt",
+              "treatment": [
+                "plain",
+                "compact"
+              ],
+              "tokens": {
+                "row": {
+                  "cell_h": 60
+                }
+              },
+              "order": 5,
+              "span": 1,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "p2-prompt",
+                  "order": 1,
+                  "variant": "accent",
+                  "kicker": "PROMPT",
+                  "title": "What is Gaia?",
+                  "filters": [
+                    "p2-ask"
+                  ]
+                }
+              ],
+              "css_vars": {
+                "--cell-h": "60px"
+              }
             }
           ]
-        },
-        {
-          "id": "prompt",
-          "treatment": [
-            "plain",
-            "compact"
-          ],
-          "tokens": {
-            "row": {
-              "cell_h": 60
-            }
-          },
-          "order": 3,
-          "span": 1,
-          "columns": 1,
-          "children": [
-            {
-              "id": "p2-prompt",
-              "order": 1,
-              "variant": "accent",
-              "kicker": "PROMPT",
-              "title": "What is Gaia?",
-              "filters": [
-                "p2-ask"
-              ]
-            }
-          ],
-          "css_vars": {
-            "--cell-h": "60px"
-          }
         }
       ],
       "name": "2 · What Gaia is",
@@ -4178,58 +4178,58 @@ window.__DOC__ = {
                   ]
                 }
               ]
-            }
-          ],
-          "css_vars": {
-            "--cell-h": "76px"
-          }
-        },
-        {
-          "id": "s7-prompt",
-          "treatment": [
-            "plain"
-          ],
-          "tokens": {
-            "row": {
-              "cell_h": 144
-            }
-          },
-          "order": 3,
-          "span": 1,
-          "columns": 1,
-          "children": [
+            },
             {
-              "id": "s7-question",
-              "order": 1,
-              "variant": "accent",
-              "kicker": "PROMPT",
-              "title": "SIGNATURE 1/1",
+              "id": "s7-prompt",
+              "treatment": [
+                "plain"
+              ],
               "tokens": {
-                "type": {
-                  "desc": {
-                    "lines": 5
-                  }
+                "row": {
+                  "cell_h": 144
                 }
               },
-              "description": [
-                "[ GAIA-SECURITY ] [ AGENT-REQUEST ] [ developer ] [ COMMAND ] [ git push origin feature/health-check ]",
-                "› 1. Approve · authorizes exactly this command",
-                "  2. Reject · nothing runs",
-                "  3. Details · what it does, impact, verification, how to undo it",
-                "  4. Type something"
-              ],
-              "detail": "<code>[ GAIA-SECURITY ] [ DETAILS ] [ developer ] [ COMMAND: git push origin feature/health-check ] [ DOES: pushes the health-check commits to the shared repository ] [ IMPACT: updates the feature/health-check branch; main is not touched ] [ VERIFICATION: CI runs on the branch and must pass ] [ SHARED-STATE: the remote branch feature/health-check ] [ ROLLBACK: push the previous commit back to the branch ]</code>",
-              "filters": [
-                "moment-asked",
-                "moment-decide"
+              "order": 5,
+              "span": 4,
+              "columns": 1,
+              "children": [
+                {
+                  "id": "s7-question",
+                  "order": 1,
+                  "variant": "accent",
+                  "kicker": "PROMPT",
+                  "title": "SIGNATURE 1/1",
+                  "tokens": {
+                    "type": {
+                      "desc": {
+                        "lines": 5
+                      }
+                    }
+                  },
+                  "description": [
+                    "[ GAIA-SECURITY ] [ AGENT-REQUEST ] [ developer ] [ COMMAND ] [ git push origin feature/health-check ]",
+                    "› 1. Approve · authorizes exactly this command",
+                    "  2. Reject · nothing runs",
+                    "  3. Details · what it does, impact, verification, how to undo it",
+                    "  4. Type something"
+                  ],
+                  "detail": "<code>[ GAIA-SECURITY ] [ DETAILS ] [ developer ] [ COMMAND: git push origin feature/health-check ] [ DOES: pushes the health-check commits to the shared repository ] [ IMPACT: updates the feature/health-check branch; main is not touched ] [ VERIFICATION: CI runs on the branch and must pass ] [ SHARED-STATE: the remote branch feature/health-check ] [ ROLLBACK: push the previous commit back to the branch ]</code>",
+                  "filters": [
+                    "moment-asked",
+                    "moment-decide"
+                  ],
+                  "css_vars": {
+                    "--desc-lines": "5"
+                  }
+                }
               ],
               "css_vars": {
-                "--desc-lines": "5"
+                "--cell-h": "144px"
               }
             }
           ],
           "css_vars": {
-            "--cell-h": "144px"
+            "--cell-h": "76px"
           }
         }
       ],
