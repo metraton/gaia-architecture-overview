@@ -332,11 +332,11 @@
     {
       "page": "p5-what-gaia-keeps",
       "audio": "audio/5.wav",
-      "duration": 158.1,
+      "duration": 185.5,
       "method": "sentences",
       "speech": [
         0.212,
-        157.645
+        184.906
       ],
       "sentences": [
         {
@@ -350,129 +350,114 @@
           "end": 7.693
         },
         {
-          "text": "It keeps that in four memories, and each one answers a simple question.",
-          "start": 9.048,
-          "end": 12.854
+          "text": "It keeps it in four memories. Each one answers a simple question, and each one reads the same way: how it fills, what you find in it, and who writes it.",
+          "start": 9.052,
+          "end": 17.818
         },
         {
           "text": "The first one asks: what do we know about the project, and about you?",
-          "start": 14.909,
-          "end": 18.797
+          "start": 19.949,
+          "end": 23.837
         },
         {
-          "text": "When you open a project, Gaia scans the workspace and its repositories, and writes down what it finds, section by section.",
-          "start": 20.257,
-          "end": 27.123
+          "text": "It fills when Gaia scans your projects and writes down what it finds, section by section, and when you share your rules.",
+          "start": 25.316,
+          "end": 31.705
         },
         {
-          "text": "Each specialist is told which of those sections it may read, and which it may write.",
-          "start": 28.411,
-          "end": 33.08
+          "text": "In it you find each project's identity, its stack, its git setup and ten more sections, along with your preferences, your decisions, and what failed before.",
+          "start": 33.139,
+          "end": 42.909
         },
         {
-          "text": "It also keeps what is yours: your rules, your preferences, and the decisions you made, with the reason behind them.",
-          "start": 34.304,
-          "end": 41.053
+          "text": "Three hands write it: the scan; the specialists, who only ask for changes to their own sections, which Gaia saves when they finish; and the orchestrator, who keeps your rules and decisions.",
+          "start": 44.23,
+          "end": 54.827
         },
         {
           "text": "The second asks: what are we doing, and what is still open?",
-          "start": 43.282,
-          "end": 46.681
+          "start": 57.162,
+          "end": 60.561
         },
         {
-          "text": "Bigger work starts as a brief: a short page that says what you want, and how you will know it is done.",
-          "start": 48.011,
-          "end": 55.087
+          "text": "Bigger work starts as a brief, with criteria that say when it is done. The brief becomes a plan, the plan becomes tasks, each task has its gates, and a verdict closes it.",
+          "start": 61.919,
+          "end": 73.122
         },
         {
-          "text": "The brief becomes one plan,",
-          "start": 56.609,
-          "end": 58.199
+          "text": "Here you find the changes to each plan, the plans on pause, the gates still pending, and the open threads.",
+          "start": 74.569,
+          "end": 81.177
         },
         {
-          "text": "and the plan is split into tasks. Each task carries its own checks, called gates.",
-          "start": 59.057,
-          "end": 64.218
-        },
-        {
-          "text": "If the plan has to change, the change is recorded, and the earlier version is kept.",
-          "start": 65.506,
-          "end": 70.085
-        },
-        {
-          "text": "And whatever is paused, blocked or pending carries forward to the next session.",
-          "start": 71.213,
-          "end": 75.479
+          "text": "The orchestrator and the planner write it, and a verifier, one that did not do the work, closes each task.",
+          "start": 82.588,
+          "end": 88.324
         },
         {
           "text": "The third asks: what did we do, and what came out of it?",
-          "start": 77.714,
-          "end": 81.622
+          "start": 90.571,
+          "end": 93.712
         },
         {
-          "text": "Every turn ends with its contract: how it ended, and the evidence behind it.",
-          "start": 83.116,
-          "end": 87.761
+          "text": "When a task is handed over, its contract is born. The specialist fills it with evidence, asks for approval if it needs to change something, and closes it.",
+          "start": 95.041,
+          "end": 105.051
         },
         {
-          "text": "Every change you approved is kept, with your answer.",
-          "start": 88.933,
-          "end": 91.712
+          "text": "Here you find how each turn ended, the commands and their outputs, what is still open, the chain of approvals, and the audit trail.",
+          "start": 106.516,
+          "end": 114.325
         },
         {
-          "text": "And every check leaves its verdict: pass or fail, and what is still open.",
-          "start": 93.067,
-          "end": 97.383
-        },
-        {
-          "text": "Together, they form an audit trail you can follow later.",
-          "start": 98.685,
-          "end": 101.434
+          "text": "The specialists write their own contracts, and Gaia's engine records every approval.",
+          "start": 115.673,
+          "end": 120.37
         },
         {
           "text": "The fourth asks: what happened, and when?",
-          "start": 103.463,
-          "end": 106.051
+          "start": 122.513,
+          "end": 124.987
         },
         {
-          "text": "This one nobody writes. Gaia's engine records it on its own, as events, turns and sessions.",
-          "start": 107.476,
-          "end": 113.863
+          "text": "Every hook leaves an event, anything unusual is flagged, and each turn becomes one episode.",
+          "start": 126.277,
+          "end": 132.111
         },
         {
-          "text": "Put in order, they become a timeline.",
-          "start": 115.055,
-          "end": 117.074
+          "text": "Here you find the sessions, the turns that were cut short, the defects, the recent events each specialist receives when it starts, and the history.",
+          "start": 133.434,
+          "end": 142.645
         },
         {
-          "text": "Anything unusual is flagged, and a turn that was cut short is marked, so nothing disappears quietly.",
-          "start": 118.442,
-          "end": 124.355
+          "text": "And only the engine writes it. Nobody writes it by hand.",
+          "start": 143.902,
+          "end": 147.398
         },
         {
-          "text": "And each new session starts with the last twenty-four hours.",
-          "start": 125.712,
-          "end": 129.613
+          "text": "Notice the pattern: the top two are written on purpose, and the bottom two are recorded as the work happens.",
+          "start": 149.575,
+          "end": 155.478
         },
         {
-          "text": "These four memories are not separate boxes.",
-          "start": 131.743,
-          "end": 133.951
+          "text": "And these memories are not separate boxes.",
+          "start": 157.989,
+          "end": 160.366
         },
         {
-          "text": "A single task leaves a trace in all four: in the project it touched, in the plan it belongs to, in its contract, and in the record of its turn.",
-          "start": 135.211,
-          "end": 144.942
+          "text": "A single task leaves a trace in all four: in the project's sections, in the tasks of its plan, in the contract it was born with, and in the episode of its turn.",
+          "start": 161.71,
+          "end": 171.985
         },
         {
           "text": "You decide what is worth keeping. The engine records the rest.",
-          "start": 147.634,
-          "end": 151.733
+          "start": 174.636,
+          "end": 178.97
         },
         {
           "text": "But knowing is not enough. What happens when the work needs to change something?",
-          "start": 152.906,
-          "end": 157.645
+          "start": 180.173,
+          "end": 184.906
         }
       ]
     },
