@@ -905,35 +905,35 @@ window.__DOC__ = {
           "key": "p5-knows",
           "label": "1 · what it knows",
           "steps": [
-            "Gaia scans the workspace and its repositories and writes down what it finds, section by section, and keeps your rules, your preferences and your decisions."
+            "Gaia scans your projects and writes down what it finds, section by section; the specialists ask for changes to their own sections, and the orchestrator keeps your rules and decisions."
           ]
         },
         {
           "key": "p5-open",
           "label": "2 · what is open",
           "steps": [
-            "Bigger work starts as a brief, becomes one plan split into tasks with their own gates, and whatever is still open carries forward."
+            "Bigger work starts as a brief with its criteria, becomes a plan of tasks with their gates, and a verifier that did not do the work closes each task."
           ]
         },
         {
           "key": "p5-done",
           "label": "3 · what was done",
           "steps": [
-            "Every turn ends with its contract and its evidence, every change you approved is kept with your answer, and every check leaves its verdict."
+            "A handed-over task is born with a contract that the specialist fills with evidence and closes, and Gaia's engine records every approval."
           ]
         },
         {
           "key": "p5-happened",
           "label": "4 · what happened",
           "steps": [
-            "Gaia's engine records events, turns and sessions on its own, puts them in a timeline, and flags anything unusual."
+            "Only the engine writes it: every hook leaves an event, anything unusual is flagged, and each turn becomes one episode."
           ]
         },
         {
           "key": "p5-one-task",
           "label": "5 · one task, four traces",
           "steps": [
-            "A single task leaves a trace in all four: in the project it touched, in the plan it belongs to, in its contract, and in the record of its turn."
+            "A single task leaves a trace in all four: in the project's sections, in the tasks of its plan, in the contract it was born with, and in the episode of its turn."
           ]
         }
       ],
@@ -941,6 +941,7 @@ window.__DOC__ = {
         {
           "id": "gaia",
           "title": "GAIA",
+          "subtitle": "▲ written on purpose · ▼ recorded as the work happens",
           "treatment": [
             "envelope"
           ],
@@ -949,7 +950,7 @@ window.__DOC__ = {
           "columns": 1,
           "children": [
             {
-              "id": "suns-top",
+              "id": "mem-top",
               "treatment": [
                 "plain"
               ],
@@ -959,18 +960,32 @@ window.__DOC__ = {
               "children": [
                 {
                   "id": "sun-project",
+                  "title": "Project memory",
+                  "subtitle": "what do we know about the project, and about you?",
                   "treatment": [
                     "envelope",
                     "compact"
                   ],
+                  "tokens": {
+                    "row": {
+                      "cell_h": 60
+                    }
+                  },
                   "order": 1,
                   "span": 1,
                   "columns": 4,
                   "children": [
                     {
+                      "id": "pr-band-fills",
+                      "type": "separator",
+                      "order": 1,
+                      "span": 4,
+                      "text": "how it fills"
+                    },
+                    {
                       "id": "pr-scan",
                       "type": "rail",
-                      "order": 1,
+                      "order": 2,
                       "variant": "blue",
                       "treatment": [
                         "centered"
@@ -981,108 +996,105 @@ window.__DOC__ = {
                       ]
                     },
                     {
-                      "id": "pr-workspace",
-                      "type": "rail",
-                      "order": 2,
-                      "variant": "blue",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "workspace →",
-                      "filters": [
-                        "p5-knows"
-                      ]
-                    },
-                    {
-                      "id": "pr-repos",
+                      "id": "pr-sections",
                       "type": "rail",
                       "order": 3,
                       "variant": "blue",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "repos →",
+                      "title": "sections →",
                       "filters": [
-                        "p5-knows"
+                        "p5-knows",
+                        "p5-one-task"
                       ]
                     },
                     {
-                      "id": "pr-sections",
+                      "id": "pr-your-rules",
                       "type": "rail",
                       "order": 4,
                       "variant": "blue",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "sections ↓",
-                      "filters": [
-                        "p5-knows",
-                        "p5-one-task"
-                      ]
-                    },
-                    {
-                      "id": "pr-preferences",
-                      "type": "rail",
-                      "order": 5,
-                      "variant": "blue",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "↑ preferences",
+                      "title": "your rules",
                       "filters": [
                         "p5-knows"
                       ]
                     },
                     {
-                      "id": "pr-core",
+                      "id": "pr-fills-end",
+                      "type": "spacer",
+                      "order": 4.5
+                    },
+                    {
+                      "id": "pr-band-find",
+                      "type": "separator",
+                      "order": 5,
+                      "span": 4,
+                      "text": "what you find"
+                    },
+                    {
+                      "id": "pr-identity",
+                      "type": "rail",
                       "order": 6,
-                      "span": 2,
                       "variant": "blue",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "PROJECT MEMORY",
+                      "title": "identity",
                       "filters": [
-                        "p5-knows",
-                        "p5-one-task"
-                      ],
-                      "detail": "<b>What do we know about the project, and about you?</b><br><br>What Gaia knows about the project, and about you. gaia scan maps the workspace and its repos; what it finds is kept in named sections of the project contract: project identity, stack, git, architecture, services, environment, infrastructure. Each agent may read some sections and write others, and its context at dispatch names them. About you: your rules and preferences, handed to every specialist at birth, and the decisions and anchors the orchestrator curated. Also kept here: feedback on how work went, and what did not work, as curated rows of type negative. Commands: gaia scan, gaia context, gaia memory."
+                        "p5-knows"
+                      ]
                     },
                     {
-                      "id": "pr-can-read",
+                      "id": "pr-stack",
                       "type": "rail",
                       "order": 7,
                       "variant": "blue",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "may read ↓",
+                      "title": "stack",
                       "filters": [
                         "p5-knows"
                       ]
                     },
                     {
-                      "id": "pr-your-rules",
+                      "id": "pr-git",
                       "type": "rail",
                       "order": 8,
                       "variant": "blue",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "↑ your rules",
+                      "title": "git",
                       "filters": [
                         "p5-knows"
                       ]
                     },
                     {
-                      "id": "pr-anchors",
+                      "id": "pr-more",
                       "type": "rail",
                       "order": 9,
                       "variant": "blue",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "← anchors",
+                      "title": "+10 sections",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    },
+                    {
+                      "id": "pr-preferences",
+                      "type": "rail",
+                      "order": 10,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "preferences",
                       "filters": [
                         "p5-knows"
                       ]
@@ -1090,53 +1102,118 @@ window.__DOC__ = {
                     {
                       "id": "pr-decisions",
                       "type": "rail",
-                      "order": 10,
-                      "variant": "blue",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "← decisions",
-                      "filters": [
-                        "p5-knows"
-                      ]
-                    },
-                    {
-                      "id": "pr-can-write",
-                      "type": "rail",
                       "order": 11,
                       "variant": "blue",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "← may write",
+                      "title": "decisions",
                       "filters": [
                         "p5-knows"
                       ]
+                    },
+                    {
+                      "id": "pr-failed",
+                      "type": "rail",
+                      "order": 12,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "what failed",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    },
+                    {
+                      "id": "pr-find-end",
+                      "type": "spacer",
+                      "order": 12.5
+                    },
+                    {
+                      "id": "pr-band-writers",
+                      "type": "separator",
+                      "order": 13,
+                      "span": 4,
+                      "text": "written by"
+                    },
+                    {
+                      "id": "pr-by-scan",
+                      "type": "rail",
+                      "order": 14,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "scan",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    },
+                    {
+                      "id": "pr-by-agents",
+                      "type": "rail",
+                      "order": 15,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "specialist agents",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    },
+                    {
+                      "id": "pr-by-orchestrator",
+                      "type": "rail",
+                      "order": 16,
+                      "variant": "blue",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "orchestrator",
+                      "filters": [
+                        "p5-knows"
+                      ]
+                    },
+                    {
+                      "id": "pr-writers-end",
+                      "type": "spacer",
+                      "order": 17
                     }
                   ],
-                  "tokens": {
-                    "row": {
-                      "cell_h": 74
-                    }
-                  },
                   "css_vars": {
-                    "--cell-h": "74px"
+                    "--cell-h": "60px"
                   }
                 },
                 {
                   "id": "sun-operational",
+                  "title": "Operational memory",
+                  "subtitle": "what are we doing, and what is still open?",
                   "treatment": [
                     "envelope",
                     "compact"
                   ],
+                  "tokens": {
+                    "row": {
+                      "cell_h": 60
+                    }
+                  },
                   "order": 2,
                   "span": 1,
                   "columns": 4,
                   "children": [
                     {
+                      "id": "op-band-fills",
+                      "type": "separator",
+                      "order": 1,
+                      "span": 4,
+                      "text": "how it fills"
+                    },
+                    {
                       "id": "op-brief",
                       "type": "rail",
-                      "order": 1,
+                      "order": 2,
                       "variant": "gold",
                       "treatment": [
                         "centered"
@@ -1149,7 +1226,7 @@ window.__DOC__ = {
                     {
                       "id": "op-ac",
                       "type": "rail",
-                      "order": 2,
+                      "order": 3,
                       "variant": "gold",
                       "treatment": [
                         "centered"
@@ -1162,7 +1239,7 @@ window.__DOC__ = {
                     {
                       "id": "op-plan",
                       "type": "rail",
-                      "order": 3,
+                      "order": 4,
                       "variant": "gold",
                       "treatment": [
                         "centered"
@@ -1175,67 +1252,61 @@ window.__DOC__ = {
                     {
                       "id": "op-tasks",
                       "type": "rail",
-                      "order": 4,
+                      "order": 5,
                       "variant": "gold",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "tasks ↓",
+                      "title": "tasks →",
                       "filters": [
                         "p5-open",
                         "p5-one-task"
                       ]
                     },
                     {
-                      "id": "op-carry-forward",
+                      "id": "op-gates",
                       "type": "rail",
-                      "order": 5,
-                      "variant": "gold",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "↑ carry forward",
-                      "filters": [
-                        "p5-open"
-                      ]
-                    },
-                    {
-                      "id": "op-core",
                       "order": 6,
                       "span": 2,
                       "variant": "gold",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "OPERATIONAL MEMORY",
-                      "filters": [
-                        "p5-open",
-                        "p5-one-task"
-                      ],
-                      "detail": "<b>What are we doing, and what is still open?</b><br><br>What is in flight and what is still open. A brief carries acceptance criteria and milestones; it gets one plan of tasks. Each task can depend on others, says which criteria it covers, and carries gates that someone who did not do the work checks. A plan can be paused, resumed, or changed through a managed plan change that keeps every earlier version. Also kept here: the statuses draft, open and in progress; open threads; schedules for recurring work and the notifications they leave; and each turn's next action. Commands: gaia brief, gaia ac, gaia milestone, gaia plan, gaia task, gaia schedule, gaia notifications."
-                    },
-                    {
-                      "id": "op-gates",
-                      "type": "rail",
-                      "order": 7,
-                      "variant": "gold",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "gates ↓",
+                      "title": "gates →",
                       "filters": [
                         "p5-open"
                       ]
                     },
                     {
-                      "id": "op-plan-change",
+                      "id": "op-verdict",
                       "type": "rail",
-                      "order": 8,
+                      "order": 7,
+                      "span": 2,
                       "variant": "gold",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "↑ plan change",
+                      "title": "verdict",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    },
+                    {
+                      "id": "op-band-find",
+                      "type": "separator",
+                      "order": 8,
+                      "span": 4,
+                      "text": "what you find"
+                    },
+                    {
+                      "id": "op-plan-change",
+                      "type": "rail",
+                      "order": 9,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "plan changes",
                       "filters": [
                         "p5-open"
                       ]
@@ -1243,25 +1314,12 @@ window.__DOC__ = {
                     {
                       "id": "op-pause",
                       "type": "rail",
-                      "order": 9,
-                      "variant": "gold",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "← pause",
-                      "filters": [
-                        "p5-open"
-                      ]
-                    },
-                    {
-                      "id": "op-blocked",
-                      "type": "rail",
                       "order": 10,
                       "variant": "gold",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "← blocked",
+                      "title": "paused plans",
                       "filters": [
                         "p5-open"
                       ]
@@ -1274,65 +1332,211 @@ window.__DOC__ = {
                       "treatment": [
                         "centered"
                       ],
-                      "title": "← pending",
+                      "title": "pending gates",
                       "filters": [
                         "p5-open"
                       ]
+                    },
+                    {
+                      "id": "op-threads",
+                      "type": "rail",
+                      "order": 12,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "open threads",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    },
+                    {
+                      "id": "op-band-writers",
+                      "type": "separator",
+                      "order": 13,
+                      "span": 4,
+                      "text": "written by"
+                    },
+                    {
+                      "id": "op-by-orchestrator",
+                      "type": "rail",
+                      "order": 14,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "orchestrator",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    },
+                    {
+                      "id": "op-by-planner",
+                      "type": "rail",
+                      "order": 15,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "planner",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    },
+                    {
+                      "id": "op-by-verifier",
+                      "type": "rail",
+                      "order": 16,
+                      "variant": "gold",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "verifier",
+                      "filters": [
+                        "p5-open"
+                      ]
+                    },
+                    {
+                      "id": "op-writers-end",
+                      "type": "spacer",
+                      "order": 17
                     }
                   ],
-                  "tokens": {
-                    "row": {
-                      "cell_h": 74
-                    }
-                  },
                   "css_vars": {
-                    "--cell-h": "74px"
+                    "--cell-h": "60px"
                   }
                 }
               ]
             },
             {
-              "id": "suns-bottom",
+              "id": "mem-bottom",
               "treatment": [
                 "plain"
               ],
-              "order": 2,
+              "order": 3,
               "span": 1,
               "columns": 2,
               "children": [
                 {
                   "id": "sun-execution",
+                  "title": "Execution memory",
+                  "subtitle": "what did we do, and what came out of it?",
                   "treatment": [
                     "envelope",
                     "compact"
                   ],
+                  "tokens": {
+                    "row": {
+                      "cell_h": 60
+                    }
+                  },
                   "order": 1,
                   "span": 1,
                   "columns": 4,
                   "children": [
                     {
-                      "id": "ex-contracts",
-                      "type": "rail",
+                      "id": "ex-band-fills",
+                      "type": "separator",
                       "order": 1,
-                      "variant": "clay",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "contracts →",
-                      "filters": [
-                        "p5-done",
-                        "p5-one-task"
-                      ]
+                      "span": 4,
+                      "text": "how it fills"
                     },
                     {
-                      "id": "ex-t3",
+                      "id": "ex-born",
                       "type": "rail",
                       "order": 2,
                       "variant": "clay",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "changes →",
+                      "title": "contract born →",
+                      "filters": [
+                        "p5-done",
+                        "p5-one-task"
+                      ]
+                    },
+                    {
+                      "id": "ex-evidence",
+                      "type": "rail",
+                      "order": 3,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "evidence →",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-approval",
+                      "type": "rail",
+                      "order": 4,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "approval →",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-closes",
+                      "type": "rail",
+                      "order": 5,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "contract closes",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-band-find",
+                      "type": "separator",
+                      "order": 6,
+                      "span": 4,
+                      "text": "what you find"
+                    },
+                    {
+                      "id": "ex-states",
+                      "type": "rail",
+                      "order": 7,
+                      "span": 2,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "done · blocked · needs check",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-outputs",
+                      "type": "rail",
+                      "order": 8,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "commands & outputs",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-open-gaps",
+                      "type": "rail",
+                      "order": 9,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "open gaps",
                       "filters": [
                         "p5-done"
                       ]
@@ -1340,25 +1544,13 @@ window.__DOC__ = {
                     {
                       "id": "ex-approvals",
                       "type": "rail",
-                      "order": 3,
+                      "order": 10,
+                      "span": 2,
                       "variant": "clay",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "approvals →",
-                      "filters": [
-                        "p5-done"
-                      ]
-                    },
-                    {
-                      "id": "ex-evidence",
-                      "type": "rail",
-                      "order": 4,
-                      "variant": "clay",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "evidence ↓",
+                      "title": "approval chain",
                       "filters": [
                         "p5-done"
                       ]
@@ -1366,146 +1558,93 @@ window.__DOC__ = {
                     {
                       "id": "ex-audit-trail",
                       "type": "rail",
-                      "order": 5,
-                      "variant": "clay",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "↑ audit trail",
-                      "filters": [
-                        "p5-done"
-                      ]
-                    },
-                    {
-                      "id": "ex-core",
-                      "order": 6,
-                      "span": 2,
-                      "variant": "clay",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "EXECUTION MEMORY",
-                      "filters": [
-                        "p5-done",
-                        "p5-one-task"
-                      ],
-                      "detail": "<b>What did we execute, and what did it produce?</b><br><br>What was executed, and what it produced. Every turn answers in its agent contract: its state (COMPLETE, BLOCKED, APPROVAL_REQUEST, NEEDS_VERIFICATION, NEEDS_INPUT, IN_PROGRESS), its evidence (commands run, key outputs, open gaps) and its verification, pass or fail. A gate's verdict is kept with its task. Every approval is kept in a hashed approval chain; every command's tier is decided by a rule: T0 read, T1 validate, T2 dry run, T3 change, or never. A compliance score and an audit trail are computed from all of it. Also kept here: metrics, and the worktree of each turn that wrote. Commands: gaia contract, gaia approvals, gaia evidence, gaia metrics."
-                    },
-                    {
-                      "id": "ex-open-gaps",
-                      "type": "rail",
-                      "order": 7,
-                      "variant": "clay",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "open gaps ↓",
-                      "filters": [
-                        "p5-done"
-                      ]
-                    },
-                    {
-                      "id": "ex-blocked",
-                      "type": "rail",
-                      "order": 8,
-                      "variant": "clay",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "↑ blocked",
-                      "filters": [
-                        "p5-done"
-                      ]
-                    },
-                    {
-                      "id": "ex-complete",
-                      "type": "rail",
-                      "order": 9,
-                      "variant": "clay",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "← done",
-                      "filters": [
-                        "p5-done"
-                      ]
-                    },
-                    {
-                      "id": "ex-pass",
-                      "type": "rail",
-                      "order": 10,
-                      "variant": "clay",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "← pass",
-                      "filters": [
-                        "p5-done"
-                      ]
-                    },
-                    {
-                      "id": "ex-verdict",
-                      "type": "rail",
                       "order": 11,
                       "variant": "clay",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "← verdict",
+                      "title": "audit trail",
                       "filters": [
                         "p5-done"
                       ]
+                    },
+                    {
+                      "id": "ex-find-end",
+                      "type": "spacer",
+                      "order": 11.5
+                    },
+                    {
+                      "id": "ex-band-writers",
+                      "type": "separator",
+                      "order": 12,
+                      "span": 4,
+                      "text": "written by"
+                    },
+                    {
+                      "id": "ex-by-agents",
+                      "type": "rail",
+                      "order": 13,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "specialist agents",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-by-engine",
+                      "type": "rail",
+                      "order": 14,
+                      "variant": "clay",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "Gaia engine",
+                      "filters": [
+                        "p5-done"
+                      ]
+                    },
+                    {
+                      "id": "ex-writers-end",
+                      "type": "spacer",
+                      "order": 15,
+                      "span": 2
                     }
                   ],
-                  "tokens": {
-                    "row": {
-                      "cell_h": 74
-                    }
-                  },
                   "css_vars": {
-                    "--cell-h": "74px"
+                    "--cell-h": "60px"
                   }
                 },
                 {
                   "id": "sun-episodic",
+                  "title": "Episodic memory",
+                  "subtitle": "what happened, and when?",
                   "treatment": [
                     "envelope",
                     "compact"
                   ],
+                  "tokens": {
+                    "row": {
+                      "cell_h": 60
+                    }
+                  },
                   "order": 2,
                   "span": 1,
                   "columns": 4,
                   "children": [
                     {
-                      "id": "ep-sessions",
-                      "type": "rail",
+                      "id": "ep-band-fills",
+                      "type": "separator",
                       "order": 1,
-                      "variant": "violet",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "sessions →",
-                      "filters": [
-                        "p5-happened"
-                      ]
-                    },
-                    {
-                      "id": "ep-turns",
-                      "type": "rail",
-                      "order": 2,
-                      "variant": "violet",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "turns →",
-                      "filters": [
-                        "p5-happened"
-                      ]
+                      "span": 4,
+                      "text": "how it fills"
                     },
                     {
                       "id": "ep-hooks",
                       "type": "rail",
-                      "order": 3,
+                      "order": 2,
                       "variant": "violet",
                       "treatment": [
                         "centered"
@@ -1518,92 +1657,25 @@ window.__DOC__ = {
                     {
                       "id": "ep-events",
                       "type": "rail",
+                      "order": 3,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "events →",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-anomalies",
+                      "type": "rail",
                       "order": 4,
                       "variant": "violet",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "events ↓",
-                      "filters": [
-                        "p5-happened"
-                      ]
-                    },
-                    {
-                      "id": "ep-last-24h",
-                      "type": "rail",
-                      "order": 5,
-                      "variant": "violet",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "↑ last 24h",
-                      "filters": [
-                        "p5-happened"
-                      ]
-                    },
-                    {
-                      "id": "ep-core",
-                      "order": 6,
-                      "span": 2,
-                      "variant": "violet",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "EPISODIC MEMORY",
-                      "filters": [
-                        "p5-happened",
-                        "p5-one-task"
-                      ],
-                      "detail": "<b>What happened, and when?</b><br><br>What happened and when, recorded by the engine, never written by hand. Every hook that fires leaves an event: SessionStart, SubagentStart, PostToolUse, SubagentStop and the rest. Every turn leaves one episode; sessions group them, and a timeline puts them in order. The next session starts with the last 24 hours. A turn that never closed stays as a cut turn, with its reason; anomalies and defects are listed one by one for triage. Also kept here: the transcript, the history of recent sessions, the backstop that closes a cut turn, the compaction of a long session, and the links between curated rows (supersedes, graduated). Commands: gaia query, gaia history, gaia defects, gaia memory search."
-                    },
-                    {
-                      "id": "ep-anomalies",
-                      "type": "rail",
-                      "order": 7,
-                      "variant": "violet",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "anomalies ↓",
-                      "filters": [
-                        "p5-happened"
-                      ]
-                    },
-                    {
-                      "id": "ep-lineage",
-                      "type": "rail",
-                      "order": 8,
-                      "variant": "violet",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "↑ history",
-                      "filters": [
-                        "p5-happened"
-                      ]
-                    },
-                    {
-                      "id": "ep-timeline",
-                      "type": "rail",
-                      "order": 9,
-                      "variant": "violet",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "← timeline",
-                      "filters": [
-                        "p5-happened"
-                      ]
-                    },
-                    {
-                      "id": "ep-cut-turns",
-                      "type": "rail",
-                      "order": 10,
-                      "variant": "violet",
-                      "treatment": [
-                        "centered"
-                      ],
-                      "title": "← cut turns",
+                      "title": "anomalies →",
                       "filters": [
                         "p5-happened"
                       ]
@@ -1611,25 +1683,130 @@ window.__DOC__ = {
                     {
                       "id": "ep-episodes",
                       "type": "rail",
+                      "order": 5,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "one episode per turn",
+                      "filters": [
+                        "p5-happened",
+                        "p5-one-task"
+                      ]
+                    },
+                    {
+                      "id": "ep-band-find",
+                      "type": "separator",
+                      "order": 6,
+                      "span": 4,
+                      "text": "what you find"
+                    },
+                    {
+                      "id": "ep-sessions",
+                      "type": "rail",
+                      "order": 7,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "sessions",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-cut-turns",
+                      "type": "rail",
+                      "order": 8,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "cut turns",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-defects",
+                      "type": "rail",
+                      "order": 9,
+                      "span": 2,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "defects",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-recent",
+                      "type": "rail",
+                      "order": 10,
+                      "span": 2,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "recent events",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-lineage",
+                      "type": "rail",
                       "order": 11,
                       "variant": "violet",
                       "treatment": [
                         "centered"
                       ],
-                      "title": "← episodes",
+                      "title": "history",
                       "filters": [
-                        "p5-happened",
-                        "p5-one-task"
+                        "p5-happened"
                       ]
+                    },
+                    {
+                      "id": "ep-find-end",
+                      "type": "spacer",
+                      "order": 11.5
+                    },
+                    {
+                      "id": "ep-band-writers",
+                      "type": "separator",
+                      "order": 12,
+                      "span": 4,
+                      "text": "written by"
+                    },
+                    {
+                      "id": "ep-by-engine",
+                      "type": "rail",
+                      "order": 13,
+                      "variant": "violet",
+                      "treatment": [
+                        "centered"
+                      ],
+                      "title": "Gaia engine",
+                      "filters": [
+                        "p5-happened"
+                      ]
+                    },
+                    {
+                      "id": "ep-writers-end",
+                      "type": "spacer",
+                      "order": 14
+                    },
+                    {
+                      "id": "ep-writers-tail",
+                      "type": "spacer",
+                      "order": 15,
+                      "span": 2
                     }
                   ],
-                  "tokens": {
-                    "row": {
-                      "cell_h": 74
-                    }
-                  },
                   "css_vars": {
-                    "--cell-h": "74px"
+                    "--cell-h": "60px"
                   }
                 }
               ]
