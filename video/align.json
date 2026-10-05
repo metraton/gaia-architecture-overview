@@ -464,122 +464,127 @@
     {
       "page": "p-pilot-your-yes",
       "audio": "audio/7.wav",
-      "duration": 93.96,
+      "duration": 103.04,
       "method": "sentences",
       "speech": [
-        0.207,
-        93.494
+        0.216,
+        102.21
       ],
       "sentences": [
         {
-          "text": "Let's follow one request, from your question to the result.",
-          "start": 0.207,
-          "end": 3.345
+          "text": "Let's find out, by following one request from your question to the result.",
+          "start": 0.216,
+          "end": 4.14
         },
         {
           "text": "It starts with you: you ask for something, in your own words.",
-          "start": 5.128,
-          "end": 8.927
+          "start": 5.888,
+          "end": 9.687
         },
         {
           "text": "Next, the orchestrator, the agent you talk to, sends the job to a specialist.",
-          "start": 9.872,
-          "end": 14.542
+          "start": 10.632,
+          "end": 15.302
         },
         {
           "text": "Before it starts, Gaia gives it what it needs: the goal, your rules, and a form to fill in.",
-          "start": 15.493,
-          "end": 21.921
+          "start": 16.253,
+          "end": 22.681
         },
         {
           "text": "Then the specialist does the work.",
-          "start": 23.617,
-          "end": 25.585
+          "start": 24.377,
+          "end": 26.345
         },
         {
           "text": "It reads files, edits code, and runs tests.",
-          "start": 26.555,
-          "end": 29.85
+          "start": 27.315,
+          "end": 30.61
         },
         {
           "text": "All the while, Gaia checks every action with fixed rules.",
-          "start": 31.185,
-          "end": 34.647
+          "start": 31.945,
+          "end": 35.407
         },
         {
           "text": "Safe actions go through, so you are not asked.",
-          "start": 35.722,
-          "end": 38.784
+          "start": 36.482,
+          "end": 39.544
         },
         {
           "text": "Now the specialist wants to push the code.",
-          "start": 40.553,
-          "end": 42.985
+          "start": 41.313,
+          "end": 43.745
         },
         {
           "text": "That changes something other people use.",
-          "start": 43.994,
-          "end": 46.46
+          "start": 44.754,
+          "end": 47.22
         },
         {
           "text": "So Gaia stops it, and the specialist waits.",
-          "start": 47.468,
-          "end": 50.17
+          "start": 48.228,
+          "end": 50.93
         },
         {
           "text": "This is where you come in: the orchestrator asks you.",
-          "start": 51.792,
-          "end": 54.754
+          "start": 52.552,
+          "end": 55.514
         },
         {
           "text": "Gaia writes the question, and checks it word for word.",
-          "start": 56.531,
-          "end": 59.545
+          "start": 57.291,
+          "end": 60.305
         },
         {
           "text": "You see who asks, the exact command, and how to undo it.",
-          "start": 60.556,
-          "end": 64.321
+          "start": 61.316,
+          "end": 65.081
         },
         {
           "text": "Let's say you approve.",
-          "start": 66.397,
-          "end": 67.552
+          "start": 67.157,
+          "end": 68.312
         },
         {
           "text": "Gaia writes down your answer.",
-          "start": 68.487,
-          "end": 69.84
+          "start": 69.247,
+          "end": 70.6
         },
         {
           "text": "It works once, for this command only.",
-          "start": 71.059,
-          "end": 73.341
+          "start": 71.819,
+          "end": 74.101
         },
         {
           "text": "With that, the specialist continues where it stopped.",
-          "start": 74.402,
-          "end": 77.42
+          "start": 75.162,
+          "end": 78.18
         },
         {
           "text": "The command runs, exactly as you approved it.",
-          "start": 79.061,
-          "end": 81.983
+          "start": 79.821,
+          "end": 82.743
         },
         {
           "text": "Gaia checks the specialist's report.",
-          "start": 82.87,
-          "end": 84.972
+          "start": 83.63,
+          "end": 85.732
         },
         {
           "text": "And only then does the orchestrator tell you the result.",
-          "start": 86.13,
-          "end": 88.74
+          "start": 86.89,
+          "end": 89.5
         },
         {
           "text": "Nothing that matters runs without you seeing it.",
-          "start": 90.665,
-          "end": 93.494
+          "start": 91.425,
+          "end": 94.254
+        },
+        {
+          "text": "And at every step, the specialist reported back in a fixed form. Let's look at that report.",
+          "start": 95.832,
+          "end": 102.21
         }
       ]
     },
