@@ -30,11 +30,12 @@ const FRAMES_DIR = join(OUT_DIR, 'frames');
 // one browser per two cores they only contend for the same cores.
 const BROWSERS = Math.max(1, Math.min(6, Math.floor(availableParallelism() / 2)));
 const QUALITY = selectedQuality();
+const DEVICE = { width: FRAME.width * QUALITY.supersample, height: FRAME.height * QUALITY.supersample };
 
 // What a frame's pixels depend on besides its state: the deck, the driver, the
-// frame settings and the browser that draws it.
+// frame settings, the device pixels it is taken at and the browser that draws it.
 function renderFingerprint(browserVersion) {
-  const hash = createHash('sha256').update(JSON.stringify({ ...FRAME, ...QUALITY })).update(browserVersion);
+  const hash = createHash('sha256').update(JSON.stringify({ ...FRAME, ...QUALITY, device: DEVICE })).update(browserVersion);
   const files = ['index.html', 'data/data.generated.js',
     ...readdirSync(join(DECK, 'engine')).sort().map(f => join('engine', f))];
   for (const f of files) hash.update(f).update(readFileSync(join(DECK, f)));
@@ -57,6 +58,10 @@ function holds(files) {
 // Takes each missing frame at the instant it first appears, sharing the queue
 // between browsers. A PNG is written under a temporary name and renamed, so a
 // stopped run never leaves a truncated frame that the next run would trust.
+// The device scale is set again on the session that takes the screenshots: the
+// context's deviceScaleFactor alone left every frame at 1920x1080 (measured on
+// the frames of 2026-10-02 and 2026-10-05), and each frame's size is checked
+// against DEVICE so a frame at the wrong scale stops the capture.
 // Returns how many of the frames it took were already on disk.
 async function captureMissing(playwright, plan, missing) {
   let next = 0, recaptured = 0;
@@ -64,13 +69,21 @@ async function captureMissing(playwright, plan, missing) {
     const { browser, page } = await openDeck(playwright, QUALITY.supersample);
     await loadPlan(page, plan);
     const cdp = await page.context().newCDPSession(page);
+    await cdp.send('Emulation.setDeviceMetricsOverride',
+      { width: FRAME.width, height: FRAME.height, deviceScaleFactor: QUALITY.supersample, mobile: false });
     while (next < missing.length) {
       const { file, first } = missing[next++];
       if (existsSync(file)) recaptured++;
       await page.evaluate(t => window.__seek(t), first / QUALITY.fps);
       const { data } = await cdp.send('Page.captureScreenshot', { format: 'png', optimizeForSpeed: true });
+      const png = Buffer.from(data, 'base64');
+      const size = { width: png.readUInt32BE(16), height: png.readUInt32BE(20) };
+      if (size.width !== DEVICE.width || size.height !== DEVICE.height) {
+        await browser.close();
+        fail(`a frame came out ${size.width}x${size.height}, not the ${DEVICE.width}x${DEVICE.height} device px of --quality`);
+      }
       const partial = `${file}.${process.pid}.partial`;
-      writeFileSync(partial, Buffer.from(data, 'base64'));
+      writeFileSync(partial, png);
       renameSync(partial, file);
     }
     await browser.close();
