@@ -58,10 +58,10 @@ function holds(files) {
 // Takes each missing frame at the instant it first appears, sharing the queue
 // between browsers. A PNG is written under a temporary name and renamed, so a
 // stopped run never leaves a truncated frame that the next run would trust.
-// The device scale is set again on the session that takes the screenshots: the
-// context's deviceScaleFactor alone left every frame at 1920x1080 (measured on
-// the frames of 2026-10-02 and 2026-10-05), and each frame's size is checked
-// against DEVICE so a frame at the wrong scale stops the capture.
+// Emulation.setDeviceMetricsOverride sets the device scale on the CDP session
+// that takes the screenshots, because the context's deviceScaleFactor is not
+// applied to CDP screenshots; each frame's size is checked against DEVICE so a
+// frame at the wrong scale stops the capture.
 // Returns how many of the frames it took were already on disk.
 async function captureMissing(playwright, plan, missing) {
   let next = 0, recaptured = 0;
@@ -126,8 +126,8 @@ function normalized(m) {
 
 // The scale runs before fps, so each held image is scaled once, not once per
 // frame it lasts. The audio is one slot per page, laid end to end with concat:
-// mixing delayed loudnorm outputs with amix stopped the track after the first
-// lead (measured on ffmpeg 6.1). A voiced slot is its narration after the lead,
+// on ffmpeg 6.1, amix over delayed loudnorm outputs stops the track after the
+// first delayed input. A voiced slot is its narration after the lead,
 // padded to the slot; a silent slot is silence. The track is trimmed to the
 // video's exact length rather than ended with -shortest: once -frames:v stops
 // the video, -shortest never fires and ffmpeg keeps padding audio forever.
