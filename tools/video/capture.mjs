@@ -112,24 +112,28 @@ function normalized(m) {
 }
 
 // The scale runs before fps, so each held image is scaled once, not once per
-// frame it lasts. The audio is padded and trimmed to the video's exact length
-// rather than ended with -shortest: once -frames:v stops the video, -shortest
-// never fires and ffmpeg keeps padding audio forever (measured on ffmpeg 6.1).
-// A silent page adds no input; when no page is voiced, a null source is padded.
+// frame it lasts. The audio is one slot per page, laid end to end with concat:
+// mixing delayed loudnorm outputs with amix stopped the track after the first
+// lead (measured on ffmpeg 6.1). A voiced slot is its narration after the lead,
+// padded to the slot; a silent slot is silence. The track is trimmed to the
+// video's exact length rather than ended with -shortest: once -frames:v stops
+// the video, -shortest never fires and ffmpeg keeps padding audio forever.
 function encode(plan, list, frames, out) {
   const args = ['-hide_banner', '-nostats', '-loglevel', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', list];
   const voiced = plan.pages.filter(p => p.audio !== undefined);
   voiced.forEach(p => args.push('-i', audioPath(p)));
-  if (!voiced.length) args.push('-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=stereo');
   const video = `[0:v]scale=${QUALITY.width}:${QUALITY.height}:flags=lanczos,fps=${QUALITY.fps}[vout]`;
-  const delayed = voiced.map((p, i) =>
-    `[${i + 1}:a]${normalized(measureLoudness(audioPath(p)))},adelay=${Math.round(p.voiceAt * 1000)}:all=1[a${i}]`);
+  const slots = plan.pages.map((p, i) => {
+    const length = (p.end - p.start).toFixed(6);
+    const fit = `apad=whole_dur=${length},atrim=duration=${length}[s${i}]`;
+    if (p.audio === undefined) return `aevalsrc=0:s=48000:d=${length},${fit}`;
+    const input = voiced.indexOf(p) + 1;
+    return `[${input}:a]${normalized(measureLoudness(audioPath(p)))},adelay=${Math.round((p.voiceAt - p.start) * 1000)}:all=1,${fit}`;
+  });
   const seconds = (frames / QUALITY.fps).toFixed(6);
-  const pad = `apad=whole_dur=${seconds},atrim=duration=${seconds}[aout]`;
-  const mix = voiced.length === 0 ? `[1:a]${pad}`
-    : voiced.length === 1 ? `[a0]${pad}`
-      : voiced.map((_, i) => `[a${i}]`).join('') + `amix=inputs=${voiced.length}:normalize=0,${pad}`;
-  args.push('-filter_complex', [video, ...delayed, mix].join(';'), '-map', '[vout]', '-map', '[aout]', '-frames:v', String(frames),
+  const track = plan.pages.map((_, i) => `[s${i}]`).join('') +
+    `concat=n=${plan.pages.length}:v=0:a=1,atrim=duration=${seconds}[aout]`;
+  args.push('-filter_complex', [video, ...slots, track].join(';'), '-map', '[vout]', '-map', '[aout]', '-frames:v', String(frames),
     '-c:v', 'libx264', '-preset', 'slow', '-tune', 'animation', '-crf', '10', '-pix_fmt', 'yuv420p', '-r', String(QUALITY.fps),
     '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2', '-movflags', '+faststart', out);
   const ffmpeg = spawn('ffmpeg', args, { stdio: ['ignore', 'inherit', 'inherit'] });
