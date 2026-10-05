@@ -129,7 +129,7 @@
       "page": "p-pilot-your-yes",
       "audio": "audio/7.wav",
       "sentences": [
-        { "say": "Let's follow one request, from your question to the result.", "pause": 1.2 },
+        { "say": "Let's find out, by following one request from your question to the result.", "pause": 1.2 },
         { "say": "It starts with you: you ask for something, in your own words.", "pause": 0.5, "chip": "moment-ask", "show": ["s7-y1"] },
         { "say": "Next, the orchestrator, the agent you talk to, sends the job to a specialist.", "pause": 0.5,
           "cues": [{ "at": "orchestrator", "show": ["s7-o1"] }, { "at": "specialist", "show": ["s7-s1"] }] },
@@ -155,7 +155,8 @@
         { "say": "Gaia checks the specialist's report.", "pause": 0.5, "show": ["s7-e6"] },
         { "say": "And only then does the orchestrator tell you the result.", "pause": 1.5, "show": ["s7-o6"],
           "cues": [{ "at": "result", "show": ["s7-y6"] }] },
-        { "say": "Nothing that matters runs without you seeing it.", "pause": 0.3, "chip": "all" }
+        { "say": "Nothing that matters runs without you seeing it.", "pause": 1.2, "chip": "all" },
+        { "say": "And at every step, the specialist reported back in a fixed form. Let's look at that report.", "pause": 0.3 }
       ]
     },
     {

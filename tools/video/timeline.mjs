@@ -9,6 +9,18 @@ import { join } from 'node:path';
 import { DECK, VIDEO_DIR, argValue, fail } from './deck.mjs';
 
 export const FRAME = { fps: 60, width: 1920, height: 1080, theme: 'light', supersample: 2 };
+// What `--quality` renders. The deck is always laid out at FRAME width×height
+// CSS px, so no quality moves the layout: one sets only the device px per CSS px
+// the frame is drawn at, the size it is scaled to, and the frame rate.
+export const QUALITIES = {
+  preview: { fps: 30, supersample: 1, width: 1280, height: 720 },
+  default: { fps: FRAME.fps, supersample: FRAME.supersample, width: FRAME.width, height: FRAME.height },
+  '1440p': { fps: 60, supersample: 2, width: 2560, height: 1440 },
+  '2160p': { fps: 60, supersample: 2, width: 3840, height: 2160 },
+};
+// Integrated loudness and true-peak ceiling every page's narration is brought
+// to when it is muxed, so pages voiced on different runs play at one level.
+export const LOUDNESS = { integrated: -16, truePeak: -1.5, range: 11 };
 // A reveal is a fade only: no rise and no ring, so the frame shows the deck's
 // own layout at every instant.
 export const MOTION = {
@@ -210,6 +222,13 @@ export function buildPlan(timeline, align, pageIds = timeline.pages.map(p => p.p
       sentences: times.sentences };
   });
   return { fade: MOTION.fade, reveal: MOTION.reveal, type: MOTION.type, prompt: PROMPT, duration: clock, pages };
+}
+
+/** `--quality <name>` as one of QUALITIES, `default` when absent; an unknown name fails. */
+export function selectedQuality() {
+  const name = argValue('--quality', 'default');
+  if (!QUALITIES[name]) fail(`--quality: "${name}" is not a quality (${Object.keys(QUALITIES).join(', ')})`);
+  return QUALITIES[name];
 }
 
 /**
